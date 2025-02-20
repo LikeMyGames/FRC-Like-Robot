@@ -1,78 +1,83 @@
-package main
+package Robot
+
+import (
+	"github.com/LikeMyGames/FRC-Like-Robot/Controller"
+	"github.com/LikeMyGames/FRC-Like-Robot/EventListener"
+)
 
 func main() {
-	on("DPAD_UP", func(a ...any) any {
+	EventListener.Listen("DPAD_UP", func(a ...any) any {
 
 		return nil
 	})
-	on("DPAD_DOWN", func(a ...any) any {
+	EventListener.Listen("DPAD_DOWN", func(a ...any) any {
 
 		return nil
 	})
-	on("DPAD_LEFT", func(a ...any) any {
+	EventListener.Listen("DPAD_LEFT", func(a ...any) any {
 
 		return nil
 	})
-	on("DPAD_RIGHT", func(a ...any) any {
+	EventListener.Listen("DPAD_RIGHT", func(a ...any) any {
 
 		return nil
 	})
-	on("START", func(a ...any) any {
+	EventListener.Listen("START", func(a ...any) any {
 
 		return nil
 	})
-	on("BACK", func(a ...any) any {
+	EventListener.Listen("BACK", func(a ...any) any {
 
 		return nil
 	})
-	on("LEFT_THUMB", func(a ...any) any {
+	EventListener.Listen("LEFT_THUMB", func(a ...any) any {
 
 		return nil
 	})
-	on("RIGHT_THUMB", func(a ...any) any {
+	EventListener.Listen("RIGHT_THUMB", func(a ...any) any {
 
 		return nil
 	})
-	on("LEFT_SHOULDER", func(a ...any) any {
+	EventListener.Listen("LEFT_SHOULDER", func(a ...any) any {
 
 		return nil
 	})
-	on("RIGHT_SHOULDER", func(a ...any) any {
+	EventListener.Listen("RIGHT_SHOULDER", func(a ...any) any {
 
 		return nil
 	})
-	on("BUTTON_A", func(a ...any) any {
+	EventListener.Listen("BUTTON_A", func(a ...any) any {
 
 		return nil
 	})
-	on("BUTTON_B", func(a ...any) any {
+	EventListener.Listen("BUTTON_B", func(a ...any) any {
 
 		return nil
 	})
-	on("BUTTON_X", func(a ...any) any {
+	EventListener.Listen("BUTTON_X", func(a ...any) any {
 
 		return nil
 	})
-	on("BUTTON_Y", func(a ...any) any {
+	EventListener.Listen("BUTTON_Y", func(a ...any) any {
 
 		return nil
 	})
-	on("THUMB_L", func(a ...any) any {
+	EventListener.Listen("THUMB_L", func(a ...any) any {
 
 		return nil
 	})
-	on("THUMB_R", func(a ...any) any {
+	EventListener.Listen("THUMB_R", func(a ...any) any {
 
 		return nil
 	})
-	on("TRIGGER_L", func(a ...any) any {
+	EventListener.Listen("TRIGGER_L", func(a ...any) any {
 
 		return nil
 	})
-	on("TRIGGER_R", func(a ...any) any {
+	EventListener.Listen("TRIGGER_R", func(a ...any) any {
 
 		return nil
 	})
 	// Call at end of file
-	StartController()
+	go Controller.StartController()
 }
