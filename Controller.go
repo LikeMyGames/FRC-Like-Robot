@@ -6,11 +6,24 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/gookit/event"
 	"github.com/tajtiattila/xinput"
 )
 
-func Main() {
+type ControllerConfig struct {
+	controllerNum int        `json:"controllerNum"`
+	deadzones     []Deadzone `json:"deadzones"`
+}
+
+type Deadzone struct {
+	name  string  `json:"name"`
+	value float32 `json:"value"`
+}
+
+func StartController() {
+	config := ControllerConfig{}
+	readJSON("controllerConfig", config)
+	fmt.Println(config)
+
 	fmt.Println("starting controller")
 	fmt.Println(runtime.GOOS)
 	if runtime.GOOS != "windows" {
@@ -26,19 +39,31 @@ func Main() {
 		var thumbR []float32
 		var triggerL float32
 		var triggerR float32
+		first := true
 		for {
-			xinput.GetState(0, &controllerState)
-			controller = controllerState.Gamepad
-			pressedButtons = getPressedButton(controller.Buttons)
-			thumbL = []float32{mapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1, 4)}
-			thumbR = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
-			triggerL = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
-			triggerR = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
-			fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
-			for _, v := range pressedButtons {
-				if v == "START" {
+			if !first {
+				xinput.GetState(0, &controllerState)
+				controller = controllerState.Gamepad
+				pressedButtons = getPressedButton(controller.Buttons)
+				thumbL = []float32{mapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1, 4)}
+				thumbR = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
+				triggerL = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
+				triggerR = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
+				// fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
+				on("START", func(a ...any) any {
 					os.Exit(0)
+					return nil
+				})
+				trigger("THUMB_L", thumbL)
+				trigger("THUMB_R", thumbR)
+				trigger("TRIGGER_L", triggerL)
+				trigger("TRIGGER_R", triggerR)
+				for _, v := range pressedButtons {
+					trigger(v)
 				}
+			}
+			if first {
+				first = false
 			}
 			// fmt.Println("Left Trigger: ", float64(controller.LeftTrigger)*64, "\tRight Trigger: ", float64(controller.RightTrigger)*64)
 			// xinput.SetState(0, &xinput.Vibration{LeftMotorSpeed: uint16(controller.LeftTrigger) * 64, RightMotorSpeed: uint16(controller.RightTrigger) * 64})
@@ -100,10 +125,4 @@ func buttonIntToString(num uint16) string {
 	default:
 		return ""
 	}
-}
-
-func On(name string, callback func(e event.Event) error) {
-	// event.On(name, event.ListenerFunc(func(e event.Event) error {
-	// 	return nil
-	// }), event.Normal)
 }
