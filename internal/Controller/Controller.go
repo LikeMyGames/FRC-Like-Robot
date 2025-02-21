@@ -1,4 +1,4 @@
-package main
+package Controller
 
 import (
 	"fmt"
@@ -6,6 +6,8 @@ import (
 	"runtime"
 	"strconv"
 
+	Event "github.com/LikeMyGames/FRC-Like-Robot/EventListener"
+	JSON "github.com/LikeMyGames/FRC-Like-Robot/JSON"
 	"github.com/tajtiattila/xinput"
 )
 
@@ -21,7 +23,7 @@ type Deadzone struct {
 
 func StartController() {
 	config := ControllerConfig{}
-	readJSON("controllerConfig", config)
+	JSON.ReadJSON("controllerConfig", config)
 	fmt.Println(config)
 
 	fmt.Println("starting controller")
@@ -44,22 +46,22 @@ func StartController() {
 			if !first {
 				xinput.GetState(0, &controllerState)
 				controller = controllerState.Gamepad
-				pressedButtons = getPressedButtEventListener.Listen(controller.Buttons)
+				pressedButtons = getPressedButtons(controller.Buttons)
 				thumbL = []float32{mapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1, 4)}
 				thumbR = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
 				triggerL = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
 				triggerR = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
 				// fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
-				EventListener.Listen("START", func(a ...any) any {
+				Event.Listen("START", func(a ...any) any {
 					os.Exit(0)
 					return nil
 				})
-				EventListener.Emit("THUMB_L", thumbL)
-				EventListener.Emit("THUMB_R", thumbR)
-				EventListener.Emit("TRIGGER_L", triggerL)
-				EventListener.Emit("TRIGGER_R", triggerR)
+				Event.Emit("THUMB_L", thumbL)
+				Event.Emit("THUMB_R", thumbR)
+				Event.Emit("TRIGGER_L", triggerL)
+				Event.Emit("TRIGGER_R", triggerR)
 				for _, v := range pressedButtons {
-					EventListener.Emit(v)
+					Event.Emit(v)
 				}
 			}
 			if first {
@@ -80,7 +82,7 @@ func mapRange(num, inLow, inHigh, outLow, outHigh float32, trunc int) float32 {
 	return float32(numRet)
 }
 
-func getPressedButtEventListener.Listen(sum uint16) []string {
+func getPressedButtons(sum uint16) []string {
 	nums := []uint16{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 4096, 8192, 16384, 32768}
 	str := []string{}
 	for i := len(nums) - 1; i >= 0; i-- {

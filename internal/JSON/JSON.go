@@ -1,4 +1,4 @@
-package main
+package JSON
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func readJSON(filename string, jsonData interface{}) {
+func ReadJSON(filename string, jsonData interface{}) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return
