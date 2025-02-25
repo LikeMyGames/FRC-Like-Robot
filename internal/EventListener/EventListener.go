@@ -5,30 +5,46 @@ import (
 )
 
 var (
-	eventListeners map[string]func(...any) any = map[string]func(...any) any{}
+	eventListeners map[string][]func(...any) any = map[string][]func(...any) any{}
 )
+
+type EventCallback struct {
+	CallbackFunc func(...any) any
+	Settings     EventCallbackSettings
+}
+
+type EventCallbackSettings struct {
+}
 
 // type (
 // 	eventCallback func(...any) (any)
 // )
 
 func Listen(name string, callback func(...any) any) {
-	eventListeners[name] = callback
+	eventListeners[name] = append(eventListeners[name], callback)
 }
 
-func Emit(name string, params ...any) any {
+func Emit(name string, params ...any) {
 	if eventListeners[name] != nil {
-		return eventListeners[name](params...)
+		for _, v := range eventListeners[name] {
+			v(params...)
+		}
 	}
-	return nil
 }
 
-func listListeners() {
-	fmt.Println(eventListeners)
+func ListListeners() {
+	fmt.Println("\n-----------------------------------------------")
+	fmt.Println("Event Listeners")
+	fmt.Println("-----------------------------------------------")
+	for i, v := range eventListeners {
+		fmt.Println("Event: ", i, "\tFunctions: ", v)
+		fmt.Println("-----------------------------------------------")
+	}
+	fmt.Println("")
 }
 
-func removeListener(name string) {
+func RemoveListener(name string) {
 	if eventListeners[name] != nil {
-		delete(eventListeners, name)
+		eventListeners[name] = eventListeners[name][:len(eventListeners[name])-1]
 	}
 }
