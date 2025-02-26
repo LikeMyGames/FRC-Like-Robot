@@ -5,6 +5,7 @@ import (
 	"math"
 	"os"
 	"runtime"
+	"slices"
 	"strconv"
 
 	Event "internal/EventListener"
@@ -44,6 +45,7 @@ func StartController() {
 		var thumbR []float32
 		var triggerL float32
 		var triggerR float32
+		var pressedButtonsOLD []string
 		var thumbLOld []float32
 		var thumbROld []float32
 		var triggerLOld float32
@@ -97,16 +99,24 @@ func StartController() {
 				}
 
 				for _, v := range pressedButtons {
-					Event.Emit(v)
+					if !slices.Contains(pressedButtonsOLD, v) {
+						Event.Emit(fmt.Sprintf("%v_PRESS", v))
+					}
+				}
+				for _, v := range pressedButtonsOLD {
+					if !slices.Contains(pressedButtons, v) {
+						Event.Emit(fmt.Sprintf("%v_RELEASE", v))
+					}
 				}
 				thumbLOld = thumbL
 				thumbROld = thumbR
 				triggerLOld = triggerL
 				triggerROld = triggerR
+				pressedButtonsOLD = pressedButtons
 			}
 			if first {
 				first = false
-				Event.Listen("BACK", func(a ...any) any {
+				Event.Listen("BACK_PRESS", func(a ...any) any {
 					os.Exit(0)
 					return nil
 				})
@@ -114,12 +124,10 @@ func StartController() {
 				thumbROld = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
 				triggerLOld = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
 				triggerROld = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
+				pressedButtonsOLD = getPressedButtons(controller.Buttons)
 			}
-			// fmt.Println("Left Trigger: ", float64(controller.LeftTrigger)*64, "\tRight Trigger: ", float64(controller.RightTrigger)*64)
-			// xinput.SetState(0, &xinput.Vibration{LeftMotorSpeed: uint16(controller.LeftTrigger) * 64, RightMotorSpeed: uint16(controller.RightTrigger) * 64})
 		}
 	}
-
 }
 
 func mapRange(num, inLow, inHigh, outLow, outHigh float32, trunc int) float32 {

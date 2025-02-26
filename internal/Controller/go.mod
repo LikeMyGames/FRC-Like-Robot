@@ -5,6 +5,7 @@ go 1.23.4
 replace (
 	internal/EventListener => ../EventListener
 	internal/File => ../File
+	internal/Webpage => ../Webpage
 )
 
 require (
