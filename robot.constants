@@ -1,0 +1,6 @@
+{
+    "max_speeds": {
+        "translational": 1,
+        "rotational": 20
+    }
+}

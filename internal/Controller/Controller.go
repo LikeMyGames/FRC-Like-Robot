@@ -6,10 +6,10 @@ import (
 	"os"
 	"runtime"
 	"slices"
-	"strconv"
 
-	Event "internal/EventListener"
-	File "internal/File"
+	"frcrobot/internal/EventListener"
+	"frcrobot/internal/File"
+	"frcrobot/internal/Utils/MathUtils"
 
 	"github.com/tajtiattila/xinput"
 )
@@ -29,7 +29,7 @@ type ConstrollerDeadzones struct {
 func StartController() {
 	config := ControllerConfig{}
 	File.ReadJSON("controller.config", &config)
-	fmt.Println(config)
+	fmt.Println("Controller Config: ", config)
 
 	fmt.Println("starting controller ...")
 	if runtime.GOOS != "windows" {
@@ -56,56 +56,56 @@ func StartController() {
 				xinput.GetState(0, &controllerState)
 				controller = controllerState.Gamepad
 				pressedButtons = getPressedButtons(controller.Buttons)
-				thumbL = []float32{mapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1, 4)}
-				thumbR = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
-				triggerL = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
-				triggerR = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
+				thumbL = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
+				thumbR = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
+				triggerL = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
+				triggerR = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
 				// fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
 
-				//rate of change based analog axis event emitters
+				//rate of change based analog axis EventListenerListener emitters
 				// if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.05 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.05 {
-				// 	Event.Emit("THUMB_L", thumbL)
+				// 	EventListener.Emit("THUMB_L", thumbL)
 				// }
 				// if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.05 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.05 {
-				// 	Event.Emit("THUMB_R", thumbR)
+				// 	EventListener.Emit("THUMB_R", thumbR)
 				// }
 				// if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.05 {
-				// 	Event.Emit("TRIGGER_L", triggerL)
+				// 	EventListener.Emit("TRIGGER_L", triggerL)
 				// }
 				// if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.05 {
-				// 	Event.Emit("TRIGGER_R", triggerR)
+				// 	EventListener.Emit("TRIGGER_R", triggerR)
 				// }
 
-				//deadzone based analog axis event emmiters
+				//deadzone based analog axis EventListener emmiters
 				if math.Abs(float64(thumbL[0])) > float64(config.Deadzones.ThumbL) || math.Abs(float64(thumbL[1])) > float64(config.Deadzones.ThumbL) || thumbL[0] == 0 || thumbL[1] == 0 {
 					if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.005 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.005 {
-						Event.Emit("THUMB_L", thumbL)
+						EventListener.Emit("THUMB_L", thumbL)
 					}
 				}
 				if math.Abs(float64(thumbR[0])) > float64(config.Deadzones.ThumbR) || math.Abs(float64(thumbR[1])) > float64(config.Deadzones.ThumbR) || thumbR[0] == 0 || thumbR[1] == 0 {
 					if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.005 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.005 {
-						Event.Emit("THUMB_R", thumbR)
+						EventListener.Emit("THUMB_R", thumbR)
 					}
 				}
 				if math.Abs(float64(triggerL)) > float64(config.Deadzones.TriggerL) || triggerL == 0 {
 					if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.005 {
-						Event.Emit("TRIGGER_L", triggerL)
+						EventListener.Emit("TRIGGER_L", triggerL)
 					}
 				}
 				if math.Abs(float64(triggerR)) > float64(config.Deadzones.TriggerR) || triggerR == 0 {
 					if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.005 {
-						Event.Emit("TRIGGER_R", triggerR)
+						EventListener.Emit("TRIGGER_R", triggerR)
 					}
 				}
 
 				for _, v := range pressedButtons {
 					if !slices.Contains(pressedButtonsOLD, v) {
-						Event.Emit(fmt.Sprintf("%v_PRESS", v))
+						EventListener.Emit(fmt.Sprintf("%v_PRESS", v))
 					}
 				}
 				for _, v := range pressedButtonsOLD {
 					if !slices.Contains(pressedButtons, v) {
-						Event.Emit(fmt.Sprintf("%v_RELEASE", v))
+						EventListener.Emit(fmt.Sprintf("%v_RELEASE", v))
 					}
 				}
 				thumbLOld = thumbL
@@ -116,35 +116,18 @@ func StartController() {
 			}
 			if first {
 				first = false
-				Event.Listen("BACK_PRESS", func(a ...any) any {
+				EventListener.Listen("BACK_PRESS", func(a ...any) any {
 					os.Exit(0)
 					return nil
 				})
-				thumbLOld = []float32{mapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1, 4)}
-				thumbROld = []float32{mapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1, 4), mapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1, 4)}
-				triggerLOld = mapRange(float32(controller.LeftTrigger), 0, 255, 0, 1, 4)
-				triggerROld = mapRange(float32(controller.RightTrigger), 0, 255, 0, 1, 4)
+				thumbLOld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
+				thumbROld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
+				triggerLOld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
+				triggerROld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
 				pressedButtonsOLD = getPressedButtons(controller.Buttons)
 			}
 		}
 	}
-}
-
-func mapRange(num, inLow, inHigh, outLow, outHigh float32, trunc int) float32 {
-	numRet, err := strconv.ParseFloat(fmt.Sprintf("%f", (outLow + (((num - inLow) / (inHigh - inLow)) * (outHigh - outLow))))[:trunc+1], 32)
-	if err != nil {
-		os.Exit(2)
-	}
-	return float32(numRet)
-}
-
-func clamp(num, low, high float32) float32 {
-	if num >= high {
-		return high
-	} else if num <= low {
-		return low
-	}
-	return num
 }
 
 func getPressedButtons(sum uint16) []string {

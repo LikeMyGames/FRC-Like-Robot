@@ -3,7 +3,7 @@ package webpage
 import (
 	"encoding/json"
 	"fmt"
-	"internal/File"
+	"frcrobot/internal/File"
 	"log"
 	"net/http"
 )
