@@ -1,6 +1,8 @@
 {
-    "max_speeds": {
-        "translational": 1,
-        "rotational": 20
+    "drive_maxes": {
+        "translationalV": 1,
+        "rotationalV": 180,
+        "translationalA": 1,
+        "rotationalA": 20
     }
 }
