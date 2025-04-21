@@ -2,22 +2,32 @@ package Controller
 
 import (
 	"fmt"
-	"math"
-	"os"
-	"runtime"
-	"slices"
+	"log"
 
-	"frcrobot/internal/EventListener"
+	"frcrobot/internal/Command"
+	"frcrobot/internal/Command/Commands/Controller/ReadController"
 	"frcrobot/internal/File"
-	"frcrobot/internal/Utils/MathUtils"
 
-	"github.com/tajtiattila/xinput"
+	"github.com/orsinium-labs/gamepad"
 )
 
-type ControllerConfig struct {
-	ControllerNum int                  `json:"controllerNum"`
-	Deadzones     ConstrollerDeadzones `json:"deadzones"`
-}
+type (
+	ControllerConfig struct {
+		ControllerNum int                  `json:"controllerNum"`
+		Deadzones     ConstrollerDeadzones `json:"deadzones"`
+	}
+
+	ControllerInput struct {
+		WhileTrue   bool
+		ListenValue string
+		execute     func(interface{})
+	}
+
+	Controller struct {
+		config    ControllerConfig
+		listeners []ControllerInput
+	}
+)
 
 type ConstrollerDeadzones struct {
 	ThumbL   float32 `json:"thumbL"`
@@ -26,108 +36,109 @@ type ConstrollerDeadzones struct {
 	TriggerR float32 `json:"triggerR"`
 }
 
-func StartController() {
+func StartController(controllerID int, scheduler *Command.CommandScheduler) {
 	config := ControllerConfig{}
 	File.ReadJSON("controller.config", &config)
 	fmt.Println("Controller Config: ", config)
 
 	fmt.Println("starting controller ...")
-	if runtime.GOOS != "windows" {
-		fmt.Println("this program only works on windows")
-		os.Exit(1)
+
+	controller, err := gamepad.NewGamepad(controllerID)
+	if err != nil {
+		// need to build auto re-check system for hot connect of controllers
+		log.Print(err)
+		return
 	}
-	err := xinput.Load()
-	if err == nil {
-		var controllerState xinput.State
-		var controller xinput.Gamepad
-		var pressedButtons []string
-		var thumbL []float32
-		var thumbR []float32
-		var triggerL float32
-		var triggerR float32
-		var pressedButtonsOLD []string
-		var thumbLOld []float32
-		var thumbROld []float32
-		var triggerLOld float32
-		var triggerROld float32
-		first := true
-		for {
-			if !first {
-				xinput.GetState(0, &controllerState)
-				controller = controllerState.Gamepad
-				pressedButtons = getPressedButtons(controller.Buttons)
-				thumbL = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
-				thumbR = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
-				triggerL = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
-				triggerR = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
-				// fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
+	scheduler.ScheduleCommand(ReadController.NewReadControllerCommand(controller))
+	// var pressedButtons []string
+	// var thumbL []float32
+	// var thumbR []float32
+	// var triggerL float32
+	// var triggerR float32
+	// var pressedButtonsOLD []string
+	// var thumbLOld []float32
+	// var thumbROld []float32
+	// var triggerLOld float32
+	// var triggerROld float32
+	// first := true
+	// for {
+	// 	if !first {
+	// 		controllerState, err = controller.State()
+	// 		if err != nil {
+	// 			log.Fatal(err)
+	// 		}
+	// 		controllerState.
+	// 			thumbL = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
+	// 		thumbR = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
+	// 		triggerL = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
+	// 		triggerR = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
+	// 		// fmt.Println("ThumbL: ", thumbL, "\tThumbR: ", thumbR, "\tTriggerL:", triggerL, "\tTriggerR", triggerR, "\tButtons: ", pressedButtons)
 
-				//rate of change based analog axis EventListenerListener emitters
-				// if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.05 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.05 {
-				// 	EventListener.Emit("THUMB_L", thumbL)
-				// }
-				// if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.05 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.05 {
-				// 	EventListener.Emit("THUMB_R", thumbR)
-				// }
-				// if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.05 {
-				// 	EventListener.Emit("TRIGGER_L", triggerL)
-				// }
-				// if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.05 {
-				// 	EventListener.Emit("TRIGGER_R", triggerR)
-				// }
+	// 		//rate of change based analog axis EventListenerListener emitters
+	// 		// if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.05 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.05 {
+	// 		// 	EventListener.Emit("THUMB_L", thumbL)
+	// 		// }
+	// 		// if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.05 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.05 {
+	// 		// 	EventListener.Emit("THUMB_R", thumbR)
+	// 		// }
+	// 		// if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.05 {
+	// 		// 	EventListener.Emit("TRIGGER_L", triggerL)
+	// 		// }
+	// 		// if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.05 {
+	// 		// 	EventListener.Emit("TRIGGER_R", triggerR)
+	// 		// }
 
-				//deadzone based analog axis EventListener emmiters
-				if math.Abs(float64(thumbL[0])) > float64(config.Deadzones.ThumbL) || math.Abs(float64(thumbL[1])) > float64(config.Deadzones.ThumbL) || thumbL[0] == 0 || thumbL[1] == 0 {
-					if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.005 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.005 {
-						EventListener.Emit("THUMB_L", thumbL)
-					}
-				}
-				if math.Abs(float64(thumbR[0])) > float64(config.Deadzones.ThumbR) || math.Abs(float64(thumbR[1])) > float64(config.Deadzones.ThumbR) || thumbR[0] == 0 || thumbR[1] == 0 {
-					if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.005 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.005 {
-						EventListener.Emit("THUMB_R", thumbR)
-					}
-				}
-				if math.Abs(float64(triggerL)) > float64(config.Deadzones.TriggerL) || triggerL == 0 {
-					if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.005 {
-						EventListener.Emit("TRIGGER_L", triggerL)
-					}
-				}
-				if math.Abs(float64(triggerR)) > float64(config.Deadzones.TriggerR) || triggerR == 0 {
-					if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.005 {
-						EventListener.Emit("TRIGGER_R", triggerR)
-					}
-				}
+	// 		//deadzone based analog axis EventListener emmiters
+	// 		if math.Abs(float64(thumbL[0])) > float64(config.Deadzones.ThumbL) || math.Abs(float64(thumbL[1])) > float64(config.Deadzones.ThumbL) || thumbL[0] == 0 || thumbL[1] == 0 {
+	// 			if (math.Abs(float64(thumbLOld[0])-float64(thumbL[0]))) > 0.005 || (math.Abs(float64(thumbLOld[1])-float64(thumbL[1]))) > 0.005 {
+	// 				EventListener.Emit("THUMB_L", thumbL)
+	// 			}
+	// 		}
+	// 		if math.Abs(float64(thumbR[0])) > float64(config.Deadzones.ThumbR) || math.Abs(float64(thumbR[1])) > float64(config.Deadzones.ThumbR) || thumbR[0] == 0 || thumbR[1] == 0 {
+	// 			if (math.Abs(float64(thumbROld[0])-float64(thumbR[0]))) > 0.005 || (math.Abs(float64(thumbROld[1])-float64(thumbR[1]))) > 0.005 {
+	// 				EventListener.Emit("THUMB_R", thumbR)
+	// 			}
+	// 		}
+	// 		if math.Abs(float64(triggerL)) > float64(config.Deadzones.TriggerL) || triggerL == 0 {
+	// 			if (math.Abs(float64(triggerLOld) - float64(triggerL))) > 0.005 {
+	// 				EventListener.Emit("TRIGGER_L", triggerL)
+	// 			}
+	// 		}
+	// 		if math.Abs(float64(triggerR)) > float64(config.Deadzones.TriggerR) || triggerR == 0 {
+	// 			if (math.Abs(float64(triggerROld) - float64(triggerR))) > 0.005 {
+	// 				EventListener.Emit("TRIGGER_R", triggerR)
+	// 			}
+	// 		}
 
-				for _, v := range pressedButtons {
-					if !slices.Contains(pressedButtonsOLD, v) {
-						EventListener.Emit(fmt.Sprintf("%v_PRESS", v))
-					}
-				}
-				for _, v := range pressedButtonsOLD {
-					if !slices.Contains(pressedButtons, v) {
-						EventListener.Emit(fmt.Sprintf("%v_RELEASE", v))
-					}
-				}
-				thumbLOld = thumbL
-				thumbROld = thumbR
-				triggerLOld = triggerL
-				triggerROld = triggerR
-				pressedButtonsOLD = pressedButtons
-			}
-			if first {
-				first = false
-				EventListener.Listen("BACK_PRESS", func(a ...any) any {
-					os.Exit(0)
-					return nil
-				})
-				thumbLOld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
-				thumbROld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
-				triggerLOld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
-				triggerROld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
-				pressedButtonsOLD = getPressedButtons(controller.Buttons)
-			}
-		}
-	}
+	// 		for _, v := range pressedButtons {
+	// 			if !slices.Contains(pressedButtonsOLD, v) {
+	// 				EventListener.Emit(fmt.Sprintf("%v_PRESS", v))
+	// 			}
+	// 		}
+	// 		for _, v := range pressedButtonsOLD {
+	// 			if !slices.Contains(pressedButtons, v) {
+	// 				EventListener.Emit(fmt.Sprintf("%v_RELEASE", v))
+	// 			}
+	// 		}
+	// 		thumbLOld = thumbL
+	// 		thumbROld = thumbR
+	// 		triggerLOld = triggerL
+	// 		triggerROld = triggerR
+	// 		pressedButtonsOLD = pressedButtons
+	// 	}
+	// 	if first {
+	// 		first = false
+	// 		EventListener.Listen("BACK_PRESS", func(a ...any) any {
+	// 			os.Exit(0)
+	// 			return nil
+	// 		})
+	// 		thumbLOld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbLY), -32768, 32768, -1, 1)), 4))}
+	// 		thumbROld = []float32{float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRX), -32768, 32768, -1, 1)), 4)), float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.ThumbRY), -32768, 32768, -1, 1)), 4))}
+	// 		triggerLOld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.LeftTrigger), -32768, 32768, -1, 1)), 4))
+	// 		triggerROld = float32(MathUtils.Trunc(float64(MathUtils.MapRange(float32(controller.RightTrigger), -32768, 32768, -1, 1)), 4))
+	// 		pressedButtonsOLD = getPressedButtons(controller.Buttons)
+	// 	}
+	// }
 }
 
 func getPressedButtons(sum uint16) []string {
@@ -175,4 +186,15 @@ func buttonIntToString(num uint16) string {
 	default:
 		return ""
 	}
+}
+
+func (controller *Controller) addControllerInput(value string) ControllerInput {
+	input := ControllerInput{}
+	controller.listeners = append(controller.listeners, input)
+	return input
+}
+
+func (input *ControllerInput) whileTrue(function func(interface{})) *ControllerInput {
+	input.WhileTrue = true
+	return input
 }

@@ -1,15 +1,19 @@
 package main
 
 import (
+	"frcrobot/internal/Command"
 	"frcrobot/internal/Controller"
 	"frcrobot/internal/DriveSubsystem"
 	"frcrobot/internal/EventListener"
 	"frcrobot/internal/Utils/VectorMath"
+	"frcrobot/internal/WebSocket"
 	// Webpage "robot/internal/Webpage"
 )
 
 func main() {
 	drive := DriveSubsystem.NewSwerveDrive("robot.constants")
+	scheduler := Command.NewCommandScheduler()
+	Controller.StartController(0, scheduler)
 
 	EventListener.Listen("THUMB_L", func(a ...any) any {
 		thumbL := a[0].([]float32)
@@ -26,7 +30,9 @@ func main() {
 		return nil
 	})
 
-	Controller.StartController()
+	// Controller.StartController()
+	go WebSocket.StartUI()
+	scheduler.Start()
 	// Webpage.Start()
 	//  Webpage.SendVariables()
 	//  Call at end of file
