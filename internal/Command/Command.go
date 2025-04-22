@@ -25,19 +25,18 @@ type (
 	// }
 
 	Command struct {
-		Initialize  func()
-		Execute     func(any)
-		End         func() bool
-		GetRequired func() any
-		Required    any
-		FirstRun    bool
-		Name        string
+		Initialize func()
+		Execute    func(any)
+		End        func() bool
+		Required   any
+		FirstRun   bool
+		Name       string
 	}
 )
 
 func NewCommandScheduler() *CommandScheduler {
 	return &CommandScheduler{
-		Interval: time.Millisecond * 20,
+		Interval: time.Second / 20,
 		Commands: make(map[string]*Command),
 	}
 }
@@ -47,12 +46,13 @@ func (scheduler *CommandScheduler) Start() {
 
 	for range ticker.C {
 		for _, v := range scheduler.Commands {
+			// log.Println("Running Command: ", v.Name)
 			if !v.End() {
 				if v.FirstRun {
 					v.Initialize()
 					v.FirstRun = false
 				}
-				v.Execute(v.GetRequired())
+				v.Execute(v.Required)
 			} else {
 				delete(scheduler.Commands, v.Name)
 			}

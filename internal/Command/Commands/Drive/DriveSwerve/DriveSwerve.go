@@ -3,30 +3,26 @@ package DriveSwerve
 import (
 	"frcrobot/internal/Command"
 	"frcrobot/internal/DriveSubsystem"
+	"log"
+
+	"github.com/orsinium-labs/gamepad"
 )
 
-type (
-	DriveSwerve struct {
-		Command Command.Command
-		Drive   *DriveSubsystem.SwerveDrive
+func NewDriveSwerveCommand(drive *DriveSubsystem.SwerveDrive) *Command.Command {
+	return &Command.Command{
+		Required:   drive,
+		Name:       "Drive Swerve",
+		FirstRun:   true,
+		Initialize: func() {},
+		Execute: func(required any) {
+			_, err := required.(*gamepad.GamePad).State()
+			if err != nil {
+				log.Fatal(err)
+			}
+			// fmt.Println("Controller State: ", controllerState)
+		},
+		End: func() bool {
+			return false
+		},
 	}
-)
-
-func NewDriverSwerveCommand(drive *DriveSubsystem.SwerveDrive) *DriveSwerve {
-	return &DriveSwerve{
-		Command: Command.Command{Name: "DriveSwerve", FirstRun: true},
-		Drive:   drive,
-	}
-}
-
-func (d *DriveSwerve) Initialize() {
-
-}
-
-func (d *DriveSwerve) Execute() {
-	// d.drive.CalculateSwerveModules()
-}
-
-func (d *DriveSwerve) End(interrupted bool) bool {
-	return false
 }

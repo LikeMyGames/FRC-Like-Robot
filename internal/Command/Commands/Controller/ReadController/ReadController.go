@@ -1,7 +1,6 @@
 package ReadController
 
 import (
-	"fmt"
 	"frcrobot/internal/Command"
 	"log"
 
@@ -11,15 +10,15 @@ import (
 func NewReadControllerCommand(controller *gamepad.GamePad) *Command.Command {
 	return &Command.Command{
 		Required:   controller,
-		Name:       "GetControllerInputs",
+		Name:       "Read Controller",
 		FirstRun:   true,
 		Initialize: func() {},
 		Execute: func(required any) {
-			controllerState, err := controller.State()
+			_, err := required.(*gamepad.GamePad).State()
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println("Controller State: ", controllerState)
+			// fmt.Println("Controller State: ", controllerState)
 		},
 		End: func() bool {
 			return false
