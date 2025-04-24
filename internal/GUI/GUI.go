@@ -1,4 +1,4 @@
-package WebSocket
+package GUI
 
 import (
 	"fmt"

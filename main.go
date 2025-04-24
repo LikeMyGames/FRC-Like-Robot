@@ -5,8 +5,8 @@ import (
 	"frcrobot/internal/Controller"
 	"frcrobot/internal/DriveSubsystem"
 	"frcrobot/internal/EventListener"
+	"frcrobot/internal/GUI"
 	"frcrobot/internal/Utils/VectorMath"
-	"frcrobot/internal/WebSocket"
 	// Webpage "robot/internal/Webpage"
 )
 
@@ -31,7 +31,7 @@ func main() {
 	})
 
 	// Controller.StartController()
-	go WebSocket.StartUI()
+	go GUI.StartUI()
 	scheduler.Start()
 	// Webpage.Start()
 	//  Webpage.SendVariables()

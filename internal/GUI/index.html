@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Driver Station</title>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="./style.css" />
+	<script src="./script.js"></script>
+</head>
+
+<body>
+	<div class="main_container">
+		<div class="sidemenu">
+			<button type="button" title="Driving" class="sidemenu_button" onclick="tabButtonPress(this)"
+				selected="true">
+				<span class="material-symbols-rounded">
+					search_hands_free
+				</span>
+			</button>
+			<button type="button" title="Settings" class="sidemenu_button" onclick="tabButtonPress(this)"
+				selected="false">
+				<span class="material-symbols-rounded">
+					settings
+				</span>
+			</button>
+			<button type="button" title="Connections" class="sidemenu_button" onclick="tabButtonPress(this)"
+				selected="false">
+				<span class="material-symbols-rounded">
+					usb
+				</span>
+			</button>
+		</div>
+		<div class="panel_container" title="Driving" selected="true">
+			<h1 class="panel_title">Driving</h1>
+			<div class="panel_item_container">
+				<div class="panel_item_subpanel driving_replaceable_panel">
+					<div class="runningmode_enabledisable_panel">
+						<div class="running_mode_selector">
+							<button class="running_mode_selector_button" selected="true">
+								TeleOperated
+							</button>
+							<button class="running_mode_selector_button">
+								Autonomous
+							</button>
+							<button class="running_mode_selector_button">
+								Practice
+							</button>
+							<button class="running_mode_selector_button">
+								Test
+							</button>
+						</div>
+						<div class="enable_disable_panel">
+							<button class="enable_disable_panel_button">
+								Enable
+							</button>
+							<button class="enable_disable_panel_button" selected="true">
+								Disable
+							</button>
+						</div>
+					</div>
+					<div class="elapsedtime_driverpos_panel">
+						<div class="elapsed_time_panel">
+							<h2>
+								Elapsed Time:
+							</h2>
+							<h3 class="elapsed_time_value">00:00</h3>
+						</div>
+						<div class="driver_pos_panel">
+							<h2>
+								Team Station:
+							</h2>
+							<select class="driver_pos_select">
+								<option class="driver_pos_option">Red 1</option>
+								<option class="driver_pos_option">Red 2</option>
+								<option class="driver_pos_option">Red 3</option>
+								<option class="driver_pos_option">Blue 1</option>
+								<option class="driver_pos_option">Blue 2</option>
+								<option class="driver_pos_option">Blue 3</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="panel_item_subpanel robot_status">
+					<div class="robot_battery_status">
+						<div class="robot_battery_status_display">
+							<div class="robot_battery_status_display_bar_container">
+								<div class="robot_battery_status_display_bar"></div>
+								<h3 class="robot_battery_status_display_value">50%</h3>
+							</div>
+						</div>
+						<div class="robot_battery_status_voltage">
+							<h3 class="robot_battery_status_voltage_value">12.00</h3>V
+						</div>
+					</div>
+					<div class="robot_status_indicators">
+						<div class="robot_status_indicators_container">
+							<div class="robot_status_indicator">
+								<h3 class="robot_status_indicator_field">Communications</h3>
+								<div class="robot_status_indicator_display"></div>
+							</div>
+							<div class="robot_status_indicator">
+								<h3 class="robot_status_indicator_field">Robot Code</h3>
+								<div class="robot_status_indicator_display"></div>
+							</div>
+							<div class="robot_status_indicator">
+								<h3 class="robot_status_indicator_field">Joysticks</h3>
+								<div class="robot_status_indicator_display"></div>
+							</div>
+						</div>
+					</div>
+					<div class="robot_status_text">
+						TeleOperated Disabled
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel_container" title="Settings" selected="false">
+		<h1 class="panel_title">Settings</h1>
+		<div class="panel_item">
+
+		</div>
+		<div class="panel_item">
+
+		</div>
+		<div class="panel_item">
+
+		</div>
+	</div>
+	<div class="panel_container" title="Connections" selected="false">
+		<h1 class="panel_title">Connections</h1>
+		<div class="panel_item">
+
+		</div>
+		<div class="panel_item">
+
+		</div>
+		<div class="panel_item">
+
+		</div>
+	</div>
+</body>
+
+</html>
