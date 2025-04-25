@@ -116,30 +116,82 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel_item_container system_logger">
+				<div class="system_logger_topmenu">
+					<div class="system_logger_filter_container">
+						<button class="system_logger_filter_option" title="all" selected="true"
+							onclick="changeSystemLoggerFilter(`all`)">
+							All
+						</button>
+						<button class="system_logger_filter_option" title="log" selected="false"
+							onclick="changeSystemLoggerFilter(`log`)">
+							Log
+						</button>
+						<button class="system_logger_filter_option" title="success" selected="false"
+							onclick="changeSystemLoggerFilter(`success`)">
+							Success
+						</button>
+						<button class="system_logger_filter_option" title="warn" selected="false"
+							onclick="changeSystemLoggerFilter(`warn`)">
+							Warn
+						</button>
+						<button class="system_logger_filter_option" title="error" selected="false"
+							onclick="changeSystemLoggerFilter(`error`)">
+							Error
+						</button>
+					</div>
+					<div class="system_logger_action_container">
+						<button class="system_logger_filter_action">
+							<span class="material-symbols-rounded" onclick="systemLogPause()">
+								pause
+							</span>
+						</button>
+						<button class="system_logger_filter_action">
+							<span class="material-symbols-rounded" onclick="systemLogRefresh()">
+								refresh
+							</span>
+						</button>
+						<button class="system_logger_filter_action" onclick="systemLogClear()">
+							<span class="material-symbols-rounded">
+								delete
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="system_logger_display">
+					<div class="system_logger_display_text">
+						<!-- <h4 class="log">LOG - Hello World</h4>
+						<h4 class="comment">COMMENT - Hello World</h4>
+						<h4 class="success">SUCCESS - Hello World</h4>
+						<h4 class="warn">WARNING - Hello World</h4>
+						<h4 class="error">ERROR - Hello World</h4> -->
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="panel_container" title="Settings" selected="false">
-		<h1 class="panel_title">Settings</h1>
-		<div class="panel_item">
+		<div class="panel_container" title="Settings" selected="false">
+			<h1 class="panel_title">Settings</h1>
+			<div class="panel_item">
 
+			</div>
+			<div class="panel_item">
+
+			</div>
+			<div class="panel_item">
+
+			</div>
 		</div>
-		<div class="panel_item">
+		<div class="panel_container" title="Connections" selected="false">
+			<h1 class="panel_title">Connections</h1>
+			<div class="panel_item">
 
-		</div>
-		<div class="panel_item">
+			</div>
+			<div class="panel_item">
 
-		</div>
-	</div>
-	<div class="panel_container" title="Connections" selected="false">
-		<h1 class="panel_title">Connections</h1>
-		<div class="panel_item">
+			</div>
+			<div class="panel_item">
 
-		</div>
-		<div class="panel_item">
-
-		</div>
-		<div class="panel_item">
-
+			</div>
 		</div>
 	</div>
 </body>

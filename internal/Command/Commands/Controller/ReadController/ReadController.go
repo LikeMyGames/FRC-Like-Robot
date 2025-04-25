@@ -18,6 +18,7 @@ func NewReadControllerCommand(controller *gamepad.GamePad) *Command.Command {
 			if err != nil {
 				log.Fatal(err)
 			}
+
 			// fmt.Println("Controller State: ", controllerState)
 		},
 		End: func() bool {

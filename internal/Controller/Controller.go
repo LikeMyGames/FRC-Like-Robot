@@ -2,11 +2,11 @@ package Controller
 
 import (
 	"fmt"
-	"log"
 
 	"frcrobot/internal/Command"
 	"frcrobot/internal/Command/Commands/Controller/ReadController"
 	"frcrobot/internal/File"
+	"frcrobot/internal/GUI"
 
 	"github.com/orsinium-labs/gamepad"
 )
@@ -18,14 +18,16 @@ type (
 	}
 
 	ControllerInput struct {
-		WhileTrue   bool
+		whileTrue   bool
 		ListenValue string
-		execute     func(interface{})
+		Command     *Command.Command
 	}
 
 	Controller struct {
-		config    ControllerConfig
-		listeners []ControllerInput
+		Config       ControllerConfig
+		ControllerID int
+		Inputs       []*ControllerInput
+		GamePad      *gamepad.GamePad
 	}
 )
 
@@ -36,20 +38,17 @@ type ConstrollerDeadzones struct {
 	TriggerR float32 `json:"triggerR"`
 }
 
-func StartController(controllerID int, scheduler *Command.CommandScheduler) {
+func StartController(controllerID int, scheduler *Command.CommandScheduler) *Controller {
 	config := ControllerConfig{}
 	File.ReadJSON("controller.config", &config)
 	fmt.Println("Controller Config: ", config)
-
-	fmt.Println("starting controller ...")
-
-	controller, err := gamepad.NewGamepad(controllerID)
-	if err != nil {
-		// need to build auto re-check system for hot connect of controllers
-		log.Print(err)
-		return
+	controller := &Controller{
+		Config:       config,
+		ControllerID: controllerID,
 	}
-	scheduler.ScheduleCommand(ReadController.NewReadControllerCommand(controller))
+	scheduler.ScheduleCommand(NewConnectControllerCommand(controller, scheduler))
+	return controller
+
 	// var pressedButtons []string
 	// var thumbL []float32
 	// var thumbR []float32
@@ -141,19 +140,41 @@ func StartController(controllerID int, scheduler *Command.CommandScheduler) {
 	// }
 }
 
-func getPressedButtons(sum uint16) []string {
+func NewConnectControllerCommand(controller *Controller, scheduler *Command.CommandScheduler) *Command.Command {
+	return &Command.Command{
+		Required:   controller,
+		Name:       "Connect Controller",
+		FirstRun:   true,
+		Initialize: func() {},
+		Execute: func(controller any) {
+			ctrl := controller.(*Controller)
+			Gamepad, err := gamepad.NewGamepad(ctrl.ControllerID)
+			if err != nil {
+				GUI.SendData([]byte(`{"system_logger":{"type":"warn","message":"GamePad not connected"},"robot_status":{"type":"joysticks","value":false}}`))
+				return
+			}
+			ctrl.GamePad = Gamepad
+			scheduler.ScheduleCommand(ReadController.NewReadControllerCommand(ctrl.GamePad))
+		},
+		End: func() bool {
+			return false
+		},
+	}
+}
+
+func GetPressedButtons(sum uint16) []string {
 	nums := []uint16{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 4096, 8192, 16384, 32768}
 	str := []string{}
 	for i := len(nums) - 1; i >= 0; i-- {
 		if sum >= nums[i] {
 			sum -= nums[i]
-			str = append(str, buttonIntToString(nums[i]))
+			str = append(str, ButtonIntToString(nums[i]))
 		}
 	}
 	return str
 }
 
-func buttonIntToString(num uint16) string {
+func ButtonIntToString(num uint16) string {
 	switch num {
 	case 1:
 		return "DPAD_UP"
@@ -188,13 +209,13 @@ func buttonIntToString(num uint16) string {
 	}
 }
 
-func (controller *Controller) addControllerInput(value string) ControllerInput {
+func (controller *Controller) AddControllerInput(value string, command *Command.Command) ControllerInput {
 	input := ControllerInput{}
-	controller.listeners = append(controller.listeners, input)
+	controller.Inputs = append(controller.Inputs, &input)
 	return input
 }
 
-func (input *ControllerInput) whileTrue(function func(interface{})) *ControllerInput {
-	input.WhileTrue = true
+func (input *ControllerInput) WhileTrue() *ControllerInput {
+	input.whileTrue = true
 	return input
 }
