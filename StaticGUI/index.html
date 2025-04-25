@@ -39,24 +39,24 @@
 				<div class="panel_item_subpanel driving_replaceable_panel">
 					<div class="runningmode_enabledisable_panel">
 						<div class="running_mode_selector">
-							<button class="running_mode_selector_button" selected="true">
+							<button type="button" class="running_mode_selector_button" selected="true">
 								TeleOperated
 							</button>
-							<button class="running_mode_selector_button">
+							<button type="button" class="running_mode_selector_button">
 								Autonomous
 							</button>
-							<button class="running_mode_selector_button">
+							<button type="button" class="running_mode_selector_button">
 								Practice
 							</button>
-							<button class="running_mode_selector_button">
+							<button type="button" class="running_mode_selector_button">
 								Test
 							</button>
 						</div>
 						<div class="enable_disable_panel">
-							<button class="enable_disable_panel_button">
+							<button type="button" class="enable_disable_panel_button">
 								Enable
 							</button>
-							<button class="enable_disable_panel_button" selected="true">
+							<button type="button" class="enable_disable_panel_button" selected="true">
 								Disable
 							</button>
 						</div>
@@ -72,7 +72,7 @@
 							<h2>
 								Team Station:
 							</h2>
-							<select class="driver_pos_select">
+							<select class="driver_pos_select" title="driver_pos_select">
 								<option class="driver_pos_option">Red 1</option>
 								<option class="driver_pos_option">Red 2</option>
 								<option class="driver_pos_option">Red 3</option>
@@ -119,39 +119,39 @@
 			<div class="panel_item_container system_logger">
 				<div class="system_logger_topmenu">
 					<div class="system_logger_filter_container">
-						<button class="system_logger_filter_option" title="all" selected="true"
+						<button type="button" class="system_logger_filter_option" title="all" selected="true"
 							onclick="changeSystemLoggerFilter(`all`)">
 							All
 						</button>
-						<button class="system_logger_filter_option" title="log" selected="false"
+						<button type="button" class="system_logger_filter_option" title="log" selected="false"
 							onclick="changeSystemLoggerFilter(`log`)">
 							Log
 						</button>
-						<button class="system_logger_filter_option" title="success" selected="false"
+						<button type="button" class="system_logger_filter_option" title="success" selected="false"
 							onclick="changeSystemLoggerFilter(`success`)">
 							Success
 						</button>
-						<button class="system_logger_filter_option" title="warn" selected="false"
+						<button type="button" class="system_logger_filter_option" title="warn" selected="false"
 							onclick="changeSystemLoggerFilter(`warn`)">
 							Warn
 						</button>
-						<button class="system_logger_filter_option" title="error" selected="false"
+						<button type="button" class="system_logger_filter_option" title="error" selected="false"
 							onclick="changeSystemLoggerFilter(`error`)">
 							Error
 						</button>
 					</div>
 					<div class="system_logger_action_container">
-						<button class="system_logger_filter_action">
+						<button type="button" class="system_logger_filter_action">
 							<span class="material-symbols-rounded" onclick="systemLogPause()">
 								pause
 							</span>
 						</button>
-						<button class="system_logger_filter_action">
+						<button type="button" class="system_logger_filter_action">
 							<span class="material-symbols-rounded" onclick="systemLogRefresh()">
 								refresh
 							</span>
 						</button>
-						<button class="system_logger_filter_action" onclick="systemLogClear()">
+						<button type="button" class="system_logger_filter_action" onclick="systemLogClear()">
 							<span class="material-symbols-rounded">
 								delete
 							</span>
