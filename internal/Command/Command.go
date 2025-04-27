@@ -1,33 +1,21 @@
 package Command
 
 import (
+	"log"
+	"slices"
 	"time"
 )
 
 type (
 	CommandScheduler struct {
 		Interval time.Duration
-		Commands map[string]*Command
+		Commands []*Command
 	}
-
-	// Command struct {
-	// 	CommandInterface
-	// 	FirstRun bool
-	// 	Name     string
-	// 	Required any
-	// }
-
-	// CommandInterface interface {
-	// 	Initialize()
-	// 	Execute(any)
-	// 	End() bool
-	// 	getRequired() any
-	// }
 
 	Command struct {
 		Initialize func()
-		Execute    func(any)
-		End        func() bool
+		Execute    func(any) bool
+		End        bool
 		Required   any
 		FirstRun   bool
 		Name       string
@@ -35,35 +23,39 @@ type (
 )
 
 func NewCommandScheduler() *CommandScheduler {
-	return &CommandScheduler{
-		Interval: time.Second / 20,
-		Commands: make(map[string]*Command),
+	scheduler := &CommandScheduler{
+		Interval: time.Second,
+		Commands: make([]*Command, 0),
 	}
+	log.Println("Created Scheduler: ", &scheduler)
+	return scheduler
 }
 
 func (scheduler *CommandScheduler) Start() {
 	ticker := time.NewTicker(scheduler.Interval)
 
 	for range ticker.C {
-		for _, v := range scheduler.Commands {
-			// log.Println("Running Command: ", v.Name)
-			if !v.End() {
+		for i, v := range scheduler.Commands {
+			if v == nil {
+				continue
+			}
+			if !v.End {
+				log.Println("running command: ", v.Name, &v)
 				if v.FirstRun {
 					v.Initialize()
 					v.FirstRun = false
 				}
-				v.Execute(v.Required)
+				v.End = v.Execute(v.Required)
 			} else {
-				delete(scheduler.Commands, v.Name)
+				scheduler.Commands = slices.Delete(scheduler.Commands, i, i+1)
 			}
 		}
 	}
 }
 
 func (scheduler *CommandScheduler) ScheduleCommand(commands ...*Command) {
-	for _, v := range commands {
-		scheduler.Commands[v.Name] = v
-	}
+	log.Println("Scheduled commands: ", commands)
+	scheduler.Commands = append(scheduler.Commands, commands...)
 }
 
 // func (command *DefaultCommand) Initialize() {

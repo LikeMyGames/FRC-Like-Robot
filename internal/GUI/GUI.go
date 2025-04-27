@@ -66,7 +66,7 @@ func StartUI() {
 func SendData(data []byte) {
 	ws, ok := connection.(*websocket.Conn)
 	if !ok {
-		log.Println("connection not established with GUI")
+		// log.Println("connection not established with GUI")
 		return
 	}
 	err := ws.WriteMessage(1, data)
@@ -78,7 +78,7 @@ func SendData(data []byte) {
 func SendJSONData(v any) {
 	ws, ok := connection.(*websocket.Conn)
 	if !ok {
-		log.Println("connection not established with GUI")
+		// log.Println("connection not established with GUI")
 		return
 	}
 	err := ws.WriteJSON(v)

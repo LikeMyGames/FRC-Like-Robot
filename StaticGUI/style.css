@@ -427,7 +427,14 @@ small {
     grid-column: 2 / 3;
     height: 20px;
     width: 50px;
-    background-color: red;
+}
+
+.robot_status_indicator_display[value="false"] {
+    background-color: #ff5c5c;
+}
+
+.robot_status_indicator_display[value="true"] {
+    background-color: #92ff5c;
 }
 
 .system_logger {

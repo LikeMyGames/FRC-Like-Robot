@@ -6,6 +6,9 @@ socket.onmessage = (event) => {
     if (data.system_logger != undefined) {
         systemLog(data.system_logger)
     }
+    if (data.robot_status != undefined) {
+        refreshRobotStatus(data.robot_status)
+    }
 };
 
 socket.onopen = () => {
@@ -137,4 +140,18 @@ function elementFromHTML(html) {
     let template = document.createElement("template");
     template.innerHTML = html.trim();
     return template.content.firstElementChild;
+}
+
+function refreshRobotStatus(robot_status) {
+    switch (robot_status.type) {
+        case "comms":
+            document.querySelector(`.robot_status_indicator_display[for="comms"]`).setAttribute("value", robot_status.value);
+            break;
+        case "code":
+            document.querySelector(`.robot_status_indicator_display[for="code"]`).setAttribute("value", robot_status.value);
+            break;
+        case "sticks":
+            document.querySelector(`.robot_status_indicator_display[for="sticks"]`).setAttribute("value", robot_status.value);
+            break;
+    }
 }
