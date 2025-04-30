@@ -2,14 +2,10 @@ package DriveSubsystem
 
 import (
 	"fmt"
-	"frcrobot/internal/Command"
 	"frcrobot/internal/File"
 	"frcrobot/internal/Utils/MathUtils"
 	"frcrobot/internal/Utils/VectorMath"
-	"log"
 	"math"
-
-	"github.com/orsinium-labs/gamepad"
 )
 
 type (
@@ -73,20 +69,20 @@ func (drive *SwerveDrive) CalculateSwerveModules(trans VectorMath.Vector2D, rot 
 	fmt.Println((*drive).SwerveModules)
 }
 
-func NewDriveSwerveCommand(drive *SwerveDrive) *Command.Command {
-	return &Command.Command{
-		Required:   drive,
-		Name:       "Drive Swerve",
-		FirstRun:   true,
-		Initialize: func() {},
-		Execute: func(required any) bool {
-			_, err := required.(*gamepad.GamePad).State()
-			if err != nil {
-				log.Fatal(err)
-			}
-			// fmt.Println("Controller State: ", controllerState)
-			return false
-		},
-		End: false,
-	}
-}
+// func NewDriveSwerveCommand(drive *SwerveDrive) *Command.Command {
+// 	return &Command.Command{
+// 		Required:   drive,
+// 		Name:       "Drive Swerve",
+// 		FirstRun:   true,
+// 		Initialize: func() {},
+// 		Execute: func(required any) bool {
+// 			_, err := required.(*gamepad.GamePad).State()
+// 			if err != nil {
+// 				log.Fatal(err)
+// 			}
+// 			// fmt.Println("Controller State: ", controllerState)
+// 			return false
+// 		},
+// 		End: false,
+// 	}
+// }

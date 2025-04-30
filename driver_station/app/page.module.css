@@ -1,0 +1,549 @@
+.roboto-mono {
+	font-family: "Roboto Mono", monospace;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+
+.main_container {
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 50px 1fr;
+	grid-template-rows: 100vh;
+	overflow: hidden;
+}
+
+.sidemenu {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.sidemenu_button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	aspect-ratio: 1 / 1;
+	width: 50px;
+	border: 2px solid grey;
+	border-right-style: none;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	background-color: rgb(36, 36, 36);
+	transition: 125ms;
+}
+
+.button_selected {
+	border-color: #5cb2ff;
+	background-color: rgb(26, 26, 26);
+}
+
+.sidemenu_button>.sidemenu_button_icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 40px;
+	color: grey;
+	transition: 125ms;
+}
+
+.sidemenu_button:hover,
+.sidemenu_button:hover>*,
+.sidemenu_button:hover>.sidemenu_button_icon {
+	border-color: #5cb2ff;
+	color: #5cb2ff;
+}
+
+.panel_container {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	height: calc(100vh - 20px);
+	width: 100%;
+	border-radius: 20px;
+	border-top-left-radius: 0px;
+	border: 2px solid grey;
+	display: none;
+	position: relative;
+	border-color: #5cb2ff;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: max-content max-content 1fr;
+	background-color: rgb(26, 26, 26);
+}
+
+.panel_title {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	margin: 0px;
+	font-size: 48px;
+	padding: 15px;
+	border: 0px solid #5cb2ff;
+	border-bottom-width: 2px;
+	height: max-content;
+	width: 100%;
+	text-transform: capitalize;
+}
+
+.panel_item_container {
+	display: flex;
+	border: 0px solid #5cb2ff;
+	border-bottom-width: 2px;
+}
+
+.panel_item,
+.panel_item_subpanel {
+	border: 0px solid #5cb2ff;
+	border-right-width: 2px;
+	width: 100%;
+}
+
+.panel_item,
+.panel_item_subpanel:last-child {
+	border-right-width: 0px;
+}
+
+.panel_item_container[changing="true"] {
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
+	min-height: 200px;
+}
+
+.panel_item_subpanel {
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+}
+
+/* .panel_item_subpanel {
+    grid
+} */
+
+
+
+
+
+.driving_replaceable_panel {
+	display: flex;
+	gap: 10px;
+	width: 200%;
+}
+
+.running_mode_selector {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 100%
+}
+
+.runningmode_enabledisable_panel {
+	width: 100%;
+	display: flex;
+	gap: 10px;
+}
+
+.running_mode_selector_button {
+	border: none;
+	border-radius: 10px;
+	height: 100%;
+	color: whitesmoke;
+	background-color: rgb(45, 45, 45);
+	transition: 125ms;
+	font-size: 15px;
+	padding: 5px;
+}
+
+.running_mode_selector_button:hover {
+	background-color: rgb(50, 50, 50);
+}
+
+.running_mode_selector_button:active {
+	background-color: rgb(55, 55, 55);
+}
+
+.running_mode_selector_button_selected {
+	background-color: #5cb2ff;
+}
+
+.running_mode_selector_button_selected:hover {
+	background-color: #5cb2ff;
+}
+
+.enable_disable_panel {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.enable_disable_panel_button {
+	flex: 1;
+	width: 100%;
+	border-radius: 10px;
+	border: none;
+	background-color: rgb(45, 45, 45);
+	font-size: 30px;
+	transition: 125ms;
+}
+
+.enable_disable_panel_button:hover {
+	background-color: rgb(50, 50, 50);
+}
+
+.enable_disable_panel_button:active {
+	background-color: rgb(55, 55, 55);
+}
+
+.enable_disable_panel_button:first-child {
+	color: #92ff5c
+}
+
+.enable_disable_panel_button:last-child {
+	color: #ff5c5c
+}
+
+.enable_disable_panel_button_selected {
+	flex: 1;
+	width: 100%;
+	border-radius: 10px;
+	border: none;
+	color: rgb(45, 45, 45);
+	font-size: 30px;
+	transition: 125ms;
+}
+
+.enable_disable_panel_button_selected:hover {
+	background-color: rgb(55, 55, 55);
+}
+
+.enable_disable_panel_button_selected:first-child {
+	background-color: #92ff5c;
+}
+
+.enable_disable_panel_button_selected:last-child {
+	background-color: #ff5c5c;
+}
+
+.elapsedtime_driverpos_panel {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.elapsed_time_panel {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.elapsed_time_value {
+	margin: 0px;
+}
+
+.elapsed_time_panel>h2 {
+	margin: 0px;
+	text-align: center;
+}
+
+.driver_pos_panel {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.driver_pos_panel>h2 {
+	margin: 0px;
+	text-align: center;
+}
+
+.driver_pos_select {
+	font-size: 15px;
+	background-color: rgb(45, 45, 45);
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.driver_pos_option:hover {
+	background-color: #5cb2ff;
+}
+
+.robot_status {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 2fr 1fr;
+}
+
+.robot_battery_status {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-self: center;
+	border: 2px #5cb2ff solid
+}
+
+.robot_battery_status_display {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.robot_battery_status_display_bar_container {
+	width: 30%;
+	height: 50%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	/* justify-content: flex-start; */
+	align-items: center;
+}
+
+.robot_battery_status_display_bar {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	height: 100%;
+	width: 50%;
+	justify-self: flex-start;
+	background-color: #92ff5c;
+	position: relative;
+}
+
+.robot_battery_status_display_value {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: grey;
+}
+
+.robot_battery_status_voltage {
+	width: 100%;
+	height: 100%;
+	font-size: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.robot_battery_status_voltage_value {
+	font-size: 35px;
+	margin: 0px;
+}
+
+.robot_status_indicators {
+	grid-row: 1 / 2;
+	grid-column: 2 / 3;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px #5cb2ff solid;
+	border-left-width: 0px;
+}
+
+.robot_status_indicators_container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.robot_status_text {
+	grid-row: 2 / 3;
+	grid-column: 1 / 3;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+	text-align: center;
+}
+
+.robot_status_indicator {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	grid-template-rows: 1fr;
+	justify-content: center;
+	align-items: center;
+	padding-inline: 5px;
+}
+
+.robot_status_indicator_field {
+	grid-column: 1 / 2;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding-right: 10px;
+	margin: 0px;
+}
+
+.robot_status_indicator_display {
+	grid-column: 2 / 3;
+	height: 20px;
+	width: 50px;
+}
+
+.robot_status_indicator_display[value="false"] {
+	background-color: #ff5c5c;
+}
+
+.robot_status_indicator_display[value="true"] {
+	background-color: #92ff5c;
+}
+
+.system_logger {
+	border-width: 0px;
+	padding: 10px;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: max-content 1fr;
+}
+
+.system_logger_topmenu {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	display: flex;
+}
+
+.system_logger_filter_container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: 10px;
+	justify-content: flex-start;
+}
+
+.system_logger_filter_option {
+	height: 50px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	/* border: 2px solid #5cb2ff; */
+	border: 2px solid grey;
+	border-bottom-width: 0px;
+	font-size: 25px;
+	background-color: rgb(45, 45, 45);
+	color: whitesmoke;
+	padding: 5px;
+}
+
+.system_logger_filter_option_selected {
+	border: 2px solid #5cb2ff;
+	border-bottom-width: 0px;
+}
+
+.system_logger_filter_option_selected[title="log"],
+.system_logger_filter_option[title="log"]:hover {
+	color: #5cb2ff;
+}
+
+.system_logger_filter_option_selected[title="success"],
+.system_logger_filter_option[title="success"]:hover {
+	color: #92ff5c;
+}
+
+.system_logger_filter_option_selected[title="warn"],
+.system_logger_filter_option[title="warn"]:hover {
+	color: #ffec5c;
+}
+
+.system_logger_filter_option_selected[title="error"],
+.system_logger_filter_option[title="error"]:hover {
+	color: #ff5c5c
+}
+
+.system_logger_action_container {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+}
+
+.system_logger_filter_action {
+	height: 50px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border: 2px solid #5cb2ff;
+	border-bottom-width: 0px;
+	background-color: rgb(45, 45, 45);
+	color: whitesmoke;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.system_logger_filter_action>span {
+	font-size: 35px;
+	color: whitesmoke;
+	transition: 125ms;
+}
+
+.system_logger_filter_action:hover>span {
+	color: #5cb2ff;
+}
+
+.system_logger_display {
+	grid-column: 1 / 2;
+	grid-row: 2 / 3;
+	width: 100%;
+	height: 100%;
+	border: 2px solid #5cb2ff;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 20px;
+}
+
+.system_logger_display_text {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.system_logger_display_text>* {
+	margin: 0px;
+}
+
+.system_logger_display_text>.log {
+	color: whitesmoke
+}
+
+.system_logger_display_text>.comment {
+	color: #5cb2ff;
+}
+
+.system_logger_display_text>.success {
+	color: #92ff5c;
+}
+
+.system_logger_display_text>.warn {
+	color: #ffec5c;
+}
+
+.system_logger_display_text>.error {
+	color: #ff5c5c
+}

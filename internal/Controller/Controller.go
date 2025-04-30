@@ -2,12 +2,13 @@ package Controller
 
 import (
 	"fmt"
+	"log"
 
 	"frcrobot/internal/Command"
 	"frcrobot/internal/File"
 	"frcrobot/internal/GUI"
 
-	"github.com/orsinium-labs/gamepad"
+	"github.com/karalabe/hid"
 )
 
 type (
@@ -26,7 +27,7 @@ type (
 		Config       ControllerConfig
 		ControllerID int
 		Inputs       []*ControllerInput
-		GamePad      *gamepad.GamePad
+		Device       *hid.Device
 	}
 )
 
@@ -41,11 +42,19 @@ func StartController(controllerID int, scheduler *Command.CommandScheduler) *Con
 	config := ControllerConfig{}
 	File.ReadJSON("controller.config", &config)
 	fmt.Println("Controller Config: ", config)
+	devices := hid.Enumerate(1118, 0)
+	log.Println(devices)
+	device, err := devices[0].Open()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println(device)
 	controller := &Controller{
 		Config:       config,
 		ControllerID: controllerID,
+		Device:       device,
 	}
-	scheduler.ScheduleCommand(NewConnectControllerCommand(controller, scheduler))
+	scheduler.ScheduleCommand(NewReadControllerCommand(controller, scheduler))
 	return controller
 
 	// var pressedButtons []string
@@ -139,35 +148,35 @@ func StartController(controllerID int, scheduler *Command.CommandScheduler) *Con
 	// }
 }
 
-func NewConnectControllerCommand(controller *Controller, scheduler *Command.CommandScheduler) *Command.Command {
-	return &Command.Command{
-		Required: struct {
-			controller *Controller
-			scheduler  *Command.CommandScheduler
-		}{controller: controller, scheduler: scheduler},
-		Name:       "Connect Controller",
-		FirstRun:   true,
-		Initialize: func() {},
-		Execute: func(required any) bool {
-			req, ok := required.(struct {
-				controller *Controller
-				scheduler  *Command.CommandScheduler
-			})
-			if ok {
-				Gamepad, err := gamepad.NewGamepad(req.controller.ControllerID)
-				if err != nil {
-					GUI.SendData([]byte(`{"system_logger":{"type":"warn","message":"GamePad not connected"},"robot_status":{"type":"sticks","value":"false"}}`))
-				} else {
-					req.controller.GamePad = Gamepad
-					scheduler.ScheduleCommand(NewReadControllerCommand(req.controller, req.scheduler))
-					return true
-				}
-			}
-			return false
-		},
-		End: false,
-	}
-}
+// func NewConnectControllerCommand(controller *Controller, scheduler *Command.CommandScheduler) *Command.Command {
+// 	return &Command.Command{
+// 		Required: struct {
+// 			controller *Controller
+// 			scheduler  *Command.CommandScheduler
+// 		}{controller: controller, scheduler: scheduler},
+// 		Name:       "Connect Controller",
+// 		FirstRun:   true,
+// 		Initialize: func() {},
+// 		Execute: func(required any) bool {
+// 			// req, ok := required.(struct {
+// 			// 	controller *Controller
+// 			// 	scheduler  *Command.CommandScheduler
+// 			// })
+// 			// if ok {
+// 			// 	Gamepad, err := gamepad.NewGamepad(req.controller.ControllerID)
+// 			// 	if err != nil {
+// 			// 		GUI.SendData([]byte(`{"system_logger":{"type":"warn","message":"GamePad not connected"},"robot_status":{"type":"sticks","value":"false"}}`))
+// 			// 	} else {
+// 			// 		req.controller.GamePad = Gamepad
+// 			// 		scheduler.ScheduleCommand(NewReadControllerCommand(req.controller, req.scheduler))
+// 			// 		return true
+// 			// 	}
+// 			// }
+// 			return false
+// 		},
+// 		End: false,
+// 	}
+// }
 
 func NewReadControllerCommand(controller *Controller, scheduler *Command.CommandScheduler) *Command.Command {
 	return &Command.Command{
@@ -184,21 +193,31 @@ func NewReadControllerCommand(controller *Controller, scheduler *Command.Command
 				scheduler  *Command.CommandScheduler
 			})
 			if ok {
-				state, err := req.controller.GamePad.State()
+				var data []byte
+				num, err := req.controller.Device.Read(data)
 				if err != nil {
-					scheduler.ScheduleCommand(NewConnectControllerCommand(req.controller, req.scheduler))
-					GUI.SendData([]byte(`{"system_logger":{"type":"warn","message":"GamePad not connected"},"robot_status":{"type":"sticks","value":"false"}}`))
-					return true
+					log.Fatal(err)
 				}
-				GUI.SendData([]byte(`{"system_logger":{"type":"success","message":"GamePad input read"},"robot_status":{"type":"sticks","value":"true"}}`))
-
-				GUI.SendData([]byte(fmt.Sprint(`{"system_logger":{"type":"log","message":"`, state, `"}}`)))
-				if state.A() {
-					GUI.SendData([]byte(`{"system_logger":{"type":"log","message":"A Button pressed on Gamepad"}}`))
-				}
-				return false
+				log.Println(num)
+				log.Println(data)
+				GUI.SendData(fmt.Append([]byte(`{"system_logger":{"type":"log","message":"`), data, []byte(`"}}`)))
 			}
-			return true
+			// if ok {
+			// 	state, err := req.controller.GamePad.State()
+			// 	if err != nil {
+			// 		scheduler.ScheduleCommand(NewConnectControllerCommand(req.controller, req.scheduler))
+			// 		GUI.SendData([]byte(`{"system_logger":{"type":"warn","message":"GamePad not connected"},"robot_status":{"type":"sticks","value":"false"}}`))
+			// 		return true
+			// 	}
+			// 	GUI.SendData([]byte(`{"system_logger":{"type":"success","message":"GamePad input read"},"robot_status":{"type":"sticks","value":"true"}}`))
+
+			// 	GUI.SendData([]byte(fmt.Sprint(`{"system_logger":{"type":"log","message":"`, state, `"}}`)))
+			// 	if state.A() {
+			// 		GUI.SendData([]byte(`{"system_logger":{"type":"log","message":"A Button pressed on Gamepad"}}`))
+			// 	}
+			// 	return false
+			// }
+			return false
 		},
 		End: false,
 	}
