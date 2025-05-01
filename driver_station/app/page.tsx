@@ -13,18 +13,18 @@ type LoggerFilter = {
 
 export default function Home() {
 	const [panel, setPanel] = useState<string>("driving")
-	const [runningMode, setRunningMode] = useState<string>("teleoperated")
+	const [runningMode, setRunningMode] = useState<string>("teleop")
 	const [running, setRunning] = useState<boolean>(false)
-	const [loggerFilter, setLoggerFilter] = useState<string[]>(["all"])
+	const [loggerFilter, setLoggerFilter] = useState<LoggerFilter>({
+		all: true,
+		log: false,
+		success: false,
+		warn: false,
+		error: false
+	} as LoggerFilter)
 
-	function calculateLoggerFilter() {
-		if (loggerFilter.includes("log") && loggerFilter.includes("success") && loggerFilter.includes("warn") && loggerFilter.includes("error")) {
-			setLoggerFilter(["all"])
-		} else {
-			setLoggerFilter([
-				loggerFilter.
-			])
-		}
+	function calculateLoggerFilter(filter: LoggerFilter) {
+		setLoggerFilter(filter)
 	}
 
 	return (
@@ -111,24 +111,15 @@ export default function Home() {
 							<div className={style.robot_status_indicators_container}>
 								<div className={style.robot_status_indicator}>
 									<h3 className={style.robot_status_indicator_field}>Communications</h3>
-									<div className={style.robot_status_indicator_display}
-									// for="comms"
-									// value="false"
-									></div>
+									<div className={style.robot_status_indicator_display} />
 								</div>
 								<div className={style.robot_status_indicator}>
 									<h3 className={style.robot_status_indicator_field}>Robot Code</h3>
-									<div className={style.robot_status_indicator_display}
-									// for="code" 
-									// value="false"
-									></div>
+									<div className={style.robot_status_indicator_display} />
 								</div>
 								<div className={style.robot_status_indicator}>
 									<h3 className={style.robot_status_indicator_field}>Joysticks</h3>
-									<div className={style.robot_status_indicator_display}
-									// for="sticks" 
-									// value="false"
-									></div>
+									<div className={style.robot_status_indicator_display} />
 								</div>
 							</div>
 						</div>
@@ -140,19 +131,51 @@ export default function Home() {
 				<div className={`${style.panel_item_container} ${style.system_logger}`}>
 					<div className={style.system_logger_topmenu}>
 						<div className={style.system_logger_filter_container}>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.includes("all") ? style.system_logger_filter_option_selected : ""}`} title="all" onClick={() => { setLoggerFilter(["all"]); calculateLoggerFilter() }}>
+							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="all" onClick={() => {
+								calculateLoggerFilter({
+									all: true,
+									log: false,
+									success: false,
+									warn: false,
+									error: false
+								} as LoggerFilter)
+							}}>
 								All
 							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.includes("log") ? style.system_logger_filter_option_selected : ""}`} title="log" onClick={() => { setLoggerFilter([...loggerFilter, "log"]); calculateLoggerFilter() }}>
+							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.log && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="log" onClick={() => {
+								calculateLoggerFilter({
+									...loggerFilter,
+									all: false,
+									log: true
+								} as LoggerFilter)
+							}}>
 								Log
 							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.includes("success") ? style.system_logger_filter_option_selected : ""}`} title="success" onClick={() => { setLoggerFilter([...loggerFilter, "success"]); calculateLoggerFilter() }}>
+							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.success && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="success" onClick={() => {
+								calculateLoggerFilter({
+									...loggerFilter,
+									all: false,
+									success: true
+								} as LoggerFilter)
+							}}>
 								Success
 							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.includes("warn") ? style.system_logger_filter_option_selected : ""}`} title="warn" onClick={() => { setLoggerFilter([...loggerFilter, "warn"]); calculateLoggerFilter() }}>
+							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.warn && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="warn" onClick={() => {
+								calculateLoggerFilter({
+									...loggerFilter,
+									all: false,
+									warn: true
+								} as LoggerFilter)
+							}}>
 								Warn
 							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.includes("error") ? style.system_logger_filter_option_selected : ""}`} title="error" onClick={() => { setLoggerFilter([...loggerFilter, "error"]); calculateLoggerFilter() }}>
+							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.error && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="error" onClick={() => {
+								calculateLoggerFilter({
+									...loggerFilter,
+									all: false,
+									warn: true
+								} as LoggerFilter)
+							}}>
 								Error
 							</button>
 						</div>

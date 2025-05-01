@@ -285,6 +285,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 2fr 1fr;
+	padding-bottom: 0px;
 }
 
 .robot_battery_status {
