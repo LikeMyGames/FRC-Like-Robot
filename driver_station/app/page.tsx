@@ -1,9 +1,14 @@
 'use client'
 import style from "@/app/page.module.css";
 import Icon from "@/components/Basic/Icon";
-import { useState } from "react";
+import Logger from "@/components/Main/Logger";
+import RobotStatus from "@/components/Main/RobotStatus";
+import ConnectionsPanel from "@/components/Panels/Connections/Connections";
+import DrivingPanel from "@/components/Panels/Driving";
+import SettingsPanel from "@/components/Panels/Settings";
+import { useState, createContext, useRef, useEffect } from "react";
 
-type LoggerFilter = {
+export type LoggerFilter = {
 	all: boolean;
 	log: boolean;
 	success: boolean;
@@ -11,8 +16,38 @@ type LoggerFilter = {
 	error: boolean;
 }
 
+export type Log = {
+	type: "log" | "success" | "warn" | "error";
+	message: string;
+}
+
+type SocketData = {
+	system_logger?: Log;
+	robot_status?: RobotStatus;
+}
+
+export type RobotStatus = {
+	comms: boolean;
+	code: boolean;
+	joy: boolean;
+	message: string;
+	bat_p: number;
+	bat_v: number;
+}
+
+
+
+export const RunningContext = createContext<[boolean, (value: boolean) => void]>([false, (value) => { console.log(value) }]);
+export const RunningModeContext = createContext<[string, (value: string) => void]>(["teleop", (value) => { console.log(value) }]);
+export const LoggerContext = createContext<[Log[], () => void]>([[{ type: "success", message: "default message" }] as Log[], () => { }]);;
+export const LoggerFilterContext = createContext<[LoggerFilter, (value: LoggerFilter) => void]>([{} as LoggerFilter, () => { }]);
+export const RobotStatusContext = createContext<[RobotStatus]>([{} as RobotStatus]);
+
 export default function Home() {
+	const [first, setFirst] = useState<boolean>(true)
 	const [panel, setPanel] = useState<string>("driving")
+	const [botNet] = useState<string>("ws://localhost:8080")
+	const robotConn = useRef<WebSocket | null>(null);
 	const [runningMode, setRunningMode] = useState<string>("teleop")
 	const [running, setRunning] = useState<boolean>(false)
 	const [loggerFilter, setLoggerFilter] = useState<LoggerFilter>({
@@ -22,10 +57,66 @@ export default function Home() {
 		warn: false,
 		error: false
 	} as LoggerFilter)
+	const [logs, setLogs] = useState<Log[]>([] as Log[])
+	const newLogs = useRef<Log[]>(logs)
+	const [robotStat, setRobotStat] = useState<RobotStatus>({} as RobotStatus)
+	const socketMessages = useRef<SocketData[]>([] as SocketData[])
+	const lastSocketMessage = useRef<SocketData>({} as SocketData)
 
-	function calculateLoggerFilter(filter: LoggerFilter) {
-		setLoggerFilter(filter)
+	const resetLogs = () => {
+		setLogs([] as Log[])
 	}
+
+
+
+	useEffect(() => {
+		function addLog(log: Log) {
+			newLogs.current = [...newLogs.current, log]
+			if (newLogs.current !== logs) {
+				setLogs(newLogs.current)
+			}
+		}
+
+		if (first) {
+			if (window) {
+				window.addEventListener("beforeunload", () => {
+					robotConn.current?.close()
+				})
+			}
+
+			if (robotConn.current == null) {
+
+				robotConn.current = new WebSocket(botNet);
+
+				robotConn.current.onmessage = (event) => {
+					// Handle incoming messages
+					const data = JSON.parse(event.data) as SocketData;
+					lastSocketMessage.current = data
+					socketMessages.current = [...socketMessages.current, lastSocketMessage.current]
+					if (data.system_logger != undefined) {
+						addLog(data.system_logger)
+					}
+				};
+
+				robotConn.current.onclose = () => {
+					console.log('WebSocket connection closed');
+				};
+
+				robotConn.current.onerror = (error) => {
+					console.error('WebSocket error:', error);
+				};
+
+				robotConn.current.onopen = () => {
+					console.log('WebSocket connection established');
+					if (robotConn.current) {
+						robotConn.current.send(`{"message":"GUI connected to robot"}`)
+					}
+				};
+
+				setFirst(false)
+			}
+		}
+	}, [logs, botNet, robotConn, first]);
 
 	return (
 		<div className={style.main_container}>
@@ -43,176 +134,39 @@ export default function Home() {
 					<Icon iconName="usb" className={style.sidemenu_button_icon} />
 				</button>
 			</div>
-			<div className={style.panel_container} title="Driving"
+			<div className={style.panel_container}
 			// selected="true"
 			>
 				<h1 className={style.panel_title}>{panel}</h1>
 				<div className={style.panel_item_container}>
-					<div className={`${style.panel_item_subpanel} ${style.driving_replaceable_panel}`}>
-						<div className={style.runningmode_enabledisable_panel}>
-							<div className={style.running_mode_selector}>
-								<button type="button" className={`${style.running_mode_selector_button} ${runningMode == "teleop" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("teleop")}>
-									TeleOperated
-								</button>
-								<button type="button" className={`${style.running_mode_selector_button} ${runningMode == "auto" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("auto")}>
-									Autonomous
-								</button>
-								<button type="button" className={`${style.running_mode_selector_button} ${runningMode == "prac" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("prac")}>
-									Practice
-								</button>
-								<button type="button" className={`${style.running_mode_selector_button} ${runningMode == "test" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("test")}>
-									Test
-								</button>
+					<RunningContext.Provider value={[running, setRunning]}>
+						<RunningModeContext.Provider value={[runningMode, setRunningMode]}>
+							<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
+								{
+									panel == "driving" ? (
+										<DrivingPanel />
+									) : panel == "settings" ? (
+										<SettingsPanel />
+									) : panel == "connections" ? (
+										<ConnectionsPanel />
+									) : (
+										<>
+
+										</>
+									)
+								}
 							</div>
-							<div className={style.enable_disable_panel}>
-								<button type="button" className={running ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunning(true)}>
-									Enable
-								</button>
-								<button type="button" className={!running ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunning(false)}>
-									Disable
-								</button>
-							</div>
-						</div>
-						<div className={style.elapsedtime_driverpos_panel}>
-							<div className={style.elapsed_time_panel}>
-								<h2>
-									Elapsed Time:
-								</h2>
-								<h3 className={style.elapsed_time_value}>00:00</h3>
-							</div>
-							<div className={style.driver_pos_panel}>
-								<h2>
-									Team Station:
-								</h2>
-								<select className={style.driver_pos_select} title="driver_pos_select">
-									<option className={style.driver_pos_option}>Red 1</option>
-									<option className={style.driver_pos_option}>Red 2</option>
-									<option className={style.driver_pos_option}>Red 3</option>
-									<option className={style.driver_pos_option}>Blue 1</option>
-									<option className={style.driver_pos_option}>Blue 2</option>
-									<option className={style.driver_pos_option}>Blue 3</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div className={`${style.panel_item_subpanel} ${style.robot_status}`}>
-						<div className={style.robot_battery_status}>
-							<div className={style.robot_battery_status_display}>
-								<div className={style.robot_battery_status_display_bar_container}>
-									<div className={style.robot_battery_status_display_bar}></div>
-									<h3 className={style.robot_battery_status_display_value}>50%</h3>
-								</div>
-							</div>
-							<div className={style.robot_battery_status_voltage}>
-								<h3 className={style.robot_battery_status_voltage_value}>12.00</h3>V
-							</div>
-						</div>
-						<div className={style.robot_status_indicators}>
-							<div className={style.robot_status_indicators_container}>
-								<div className={style.robot_status_indicator}>
-									<h3 className={style.robot_status_indicator_field}>Communications</h3>
-									<div className={style.robot_status_indicator_display} />
-								</div>
-								<div className={style.robot_status_indicator}>
-									<h3 className={style.robot_status_indicator_field}>Robot Code</h3>
-									<div className={style.robot_status_indicator_display} />
-								</div>
-								<div className={style.robot_status_indicator}>
-									<h3 className={style.robot_status_indicator_field}>Joysticks</h3>
-									<div className={style.robot_status_indicator_display} />
-								</div>
-							</div>
-						</div>
-						<div className={style.robot_status_text}>
-							TeleOperated Disabled
-						</div>
-					</div>
+						</RunningModeContext.Provider>
+					</RunningContext.Provider>
+					<RobotStatusContext.Provider value={[robotStat]}>
+						<RobotStatus />
+					</RobotStatusContext.Provider>
 				</div>
-				<div className={`${style.panel_item_container} ${style.system_logger}`}>
-					<div className={style.system_logger_topmenu}>
-						<div className={style.system_logger_filter_container}>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="all" onClick={() => {
-								calculateLoggerFilter({
-									all: true,
-									log: false,
-									success: false,
-									warn: false,
-									error: false
-								} as LoggerFilter)
-							}}>
-								All
-							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.log && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="log" onClick={() => {
-								calculateLoggerFilter({
-									...loggerFilter,
-									all: false,
-									log: true
-								} as LoggerFilter)
-							}}>
-								Log
-							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.success && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="success" onClick={() => {
-								calculateLoggerFilter({
-									...loggerFilter,
-									all: false,
-									success: true
-								} as LoggerFilter)
-							}}>
-								Success
-							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.warn && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="warn" onClick={() => {
-								calculateLoggerFilter({
-									...loggerFilter,
-									all: false,
-									warn: true
-								} as LoggerFilter)
-							}}>
-								Warn
-							</button>
-							<button type="button" className={`${style.system_logger_filter_option} ${loggerFilter.error && !loggerFilter.all ? style.system_logger_filter_option_selected : ""}`} title="error" onClick={() => {
-								calculateLoggerFilter({
-									...loggerFilter,
-									all: false,
-									warn: true
-								} as LoggerFilter)
-							}}>
-								Error
-							</button>
-						</div>
-						<div className={style.system_logger_action_container}>
-							<button type="button" className={style.system_logger_filter_action}
-							// onClick="systemLogPause()"
-							>
-								<span className="material-symbols-rounded">
-									pause
-								</span>
-							</button>
-							<button type="button" className={style.system_logger_filter_action}
-							// onClick="systemLogRefresh()"
-							>
-								<span className="material-symbols-rounded">
-									refresh
-								</span>
-							</button>
-							<button type="button" className={style.system_logger_filter_action}
-							// onClick="systemLogClear()"
-							>
-								<span className="material-symbols-rounded">
-									delete
-								</span>
-							</button>
-						</div>
-					</div>
-					<div className={style.system_logger_display}>
-						<div className={style.system_logger_display_text}>
-							{/* <h4 className="log">LOG - Hello World</h4>
-                            <h4 className="comment">COMMENT - Hello World</h4>
-                            <h4 className="success">SUCCESS - Hello World</h4>
-                            <h4 className="warn">WARNING - Hello World</h4>
-                            <h4 className="error">ERROR - Hello World</h4> */}
-						</div>
-					</div>
-				</div>
+				<LoggerContext.Provider value={[logs, resetLogs]}>
+					<LoggerFilterContext.Provider value={[loggerFilter, setLoggerFilter]}>
+						<Logger />
+					</LoggerFilterContext.Provider>
+				</LoggerContext.Provider>
 			</div>
 			{/* <div className="panel_container" title="Settings" selected="false">
                 <h1 className="panel_title">Settings</h1>
@@ -240,4 +194,8 @@ export default function Home() {
             </div> */}
 		</div >
 	)
+}
+
+export function useRobotContext() {
+	return { RunningContext, RunningModeContext, RobotStatusContext, LoggerContext, LoggerFilterContext }
 }

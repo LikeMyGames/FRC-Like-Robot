@@ -1,0 +1,147 @@
+.running_mode_selector {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%
+}
+
+.runningmode_enabledisable_panel {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.running_mode_selector_button {
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    color: whitesmoke;
+    background-color: rgb(45, 45, 45);
+    transition: 125ms;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.running_mode_selector_button:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.running_mode_selector_button:active {
+    background-color: rgb(55, 55, 55);
+}
+
+.running_mode_selector_button_selected {
+    background-color: #5cb2ff;
+}
+
+.running_mode_selector_button_selected:hover {
+    background-color: #5cb2ff;
+}
+
+.enable_disable_panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.enable_disable_panel_button {
+    flex: 1;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(45, 45, 45);
+    font-size: 30px;
+    transition: 125ms;
+}
+
+.enable_disable_panel_button:hover {
+    background-color: rgb(50, 50, 50);
+}
+
+.enable_disable_panel_button:active {
+    background-color: rgb(55, 55, 55);
+}
+
+.enable_disable_panel_button:first-child {
+    color: #92ff5c
+}
+
+.enable_disable_panel_button:last-child {
+    color: #ff5c5c
+}
+
+.enable_disable_panel_button_selected {
+    flex: 1;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    color: rgb(45, 45, 45);
+    font-size: 30px;
+    transition: 125ms;
+}
+
+.enable_disable_panel_button_selected:hover {
+    background-color: rgb(55, 55, 55);
+}
+
+.enable_disable_panel_button_selected:first-child {
+    background-color: #92ff5c;
+}
+
+.enable_disable_panel_button_selected:last-child {
+    background-color: #ff5c5c;
+}
+
+.elapsedtime_driverpos_panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.elapsed_time_panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.elapsed_time_value {
+    margin: 0px;
+}
+
+.elapsed_time_panel>h2 {
+    margin: 0px;
+    text-align: center;
+}
+
+.driver_pos_panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.driver_pos_panel>h2 {
+    margin: 0px;
+    text-align: center;
+}
+
+.driver_pos_select {
+    font-size: 15px;
+    background-color: rgb(45, 45, 45);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.driver_pos_option:hover {
+    background-color: #5cb2ff;
+}

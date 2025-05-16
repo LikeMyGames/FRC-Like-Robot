@@ -1,0 +1,135 @@
+.panel_item_container {
+    display: flex;
+    border: 0px solid #5cb2ff;
+    border-bottom-width: 2px;
+}
+
+.system_logger {
+    border-width: 0px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
+}
+
+.system_logger_topmenu {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    display: flex;
+}
+
+.system_logger_filter_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.system_logger_filter_option {
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* border: 2px solid #5cb2ff; */
+    border: 2px solid grey;
+    border-bottom-width: 0px;
+    font-size: 25px;
+    background-color: rgb(45, 45, 45);
+    color: whitesmoke;
+    padding: 5px;
+}
+
+.system_logger_filter_option_selected {
+    border: 2px solid #5cb2ff;
+    border-bottom-width: 0px;
+}
+
+.system_logger_filter_option_selected[title="log"],
+.system_logger_filter_option[title="log"]:hover {
+    color: #5cb2ff;
+}
+
+.system_logger_filter_option_selected[title="success"],
+.system_logger_filter_option[title="success"]:hover {
+    color: #92ff5c;
+}
+
+.system_logger_filter_option_selected[title="warn"],
+.system_logger_filter_option[title="warn"]:hover {
+    color: #ffec5c;
+}
+
+.system_logger_filter_option_selected[title="error"],
+.system_logger_filter_option[title="error"]:hover {
+    color: #ff5c5c
+}
+
+.system_logger_action_container {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.system_logger_filter_action {
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid #5cb2ff;
+    border-bottom-width: 0px;
+    background-color: rgb(45, 45, 45);
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.system_logger_filter_action>span {
+    font-size: 35px;
+    color: whitesmoke;
+    transition: 125ms;
+}
+
+.system_logger_filter_action:hover>span {
+    color: #5cb2ff;
+}
+
+.system_logger_display {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #5cb2ff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 20px;
+}
+
+.system_logger_display_text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.system_logger_display_text>* {
+    margin: 0px;
+}
+
+.system_logger_display_text>.log {
+    color: whitesmoke
+}
+
+.system_logger_display_text>.comment {
+    color: #5cb2ff;
+}
+
+.system_logger_display_text>.success {
+    color: #92ff5c;
+}
+
+.system_logger_display_text>.warn {
+    color: #ffec5c;
+}
+
+.system_logger_display_text>.error {
+    color: #ff5c5c
+}

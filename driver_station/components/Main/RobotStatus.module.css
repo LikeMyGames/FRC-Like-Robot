@@ -1,0 +1,152 @@
+.panel_item_subpanel {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 0px solid #5cb2ff;
+    border-right-width: 2px;
+    width: 100%;
+}
+
+.panel_item_subpanel:last-child {
+    border-right-width: 0px;
+}
+
+.robot_status {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    padding-bottom: 0px;
+}
+
+.robot_battery_status {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    border: 2px #5cb2ff solid
+}
+
+.robot_battery_status_display {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.robot_battery_status_display_bar_container {
+    width: 30%;
+    height: 50%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    /* justify-content: flex-start; */
+    align-items: center;
+}
+
+.robot_battery_status_display_bar {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 100%;
+    width: 50%;
+    justify-self: flex-start;
+    background-color: #92ff5c;
+    position: relative;
+}
+
+.robot_battery_status_display_value {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+}
+
+.robot_battery_status_voltage {
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.robot_battery_status_voltage_value {
+    font-size: 35px;
+    margin: 0px;
+}
+
+.robot_status_indicators {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px #5cb2ff solid;
+    border-left-width: 0px;
+}
+
+.robot_status_indicators_container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.robot_status_text {
+    grid-row: 2 / 3;
+    grid-column: 1 / 3;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    text-align: center;
+}
+
+.robot_status_indicator {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 5px;
+}
+
+.robot_status_indicator_field {
+    grid-column: 1 / 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px;
+    margin: 0px;
+}
+
+.robot_status_indicator_display {
+    grid-column: 2 / 3;
+    height: 20px;
+    width: 50px;
+}
+
+.robot_status_indicator_display[value="false"] {
+    background-color: #ff5c5c;
+}
+
+.robot_status_indicator_display[value="true"] {
+    background-color: #92ff5c;
+}
