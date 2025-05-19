@@ -1,6 +1,7 @@
 package Command
 
 import (
+	"frcrobot/internal/GUI"
 	"log"
 	"slices"
 	"time"
@@ -24,7 +25,7 @@ type (
 
 func NewCommandScheduler() *CommandScheduler {
 	scheduler := &CommandScheduler{
-		Interval: time.Second,
+		Interval: time.Millisecond * 100,
 		Commands: make([]*Command, 0),
 	}
 	log.Println("Created Scheduler: ", &scheduler)
@@ -33,14 +34,14 @@ func NewCommandScheduler() *CommandScheduler {
 
 func (scheduler *CommandScheduler) Start() {
 	ticker := time.NewTicker(scheduler.Interval)
-
+	GUI.Success("Scheduler started")
 	for range ticker.C {
 		for i, v := range scheduler.Commands {
 			if v == nil {
 				continue
 			}
 			if !v.End {
-				log.Println("running command: ", v.Name, &v)
+				// log.Println("running command: ", v.Name, &v)
 				if v.FirstRun {
 					v.Initialize()
 					v.FirstRun = false

@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
+	go GUI.StartUI()
 	drive := DriveSubsystem.NewSwerveDrive("robot.constants")
 	fmt.Println(drive)
 	scheduler := Command.NewCommandScheduler()
 	Controller.StartController(0, scheduler)
-	go GUI.StartUI()
 
 	//make sure to keep this call last
 	scheduler.Start()

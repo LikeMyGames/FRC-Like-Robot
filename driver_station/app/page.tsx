@@ -14,10 +14,11 @@ export type LoggerFilter = {
 	success: boolean;
 	warn: boolean;
 	error: boolean;
+	pause: boolean;
 }
 
 export type Log = {
-	type: "log" | "success" | "warn" | "error";
+	type: "log" | "success" | "warn" | "error" | "comment";
 	message: string;
 }
 
@@ -35,18 +36,20 @@ export type RobotStatus = {
 	bat_v: number;
 }
 
-
+export type RobotInfo = {
+	botNet: string
+}
 
 export const RunningContext = createContext<[boolean, (value: boolean) => void]>([false, (value) => { console.log(value) }]);
 export const RunningModeContext = createContext<[string, (value: string) => void]>(["teleop", (value) => { console.log(value) }]);
 export const LoggerContext = createContext<[Log[], () => void]>([[{ type: "success", message: "default message" }] as Log[], () => { }]);;
 export const LoggerFilterContext = createContext<[LoggerFilter, (value: LoggerFilter) => void]>([{} as LoggerFilter, () => { }]);
 export const RobotStatusContext = createContext<[RobotStatus]>([{} as RobotStatus]);
+export const RobotInfoContext = createContext<[RobotInfo, (value: RobotInfo) => void]>([{} as RobotInfo, () => { }])
 
 export default function Home() {
-	const [first, setFirst] = useState<boolean>(true)
 	const [panel, setPanel] = useState<string>("driving")
-	const [botNet] = useState<string>("ws://localhost:8080")
+	const [robotInfo, setRobotInfo] = useState<RobotInfo>({ botNet: "ws://localhost:8080" } as RobotInfo)
 	const robotConn = useRef<WebSocket | null>(null);
 	const [runningMode, setRunningMode] = useState<string>("teleop")
 	const [running, setRunning] = useState<boolean>(false)
@@ -55,19 +58,46 @@ export default function Home() {
 		log: false,
 		success: false,
 		warn: false,
-		error: false
+		error: false,
+		pause: false,
+		refresh: true,
 	} as LoggerFilter)
-	const [logs, setLogs] = useState<Log[]>([] as Log[])
+	const [logs, setLogs] = useState<Log[]>([{ type: "warn", message: "if Robot Websocket connection is not attempted, press the logger window rehresh button" }] as Log[])
 	const newLogs = useRef<Log[]>(logs)
-	const [robotStat, setRobotStat] = useState<RobotStatus>({} as RobotStatus)
+	const [robotStat, setRobotStat] = useState<RobotStatus>({
+		comms: false,
+		code: false,
+		joy: false,
+		message: "TeleOperated Disabled",
+		bat_p: 50,
+		bat_v: 12.00
+	} as RobotStatus)
+	const newRobotStat = useRef<RobotStatus>(robotStat)
 	const socketMessages = useRef<SocketData[]>([] as SocketData[])
 	const lastSocketMessage = useRef<SocketData>({} as SocketData)
+	// const [isWindowLoaded, setIsWindowLoaded] = useState<boolean>(false)
+
+	// if (isWindowLoaded) {
+	// 	// window.addEventListener("gamepadconnected", gamepadAPI.connect);
+	// 	// window.addEventListener("gamepaddisconnected", gamepadAPI.disconnect)
+	// 	console.log("window is loaded")
+	// 	window.addEventListener("gamepadconnected", (e) => {
+	// 		console.log(
+	// 			"Gamepad connected at index %d: %s. %d buttons, %d axes.",
+	// 			e.gamepad.index,
+	// 			e.gamepad.id,
+	// 			e.gamepad.buttons.length,
+	// 			e.gamepad.axes.length,
+	// 		);
+	// 	});
+
+	// 	// window.addEventListener("gamepaddisconnected", gamepadAPI.disconnect)
+	// }
 
 	const resetLogs = () => {
+		newLogs.current = []
 		setLogs([] as Log[])
 	}
-
-
 
 	useEffect(() => {
 		function addLog(log: Log) {
@@ -77,46 +107,69 @@ export default function Home() {
 			}
 		}
 
-		if (first) {
-			if (window) {
-				window.addEventListener("beforeunload", () => {
-					robotConn.current?.close()
-				})
-			}
-
-			if (robotConn.current == null) {
-
-				robotConn.current = new WebSocket(botNet);
-
-				robotConn.current.onmessage = (event) => {
-					// Handle incoming messages
-					const data = JSON.parse(event.data) as SocketData;
-					lastSocketMessage.current = data
-					socketMessages.current = [...socketMessages.current, lastSocketMessage.current]
-					if (data.system_logger != undefined) {
-						addLog(data.system_logger)
-					}
-				};
-
-				robotConn.current.onclose = () => {
-					console.log('WebSocket connection closed');
-				};
-
-				robotConn.current.onerror = (error) => {
-					console.error('WebSocket error:', error);
-				};
-
-				robotConn.current.onopen = () => {
-					console.log('WebSocket connection established');
-					if (robotConn.current) {
-						robotConn.current.send(`{"message":"GUI connected to robot"}`)
-					}
-				};
-
-				setFirst(false)
+		const setRobotStatus = (stat: RobotStatus) => {
+			if (newRobotStat.current !== robotStat) {
+				newRobotStat.current = { ...newRobotStat.current, ...stat } as RobotStatus
+				setRobotStat(newRobotStat.current)
+			} else {
+				newRobotStat.current = { ...robotStat, ...stat } as RobotStatus
 			}
 		}
-	}, [logs, botNet, robotConn, first]);
+
+
+
+		if ((robotConn.current == null) && !loggerFilter.pause) {
+			console.log("attempting websocket re-connect")
+			robotConn.current = new WebSocket(robotInfo.botNet);
+
+			robotConn.current.onmessage = (event) => {
+				// Handle incoming messages
+				const data = JSON.parse(event.data) as SocketData;
+				lastSocketMessage.current = data
+				socketMessages.current = [...socketMessages.current, lastSocketMessage.current]
+				if (data.system_logger) {
+					addLog(data.system_logger)
+				}
+				if (data.robot_status) {
+					setRobotStatus(data.robot_status)
+				}
+			};
+
+			robotConn.current.onclose = () => {
+				robotConn.current = null
+				addLog({ type: "error", message: "Robot Websocket connection closed" })
+				setRobotStatus({
+					comms: false,
+					code: false,
+					joy: false,
+					message: "No Robot Connection",
+					bat_p: 0,
+					bat_v: 0
+				})
+				console.log('WebSocket connection closed');
+			};
+
+			robotConn.current.onerror = (error) => {
+				addLog({ type: "error", message: "Robot Websocket connection error" })
+				console.log('WebSocket error:', error);
+			};
+
+			robotConn.current.onopen = () => {
+				console.log('WebSocket connection established');
+				addLog({ type: "success", message: "Robot Websocket connection established" })
+				if (robotConn.current) {
+					robotConn.current.send(`{"message":"GUI connected to robot"}`)
+				}
+			};
+		}
+
+	}, [logs, robotInfo, robotConn, robotStat, newRobotStat, loggerFilter]);
+
+	// useEffect(() => {
+	// 	if (typeof window !== 'undefined') {
+	// 		setIsWindowLoaded(true);
+	// 	}
+	// }, []);
 
 	return (
 		<div className={style.main_container}>
@@ -134,68 +187,44 @@ export default function Home() {
 					<Icon iconName="usb" className={style.sidemenu_button_icon} />
 				</button>
 			</div>
-			<div className={style.panel_container}
-			// selected="true"
-			>
-				<h1 className={style.panel_title}>{panel}</h1>
-				<div className={style.panel_item_container}>
-					<RunningContext.Provider value={[running, setRunning]}>
-						<RunningModeContext.Provider value={[runningMode, setRunningMode]}>
-							<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
-								{
-									panel == "driving" ? (
-										<DrivingPanel />
-									) : panel == "settings" ? (
-										<SettingsPanel />
-									) : panel == "connections" ? (
-										<ConnectionsPanel />
-									) : (
-										<>
+			<div className={style.panel_container}>
+				<RobotInfoContext.Provider value={[robotInfo, setRobotInfo]}>
+					<h1 className={style.panel_title}>{panel}</h1>
+					<div className={style.panel_item_container}>
+						<RunningContext.Provider value={[running, setRunning]}>
+							<RunningModeContext.Provider value={[runningMode, setRunningMode]}>
+								<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
+									{
+										panel == "driving" ? (
+											<DrivingPanel />
+										) : panel == "settings" ? (
+											<SettingsPanel />
+										) : panel == "connections" ? (
+											<ConnectionsPanel />
+										) : (
+											<>
 
-										</>
-									)
-								}
-							</div>
-						</RunningModeContext.Provider>
-					</RunningContext.Provider>
-					<RobotStatusContext.Provider value={[robotStat]}>
-						<RobotStatus />
-					</RobotStatusContext.Provider>
-				</div>
-				<LoggerContext.Provider value={[logs, resetLogs]}>
-					<LoggerFilterContext.Provider value={[loggerFilter, setLoggerFilter]}>
-						<Logger />
-					</LoggerFilterContext.Provider>
-				</LoggerContext.Provider>
+											</>
+										)
+									}
+								</div>
+							</RunningModeContext.Provider>
+						</RunningContext.Provider>
+						<RobotStatusContext.Provider value={[robotStat]}>
+							<RobotStatus />
+						</RobotStatusContext.Provider>
+					</div>
+					<LoggerContext.Provider value={[logs, resetLogs]}>
+						<LoggerFilterContext.Provider value={[loggerFilter, setLoggerFilter]}>
+							<Logger />
+						</LoggerFilterContext.Provider>
+					</LoggerContext.Provider>
+				</RobotInfoContext.Provider>
 			</div>
-			{/* <div className="panel_container" title="Settings" selected="false">
-                <h1 className="panel_title">Settings</h1>
-                <div className="panel_item">
-
-                </div>
-                <div className="panel_item">
-
-                </div>
-                <div className="panel_item">
-
-                </div>
-            </div>
-            <div className="panel_container" title="Connections" selected="false">
-                <h1 className="panel_title">Connections</h1>
-                <div className="panel_item">
-
-                </div>
-                <div className="panel_item">
-
-                </div>
-                <div className="panel_item">
-
-                </div>
-            </div> */}
 		</div >
 	)
 }
 
 export function useRobotContext() {
-	return { RunningContext, RunningModeContext, RobotStatusContext, LoggerContext, LoggerFilterContext }
+	return { RunningContext, RunningModeContext, RobotStatusContext, LoggerContext, LoggerFilterContext, RobotInfoContext }
 }

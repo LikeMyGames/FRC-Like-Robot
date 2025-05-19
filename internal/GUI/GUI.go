@@ -86,3 +86,43 @@ func SendJSONData(v any) {
 		log.Println(err)
 	}
 }
+
+func Log(data string) {
+	ws, ok := connection.(*websocket.Conn)
+	if !ok {
+		return
+	}
+	ws.WriteMessage(1, []byte(`{"type":"log","`+data+`"}`))
+}
+
+func Comment(data string) {
+	ws, ok := connection.(*websocket.Conn)
+	if !ok {
+		return
+	}
+	ws.WriteMessage(1, []byte(`{"type":"comment","`+data+`"}`))
+}
+
+func Success(data string) {
+	ws, ok := connection.(*websocket.Conn)
+	if !ok {
+		return
+	}
+	ws.WriteMessage(1, []byte(`{"type":"success","`+data+`"}`))
+}
+
+func Warn(data string) {
+	ws, ok := connection.(*websocket.Conn)
+	if !ok {
+		return
+	}
+	ws.WriteMessage(1, []byte(`{"type":"warn","`+data+`"}`))
+}
+
+func Error(data string) {
+	ws, ok := connection.(*websocket.Conn)
+	if !ok {
+		return
+	}
+	ws.WriteMessage(1, []byte(`{"type":"error","`+data+`"}`))
+}

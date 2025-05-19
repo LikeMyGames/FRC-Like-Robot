@@ -1,13 +1,14 @@
 import style from "./Logger.module.css"
 import { useRobotContext, LoggerFilter, Log } from "@/app/page"
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
+import Icon from "../Basic/Icon"
 
 
 
 export default function Logger() {
 	const { LoggerContext, LoggerFilterContext } = useRobotContext()
 	const [logs, resetLogs] = useContext(LoggerContext)
-	// console.log(logs)
+	const displayedLogs = useRef<Log[]>(logs)
 	const [loggerFilter, setLoggerFilter] = useContext(LoggerFilterContext);
 
 	function calculateLoggerFilter(filter: LoggerFilter) {
@@ -23,6 +24,12 @@ export default function Logger() {
 			setLoggerFilter(filter)
 		}
 	}
+
+	useEffect(() => {
+		if (!loggerFilter.pause) {
+			displayedLogs.current = logs
+		}
+	}, [logs, displayedLogs, loggerFilter])
 
 	return (
 		<div className={`${style.panel_item_container} ${style.system_logger}`}>
@@ -77,12 +84,17 @@ export default function Logger() {
 					</button>
 				</div>
 				<div className={style.system_logger_action_container}>
-					<button type="button" className={style.system_logger_filter_action}
-					// onClick="systemLogPause()"
-					>
-						<span className="material-symbols-rounded">
+					<button type="button" className={style.system_logger_filter_action} onClick={() => {
+						if (loggerFilter.pause) {
+							displayedLogs.current = logs
+						}
+						setLoggerFilter({ ...loggerFilter, pause: !loggerFilter.pause })
+					}
+					}>
+						<Icon iconName="pause" />
+						{/* <span className="material-symbols-rounded">
 							pause
-						</span>
+						</span> */}
 					</button>
 					<button type="button" className={style.system_logger_filter_action}
 					// onClick="systemLogRefresh()"
@@ -91,7 +103,7 @@ export default function Logger() {
 							refresh
 						</span>
 					</button>
-					<button type="button" className={style.system_logger_filter_action} onClick={resetLogs}>
+					<button type="button" className={style.system_logger_filter_action} onClick={() => { resetLogs(); displayedLogs.current = [] }}>
 						<span className="material-symbols-rounded">
 							delete
 						</span>
@@ -99,33 +111,37 @@ export default function Logger() {
 				</div>
 			</div>
 			<div className={style.system_logger_display}>
-				<div className={style.system_logger_display_text}>
-					{
-						logs.map((log: Log, i: number) => {
-							switch (log.type) {
-								case "log":
-									if (loggerFilter.log || loggerFilter.all) {
-										// console.log("adding ", log, " to system logger")
+				<div className={style.system_logger_display_container_text}>
+					<div className={style.system_logger_display_text}>
+						{
+							displayedLogs.current.map((log: Log, i: number) => {
+								switch (log.type) {
+									case "log":
+										if (loggerFilter.log || loggerFilter.all) {
+											// console.log("adding ", log, " to system logger")
+											return (<h3 key={i} className={`${style[log.type]}`}>LOG - {log.message}</h3>)
+										}
+									case "success":
+										if (loggerFilter.success || loggerFilter.all) {
+											// console.log("adding ", log, " to system logger")
+											return (<h3 key={i} className={`${style[log.type]}`}>SUCCESS - {log.message}</h3>)
+										}
+									case "warn":
+										if (loggerFilter.warn || loggerFilter.all) {
+											// console.log("adding ", log, " to system logger")
+											return (<h3 key={i} className={`${style[log.type]}`}>WARNING - {log.message}</h3>)
+										}
+									case "error":
+										if (loggerFilter.error || loggerFilter.all) {
+											// console.log("adding ", log, " to system logger")
+											return (<h3 key={i} className={`${style[log.type]}`}>ERROR - {log.message}</h3>)
+										}
+									case "comment":
 										return (<h3 key={i} className={`${style[log.type]}`}>{log.message}</h3>)
-									}
-								case "success":
-									if (loggerFilter.success || loggerFilter.all) {
-										// console.log("adding ", log, " to system logger")
-										return (<h3 key={i} className={`${style[log.type]}`}>{log.message}</h3>)
-									}
-								case "warn":
-									if (loggerFilter.warn || loggerFilter.all) {
-										// console.log("adding ", log, " to system logger")
-										return (<h3 key={i} className={`${style[log.type]}`}>{log.message}</h3>)
-									}
-								case "error":
-									if (loggerFilter.error || loggerFilter.all) {
-										// console.log("adding ", log, " to system logger")
-										return (<h3 key={i} className={`${style[log.type]}`}>{log.message}</h3>)
-									}
-							}
-						})
-					}
+								}
+							})
+						}
+					</div>
 				</div>
 			</div>
 		</div>

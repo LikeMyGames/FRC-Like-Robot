@@ -4,7 +4,6 @@
     height: 100%;
     border: 0px solid #5cb2ff;
     border-right-width: 2px;
-    width: 100%;
 }
 
 .panel_item_subpanel:last-child {
@@ -48,16 +47,20 @@
     grid-template-rows: 1fr;
     /* justify-content: flex-start; */
     align-items: center;
+    border: 2px #5cb2ff solid;
+    border-radius: 5px;
 }
 
 .robot_battery_status_display_bar {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     height: 100%;
-    width: 50%;
+    /* width: 50%; */
     justify-self: flex-start;
     background-color: #92ff5c;
     position: relative;
+    left: 0px;
+    border-radius: 3px;
 }
 
 .robot_battery_status_display_value {
@@ -143,10 +146,10 @@
     width: 50px;
 }
 
-.robot_status_indicator_display[value="false"] {
+.robot_status_indicator_display {
     background-color: #ff5c5c;
 }
 
-.robot_status_indicator_display[value="true"] {
+.robot_status_indicator_display_true {
     background-color: #92ff5c;
 }

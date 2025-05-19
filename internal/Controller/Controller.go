@@ -9,6 +9,7 @@ import (
 	"frcrobot/internal/GUI"
 
 	"github.com/karalabe/hid"
+	"github.com/tajtiattila/xinput"
 )
 
 type (
@@ -25,9 +26,9 @@ type (
 
 	Controller struct {
 		Config       ControllerConfig
-		ControllerID int
+		ControllerID uint
 		Inputs       []*ControllerInput
-		Device       *hid.Device
+		State        *xinput.State
 	}
 )
 
@@ -38,7 +39,7 @@ type ConstrollerDeadzones struct {
 	TriggerR float32 `json:"triggerR"`
 }
 
-func StartController(controllerID int, scheduler *Command.CommandScheduler) *Controller {
+func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Controller {
 	config := ControllerConfig{}
 	File.ReadJSON("controller.config", &config)
 	fmt.Println("Controller Config: ", config)
@@ -52,7 +53,7 @@ func StartController(controllerID int, scheduler *Command.CommandScheduler) *Con
 	controller := &Controller{
 		Config:       config,
 		ControllerID: controllerID,
-		Device:       device,
+		State:        &xinput.State{},
 	}
 	scheduler.ScheduleCommand(NewReadControllerCommand(controller, scheduler))
 	return controller
@@ -193,15 +194,16 @@ func NewReadControllerCommand(controller *Controller, scheduler *Command.Command
 				scheduler  *Command.CommandScheduler
 			})
 			if ok {
-				var data []byte
-				num, err := req.controller.Device.Read(data)
-				if err != nil {
-					log.Fatal(err)
-				}
-				log.Println(num)
-				log.Println(data)
-				GUI.SendData(fmt.Append([]byte(`{"system_logger":{"type":"log","message":"`), data, []byte(`"}}`)))
+				xinput.GetState(req.controller.ControllerID, req.controller.State)
+				// num, err := req.controller.Device.Read(data)
+				// if err != nil {
+				// 	log.Fatal(err)
+				// }
+				// log.Println(num)
+				log.Println(req.controller.State)
+				GUI.SendData([]byte(`{"system_logger":{"type":"log","message":"controller input:` + fmt.Sprintf("%v", req.controller.State) + `"}}`))
 			}
+
 			// if ok {
 			// 	state, err := req.controller.GamePad.State()
 			// 	if err != nil {
