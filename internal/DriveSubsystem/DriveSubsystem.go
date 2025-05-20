@@ -47,7 +47,7 @@ type (
 	}
 )
 
-func NewSwerveDrive(constants string) SwerveDrive {
+func NewSwerveDrive(constants string) *SwerveDrive {
 	pose := Pose2D{VectorMath.Vector2D{X: 0, Y: 0}, 0}
 	config := SwerveDriveConfig{}
 	File.ReadJSON(constants, &config)
@@ -56,7 +56,7 @@ func NewSwerveDrive(constants string) SwerveDrive {
 	fmt.Println("Drive Config: ", config)
 	swerve_modules := SwerveDriveModules{VectorMath.Vector2D{X: 0, Y: 0}, VectorMath.Vector2D{X: 0, Y: 0}, VectorMath.Vector2D{X: 0, Y: 0}, VectorMath.Vector2D{X: 0, Y: 0}}
 
-	return SwerveDrive{Pose: pose, Config: config, SwerveModules: swerve_modules}
+	return &SwerveDrive{Pose: pose, Config: config, SwerveModules: swerve_modules}
 }
 
 func (drive *SwerveDrive) CalculateSwerveModules(trans VectorMath.Vector2D, rot float32) {

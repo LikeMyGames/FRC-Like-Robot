@@ -38,6 +38,7 @@ export type RobotStatus = {
 
 export type RobotInfo = {
 	botNet: string
+	controller: string
 }
 
 export const RunningContext = createContext<[boolean, (value: boolean) => void]>([false, (value) => { console.log(value) }]);
@@ -49,8 +50,9 @@ export const RobotInfoContext = createContext<[RobotInfo, (value: RobotInfo) => 
 
 export default function Home() {
 	const [panel, setPanel] = useState<string>("driving")
-	const [robotInfo, setRobotInfo] = useState<RobotInfo>({ botNet: "ws://localhost:8080" } as RobotInfo)
+	const [robotInfo, setRobotInfo] = useState<RobotInfo>({ botNet: "ws://localhost:8080", controller: "ws://localhost:3030" } as RobotInfo)
 	const robotConn = useRef<WebSocket | null>(null);
+	const controllerConn = useRef<WebSocket | null>(null)
 	const [runningMode, setRunningMode] = useState<string>("teleop")
 	const [running, setRunning] = useState<boolean>(false)
 	const [loggerFilter, setLoggerFilter] = useState<LoggerFilter>({
@@ -75,24 +77,6 @@ export default function Home() {
 	const newRobotStat = useRef<RobotStatus>(robotStat)
 	const socketMessages = useRef<SocketData[]>([] as SocketData[])
 	const lastSocketMessage = useRef<SocketData>({} as SocketData)
-	// const [isWindowLoaded, setIsWindowLoaded] = useState<boolean>(false)
-
-	// if (isWindowLoaded) {
-	// 	// window.addEventListener("gamepadconnected", gamepadAPI.connect);
-	// 	// window.addEventListener("gamepaddisconnected", gamepadAPI.disconnect)
-	// 	console.log("window is loaded")
-	// 	window.addEventListener("gamepadconnected", (e) => {
-	// 		console.log(
-	// 			"Gamepad connected at index %d: %s. %d buttons, %d axes.",
-	// 			e.gamepad.index,
-	// 			e.gamepad.id,
-	// 			e.gamepad.buttons.length,
-	// 			e.gamepad.axes.length,
-	// 		);
-	// 	});
-
-	// 	// window.addEventListener("gamepaddisconnected", gamepadAPI.disconnect)
-	// }
 
 	const resetLogs = () => {
 		newLogs.current = []
@@ -116,7 +100,37 @@ export default function Home() {
 			}
 		}
 
+		if (controllerConn.current == null) {
+			console.log("attempting controller re-connect")
+			controllerConn.current = new WebSocket(robotInfo.controller)
 
+			controllerConn.current.onmessage = (event) => {
+				if (event.data.system_logger) {
+					addLog(event.data.system_logger as Log)
+				}
+				if (robotConn.current) {
+					robotConn.current.send(event.data)
+				}
+			};
+
+			controllerConn.current.onclose = () => {
+				controllerConn.current = null
+				setRobotStatus({ joy: false } as RobotStatus)
+			};
+
+			controllerConn.current.onerror = (error) => {
+				console.error(error)
+				controllerConn.current = null
+				setRobotStatus({ joy: false } as RobotStatus)
+			};
+
+			controllerConn.current.onopen = () => {
+				setRobotStatus({ joy: true } as RobotStatus)
+				if (controllerConn.current) {
+					controllerConn.current.send(`{"message":"controller connection good"}`)
+				}
+			};
+		}
 
 		if ((robotConn.current == null) && !loggerFilter.pause) {
 			console.log("attempting websocket re-connect")

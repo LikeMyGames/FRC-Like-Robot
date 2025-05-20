@@ -1,6 +1,7 @@
 package GUI
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -19,6 +20,38 @@ var upgrader = websocket.Upgrader{
 
 var connection any
 
+type (
+	WebSocketData struct {
+		SystemLog   *Logger          `json:"system_logger"`
+		RobotStatus *Status          `json:"robot_status"`
+		Controller  *ControllerState `json:"controller"`
+	}
+
+	Logger struct {
+		Type    string `json:"type,omitempty"`
+		Message string `json:"message,omitempty"`
+	}
+
+	Status struct {
+		Comms bool    `json:"comms,omitempty"`
+		Code  bool    `json:"code,omitempty"`
+		Joy   bool    `json:"joy,omitempty"`
+		Msg   string  `json:"message,omitempty"`
+		BatP  uint    `json:"bat_p,omitempty"`
+		BatV  float64 `json:"bat_v,omitempty"`
+	}
+
+	ControllerState struct {
+		Buttons  uint16 `json:"buttons,omitempty"`
+		TriggerL uint8  `json:"triggerL,omitempty"`
+		TriggerR uint8  `json:"triggerR,omitempty"`
+		ThumbLX  uint8  `json:"thumbLX,omitempty"`
+		ThumbLY  uint8  `json:"thumbLY,omitempty"`
+		ThumbRX  uint8  `json:"thumbRX,omitempty"`
+		ThumbRY  uint8  `json:"thumbRY,omitempty"`
+	}
+)
+
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.URL.Host)
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -35,29 +68,38 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("received: %s\n", p)
 
-	err = conn.WriteMessage(1, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"}}`))
+	err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"}}`))
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
+	for {
+		_, msg, err := conn.ReadMessage()
+		if err != nil {
+			log.Println("read:", err)
+			break
+		}
+		// log.Printf("recv: %s", msg)
+		data := &WebSocketData{}
+		err = json.Unmarshal(msg, data)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if data.Controller != nil {
+			Log(fmt.Sprintf("%v", data.Controller))
+		}
+
+		// err = conn.WriteMessage(mt, msg)
+		// if err != nil {
+		// 	log.Println("write:", err)
+		// 	break
+		// }
+	}
 }
 
-// func handleAPI(w http.ResponseWriter, r *http.Request) {
-// 	if r.Method == "POST" {
-// 		body, err := io.ReadAll(r.Body)
-// 		if err != nil {
-// 			log.Print(err)
-// 			return
-// 		}
-// 		fmt.Println("Received from frontend:", string(body))
-// 		w.Write([]byte("Data received"))
-// 	}
-// }
-
 func StartUI() {
-	http.Handle("/", http.FileServer(http.Dir("./StaticGUI")))
-	http.HandleFunc("/ws", handleWebSocket)
+	http.HandleFunc("/", handleWebSocket)
 
 	log.Println("Server started on localhost:8080")
 	go log.Fatal(http.ListenAndServe(":8080", nil))

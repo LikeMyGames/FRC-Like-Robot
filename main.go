@@ -1,20 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"frcrobot/internal/Command"
-	"frcrobot/internal/Controller"
-	"frcrobot/internal/DriveSubsystem"
 	"frcrobot/internal/GUI"
+	"frcrobot/internal/Robot"
+)
+
+var (
+	robot *Robot.Robot
 )
 
 func main() {
-	go GUI.StartUI()
-	drive := DriveSubsystem.NewSwerveDrive("robot.constants")
-	fmt.Println(drive)
-	scheduler := Command.NewCommandScheduler()
-	Controller.StartController(0, scheduler)
+	GUI.StartUI()
+	// robot = Robot.NewRobot([]uint{0})
 
-	//make sure to keep this call last
-	scheduler.Start()
+	// robot.Start()
 }
