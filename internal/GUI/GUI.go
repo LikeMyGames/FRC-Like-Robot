@@ -1,10 +1,10 @@
 package GUI
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -28,27 +28,27 @@ type (
 	}
 
 	Logger struct {
-		Type    string `json:"type,omitempty"`
-		Message string `json:"message,omitempty"`
+		Type    string `json:"type"`
+		Message string `json:"message"`
 	}
 
 	Status struct {
-		Comms bool    `json:"comms,omitempty"`
-		Code  bool    `json:"code,omitempty"`
-		Joy   bool    `json:"joy,omitempty"`
-		Msg   string  `json:"message,omitempty"`
-		BatP  uint    `json:"bat_p,omitempty"`
-		BatV  float64 `json:"bat_v,omitempty"`
+		Comms bool    `json:"comms"`
+		Code  bool    `json:"code"`
+		Joy   bool    `json:"joy"`
+		Msg   string  `json:"message"`
+		BatP  uint    `json:"bat_p"`
+		BatV  float64 `json:"bat_v"`
 	}
 
 	ControllerState struct {
-		Buttons  uint16 `json:"buttons,omitempty"`
-		TriggerL uint8  `json:"triggerL,omitempty"`
-		TriggerR uint8  `json:"triggerR,omitempty"`
-		ThumbLX  uint8  `json:"thumbLX,omitempty"`
-		ThumbLY  uint8  `json:"thumbLY,omitempty"`
-		ThumbRX  uint8  `json:"thumbRX,omitempty"`
-		ThumbRY  uint8  `json:"thumbRY,omitempty"`
+		Buttons  uint16 `json:"buttons"`
+		TriggerL uint8  `json:"triggerL"`
+		TriggerR uint8  `json:"triggerR"`
+		ThumbLX  int16  `json:"thumbLX"`
+		ThumbLY  int16  `json:"thumbLY"`
+		ThumbRX  int16  `json:"thumbRX"`
+		ThumbRY  int16  `json:"thumbRY"`
 	}
 )
 
@@ -68,26 +68,24 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("received: %s\n", p)
 
-	err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"}}`))
+	err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"},"robot_status":{"comms":true,"code":true}}`))
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
+	data := &WebSocketData{}
 	for {
-		_, msg, err := conn.ReadMessage()
-		if err != nil {
-			log.Println("read:", err)
-			break
-		}
-		// log.Printf("recv: %s", msg)
-		data := &WebSocketData{}
-		err = json.Unmarshal(msg, data)
+		time.Sleep(time.Millisecond * 20)
+
+		err := conn.ReadJSON(data)
 		if err != nil {
 			log.Fatal(err)
+			continue
 		}
 		if data.Controller != nil {
-			Log(fmt.Sprintf("%v", data.Controller))
+			fmt.Println(*data.Controller)
+			Log(fmt.Sprintf("%v", *data.Controller))
 		}
 
 		// err = conn.WriteMessage(mt, msg)
@@ -134,7 +132,7 @@ func Log(data string) {
 	if !ok {
 		return
 	}
-	ws.WriteMessage(1, []byte(`{"type":"log","`+data+`"}`))
+	ws.WriteMessage(1, fmt.Append(nil, `{"type":"log","message":"`+data+`"}`))
 }
 
 func Comment(data string) {
@@ -142,7 +140,7 @@ func Comment(data string) {
 	if !ok {
 		return
 	}
-	ws.WriteMessage(1, []byte(`{"type":"comment","`+data+`"}`))
+	ws.WriteMessage(1, fmt.Append(nil, `{"type":"comment","message":"`+data+`"}`))
 }
 
 func Success(data string) {
@@ -150,7 +148,7 @@ func Success(data string) {
 	if !ok {
 		return
 	}
-	ws.WriteMessage(1, []byte(`{"type":"success","`+data+`"}`))
+	ws.WriteMessage(1, fmt.Append(nil, `{"type":"success","message":"`+data+`"}`))
 }
 
 func Warn(data string) {
@@ -158,7 +156,7 @@ func Warn(data string) {
 	if !ok {
 		return
 	}
-	ws.WriteMessage(1, []byte(`{"type":"warn","`+data+`"}`))
+	ws.WriteMessage(1, fmt.Append(nil, `{"type":"warn","message":"`+data+`"}`))
 }
 
 func Error(data string) {
@@ -166,5 +164,5 @@ func Error(data string) {
 	if !ok {
 		return
 	}
-	ws.WriteMessage(1, []byte(`{"type":"error","`+data+`"}`))
+	ws.WriteMessage(1, fmt.Append(nil, `{"type":"error","message":"`+data+`"}`))
 }

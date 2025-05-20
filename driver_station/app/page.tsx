@@ -105,6 +105,7 @@ export default function Home() {
 			controllerConn.current = new WebSocket(robotInfo.controller)
 
 			controllerConn.current.onmessage = (event) => {
+				// console.log(event.data)
 				if (event.data.system_logger) {
 					addLog(event.data.system_logger as Log)
 				}
@@ -115,17 +116,18 @@ export default function Home() {
 
 			controllerConn.current.onclose = () => {
 				controllerConn.current = null
+				addLog({ type: "warn", message: "controller disconnected" })
 				setRobotStatus({ joy: false } as RobotStatus)
 			};
 
 			controllerConn.current.onerror = (error) => {
-				console.error(error)
-				controllerConn.current = null
-				setRobotStatus({ joy: false } as RobotStatus)
+				addLog({ type: "error", message: "Controller Websocket connection error" })
+				console.log('Controller WebSocket error:', error);
 			};
 
 			controllerConn.current.onopen = () => {
 				setRobotStatus({ joy: true } as RobotStatus)
+				addLog({ type: "success", message: "Controller WebSocket connected" })
 				if (controllerConn.current) {
 					controllerConn.current.send(`{"message":"controller connection good"}`)
 				}
@@ -155,11 +157,10 @@ export default function Home() {
 				setRobotStatus({
 					comms: false,
 					code: false,
-					joy: false,
 					message: "No Robot Connection",
 					bat_p: 0,
 					bat_v: 0
-				})
+				} as RobotStatus)
 				console.log('WebSocket connection closed');
 			};
 

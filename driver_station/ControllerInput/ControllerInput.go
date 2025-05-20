@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/tajtiattila/xinput"
@@ -48,12 +49,13 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	xinput.Load()
 	state := &xinput.State{}
 	for {
+		time.Sleep(time.Millisecond * 20)
 		err := xinput.GetState(0, state)
 		if err != nil {
 			conn.WriteMessage(websocket.TextMessage, []byte(`"system_logger":{"type":"warn","message":"controller disconnected"}`))
 			conn.Close()
 			return
 		}
-		conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf(`{"controller":{"buttons":"%v","triggerL":"%v","triggerR":"%v","thumbLX":"%v","thumbLY":"%v","thumbRX":"%v","thumbRY":"%v"}}`, state.Gamepad.Buttons, state.Gamepad.LeftTrigger, state.Gamepad.RightTrigger, state.Gamepad.ThumbLX, state.Gamepad.ThumbLY, state.Gamepad.ThumbRX, state.Gamepad.ThumbRY)))
+		conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf(`{"controller":{"buttons":%v,"triggerL":%v,"triggerR":%v,"thumbLX":%v,"thumbLY":%v,"thumbRX":%v,"thumbRY":%v}}`, state.Gamepad.Buttons, state.Gamepad.LeftTrigger, state.Gamepad.RightTrigger, state.Gamepad.ThumbLX, state.Gamepad.ThumbLY, state.Gamepad.ThumbRX, state.Gamepad.ThumbRY)))
 	}
 }
