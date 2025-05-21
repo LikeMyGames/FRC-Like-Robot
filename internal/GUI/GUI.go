@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -42,15 +41,20 @@ type (
 	}
 
 	ControllerState struct {
-		Buttons  uint16 `json:"buttons"`
-		TriggerL uint8  `json:"triggerL"`
-		TriggerR uint8  `json:"triggerR"`
-		ThumbLX  int16  `json:"thumbLX"`
-		ThumbLY  int16  `json:"thumbLY"`
-		ThumbRX  int16  `json:"thumbRX"`
-		ThumbRY  int16  `json:"thumbRY"`
+		ControllerID uint   `json:"ctrlID"`
+		Buttons      uint16 `json:"buttons"`
+		TriggerL     uint8  `json:"triggerL"`
+		TriggerR     uint8  `json:"triggerR"`
+		ThumbLX      int16  `json:"thumbLX"`
+		ThumbLY      int16  `json:"thumbLY"`
+		ThumbRX      int16  `json:"thumbRX"`
+		ThumbRY      int16  `json:"thumbRY"`
 	}
 )
+
+var LastMessage *WebSocketData
+
+var LastControllerState *ControllerState
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.URL.Host)
@@ -76,23 +80,16 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 
 	data := &WebSocketData{}
 	for {
-		time.Sleep(time.Millisecond * 20)
-
 		err := conn.ReadJSON(data)
 		if err != nil {
 			log.Fatal(err)
 			continue
 		}
 		if data.Controller != nil {
-			fmt.Println(*data.Controller)
-			Log(fmt.Sprintf("%v", *data.Controller))
+			LastControllerState = data.Controller
+		} else {
+			LastMessage = data
 		}
-
-		// err = conn.WriteMessage(mt, msg)
-		// if err != nil {
-		// 	log.Println("write:", err)
-		// 	break
-		// }
 	}
 }
 
