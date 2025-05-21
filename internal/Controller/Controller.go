@@ -11,6 +11,23 @@ import (
 	"github.com/tajtiattila/xinput"
 )
 
+const (
+	A               = "BUTTON_A"
+	B               = "BUTTON_B"
+	X               = "BUTTON_X"
+	Y               = "BUTTON_Y"
+	DpadUP          = "DPAD_UP"
+	DpadDown        = "DPAD_DOWN"
+	DpadLeft        = "DPAD_LEFT"
+	DpadRight       = "DPAD_RIGHT"
+	LeftStickPress  = "LEFT_THUMB"
+	RightStickPress = "RIGHT_THUMB"
+	LeftShoulder    = "LEFT_SHOULDER"
+	RightShoulder   = "RIGHT_SHOULDER"
+	Start           = "START"
+	Back            = "BACK"
+)
+
 type (
 	ControllerConfig struct {
 		ControllerNum int                  `json:"controllerNum"`
@@ -90,6 +107,11 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 					for _, action := range req.ctrl.Actions {
 						contains = slices.Contains(buttons, action.ListenValue)
 						if (action.whileTrue && contains) || (!action.whileTrue && !contains) {
+							// if !slices.ContainsFunc(req.scheduler.Commands, func(command *Command.Command) bool {
+							// 	return command.Name == action.Command.Name
+							// }) {
+							// 	req.scheduler.ScheduleCommand(action.Command)
+							// }
 							req.scheduler.ScheduleCommand(action.Command)
 						}
 					}

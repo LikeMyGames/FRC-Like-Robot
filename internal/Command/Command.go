@@ -47,6 +47,9 @@ func (scheduler *CommandScheduler) Start() {
 					v.FirstRun = false
 				}
 				v.End = v.Execute(v.Required)
+				if v.End {
+					scheduler.Commands = slices.Delete(scheduler.Commands, i, i+1)
+				}
 			} else {
 				scheduler.Commands = slices.Delete(scheduler.Commands, i, i+1)
 			}
@@ -55,7 +58,6 @@ func (scheduler *CommandScheduler) Start() {
 }
 
 func (scheduler *CommandScheduler) ScheduleCommand(commands *Command) {
-	log.Println("Scheduled commands: ", commands.Name)
 	scheduler.Commands = append(scheduler.Commands, commands)
 }
 

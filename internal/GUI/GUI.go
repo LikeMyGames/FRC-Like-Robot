@@ -21,9 +21,10 @@ var connection any
 
 type (
 	WebSocketData struct {
-		SystemLog   *Logger          `json:"system_logger"`
-		RobotStatus *Status          `json:"robot_status"`
-		Controller  *ControllerState `json:"controller"`
+		SystemLog       *Logger          `json:"system_logger"`
+		RobotStatus     *Status          `json:"robot_status"`
+		RunningSettings *RunSettings     `json:"running_settings"`
+		Controller      *ControllerState `json:"controller"`
 	}
 
 	Logger struct {
@@ -38,6 +39,11 @@ type (
 		Msg   string  `json:"message"`
 		BatP  uint    `json:"bat_p"`
 		BatV  float64 `json:"bat_v"`
+	}
+
+	RunSettings struct {
+		Enabled bool   `json:"enabled"`
+		Mode    string `json:"running_mode"`
 	}
 
 	ControllerState struct {
@@ -97,7 +103,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		if data.Controller != nil {
 			LastControllerState = data.Controller
 		} else {
-			LastMessage = data
+
 		}
 	}
 }

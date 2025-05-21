@@ -12,12 +12,29 @@ type (
 		DriveSubsystem *DriveSubsystem.SwerveDrive
 		Controllers    []*Controller.Controller
 		Scheduler      *Command.CommandScheduler
+		Enabled        bool
 	}
 )
 
 var (
 	robot *Robot
 )
+
+func AddControllerActions(ctrl *Controller.Controller) {
+	ctrl.AddAction(Controller.B, &Command.Command{
+		Required:   "button b pressed",
+		FirstRun:   true,
+		Name:       "button b input",
+		Initialize: func() {},
+		Execute: func(required any) bool {
+			req, ok := required.(string)
+			if ok {
+				fmt.Println(req)
+			}
+			return true
+		},
+	}).WhileTrue()
+}
 
 func NewRobot(controllerID []uint) *Robot {
 	// Create a new scheduler for the robot
@@ -33,21 +50,11 @@ func NewRobot(controllerID []uint) *Robot {
 		controllers[i] = Controller.StartController(v, scheduler)
 	}
 
-	controllers[0].AddAction("BUTTON_B", &Command.Command{
-		Required:   nil,
-		FirstRun:   true,
-		Name:       "button b input",
-		Initialize: func() {},
-		Execute: func(required any) bool {
-			fmt.Println("button b pressed")
-			return true
-		},
-	}).WhileTrue()
-
 	return &Robot{
 		Scheduler:      scheduler,
 		DriveSubsystem: drive,
 		Controllers:    controllers,
+		Enabled:        false,
 	}
 }
 
