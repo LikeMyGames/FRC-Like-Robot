@@ -7,6 +7,7 @@ import ConnectionsPanel from "@/components/Panels/Connections/Connections";
 import DrivingPanel from "@/components/Panels/Driving";
 import SettingsPanel from "@/components/Panels/Settings";
 import { useState, createContext, useRef, useEffect } from "react";
+import { runExe } from "./scripts/controller-loader";
 
 export type LoggerFilter = {
 	all: boolean;
@@ -101,6 +102,7 @@ export default function Home() {
 		}
 
 		if (controllerConn.current == null) {
+			runExe("@/ControllerInput/ControllerInput.exe")
 			console.log("attempting controller re-connect")
 			controllerConn.current = new WebSocket(robotInfo.controller)
 

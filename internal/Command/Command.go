@@ -54,9 +54,9 @@ func (scheduler *CommandScheduler) Start() {
 	}
 }
 
-func (scheduler *CommandScheduler) ScheduleCommand(commands ...*Command) {
-	log.Println("Scheduled commands: ", commands)
-	scheduler.Commands = append(scheduler.Commands, commands...)
+func (scheduler *CommandScheduler) ScheduleCommand(commands *Command) {
+	log.Println("Scheduled commands: ", commands.Name)
+	scheduler.Commands = append(scheduler.Commands, commands)
 }
 
 // func (command *DefaultCommand) Initialize() {

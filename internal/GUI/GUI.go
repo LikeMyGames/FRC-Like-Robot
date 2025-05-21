@@ -54,7 +54,16 @@ type (
 
 var LastMessage *WebSocketData
 
-var LastControllerState *ControllerState
+var LastControllerState *ControllerState = &ControllerState{
+	ControllerID: 0,
+	Buttons:      0,
+	TriggerL:     0,
+	TriggerR:     0,
+	ThumbLX:      0,
+	ThumbLY:      0,
+	ThumbRX:      0,
+	ThumbRY:      0,
+}
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.URL.Host)

@@ -51,40 +51,41 @@ func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Co
 		Config:       config,
 		ControllerID: controllerID,
 		Actions:      nil,
-		State:        nil,
+		State:        &xinput.State{PacketNumber: 0, Gamepad: xinput.Gamepad{}},
 	}
 	Controllers = append(Controllers, ctrl)
-	scheduler.ScheduleCommand(NewReadControllerCommand(ctrl, GUI.LastControllerState, scheduler))
+	scheduler.ScheduleCommand(NewReadControllerCommand(ctrl, scheduler))
 	return ctrl
 }
 
-func NewReadControllerCommand(ctrl *Controller, ctrlState *GUI.ControllerState, scheduler *Command.CommandScheduler) *Command.Command {
+func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandScheduler) *Command.Command {
 	return &Command.Command{
 		Required: struct {
 			ctrl      *Controller
-			ctrlState *GUI.ControllerState
 			scheduler *Command.CommandScheduler
-		}{ctrl: ctrl, ctrlState: ctrlState, scheduler: scheduler},
-		FirstRun: true,
-		Name:     fmt.Sprintf("Read Controller ID: %v", ctrl.ControllerID),
+		}{ctrl: ctrl, scheduler: scheduler},
+		FirstRun:   true,
+		Name:       fmt.Sprintf("Read Controller ID: %v", ctrl.ControllerID),
+		Initialize: func() {},
 		Execute: func(required any) bool {
 			req, ok := required.(struct {
 				ctrl      *Controller
-				ctrlState *GUI.ControllerState
 				scheduler *Command.CommandScheduler
 			})
 			if ok {
-				if req.ctrlState.ControllerID == req.ctrl.ControllerID {
+				state := GUI.LastControllerState
+				if state.ControllerID == req.ctrl.ControllerID {
 					req.ctrl.State.Gamepad = xinput.Gamepad{
-						Buttons:      req.ctrlState.Buttons,
-						LeftTrigger:  req.ctrlState.TriggerL,
-						RightTrigger: req.ctrlState.TriggerR,
-						ThumbLX:      req.ctrlState.ThumbLX,
-						ThumbLY:      req.ctrlState.ThumbLY,
-						ThumbRX:      req.ctrlState.ThumbRX,
-						ThumbRY:      req.ctrlState.ThumbRY,
+						Buttons:      state.Buttons,
+						LeftTrigger:  state.TriggerL,
+						RightTrigger: state.TriggerR,
+						ThumbLX:      state.ThumbLX,
+						ThumbLY:      state.ThumbLY,
+						ThumbRX:      state.ThumbRX,
+						ThumbRY:      state.ThumbRY,
 					}
 					buttons := GetPressedButtons(req.ctrl.State.Gamepad.Buttons)
+					// fmt.Println(buttons)
 					contains := false
 					for _, action := range req.ctrl.Actions {
 						contains = slices.Contains(buttons, action.ListenValue)

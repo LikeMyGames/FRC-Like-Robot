@@ -5,13 +5,9 @@ import (
 	"frcrobot/internal/Robot"
 )
 
-var (
-	robot *Robot.Robot
-)
-
 func main() {
-	GUI.StartUI()
-	// robot = Robot.NewRobot([]uint{0})
+	go GUI.StartUI()
+	robot := Robot.NewRobot([]uint{0})
 
-	// robot.Start()
+	robot.Start()
 }
