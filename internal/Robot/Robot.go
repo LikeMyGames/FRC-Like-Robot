@@ -44,7 +44,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 					X float64
 					Y float64
 				}
-				axis := Axis{X: float64(req.State.Gamepad.ThumbLX), Y: float64(req.State.Gamepad.ThumbLY)}
+				axis := Axis{X: float64(req.Ctrl.State.Gamepad.ThumbLX), Y: float64(req.Ctrl.State.Gamepad.ThumbLY)}
 
 				pres := 2
 
