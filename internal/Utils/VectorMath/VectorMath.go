@@ -7,36 +7,36 @@ import (
 
 type (
 	Vector2D struct {
-		X float32 `json:"x"`
-		Y float32 `json:"y"`
+		X float64 `json:"x"`
+		Y float64 `json:"y"`
 	}
 
 	VectorTheta struct {
-		L float32 `json:"a"`
-		T float32 `json:"theta"`
+		L float64 `json:"a"`
+		T float64 `json:"theta"`
 	}
 )
 
 func Vector2DtoVectorTheta(v Vector2D) VectorTheta {
-	theta := float32(0.0)
+	theta := float64(0.0)
 	if v.X == 0 {
 		if v.Y > 0 {
-			theta = float32(math.Pi / 2)
+			theta = float64(math.Pi / 2)
 		} else if v.Y < 0 {
-			theta = float32(-math.Pi / 2)
+			theta = float64(-math.Pi / 2)
 		}
 	} else {
-		theta = float32(math.Atan(math.Abs(float64(v.Y / v.X))))
+		theta = float64(math.Atan(math.Abs(float64(v.Y / v.X))))
 		if v.X < 0 && v.Y > 0 {
-			theta = float32(math.Atan(math.Abs(float64(v.X/v.Y)))) + (math.Pi / 2)
+			theta = float64(math.Atan(math.Abs(float64(v.X/v.Y)))) + (math.Pi / 2)
 		} else if v.X < 0 && v.Y < 0 {
-			theta = float32(math.Atan(math.Abs(float64(v.Y/v.X)))) + math.Pi
+			theta = float64(math.Atan(math.Abs(float64(v.Y/v.X)))) + math.Pi
 		} else if v.X > 0 && v.Y < 0 {
-			theta = float32(math.Atan(math.Abs(float64(v.X/v.Y)))) + (3 * (math.Pi / 2))
+			theta = float64(math.Atan(math.Abs(float64(v.X/v.Y)))) + (3 * (math.Pi / 2))
 		}
 	}
-	l := float32(MathUtils.Clamp(float64(v.Y/float32(math.Sin(float64(theta)))), 1, 0))
-	if math.IsNaN(float64(l)) {
+	l := float64(MathUtils.Clamp(float64(v.Y/math.Sin(float64(theta))), 1, 0))
+	if math.IsNaN(l) {
 		l = 0
 	}
 
@@ -44,8 +44,8 @@ func Vector2DtoVectorTheta(v Vector2D) VectorTheta {
 }
 
 func VectorThetatoVector2D(v VectorTheta) Vector2D {
-	x := float32(math.Cos(float64(v.T))) * v.L
-	y := float32(math.Sin(float64(v.T))) * v.L
+	x := math.Cos(float64(v.T)) * v.L
+	y := math.Sin(float64(v.T)) * v.L
 
 	return Vector2D{X: x, Y: y}
 }
@@ -69,7 +69,7 @@ func VectorThetaSubtract(v1, v2 VectorTheta) VectorTheta {
 	return Vector2DtoVectorTheta(VectorSubtract(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 }
 
-func VectorAddNormalized(v1, v2 Vector2D, maxLen float32) Vector2D {
+func VectorAddNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v1theta := Vector2DtoVectorTheta(v1)
 	v2theta := Vector2DtoVectorTheta(v2)
 	v3 := VectorAdd(v1, v2)
@@ -78,7 +78,7 @@ func VectorAddNormalized(v1, v2 Vector2D, maxLen float32) Vector2D {
 	return VectorThetatoVector2D(v3theta)
 }
 
-func VectorSubtractNormalized(v1, v2 Vector2D, maxLen float32) Vector2D {
+func VectorSubtractNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v1theta := Vector2DtoVectorTheta(v1)
 	v2theta := Vector2DtoVectorTheta(v2)
 	v3 := VectorSubtract(v1, v2)
@@ -87,13 +87,13 @@ func VectorSubtractNormalized(v1, v2 Vector2D, maxLen float32) Vector2D {
 	return VectorThetatoVector2D(v3theta)
 }
 
-func VectorThetaAddNormalized(v1, v2 VectorTheta, maxLen float32) VectorTheta {
+func VectorThetaAddNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
 	v3 := Vector2DtoVectorTheta(VectorAdd(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 	v3.L = MathUtils.MapRange(v3.L, 0, v1.L+v2.L, 0, maxLen)
 	return v3
 }
 
-func VectorThetaSubtractNormalized(v1, v2 VectorTheta, maxLen float32) VectorTheta {
+func VectorThetaSubtractNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
 	v3 := Vector2DtoVectorTheta(VectorSubtract(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 	v3.L = MathUtils.MapRange(v3.L, 0, v1.L-v2.L, 0, maxLen)
 	return v3

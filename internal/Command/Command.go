@@ -36,12 +36,12 @@ func (scheduler *CommandScheduler) Start() {
 	ticker := time.NewTicker(scheduler.Interval)
 	GUI.Success("Scheduler started")
 	for range ticker.C {
-		for i, v := range scheduler.Commands {
+		for i := len(scheduler.Commands) - 1; i >= 0; i-- {
+			v := scheduler.Commands[i]
 			if v == nil {
 				continue
 			}
 			if !v.End {
-				// log.Println("running command: ", v.Name, &v)
 				if v.FirstRun {
 					v.Initialize()
 					v.FirstRun = false

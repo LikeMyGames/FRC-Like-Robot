@@ -102,7 +102,7 @@ export default function Home() {
 		}
 
 		if (controllerConn.current == null) {
-			runExe("@/ControllerInput/ControllerInput.exe")
+			runExe("./ControllerInput/ControllerInput.exe")
 			console.log("attempting controller re-connect")
 			controllerConn.current = new WebSocket(robotInfo.controller)
 

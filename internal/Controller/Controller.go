@@ -12,6 +12,8 @@ import (
 )
 
 const (
+	LeftStick       = "THUMB_L"
+	RightStick      = "THUMB_R"
 	A               = "BUTTON_A"
 	B               = "BUTTON_B"
 	X               = "BUTTON_X"
@@ -107,12 +109,21 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 					for _, action := range req.ctrl.Actions {
 						contains = slices.Contains(buttons, action.ListenValue)
 						if (action.whileTrue && contains) || (!action.whileTrue && !contains) {
-							// if !slices.ContainsFunc(req.scheduler.Commands, func(command *Command.Command) bool {
-							// 	return command.Name == action.Command.Name
-							// }) {
-							// 	req.scheduler.ScheduleCommand(action.Command)
-							// }
-							req.scheduler.ScheduleCommand(action.Command)
+							// Only schedule if not already scheduled
+							if !slices.ContainsFunc(req.scheduler.Commands, func(command *Command.Command) bool {
+								has := command.Name == action.Command.Name && !command.End
+								// fmt.Println(has)
+								return has
+							}) {
+								command := new(Command.Command)
+								*command = *action.Command
+								req.scheduler.ScheduleCommand(command)
+							}
+						}
+						if action.ListenValue == LeftStick || action.ListenValue == RightStick {
+							command := new(Command.Command)
+							*command = *action.Command
+							req.scheduler.ScheduleCommand(command)
 						}
 					}
 				}

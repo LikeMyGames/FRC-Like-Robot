@@ -3,7 +3,7 @@ import { exec } from "node:child_process";
 
 export async function runExe(filePath: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        exec(filePath, (error, stdout, stderr) => {
+        exec(`start ${filePath}`, (error, stdout, stderr) => {
             if (error) {
                 reject(error);
                 return;
