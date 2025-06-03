@@ -68,3 +68,14 @@ func (drive *SwerveDrive) CalculateSwerveModules(trans VectorMath.Vector2D, rot 
 	drive.SwerveModules.BackRight = VectorMath.VectorAddNormalized(drive.SwerveModules.BackRight, VectorMath.VectorAddNormalized(trans, VectorMath.VectorThetatoVector2D(VectorMath.VectorTheta{L: rot, T: (math.Pi / 4)}), 1), 1)
 	fmt.Println(drive.SwerveModules)
 }
+
+func (drive *SwerveDrive) DriveToPose(pose Pose2D) {
+	diff := Pose2D{}
+	diff.Location = VectorMath.Vector2D{X: pose.Location.X - drive.Pose.Location.X, Y: pose.Location.Y - drive.Pose.Location.Y}
+	diff.Angle = pose.Angle - drive.Pose.Angle
+	fmt.Println(diff)
+}
+
+func (drive *SwerveDrive) DriveToRelativePose(diff Pose2D) {
+
+}

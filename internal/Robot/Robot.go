@@ -27,9 +27,11 @@ func AddControllerActions(ctrl *Controller.Controller) {
 	// Axis commands
 	ctrl.AddAction(Controller.LeftStick, &Command.Command{
 		Required: struct {
-			Ctrl *Controller.Controller
+			Ctrl  *Controller.Controller
+			Robot *Robot
 		}{
-			Ctrl: ctrl,
+			Ctrl:  ctrl,
+			Robot: robot,
 		},
 		Name:       "drive wheels",
 		FirstRun:   true,
@@ -37,7 +39,8 @@ func AddControllerActions(ctrl *Controller.Controller) {
 		Initialize: func() {},
 		Execute: func(required any) bool {
 			req, ok := required.(struct {
-				Ctrl *Controller.Controller
+				Ctrl  *Controller.Controller
+				Robot *Robot
 			})
 			if ok {
 				type Axis struct {
@@ -51,6 +54,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 				axis.X = math.Round(MathUtils.MapRange(axis.X, -32768, 32768, -1, 1)*math.Pow10(pres)) / math.Pow10(pres)
 				axis.Y = math.Round(MathUtils.MapRange(axis.Y, -32768, 32768, -1, 1)*math.Pow10(pres)) / math.Pow10(pres)
 
+				// req.Robot.DriveSubsystem.DriveToRelativePose()
 				fmt.Println(axis)
 			}
 			return true
