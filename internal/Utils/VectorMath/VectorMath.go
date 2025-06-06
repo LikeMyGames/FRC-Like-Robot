@@ -2,19 +2,13 @@ package VectorMath
 
 import (
 	"frcrobot/internal/Utils/MathUtils"
+	"frcrobot/internal/Utils/Types"
 	"math"
 )
 
 type (
-	Vector2D struct {
-		X float64 `json:"x"`
-		Y float64 `json:"y"`
-	}
-
-	VectorTheta struct {
-		L float64 `json:"a"`
-		T float64 `json:"theta"`
-	}
+	Vector2D    = Types.Vector2D
+	VectorTheta = Types.VectorTheta
 )
 
 func Vector2DtoVectorTheta(v Vector2D) VectorTheta {

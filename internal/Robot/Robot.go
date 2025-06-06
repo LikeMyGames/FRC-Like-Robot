@@ -7,6 +7,7 @@ import (
 	"frcrobot/internal/DriveSubsystem"
 	"frcrobot/internal/GUI"
 	"frcrobot/internal/Utils/MathUtils"
+	"frcrobot/internal/Utils/Types"
 	"math"
 )
 
@@ -43,11 +44,8 @@ func AddControllerActions(ctrl *Controller.Controller) {
 				Robot *Robot
 			})
 			if ok {
-				type Axis struct {
-					X float64
-					Y float64
-				}
-				axis := Axis{X: float64(req.Ctrl.State.Gamepad.ThumbLX), Y: float64(req.Ctrl.State.Gamepad.ThumbLY)}
+
+				axis := Types.Axis{X: float64(req.Ctrl.State.Gamepad.ThumbLX), Y: float64(req.Ctrl.State.Gamepad.ThumbLY)}
 
 				pres := 2
 
@@ -84,8 +82,7 @@ func NewRobot(controllerID []uint) *Robot {
 	scheduler := Command.NewCommandScheduler()
 
 	// Initialize the drive subsystem
-	drive := DriveSubsystem.NewSwerveDrive("robot.constants")
-	fmt.Println(drive)
+	drive := DriveSubsystem.NewSwerveDrive("robot.constants.json", scheduler.Interval)
 
 	controllers := make([]*Controller.Controller, len(controllerID))
 

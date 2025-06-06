@@ -1,0 +1,51 @@
+{
+    "drive_maxes": {
+        "translationalV": 1,
+        "rotationalV": 180,
+        "translationalA": 0.5,
+        "rotationalA": 20,
+        "driveBase_width": 0.3,
+        "driveBase_depth": 0.3
+    },
+    "module_config": {
+        "maxTrans_speed": 1,
+        "maxTrans_accel": 0.5,
+        "maxRot_speed": 180,
+        "maxRot_accel": 20,
+        "wheel_radius": 0.0375
+    },
+    "modules": {
+        "frontLeft": {
+            "x": 0.15,
+            "y": 0.15,
+            "canID_drive": 10,
+            "canID_azimuth": 11,
+            "gearRatio_drive": 9,
+            "gearRatio_azimuth": 16
+        },
+        "frontRight": {
+            "x": 0.15,
+            "y": 0.15,
+            "canID_drive": 20,
+            "canID_azimuth": 21,
+            "gearRatio_drive": 9,
+            "gearRatio_azimuth": 16
+        },
+        "backRight": {
+            "x": 0.15,
+            "y": 0.15,
+            "canID_drive": 40,
+            "canID_azimuth": 41,
+            "gearRatio_drive": 9,
+            "gearRatio_azimuth": 16
+        },
+        "backLeft": {
+            "x": 0.15,
+            "y": 0.15,
+            "canID_drive": 30,
+            "canID_azimuth": 31,
+            "gearRatio_drive": 9,
+            "gearRatio_azimuth": 16
+        }
+    }
+}
