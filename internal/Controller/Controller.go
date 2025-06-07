@@ -7,8 +7,6 @@ import (
 	"frcrobot/internal/Command"
 	"frcrobot/internal/File"
 	"frcrobot/internal/GUI"
-
-	"github.com/tajtiattila/xinput"
 )
 
 const (
@@ -46,7 +44,17 @@ type (
 		Config       ControllerConfig
 		ControllerID uint
 		Actions      []*ControllerAction
-		State        *xinput.State
+		State        *State
+	}
+
+	State struct {
+		Buttons      uint16
+		LeftTrigger  uint8
+		RightTrigger uint8
+		ThumbLX      int16
+		ThumbLY      int16
+		ThumbRX      int16
+		ThumbRY      int16
 	}
 
 	ConstrollerDeadzones struct {
@@ -70,7 +78,7 @@ func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Co
 		Config:       config,
 		ControllerID: controllerID,
 		Actions:      nil,
-		State:        &xinput.State{PacketNumber: 0, Gamepad: xinput.Gamepad{}},
+		State:        &State{},
 	}
 	Controllers = append(Controllers, ctrl)
 	scheduler.ScheduleCommand(NewReadControllerCommand(ctrl, scheduler))
@@ -94,7 +102,7 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 			if ok {
 				state := GUI.LastControllerState
 				if state.ControllerID == req.ctrl.ControllerID {
-					req.ctrl.State.Gamepad = xinput.Gamepad{
+					req.ctrl.State = &State{
 						Buttons:      state.Buttons,
 						LeftTrigger:  state.TriggerL,
 						RightTrigger: state.TriggerR,
@@ -103,7 +111,7 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 						ThumbRX:      state.ThumbRX,
 						ThumbRY:      state.ThumbRY,
 					}
-					buttons := GetPressedButtons(req.ctrl.State.Gamepad.Buttons)
+					buttons := GetPressedButtons(req.ctrl.State.Buttons)
 					// fmt.Println(buttons)
 					contains := false
 					for _, action := range req.ctrl.Actions {

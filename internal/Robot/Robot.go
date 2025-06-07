@@ -8,7 +8,10 @@ import (
 	"frcrobot/internal/GUI"
 	"frcrobot/internal/Utils/MathUtils"
 	"frcrobot/internal/Utils/Types"
+	"log"
 	"math"
+
+	"github.com/gorilla/websocket"
 )
 
 type (
@@ -45,7 +48,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 			})
 			if ok {
 
-				axis := Types.Axis{X: float64(req.Ctrl.State.Gamepad.ThumbLX), Y: float64(req.Ctrl.State.Gamepad.ThumbLY)}
+				axis := Types.Axis{X: float64(req.Ctrl.State.ThumbLX), Y: float64(req.Ctrl.State.ThumbLY)}
 
 				pres := 2
 
@@ -106,6 +109,27 @@ func NewRobot(controllerID []uint) *Robot {
 
 func (r *Robot) Start() {
 	r.Scheduler.Start()
+	r.Scheduler.ScheduleCommand(&Command.Command{
+		Required:   nil,
+		Name:       "connect to hardware interface",
+		FirstRun:   true,
+		Initialize: func() {},
+		Execute: func(a any) bool {
+			conn, resp, err := websocket.DefaultDialer.Dial("ws://localhost:8765", nil)
+			if err != nil {
+				log.Println(err)
+				return false
+			}
+			log.Println(resp)
+			conn.WriteMessage(websocket.TextMessage, []byte("robot connected"))
+			_, data, err := conn.ReadMessage()
+			if err != nil {
+				log.Println(err)
+			}
+			log.Println(data)
+			return true
+		},
+	})
 }
 
 func GetRobot() *Robot {
