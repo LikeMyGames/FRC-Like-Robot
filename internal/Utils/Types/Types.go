@@ -27,8 +27,8 @@ type (
 	}
 
 	VectorTheta struct {
-		L float64 `json:"a"`
-		T float64 `json:"theta"`
+		Magnitude float64 `json:"a"`
+		Angle     float64 `json:"theta"`
 	}
 
 	Axis struct {

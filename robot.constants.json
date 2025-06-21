@@ -3,16 +3,16 @@
         "translationalV": 1,
         "rotationalV": 180,
         "translationalA": 0.5,
-        "rotationalA": 20,
-        "driveBase_width": 0.3,
-        "driveBase_depth": 0.3
+        "rotationalA": 20
     },
     "module_config": {
         "maxTrans_speed": 1,
         "maxTrans_accel": 0.5,
         "maxRot_speed": 180,
         "maxRot_accel": 20,
-        "wheel_radius": 0.0375
+        "wheel_radius": 0.0375,
+        "driveBase_width": 0.3,
+        "driveBase_length": 0.3
     },
     "modules": {
         "frontLeft": {

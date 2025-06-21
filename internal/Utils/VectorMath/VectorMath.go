@@ -34,12 +34,12 @@ func Vector2DtoVectorTheta(v Vector2D) VectorTheta {
 		l = 0
 	}
 
-	return VectorTheta{L: l, T: theta}
+	return VectorTheta{Magnitude: l, Angle: theta}
 }
 
 func VectorThetatoVector2D(v VectorTheta) Vector2D {
-	x := math.Cos(float64(v.T)) * v.L
-	y := math.Sin(float64(v.T)) * v.L
+	x := math.Cos(float64(v.Angle)) * v.Magnitude
+	y := math.Sin(float64(v.Angle)) * v.Magnitude
 
 	return Vector2D{X: x, Y: y}
 }
@@ -68,7 +68,7 @@ func VectorAddNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v2theta := Vector2DtoVectorTheta(v2)
 	v3 := VectorAdd(v1, v2)
 	v3theta := Vector2DtoVectorTheta(v3)
-	v3theta.L = MathUtils.MapRange(v3theta.L, 0, v1theta.L+v2theta.L, 0, maxLen)
+	v3theta.Magnitude = MathUtils.MapRange(v3theta.Magnitude, 0, v1theta.Magnitude+v2theta.Magnitude, 0, maxLen)
 	return VectorThetatoVector2D(v3theta)
 }
 
@@ -77,18 +77,18 @@ func VectorSubtractNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v2theta := Vector2DtoVectorTheta(v2)
 	v3 := VectorSubtract(v1, v2)
 	v3theta := Vector2DtoVectorTheta(v3)
-	v3theta.L = MathUtils.MapRange(v3theta.L, 0, v1theta.L-v2theta.L, 0, maxLen)
+	v3theta.Magnitude = MathUtils.MapRange(v3theta.Magnitude, 0, v1theta.Magnitude-v2theta.Magnitude, 0, maxLen)
 	return VectorThetatoVector2D(v3theta)
 }
 
 func VectorThetaAddNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
 	v3 := Vector2DtoVectorTheta(VectorAdd(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
-	v3.L = MathUtils.MapRange(v3.L, 0, v1.L+v2.L, 0, maxLen)
+	v3.Magnitude = MathUtils.MapRange(v3.Magnitude, 0, v1.Magnitude+v2.Magnitude, 0, maxLen)
 	return v3
 }
 
 func VectorThetaSubtractNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
 	v3 := Vector2DtoVectorTheta(VectorSubtract(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
-	v3.L = MathUtils.MapRange(v3.L, 0, v1.L-v2.L, 0, maxLen)
+	v3.Magnitude = MathUtils.MapRange(v3.Magnitude, 0, v1.Magnitude-v2.Magnitude, 0, maxLen)
 	return v3
 }

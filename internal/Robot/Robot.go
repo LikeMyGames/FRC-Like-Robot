@@ -8,10 +8,7 @@ import (
 	"frcrobot/internal/GUI"
 	"frcrobot/internal/Utils/MathUtils"
 	"frcrobot/internal/Utils/Types"
-	"log"
 	"math"
-
-	"github.com/gorilla/websocket"
 )
 
 type (
@@ -19,7 +16,8 @@ type (
 		DriveSubsystem *DriveSubsystem.SwerveDrive
 		Controllers    []*Controller.Controller
 		Scheduler      *Command.CommandScheduler
-		Enabled        bool
+		// HardwareConn   Hardware.Conn
+		Enabled bool
 	}
 )
 
@@ -85,7 +83,7 @@ func NewRobot(controllerID []uint) *Robot {
 	scheduler := Command.NewCommandScheduler()
 
 	// Initialize the drive subsystem
-	drive := DriveSubsystem.NewSwerveDrive("robot.constants.json", scheduler.Interval)
+	drive := DriveSubsystem.NewSwerveDrive(scheduler.Interval)
 
 	controllers := make([]*Controller.Controller, len(controllerID))
 
@@ -104,32 +102,33 @@ func NewRobot(controllerID []uint) *Robot {
 		AddControllerActions(robot.Controllers[i])
 	}
 
+	// robot.Scheduler.ScheduleCommand(&Command.Command{
+	// 	Required:   nil,
+	// 	Name:       "connect to hardware interface",
+	// 	FirstRun:   true,
+	// 	Initialize: func() {},
+	// 	Execute: func(a any) bool {
+	// 		conn, _, err := websocket.DefaultDialer.Dial("ws://localhost:8765", nil)
+	// 		if err != nil {
+	// 			log.Println(err)
+	// 			return false
+	// 		}
+	// 		conn.WriteMessage(websocket.TextMessage, []byte("robot connected"))
+	// 		_, data, err := conn.ReadMessage()
+	// 		if err != nil {
+	// 			log.Println(err)
+	// 		}
+	// 		log.Println(string(data))
+	// 		robot.HardwareConn = conn
+	// 		return true
+	// 	},
+	// })
+
 	return robot
 }
 
 func (r *Robot) Start() {
 	r.Scheduler.Start()
-	r.Scheduler.ScheduleCommand(&Command.Command{
-		Required:   nil,
-		Name:       "connect to hardware interface",
-		FirstRun:   true,
-		Initialize: func() {},
-		Execute: func(a any) bool {
-			conn, resp, err := websocket.DefaultDialer.Dial("ws://localhost:8765", nil)
-			if err != nil {
-				log.Println(err)
-				return false
-			}
-			log.Println(resp)
-			conn.WriteMessage(websocket.TextMessage, []byte("robot connected"))
-			_, data, err := conn.ReadMessage()
-			if err != nil {
-				log.Println(err)
-			}
-			log.Println(data)
-			return true
-		},
-	})
 }
 
 func GetRobot() *Robot {
