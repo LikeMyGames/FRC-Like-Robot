@@ -55,10 +55,11 @@ func NewSwerveDrive(interval time.Duration) *SwerveDrive {
 // }
 
 func (drive *SwerveDrive) CalculateSwerve(trans, rot Types.Vector2D) {
-	drive.DriveProps.TranslationalV = trans
-	drive.DriveProps.RotationalV = rot.X
+	drive.DriveProps.TranslationalV = Types.Vector2D{X: MathUtils.Clamp(trans.X, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV), Y: MathUtils.Clamp(trans.Y, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)}
+	drive.DriveProps.RotationalV = MathUtils.Clamp(rot.X, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)
 
-	fl := VectorMath.Vector2DtoVectorTheta(Types.Vector2D{})
+	flOffset := VectorMath.Vector2DtoVectorTheta(Types.Vector2D{X: drive.Config.Modules.FrontLeft.OffsetX, Y: drive.Config.Modules.FrontLeft.OffsetY})
+	fl := VectorMath.Vector2DtoVectorTheta(VectorMath.VectorAdd(drive.DriveProps.TranslationalV, VectorMath.VectorThetatoVector2D(Types.VectorTheta{Angle: flOffset.Angle + 90, Magnitude: drive.DriveProps.RotationalV})))
 	fr := Types.VectorTheta{}
 	bl := Types.VectorTheta{}
 	br := Types.VectorTheta{}

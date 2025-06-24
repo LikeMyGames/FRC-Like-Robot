@@ -92,3 +92,17 @@ func VectorThetaSubtractNormalized(v1, v2 VectorTheta, maxLen float64) VectorThe
 	v3.Magnitude = MathUtils.MapRange(v3.Magnitude, 0, v1.Magnitude-v2.Magnitude, 0, maxLen)
 	return v3
 }
+
+func ClampVector(val, max, min Vector2D) Vector2D {
+	if val.X > max.X {
+		val.X = max.X
+	} else if val.X < min.X {
+		val.X = min.X
+	}
+	if val.Y > max.Y {
+		val.Y = max.Y
+	} else if val.Y < min.Y {
+		val.Y = min.Y
+	}
+	return val
+}
