@@ -44,3 +44,11 @@ func Trunc(v float64, len int) float64 {
 	}
 	return val
 }
+
+func Avg(n ...float64) float64 {
+	sum := 0.0
+	for _, v := range n {
+		sum += v
+	}
+	return sum / float64(len(n))
+}

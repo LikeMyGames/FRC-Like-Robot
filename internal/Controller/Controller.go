@@ -5,7 +5,7 @@ import (
 	"slices"
 
 	"frcrobot/internal/Command"
-	"frcrobot/internal/File"
+	"frcrobot/internal/Constants"
 	"frcrobot/internal/GUI"
 )
 
@@ -29,11 +29,6 @@ const (
 )
 
 type (
-	ControllerConfig struct {
-		ControllerNum int                  `json:"controllerNum"`
-		Deadzones     ConstrollerDeadzones `json:"deadzones"`
-	}
-
 	ControllerAction struct {
 		whileTrue   bool
 		ListenValue string
@@ -41,7 +36,7 @@ type (
 	}
 
 	Controller struct {
-		Config       ControllerConfig
+		Config       Constants.ControllerConfig
 		ControllerID uint
 		Actions      []*ControllerAction
 		State        *State
@@ -56,13 +51,6 @@ type (
 		ThumbRX      int16
 		ThumbRY      int16
 	}
-
-	ConstrollerDeadzones struct {
-		ThumbL   float32 `json:"thumbL"`
-		ThumbR   float32 `json:"thumbR"`
-		TriggerL float32 `json:"triggerL"`
-		TriggerR float32 `json:"triggerR"`
-	}
 )
 
 var (
@@ -70,9 +58,7 @@ var (
 )
 
 func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Controller {
-	config := ControllerConfig{}
-	File.ReadJSON("controller.config", &config)
-	fmt.Println("Controller Config: ", config)
+	config := Constants.ControllerConstants()
 
 	ctrl := &Controller{
 		Config:       config,

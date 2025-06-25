@@ -12,24 +12,24 @@ type (
 )
 
 func Vector2DtoVectorTheta(v Vector2D) VectorTheta {
-	theta := float64(0.0)
+	theta := 0.0
 	if v.X == 0 {
 		if v.Y > 0 {
-			theta = float64(math.Pi / 2)
+			theta = (3 * (math.Pi / 2))
 		} else if v.Y < 0 {
-			theta = float64(-math.Pi / 2)
+			theta = (3 * (math.Pi / 2))
 		}
 	} else {
-		theta = float64(math.Atan(math.Abs(float64(v.Y / v.X))))
+		theta = math.Atan(math.Abs(v.Y / v.X))
 		if v.X < 0 && v.Y > 0 {
-			theta = float64(math.Atan(math.Abs(float64(v.X/v.Y)))) + (math.Pi / 2)
+			theta = math.Atan(math.Abs(v.Y/v.X)) + (math.Pi / 2)
 		} else if v.X < 0 && v.Y < 0 {
-			theta = float64(math.Atan(math.Abs(float64(v.Y/v.X)))) + math.Pi
+			theta = math.Atan(math.Abs(v.Y/v.X)) + math.Pi
 		} else if v.X > 0 && v.Y < 0 {
-			theta = float64(math.Atan(math.Abs(float64(v.X/v.Y)))) + (3 * (math.Pi / 2))
+			theta = math.Atan(math.Abs(v.Y/v.X)) + (3 * (math.Pi / 2))
 		}
 	}
-	l := float64(MathUtils.Clamp(float64(v.Y/math.Sin(float64(theta))), 1, 0))
+	l := MathUtils.Clamp(math.Sqrt((v.Y*v.Y)+(v.X*v.X)), 1, 0)
 	if math.IsNaN(l) {
 		l = 0
 	}
@@ -38,8 +38,8 @@ func Vector2DtoVectorTheta(v Vector2D) VectorTheta {
 }
 
 func VectorThetatoVector2D(v VectorTheta) Vector2D {
-	x := math.Cos(float64(v.Angle)) * v.Magnitude
-	y := math.Sin(float64(v.Angle)) * v.Magnitude
+	x := math.Cos(v.Angle) * v.Magnitude
+	y := math.Sin(v.Angle) * v.Magnitude
 
 	return Vector2D{X: x, Y: y}
 }
