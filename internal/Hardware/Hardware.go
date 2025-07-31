@@ -1,6 +1,11 @@
 package Hardware
 
-// will add cgo import
+/*
+#cgo CXXFLAGS: -std=c++11
+#include "./interface.cpp"
+#include "./interface.hpp"
+*/
+import "C"
 
 type (
 	CANbus struct {
@@ -27,7 +32,7 @@ type (
 
 func NewBus() *CANbus {
 	return &CANbus{
-		CANname: "",
+		CANname: "spidev0.0",
 		BaseID:  0,
 		Devices: []Device{},
 	}
@@ -35,4 +40,8 @@ func NewBus() *CANbus {
 
 func (c *CANbus) AddDevice(d Device) {
 	c.Devices = append(c.Devices, d)
+}
+
+func Hello() {
+	C.Hello()
 }
