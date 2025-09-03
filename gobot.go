@@ -1,9 +1,13 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
+	"os/exec"
 )
 
 type (
@@ -27,7 +31,13 @@ func main() {
 
 	cmds := map[string]Command{
 		"create": {
-			Action:           func() { NewProject(args[1]) },
+			Action: func() {
+				if len(args) == 1 {
+					fmt.Println("The create command takes an argument as the name of the project")
+					os.Exit(0)
+				}
+				NewProject(args[1])
+			},
 			ShortDescription: "A command that take the next provided argument and creates a new gobot project with that name",
 			LongDescription:  "",
 		},
@@ -82,9 +92,65 @@ func NewProject(name string) {
 		Architecture: "Stated",
 	}
 
-	os.Mkdir(name, os.ModeDir)
+	// ./{project-name}/
+	os.Mkdir(settings.Name, os.ModeDir)
 
-	file, _ := os.Create("./temp/settings.json")
+	// ./project.json file
+	file, _ := os.Create(fmt.Sprintf("./%s/project.json", settings.Name))
 	data, _ := json.MarshalIndent(settings, "", "\t")
 	file.Write(data)
+
+	// src/main.go file
+	file, _ = os.Create(fmt.Sprintf("./%s/src/main.go", settings.Name))
+	resp, err := http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/main.go_template.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		panic(fmt.Sprint("Error: Received non-OK status code:", resp.StatusCode))
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		panic(fmt.Sprint("Error reading response body:", err))
+	}
+
+	file.WriteString(string(body))
+
+	// src/constants.go
+	file, _ = os.Create(fmt.Sprintf("./%s/src/constants.go", settings.Name))
+	resp, err = http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/constants.go_template.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		panic(fmt.Sprint("Error: Received non-OK status code:", resp.StatusCode))
+	}
+
+	body, err = io.ReadAll(resp.Body)
+	if err != nil {
+		panic(fmt.Sprint("Error reading response body:", err))
+	}
+
+	file.WriteString(string(body))
+
+	// src/go.mod
+	if err = exec.CommandContext(context.Background(), "go", fmt.Sprintf("mod init %s", settings.Name)).Run(); err != nil {
+		panic(fmt.Sprint("Could not create go.mod file:", err))
+	}
+
+	// adding dependencies to src/go.mod
+	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/robot").Run(); err != nil {
+		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
+	}
+	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/consts").Run(); err != nil {
+		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
+	}
+	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/conn").Run(); err != nil {
+		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
+	}
 }
