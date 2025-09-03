@@ -1,12 +1,12 @@
-package Controller
+package controller
 
 import (
 	"fmt"
 	"slices"
 
-	"frcrobot/internal/Command"
-	"frcrobot/internal/Constants"
-	"frcrobot/internal/GUI"
+	"frcrobot/command"
+	"frcrobot/constants"
+	"frcrobot/gui"
 )
 
 const (
@@ -32,11 +32,11 @@ type (
 	ControllerAction struct {
 		whileTrue   bool
 		ListenValue string
-		Command     *Command.Command
+		Command     *command.Command
 	}
 
 	Controller struct {
-		Config       Constants.ControllerConfig
+		Config       constants.ControllerConfig
 		ControllerID uint
 		Actions      []*ControllerAction
 		State        *State
@@ -57,8 +57,8 @@ var (
 	Controllers []*Controller
 )
 
-func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Controller {
-	config := Constants.ControllerConstants()
+func StartController(controllerID uint, scheduler *command.CommandScheduler) *Controller {
+	config := constants.ControllerConstants()
 
 	ctrl := &Controller{
 		Config:       config,
@@ -71,11 +71,11 @@ func StartController(controllerID uint, scheduler *Command.CommandScheduler) *Co
 	return ctrl
 }
 
-func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandScheduler) *Command.Command {
-	return &Command.Command{
+func NewReadControllerCommand(ctrl *Controller, scheduler *command.CommandScheduler) *command.Command {
+	return &command.Command{
 		Required: struct {
 			ctrl      *Controller
-			scheduler *Command.CommandScheduler
+			scheduler *command.CommandScheduler
 		}{ctrl: ctrl, scheduler: scheduler},
 		FirstRun:   true,
 		Name:       fmt.Sprintf("Read Controller ID: %v", ctrl.ControllerID),
@@ -83,10 +83,10 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 		Execute: func(required any) bool {
 			req, ok := required.(struct {
 				ctrl      *Controller
-				scheduler *Command.CommandScheduler
+				scheduler *command.CommandScheduler
 			})
 			if ok {
-				state := GUI.LastControllerState
+				state := gui.LastControllerState
 				if state.ControllerID == req.ctrl.ControllerID {
 					req.ctrl.State = &State{
 						Buttons:      state.Buttons,
@@ -104,18 +104,18 @@ func NewReadControllerCommand(ctrl *Controller, scheduler *Command.CommandSchedu
 						contains = slices.Contains(buttons, action.ListenValue)
 						if (action.whileTrue && contains) || (!action.whileTrue && !contains) {
 							// Only schedule if not already scheduled
-							if !slices.ContainsFunc(req.scheduler.Commands, func(command *Command.Command) bool {
+							if !slices.ContainsFunc(req.scheduler.Commands, func(command *command.Command) bool {
 								has := command.Name == action.Command.Name && !command.End
 								// fmt.Println(has)
 								return has
 							}) {
-								command := new(Command.Command)
+								command := new(command.Command)
 								*command = *action.Command
 								req.scheduler.ScheduleCommand(command)
 							}
 						}
 						if action.ListenValue == LeftStick || action.ListenValue == RightStick {
-							command := new(Command.Command)
+							command := new(command.Command)
 							*command = *action.Command
 							req.scheduler.ScheduleCommand(command)
 						}
@@ -174,7 +174,7 @@ func ButtonIntToString(num uint16) string {
 	}
 }
 
-func (ctrl *Controller) AddAction(listenVal string, command *Command.Command) *ControllerAction {
+func (ctrl *Controller) AddAction(listenVal string, command *command.Command) *ControllerAction {
 	action := &ControllerAction{ListenValue: listenVal, Command: command}
 	ctrl.Actions = append(ctrl.Actions, action)
 	return action

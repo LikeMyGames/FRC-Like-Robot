@@ -1,7 +1,7 @@
 #include <interface.hpp>
 #include <stdio.h>
 
-void Hello()
+extern "C" void Hello()
 {
     printf("hello world\n");
 }

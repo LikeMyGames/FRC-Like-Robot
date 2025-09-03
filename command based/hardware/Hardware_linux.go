@@ -1,9 +1,14 @@
-package Hardware
+//go:build linux && cgo
+
+package hardware
 
 /*
 #cgo CXXFLAGS: -std=c++11
 #include "./interface.cpp"
 #include "./interface.hpp"
+
+// Declare the C function so cgo can link it
+extern void Hello();
 */
 import "C"
 
@@ -39,7 +44,6 @@ func NewBus() *CANbus {
 }
 
 func (c *CANbus) AddDevice(d Device) {
-	c.Devices = append(c.Devices, d)
 }
 
 func Hello() {

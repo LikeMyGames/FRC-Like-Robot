@@ -1,8 +1,8 @@
 package VectorMath
 
 import (
-	"frcrobot/internal/Utils/MathUtils"
-	"frcrobot/internal/Utils/Types"
+	"frcrobot/utils/MathUtils"
+	"frcrobot/utils/Types"
 	"math"
 )
 

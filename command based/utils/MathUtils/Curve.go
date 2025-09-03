@@ -1,6 +1,6 @@
 package MathUtils
 
-import "frcrobot/internal/Utils/Types"
+import "frcrobot/utils/Types"
 
 type (
 	Location2D = Types.Location2D

@@ -1,21 +1,21 @@
-package Robot
+package robot
 
 import (
 	"fmt"
-	"frcrobot/internal/Command"
-	"frcrobot/internal/Controller"
-	"frcrobot/internal/DriveSubsystem"
-	"frcrobot/internal/GUI"
-	"frcrobot/internal/Utils/MathUtils"
-	"frcrobot/internal/Utils/Types"
+	"frcrobot/command"
+	"frcrobot/controller"
+	"frcrobot/drive"
+	"frcrobot/gui"
+	"frcrobot/utils/MathUtils"
+	"frcrobot/utils/Types"
 	"math"
 )
 
 type (
 	Robot struct {
-		DriveSubsystem *DriveSubsystem.SwerveDrive
-		Controllers    []*Controller.Controller
-		Scheduler      *Command.CommandScheduler
+		DriveSubsystem *drive.SwerveDrive
+		Controllers    []*controller.Controller
+		Scheduler      *command.CommandScheduler
 		// HardwareConn   Hardware.Conn
 		Enabled bool
 	}
@@ -25,11 +25,11 @@ var (
 	robot *Robot
 )
 
-func AddControllerActions(ctrl *Controller.Controller) {
+func AddControllerActions(ctrl *controller.Controller) {
 	// Axis commands
-	ctrl.AddAction(Controller.LeftStick, &Command.Command{
+	ctrl.AddAction(controller.LeftStick, &command.Command{
 		Required: struct {
-			Ctrl  *Controller.Controller
+			Ctrl  *controller.Controller
 			Robot *Robot
 		}{
 			Ctrl:  ctrl,
@@ -41,7 +41,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 		Initialize: func() {},
 		Execute: func(required any) bool {
 			req, ok := required.(struct {
-				Ctrl  *Controller.Controller
+				Ctrl  *controller.Controller
 				Robot *Robot
 			})
 			if ok {
@@ -53,7 +53,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 				axis.X = math.Round(MathUtils.MapRange(axis.X, -32768, 32768, -1, 1)*math.Pow10(pres)) / math.Pow10(pres)
 				axis.Y = math.Round(MathUtils.MapRange(axis.Y, -32768, 32768, -1, 1)*math.Pow10(pres)) / math.Pow10(pres)
 
-				// req.Robot.DriveSubsystem.DriveToRelativePose()
+				// req.Robot.drive.DriveToRelativePose()
 				fmt.Println(axis)
 			}
 			return true
@@ -61,7 +61,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 	})
 
 	// Button commands
-	ctrl.AddAction(Controller.B, &Command.Command{
+	ctrl.AddAction(controller.B, &command.Command{
 		Required:   "button b pressed",
 		FirstRun:   true,
 		Name:       "button b input",
@@ -71,7 +71,7 @@ func AddControllerActions(ctrl *Controller.Controller) {
 			req, ok := required.(string)
 			if ok {
 				fmt.Println(req)
-				go GUI.Success(req)
+				go gui.Success(req)
 			}
 			return true
 		},
@@ -80,15 +80,15 @@ func AddControllerActions(ctrl *Controller.Controller) {
 
 func NewRobot(controllerID []uint) *Robot {
 	// Create a new scheduler for the robot
-	scheduler := Command.NewCommandScheduler()
+	scheduler := command.NewCommandScheduler()
 
 	// Initialize the drive subsystem
-	drive := DriveSubsystem.NewSwerveDrive(scheduler.Interval)
+	drive := drive.NewSwerveDrive(scheduler.Interval)
 
-	controllers := make([]*Controller.Controller, len(controllerID))
+	controllers := make([]*controller.Controller, len(controllerID))
 
 	for i, v := range controllerID {
-		controllers[i] = Controller.StartController(v, scheduler)
+		controllers[i] = controller.StartController(v, scheduler)
 	}
 
 	robot = &Robot{
@@ -102,7 +102,7 @@ func NewRobot(controllerID []uint) *Robot {
 		AddControllerActions(robot.Controllers[i])
 	}
 
-	// robot.Scheduler.ScheduleCommand(&Command.Command{
+	// robot.Scheduler.ScheduleCommand(&command.Command{
 	// 	Required:   nil,
 	// 	Name:       "connect to hardware interface",
 	// 	FirstRun:   true,

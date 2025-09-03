@@ -1,0 +1,7 @@
+{
+    "go.toolsEnvVars": {
+        "GOOS": "windows",
+        "CGO_ENABLED": "1",
+        "GOBIN": "C:\\Program Files\\Go\\bin"
+    }
+}

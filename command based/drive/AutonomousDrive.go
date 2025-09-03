@@ -1,8 +1,7 @@
-package DriveSubsystem
+package drive
 
 import (
-	"frcrobot/internal/Utils/MathUtils"
-	"frcrobot/internal/Utils/Types"
+	"frcrobot/utils/MathUtils"
 )
 
 type (
@@ -33,7 +32,7 @@ func NewAuto(name string) *Auto {
 
 // }
 
-func NewPath(name string, start, control1, control2, end Types.Location2D, resolution int) Path {
+func NewPath(name string, start, control1, control2, end MathUtils.Location2D, resolution int) Path {
 	path := Path{Name: name, Resolution: resolution}
 	path.Curve = MathUtils.CreateCubeBezier(start, control1, control2, end)
 	for i := 0; i < resolution; i++ {

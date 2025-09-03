@@ -1,12 +1,12 @@
-package DriveSubsystem
+package drive
 
 import (
 	"fmt"
-	"frcrobot/internal/Constants"
-	"frcrobot/internal/Hardware"
-	"frcrobot/internal/Utils/MathUtils"
-	"frcrobot/internal/Utils/Types"
-	"frcrobot/internal/Utils/VectorMath"
+	"frcrobot/constants"
+	"frcrobot/hardware"
+	"frcrobot/utils/MathUtils"
+	"frcrobot/utils/Types"
+	"frcrobot/utils/VectorMath"
 	"math"
 	"time"
 )
@@ -16,7 +16,7 @@ type (
 		Pose          Types.Pose2D
 		DriveProps    DriveProperties
 		SwerveModules SwerveDriveModules
-		Config        Constants.SwerveDriveConfig
+		Config        constants.SwerveDriveConfig
 		TimeInterval  time.Duration
 	}
 
@@ -37,8 +37,8 @@ type (
 	SwerveDriveModule struct {
 		DriveVelocity float64
 		AzimuthAngle  float64
-		DriveMotor    Hardware.MotorController
-		AzimuthMotor  Hardware.MotorController
+		DriveMotor    hardware.MotorController
+		AzimuthMotor  hardware.MotorController
 	}
 
 	DriveProperties struct {
@@ -51,7 +51,7 @@ type (
 
 func NewSwerveDrive(interval time.Duration) *SwerveDrive {
 	pose := Types.Pose2D{Location: VectorMath.Vector2D{X: 0, Y: 0}, Angle: 0}
-	config := Constants.DriveConstants()
+	config := constants.DriveConstants()
 	config.MaxSpeed.RotationalV = MathUtils.DegtoRad(float64(config.MaxSpeed.RotationalV))
 	config.MaxSpeed.RotationalA = MathUtils.DegtoRad(float64(config.MaxSpeed.RotationalA))
 	fmt.Println("Drive Config: ", config)

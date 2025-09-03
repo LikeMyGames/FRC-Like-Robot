@@ -1,14 +1,14 @@
 package main
 
 import (
-	"frcrobot/internal/GUI"
-	"frcrobot/internal/Hardware"
-	"frcrobot/internal/Robot"
+	"frcrobot/gui"
+	"frcrobot/hardware"
+	Robot "frcrobot/robot"
 )
 
 func main() {
-	Hardware.Hello()
-	go GUI.StartUI()
+	hardware.Hello()
+	go gui.StartUI()
 	// if runtime.GOOS == "linux" {
 	// 	exec.Command("")
 	// }
