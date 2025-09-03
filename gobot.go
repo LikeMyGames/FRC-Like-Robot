@@ -100,6 +100,9 @@ func NewProject(name string) {
 	data, _ := json.MarshalIndent(settings, "", "\t")
 	file.Write(data)
 
+	// ./src
+	os.Mkdir(fmt.Sprintf("./%s/src", settings.Name), os.ModeDir)
+
 	// src/main.go file
 	file, _ = os.Create(fmt.Sprintf("./%s/src/main.go", settings.Name))
 	resp, err := http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/main.go_template.txt")
@@ -118,9 +121,11 @@ func NewProject(name string) {
 	}
 
 	file.WriteString(string(body))
+	file.Close()
 
 	// src/constants.go
-	file, _ = os.Create(fmt.Sprintf("./%s/src/constants.go", settings.Name))
+	os.Mkdir(fmt.Sprintf("./%s/src/constants", settings.Name), os.ModeDir)
+	file, _ = os.Create(fmt.Sprintf("./%s/src/constants/constants.go", settings.Name))
 	resp, err = http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/constants.go_template.txt")
 	if err != nil {
 		panic(err)
@@ -137,10 +142,16 @@ func NewProject(name string) {
 	}
 
 	file.WriteString(string(body))
+	file.Close()
+
+	err = os.Chdir(fmt.Sprintf("./%s/src", settings.Name))
+	if err != nil {
+		panic(err)
+	}
 
 	// src/go.mod
 	if err = exec.CommandContext(context.Background(), "go", fmt.Sprintf("mod init %s", settings.Name)).Run(); err != nil {
-		panic(fmt.Sprint("Could not create go.mod file:", err))
+		panic(fmt.Sprint("Could not create go.mod file:", err.Error()))
 	}
 
 	// adding dependencies to src/go.mod
