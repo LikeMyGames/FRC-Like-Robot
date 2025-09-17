@@ -1,4 +1,4 @@
-module state-robot
+module state
 
 go 1.23.3
 

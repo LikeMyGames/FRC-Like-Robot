@@ -15,8 +15,8 @@ struct ab_t
 // Global state for slice numbers and wrap value
 static uint slice_a, slice_b, slice_c;
 static uint16_t pwm_wrap;
-static bool enabled = false;
-static float angle = 0.0f;
+static bool enabled = true;
+float angle = 0.0f;
 
 // Init function
 void pwm_init_3phase(uint pin_a, uint pin_b, uint pin_c, uint16_t wrap)
@@ -112,7 +112,7 @@ int main()
         }
         else
         {
-            angle += 0.01f;
+            angle += 0.05f;
             if (angle > 2 * M_PI)
                 angle = 0;
         }

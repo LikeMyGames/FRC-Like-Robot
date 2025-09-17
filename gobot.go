@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -63,14 +62,14 @@ func main() {
 			for _, v := range args[1:] {
 				cmd := cmds[v]
 				if cmd.LongDescription == "" {
-					fmt.Printf("%s: %s\n", v, cmd.ShortDescription)
+					fmt.Printf("%s\t %s\n", v, cmd.ShortDescription)
 				} else {
-					fmt.Printf("%s: %s\n", v, cmd.LongDescription)
+					fmt.Printf("%s\t %s\n", v, cmd.LongDescription)
 				}
 			}
 		} else {
 			for i, v := range cmds {
-				fmt.Printf("%s: %s\n", i, v.ShortDescription)
+				fmt.Printf("%s\t %s\n", i, v.ShortDescription)
 			}
 		}
 	} else {
@@ -100,11 +99,8 @@ func NewProject(name string) {
 	data, _ := json.MarshalIndent(settings, "", "\t")
 	file.Write(data)
 
-	// ./src
-	os.Mkdir(fmt.Sprintf("./%s/src", settings.Name), os.ModeDir)
-
 	// src/main.go file
-	file, _ = os.Create(fmt.Sprintf("./%s/src/main.go", settings.Name))
+	file, _ = os.Create(fmt.Sprintf("./%s/main.go", settings.Name))
 	resp, err := http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/main.go_template.txt")
 	if err != nil {
 		panic(err)
@@ -124,7 +120,7 @@ func NewProject(name string) {
 	file.Close()
 
 	// src/constants.go
-	os.Mkdir(fmt.Sprintf("./%s/src/constants", settings.Name), os.ModeDir)
+	os.Mkdir(fmt.Sprintf("./%s/constants", settings.Name), os.ModeDir)
 	file, _ = os.Create(fmt.Sprintf("./%s/src/constants/constants.go", settings.Name))
 	resp, err = http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/constants.go_template.txt")
 	if err != nil {
@@ -144,24 +140,25 @@ func NewProject(name string) {
 	file.WriteString(string(body))
 	file.Close()
 
-	err = os.Chdir(fmt.Sprintf("./%s/src", settings.Name))
+	err = os.Chdir(fmt.Sprintf("./%s", settings.Name))
 	if err != nil {
 		panic(err)
 	}
 
 	// src/go.mod
-	if err = exec.CommandContext(context.Background(), "go", fmt.Sprintf("mod init %s", settings.Name)).Run(); err != nil {
+	if err = exec.Command("go", "mod", "init", settings.Name).Run(); err != nil {
 		panic(fmt.Sprint("Could not create go.mod file:", err.Error()))
 	}
 
+	cmd := exec.Command("go", "mod", "tidy")
+	fmt.Println(cmd.Path)
+	fmt.Println(cmd.Args)
+	fmt.Println(os.Getwd())
+
 	// adding dependencies to src/go.mod
-	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/robot").Run(); err != nil {
-		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
-	}
-	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/consts").Run(); err != nil {
-		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
-	}
-	if err = exec.CommandContext(context.Background(), "go", "get github.com/LikeMyGames/FRC-Like-Robot/state/conn").Run(); err != nil {
-		panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
-	}
+	out, err := cmd.CombinedOutput()
+	// if  err != nil {
+	// 	// panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
+	// }
+	fmt.Println(string(out), err)
 }
