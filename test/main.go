@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )

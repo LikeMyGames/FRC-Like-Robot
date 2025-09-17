@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"state-robot/robot"
+
+	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 
 	"github.com/gorilla/websocket"
 )
