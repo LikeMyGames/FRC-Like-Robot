@@ -121,7 +121,7 @@ func NewProject(name string) {
 
 	// src/constants.go
 	os.Mkdir(fmt.Sprintf("./%s/constants", settings.Name), os.ModeDir)
-	file, _ = os.Create(fmt.Sprintf("./%s/src/constants/constants.go", settings.Name))
+	file, _ = os.Create(fmt.Sprintf("./%s/constants/constants.go", settings.Name))
 	resp, err = http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/constants.go_template.txt")
 	if err != nil {
 		panic(err)

@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"test/constants"
+
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )
@@ -10,6 +12,7 @@ func main() {
 	r := robot.NewRobot("power_on")
 
 	conn.Start(r)
+	fmt.Println(constants.Drive)
 
 	r.AddState("power_on", func(a any) {
 		fmt.Println("checking status")
