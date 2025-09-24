@@ -99,7 +99,7 @@ func NewProject(name string) {
 	data, _ := json.MarshalIndent(settings, "", "\t")
 	file.Write(data)
 
-	// src/main.go file
+	// main.go file
 	file, _ = os.Create(fmt.Sprintf("./%s/main.go", settings.Name))
 	resp, err := http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/main.go_template.txt")
 	if err != nil {
@@ -119,7 +119,7 @@ func NewProject(name string) {
 	file.WriteString(string(body))
 	file.Close()
 
-	// src/constants.go
+	// constants.go
 	os.Mkdir(fmt.Sprintf("./%s/constants", settings.Name), os.ModeDir)
 	file, _ = os.Create(fmt.Sprintf("./%s/constants/constants.go", settings.Name))
 	resp, err = http.Get("https://raw.githubusercontent.com/LikeMyGames/FRC-Like-Robot/refs/heads/main/constants.go_template.txt")
@@ -145,10 +145,15 @@ func NewProject(name string) {
 		panic(err)
 	}
 
-	// src/go.mod
+	// go.mod
 	if err = exec.Command("go", "mod", "init", settings.Name).Run(); err != nil {
 		panic(fmt.Sprint("Could not create go.mod file:", err.Error()))
 	}
+
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/robot").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/constants").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/conn").Run()
 
 	cmd := exec.Command("go", "mod", "tidy")
 	fmt.Println(cmd.Path)
