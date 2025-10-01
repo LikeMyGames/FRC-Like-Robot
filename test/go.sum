@@ -1,4 +1,2 @@
-github.com/LikeMyGames/FRC-Like-Robot/state v0.0.0-20250924013705-647f9ffa42ef h1:EcRruaDh2zux3ayiMnLvMu5ERuU76zytAqiX27TuzNM=
-github.com/LikeMyGames/FRC-Like-Robot/state v0.0.0-20250924013705-647f9ffa42ef/go.mod h1:QyFUNWXta6nWNlP7EU5sCO9Vo2YTJl9UtcUzC93GXm0=
 github.com/gorilla/websocket v1.5.3 h1:saDtZ6Pbx/0u+bgYQ3q96pZgCzfhKXGPqt7kZ72aNNg=
 github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
