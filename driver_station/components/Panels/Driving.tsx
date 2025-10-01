@@ -1,33 +1,32 @@
 import style from "./Driving.module.css"
-import { RunningContext, RunningModeContext } from "@/app/page"
+import { RobotRunSettingsContext } from "@/app/page"
 import { useContext } from "react"
 
 export default function DrivingPanel() {
-    const [runningMode, setRunningMode] = useContext(RunningModeContext);
-    const [running, setRunning] = useContext(RunningContext);
+    const [runSettings, setRunSettings] = useContext(RobotRunSettingsContext);
 
     return (
         <>
             <div className={style.runningmode_enabledisable_panel}>
                 <div className={style.running_mode_selector}>
-                    <button type="button" className={`${style.running_mode_selector_button} ${runningMode == "teleop" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("teleop")}>
+                    <button type="button" className={`${style.running_mode_selector_button} ${runSettings.mode == "teleop" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunSettings({ ...runSettings, mode: "teleop" })}>
                         TeleOperated
                     </button>
-                    <button type="button" className={`${style.running_mode_selector_button} ${runningMode == "auto" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("auto")}>
+                    <button type="button" className={`${style.running_mode_selector_button} ${runSettings.mode == "auto" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunSettings({ ...runSettings, mode: "auto" })}>
                         Autonomous
                     </button>
-                    <button type="button" className={`${style.running_mode_selector_button} ${runningMode == "prac" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("prac")}>
+                    <button type="button" className={`${style.running_mode_selector_button} ${runSettings.mode == "prac" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunSettings({ ...runSettings, mode: "prac" })}>
                         Practice
                     </button>
-                    <button type="button" className={`${style.running_mode_selector_button} ${runningMode == "test" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunningMode("test")}>
+                    <button type="button" className={`${style.running_mode_selector_button} ${runSettings.mode == "test" ? style.running_mode_selector_button_selected : ""}`} onClick={() => setRunSettings({ ...runSettings, mode: "test" })}>
                         Test
                     </button>
                 </div>
                 <div className={style.enable_disable_panel}>
-                    <button type="button" className={running ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunning(true)}>
+                    <button type="button" className={runSettings.enabled ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunSettings({ ...runSettings, enabled: true })}>
                         Enable
                     </button>
-                    <button type="button" className={!running ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunning(false)}>
+                    <button type="button" className={!runSettings.enabled ? style.enable_disable_panel_button_selected : style.enable_disable_panel_button} onClick={() => setRunSettings({ ...runSettings, enabled: false })}>
                         Disable
                     </button>
                 </div>

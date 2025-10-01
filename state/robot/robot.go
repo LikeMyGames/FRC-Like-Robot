@@ -7,12 +7,14 @@ import (
 
 type (
 	Robot struct {
-		TeamNum   uint8
-		Addr      string
-		States    map[string]*State
-		State     string
-		Frequency time.Duration
-		Enabled   bool
+		TeamNum     uint8
+		Addr        string
+		States      map[string]*State
+		State       string
+		Frequency   time.Duration
+		Enabled     bool
+		Clock       int64
+		RunningMode string
 	}
 
 	State struct {
@@ -24,7 +26,7 @@ type (
 
 func NewRobot(StartState string) *Robot {
 	return &Robot{
-		States:    LoadStates(),
+		States:    map[string]*State{},
 		State:     StartState,
 		Frequency: time.Millisecond * 1000,
 	}
@@ -34,7 +36,9 @@ func (r *Robot) AddState(name string, action func(any), params any) *State {
 	s := &State{
 		action:     action,
 		parameters: params,
+		switches:   map[string]func(any) bool{},
 	}
+	r.States[name] = s
 	return s
 }
 
@@ -76,6 +80,7 @@ func (r *Robot) Start() {
 	t := time.NewTicker(r.Frequency)
 
 	for range t.C {
+		r.Clock++
 		s := r.States[r.State]
 		if ns := s.CheckCondition(); ns != nil {
 			r.SetState(*ns)

@@ -150,10 +150,10 @@ func NewProject(name string) {
 		panic(fmt.Sprint("Could not create go.mod file:", err.Error()))
 	}
 
-	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state").Run()
-	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/robot").Run()
-	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/constants").Run()
-	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/conn").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state@0.0.0").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/robot@0.0.0").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/constants@0.0.0").Run()
+	exec.Command("go", "get", "github.com/LikeMyGames/FRC-Like-Robot/state/conn@0.0.0").Run()
 
 	cmd := exec.Command("go", "mod", "tidy")
 	fmt.Println(cmd.Path)

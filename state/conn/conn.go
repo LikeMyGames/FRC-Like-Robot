@@ -1,6 +1,7 @@
 package conn
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -19,16 +20,16 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-var connection any
+var connection *websocket.Conn
 
 var bot *robot.Robot
 
 type (
 	WebSocketData struct {
-		SystemLog       *Logger          `json:"system_logger"`
-		RobotStatus     *Status          `json:"robot_status"`
-		RunningSettings *RunSettings     `json:"running_settings"`
-		Controller      *ControllerState `json:"controller"`
+		SystemLog   *Logger          `json:"system_logger"`
+		RobotStatus *Status          `json:"robot_status"`
+		RunSettings *RunSettings     `json:"run_settings"`
+		Controller  *ControllerState `json:"controller"`
 	}
 
 	Logger struct {
@@ -47,7 +48,7 @@ type (
 
 	RunSettings struct {
 		Enabled bool   `json:"enabled"`
-		Mode    string `json:"running_mode"`
+		Mode    string `json:"mode"`
 	}
 
 	ControllerState struct {
@@ -82,7 +83,10 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	connection = conn
-	// defer conn.Close()
+	defer func() {
+		conn.Close()
+		connection.Close()
+	}()
 
 	_, p, err := conn.ReadMessage()
 	if err != nil {
@@ -97,19 +101,22 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bot.Enabled = true
-
-	data := &WebSocketData{}
 	for {
-		err := conn.ReadJSON(data)
+		_, data, err := connection.ReadMessage()
 		if err != nil {
-			bot.Enabled = false
-			return
+			log.Fatal(err)
 		}
-		if data.Controller != nil {
-			LastControllerState = data.Controller
-		} else {
-
+		socketData := WebSocketData{}
+		err = json.Unmarshal(data, &socketData)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if socketData.Controller != nil {
+			LastControllerState = socketData.Controller
+		}
+		if socketData.RunSettings != nil {
+			bot.Enabled = socketData.RunSettings.Enabled
+			bot.RunningMode = socketData.RunSettings.Mode
 		}
 	}
 }
@@ -119,71 +126,40 @@ func Start(r *robot.Robot) {
 	http.HandleFunc("/", handleWebSocket)
 
 	log.Println("Server started on localhost:8080")
-	go log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func SendData(data []byte) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		log.Println("connection not established with GUI")
-		return
-	}
-	err := ws.WriteMessage(1, data)
+	err := connection.WriteMessage(1, data)
 	if err != nil {
 		log.Println(err)
 	}
 }
 
 func SendJSONData(v any) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		log.Println("connection not established with GUI")
-		return
-	}
-	err := ws.WriteJSON(v)
+	err := connection.WriteJSON(v)
 	if err != nil {
 		log.Println(err)
 	}
 }
 
 func Log(data string) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		return
-	}
-	ws.WriteMessage(1, fmt.Append(nil, `{"type":"log","message":"`+data+`"}`))
+	connection.WriteMessage(1, fmt.Append(nil, `{"type":"log","message":"`+data+`"}`))
 }
 
 func Comment(data string) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		return
-	}
-	ws.WriteMessage(1, fmt.Append(nil, `{"type":"comment","message":"`+data+`"}`))
+	connection.WriteMessage(1, fmt.Append(nil, `{"type":"comment","message":"`+data+`"}`))
 }
 
 func Success(data string) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		log.Println("connection not established with GUI")
-		return
-	}
-	fmt.Println(ws.LocalAddr())
-	ws.WriteMessage(1, []byte(fmt.Sprint(`{"type":"success","message":"`+data+`"}`)))
+	fmt.Println(connection.LocalAddr())
+	connection.WriteMessage(1, []byte(fmt.Sprint(`{"type":"success","message":"`+data+`"}`)))
 }
 
 func Warn(data string) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		return
-	}
-	ws.WriteMessage(1, fmt.Append(nil, `{"type":"warn","message":"`+data+`"}`))
+	connection.WriteMessage(1, fmt.Append(nil, `{"type":"warn","message":"`+data+`"}`))
 }
 
 func Error(data string) {
-	ws, ok := connection.(*websocket.Conn)
-	if !ok {
-		return
-	}
-	ws.WriteMessage(1, fmt.Append(nil, `{"type":"error","message":"`+data+`"}`))
+	connection.WriteMessage(1, fmt.Append(nil, `{"type":"error","message":"`+data+`"}`))
 }

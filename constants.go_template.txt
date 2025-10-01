@@ -6,7 +6,7 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constants"
 )
 
-var Drive constants.DriveConstants = constants.SwerveDriveConfig{
+var Drive constants.SwerveDriveConfig = constants.SwerveDriveConfig{
 	MaxSpeed: constants.DriveMaxes{
 		TranslationalV: 1,   // Max Translational Velocity of the robot
 		RotationalV:    180, // Max Rotational Velocity of the robot

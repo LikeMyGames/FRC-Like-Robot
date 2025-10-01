@@ -26,6 +26,7 @@ export type Log = {
 type SocketData = {
 	system_logger?: Log;
 	robot_status?: RobotStatus;
+	run_settings?: RunSettings;
 }
 
 export type RobotStatus = {
@@ -37,13 +38,17 @@ export type RobotStatus = {
 	bat_v: number;
 }
 
+export type RunSettings = {
+	enabled: boolean;
+	mode: string;
+}
+
 export type RobotInfo = {
 	botNet: string
 	controller: string
 }
 
-export const RunningContext = createContext<[boolean, (value: boolean) => void]>([false, (value) => { console.log(value) }]);
-export const RunningModeContext = createContext<[string, (value: string) => void]>(["teleop", (value) => { console.log(value) }]);
+export const RobotRunSettingsContext = createContext<[RunSettings, (value: RunSettings) => void]>([{} as RunSettings, (value) => { console.log(value) }]);
 export const LoggerContext = createContext<[Log[], () => void]>([[{ type: "success", message: "default message" }] as Log[], () => { }]);;
 export const LoggerFilterContext = createContext<[LoggerFilter, (value: LoggerFilter) => void]>([{} as LoggerFilter, () => { }]);
 export const RobotStatusContext = createContext<[RobotStatus]>([{} as RobotStatus]);
@@ -54,8 +59,7 @@ export default function Home() {
 	const [robotInfo, setRobotInfo] = useState<RobotInfo>({ botNet: "ws://localhost:8080", controller: "ws://localhost:3030" } as RobotInfo)
 	const robotConn = useRef<WebSocket | null>(null);
 	const controllerConn = useRef<WebSocket | null>(null)
-	const [runningMode, setRunningMode] = useState<string>("teleop")
-	const [running, setRunning] = useState<boolean>(false)
+	const [runSettings, setRunSettings] = useState<RunSettings>({ mode: "teleop", enabled: false })
 	const [loggerFilter, setLoggerFilter] = useState<LoggerFilter>({
 		all: true,
 		log: false,
@@ -82,6 +86,17 @@ export default function Home() {
 	const resetLogs = () => {
 		newLogs.current = []
 		setLogs([] as Log[])
+	}
+
+	function SetRobotRunSettings(settings: RunSettings) {
+		if (settings.mode != runSettings.mode && runSettings.enabled) {
+			settings.enabled = false
+		}
+		if (robotConn.current) {
+			console.log("sending run_settings change")
+			robotConn.current.send(`{"run_settings":${JSON.stringify(settings)}}`)
+		}
+		setRunSettings(settings)
 	}
 
 	useEffect(() => {
@@ -151,6 +166,9 @@ export default function Home() {
 				if (data.robot_status) {
 					setRobotStatus(data.robot_status)
 				}
+				if (data.run_settings) {
+					setRunSettings(data.run_settings)
+				}
 			};
 
 			robotConn.current.onclose = () => {
@@ -163,6 +181,7 @@ export default function Home() {
 					bat_p: 0,
 					bat_v: 0
 				} as RobotStatus)
+				SetRobotRunSettings({ ...runSettings, enabled: false })
 				console.log('WebSocket connection closed');
 			};
 
@@ -177,6 +196,7 @@ export default function Home() {
 				if (robotConn.current) {
 					robotConn.current.send(`{"message":"GUI connected to robot"}`)
 				}
+				setRunSettings({ ...runSettings, enabled: false })
 			};
 		}
 
@@ -208,25 +228,23 @@ export default function Home() {
 				<RobotInfoContext.Provider value={[robotInfo, setRobotInfo]}>
 					<h1 className={style.panel_title}>{panel}</h1>
 					<div className={style.panel_item_container}>
-						<RunningContext.Provider value={[running, setRunning]}>
-							<RunningModeContext.Provider value={[runningMode, setRunningMode]}>
-								<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
-									{
-										panel == "driving" ? (
-											<DrivingPanel />
-										) : panel == "settings" ? (
-											<SettingsPanel />
-										) : panel == "connections" ? (
-											<ConnectionsPanel />
-										) : (
-											<>
+						<RobotRunSettingsContext.Provider value={[runSettings, SetRobotRunSettings]}>
+							<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
+								{
+									panel == "driving" ? (
+										<DrivingPanel />
+									) : panel == "settings" ? (
+										<SettingsPanel />
+									) : panel == "connections" ? (
+										<ConnectionsPanel />
+									) : (
+										<>
 
-											</>
-										)
-									}
-								</div>
-							</RunningModeContext.Provider>
-						</RunningContext.Provider>
+										</>
+									)
+								}
+							</div>
+						</RobotRunSettingsContext.Provider>
 						<RobotStatusContext.Provider value={[robotStat]}>
 							<RobotStatus />
 						</RobotStatusContext.Provider>
@@ -243,5 +261,5 @@ export default function Home() {
 }
 
 export function useRobotContext() {
-	return { RunningContext, RunningModeContext, RobotStatusContext, LoggerContext, LoggerFilterContext, RobotInfoContext }
+	return { RobotRunSettingsContext, RobotStatusContext, LoggerContext, LoggerFilterContext, RobotInfoContext }
 }
