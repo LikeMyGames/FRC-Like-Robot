@@ -2,13 +2,19 @@ package main
 
 import (
 	"fmt"
+	"test/constants"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )
 
 func main() {
 	r := robot.NewRobot("power_on")
+	ctrl0 := controller.NewController(constants.Controller0)
+	r.AddPeriodic(func() {
+		controller.ReadController(ctrl0)
+	})
 
 	go conn.Start(r)
 

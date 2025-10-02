@@ -15,6 +15,7 @@ type (
 		Enabled     bool
 		Clock       int64
 		RunningMode string
+		PeriodFuncs []func()
 	}
 
 	State struct {
@@ -76,6 +77,11 @@ func (s *State) AddCondition(target string, condition func(any) bool) *State {
 	return s
 }
 
+func (r *Robot) AddPeriodic(a func()) *Robot {
+	r.PeriodFuncs = append(r.PeriodFuncs, a)
+	return r
+}
+
 func (r *Robot) Start() {
 	t := time.NewTicker(r.Frequency)
 
@@ -84,6 +90,9 @@ func (r *Robot) Start() {
 		s := r.States[r.State]
 		if ns := s.CheckCondition(); ns != nil {
 			r.SetState(*ns)
+		}
+		for _, v := range r.PeriodFuncs {
+			v()
 		}
 		s.action(s.parameters)
 		log.Println(r.State)
