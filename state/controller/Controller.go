@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"fmt"
+	"math"
 
 	// "github.com/LikeMyGames/FRC-Like-Robot/state/command"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
@@ -33,7 +33,7 @@ const (
 
 type (
 	ControllerAction struct {
-		whileTrue   bool
+		// whileTrue   bool
 		ListenValue string
 		Action      *func(any)
 	}
@@ -74,7 +74,6 @@ func NewController(config constants.ControllerConfig) *Controller {
 func ReadController(ctrl *Controller) {
 	state := conn.LastControllerState
 	if state.ControllerID == ctrl.ControllerID {
-		fmt.Println(state)
 		ctrl.State = &State{
 			Buttons:      state.Buttons,
 			LeftTrigger:  state.TriggerL,
@@ -90,11 +89,24 @@ func ReadController(ctrl *Controller) {
 		}
 
 		ctrl.State.LeftTrigger = uint8(mathutils.MapRange(float64(ctrl.State.LeftTrigger), 0.0, 255.0, 0.0, 1.0))
+		ctrl.State.LeftTrigger = uint8(math.Trunc(float64(ctrl.State.LeftTrigger)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
 		ctrl.State.RightTrigger = uint8(mathutils.MapRange(float64(ctrl.State.RightTrigger), 0.0, 255.0, 0.0, 1.0))
+		ctrl.State.RightTrigger = uint8(math.Trunc(float64(ctrl.State.RightTrigger)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
 		ctrl.State.ThumbLX = int16(mathutils.MapRange(float64(ctrl.State.ThumbLX), -32768.0, 32768.0, -1.0, 1.0))
+		ctrl.State.ThumbLX = int16(math.Trunc(float64(ctrl.State.ThumbLX)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
 		ctrl.State.ThumbLY = int16(mathutils.MapRange(float64(ctrl.State.ThumbLY), -32768.0, 32768.0, -1.0, 1.0))
+		ctrl.State.ThumbLY = int16(math.Trunc(float64(ctrl.State.ThumbLY)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
 		ctrl.State.ThumbRX = int16(mathutils.MapRange(float64(ctrl.State.ThumbRX), -32768.0, 32768.0, -1.0, 1.0))
+		ctrl.State.ThumbRX = int16(math.Trunc(float64(ctrl.State.ThumbRX)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
 		ctrl.State.ThumbRY = int16(mathutils.MapRange(float64(ctrl.State.ThumbRY), -32768.0, 32768.0, -1.0, 1.0))
+		ctrl.State.ThumbRY = int16(math.Trunc(float64(ctrl.State.ThumbRY)*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision)))
+
+		// fmt.Println(ctrl.State)
 		event.Trigger(LeftTrigger, ctrl.State.LeftTrigger)
 		event.Trigger(RightTrigger, ctrl.State.RightTrigger)
 		event.Trigger(LeftStick, struct {

@@ -1,8 +1,10 @@
 package robot
 
 import (
-	"log"
+	"fmt"
 	"time"
+
+	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 )
 
 type (
@@ -19,22 +21,27 @@ type (
 	}
 
 	State struct {
+		name       string
 		action     func(any)
 		switches   map[string]func(any) bool
 		parameters any
+		init       func(*State)
+		close      func(*State)
+		Listeners  []*event.Listener
 	}
 )
 
-func NewRobot(StartState string) *Robot {
+func NewRobot(StartState string, freq time.Duration) *Robot {
 	return &Robot{
 		States:    map[string]*State{},
 		State:     StartState,
-		Frequency: time.Millisecond * 1000,
+		Frequency: freq,
 	}
 }
 
 func (r *Robot) AddState(name string, action func(any), params any) *State {
 	s := &State{
+		name:       name,
 		action:     action,
 		parameters: params,
 		switches:   map[string]func(any) bool{},
@@ -77,6 +84,14 @@ func (s *State) AddCondition(target string, condition func(any) bool) *State {
 	return s
 }
 
+func (s *State) AddEventListener(target string, callback func(event any)) {
+	s.Listeners = append(s.Listeners, event.Listen(target, fmt.Sprintf("STATE_%s", s.name), callback))
+}
+
+func (r *Robot) GetState() *State {
+	return r.States[r.State]
+}
+
 func (r *Robot) AddPeriodic(a func()) *Robot {
 	r.PeriodFuncs = append(r.PeriodFuncs, a)
 	return r
@@ -89,12 +104,19 @@ func (r *Robot) Start() {
 		r.Clock++
 		s := r.States[r.State]
 		if ns := s.CheckCondition(); ns != nil {
+			if r.GetState().close != nil {
+				r.GetState().close(r.GetState())
+			}
+			fmt.Println("Switching to", *ns)
 			r.SetState(*ns)
+			if r.GetState().init != nil {
+				r.GetState().init(r.GetState())
+			}
+			continue
 		}
 		for _, v := range r.PeriodFuncs {
 			v()
 		}
 		s.action(s.parameters)
-		log.Println(r.State)
 	}
 }

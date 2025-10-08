@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"test/constants"
+	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
@@ -10,7 +11,7 @@ import (
 )
 
 func main() {
-	r := robot.NewRobot("power_on")
+	r := robot.NewRobot("power_on", time.Millisecond*10)
 	ctrl0 := controller.NewController(constants.Controller0)
 	r.AddPeriodic(func() {
 		controller.ReadController(ctrl0)
@@ -28,15 +29,15 @@ func main() {
 	})
 
 	r.AddState("idle", func(a any) {
-		fmt.Println("robot idling")
 	}, nil).AddCondition("enabled", func(a any) bool {
 		return r.Enabled
 	})
 
 	r.AddState("enabled", func(a any) {
-		fmt.Println("robot enabled")
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.Enabled
+	}).AddEventListener(controller.A, func(event any) {
+		fmt.Println("Button A pressed")
 	})
 
 	r.Start()
