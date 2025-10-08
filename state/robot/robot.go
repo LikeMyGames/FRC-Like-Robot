@@ -55,21 +55,6 @@ func (r *Robot) SetState(newState string) *State {
 	return r.States[r.State]
 }
 
-func LoadStates() map[string]*State {
-	return map[string]*State{
-		"power_on": {
-			action: func(any) {
-
-			},
-			switches: map[string]func(any) bool{
-				"enabled": func(any) bool {
-					return false
-				},
-			},
-		},
-	}
-}
-
 func (s *State) CheckCondition() *string {
 	for i, v := range s.switches {
 		if v(nil) {
