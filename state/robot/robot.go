@@ -69,8 +69,19 @@ func (s *State) AddCondition(target string, condition func(any) bool) *State {
 	return s
 }
 
-func (s *State) AddEventListener(target string, callback func(event any)) {
+func (s *State) AddEventListener(target string, callback func(event any)) *State {
 	s.Listeners = append(s.Listeners, event.Listen(target, fmt.Sprintf("STATE_%s", s.name), callback))
+	return s
+}
+
+func (s *State) AddInit(action func(*State)) *State {
+	s.init = action
+	return s
+}
+
+func (s *State) AddClose(action func(*State)) *State {
+	s.close = action
+	return s
 }
 
 func (r *Robot) GetState() *State {

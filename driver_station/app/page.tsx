@@ -211,50 +211,55 @@ export default function Home() {
 	return (
 		<div className={style.main_container}>
 			<div className={style.sidemenu}>
-				<button type="button" title="Driving" className={`${style.sidemenu_button} ${panel == "driving" ? style.button_selected : ""}`} onClick={() => setPanel("driving")}
-				>
+				<button type="button" title="Driving" className={`${style.sidemenu_button} ${panel == "driving" ? style.button_selected : ""}`} onClick={() => setPanel("driving")}>
 					<Icon iconName="search_hands_free" className={style.sidemenu_button_icon} />
 				</button>
-				<button type="button" title="Settings" className={`${style.sidemenu_button} ${panel == "settings" ? style.button_selected : ""}`} onClick={() => setPanel("settings")}
-				>
+				<button type="button" title="Settings" className={`${style.sidemenu_button} ${panel == "settings" ? style.button_selected : ""}`} onClick={() => setPanel("settings")}>
 					<Icon iconName="settings" className={style.sidemenu_button_icon} />
 				</button>
-				<button type="button" title="Connections" className={`${style.sidemenu_button} ${panel == "connections" ? style.button_selected : ""}`} onClick={() => setPanel("connections")}
-				>
+				<button type="button" title="Connections" className={`${style.sidemenu_button} ${panel == "connections" ? style.button_selected : ""}`} onClick={() => setPanel("connections")}>
 					<Icon iconName="usb" className={style.sidemenu_button_icon} />
+				</button>
+				<button type="button" title="Robot" className={`${style.sidemenu_button} ${panel == "robot" ? style.button_selected : ""}`} onClick={() => setPanel("robot")}>
+					<Icon iconName="robot" className={style.sidemenu_button_icon} />
 				</button>
 			</div>
 			<div className={style.panel_container}>
-				<RobotInfoContext.Provider value={[robotInfo, setRobotInfo]}>
-					<h1 className={style.panel_title}>{panel}</h1>
-					<div className={style.panel_item_container}>
-						<RobotRunSettingsContext.Provider value={[runSettings, SetRobotRunSettings]}>
-							<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
-								{
-									panel == "driving" ? (
-										<DrivingPanel />
-									) : panel == "settings" ? (
-										<SettingsPanel />
-									) : panel == "connections" ? (
-										<ConnectionsPanel />
-									) : (
-										<>
+				{
+					panel == "robot" ? (<>
+						<RobotView />
+					</>) : (<>
+						<RobotInfoContext.Provider value={[robotInfo, setRobotInfo]}>
+							<h1 className={style.panel_title}>{panel}</h1>
+							<div className={style.panel_item_container}>
+								<RobotRunSettingsContext.Provider value={[runSettings, SetRobotRunSettings]}>
+									<div className={`${style.panel_item_subpanel} ${style.replaceable_panel}`}>
+										{
+											panel == "driving" ? (
+												<DrivingPanel />
+											) : panel == "settings" ? (
+												<SettingsPanel />
+											) : panel == "connections" ? (
+												<ConnectionsPanel />
+											) : (
+												<>
 
-										</>
-									)
-								}
+												</>
+											)
+										}
+									</div>
+								</RobotRunSettingsContext.Provider>
+								<RobotStatusContext.Provider value={[robotStat]}>
+									<RobotStatus />
+								</RobotStatusContext.Provider>
 							</div>
-						</RobotRunSettingsContext.Provider>
-						<RobotStatusContext.Provider value={[robotStat]}>
-							<RobotStatus />
-						</RobotStatusContext.Provider>
-					</div>
-					<LoggerContext.Provider value={[logs, resetLogs]}>
-						<LoggerFilterContext.Provider value={[loggerFilter, setLoggerFilter]}>
-							<Logger />
-						</LoggerFilterContext.Provider>
-					</LoggerContext.Provider>
-				</RobotInfoContext.Provider>
+							<LoggerContext.Provider value={[logs, resetLogs]}>
+								<LoggerFilterContext.Provider value={[loggerFilter, setLoggerFilter]}>
+									<Logger />
+								</LoggerFilterContext.Provider>
+							</LoggerContext.Provider>
+						</RobotInfoContext.Provider></>)
+				}
 			</div>
 		</div >
 	)

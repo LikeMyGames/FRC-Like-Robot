@@ -5,13 +5,14 @@ type (
 		ControllerNum int                 `json:"controllerNum"`
 		Precision     int                 `json:"precision"`
 		Deadzones     ControllerDeadzones `json:"deadzones"`
+		MinChange     float64
 	}
 
 	ControllerDeadzones struct {
-		ThumbL   float32 `json:"thumbL"`
-		ThumbR   float32 `json:"thumbR"`
-		TriggerL float32 `json:"triggerL"`
-		TriggerR float32 `json:"triggerR"`
+		ThumbL   float64 `json:"thumbL"`
+		ThumbR   float64 `json:"thumbR"`
+		TriggerL float64 `json:"triggerL"`
+		TriggerR float64 `json:"triggerR"`
 	}
 
 	SwerveDriveConfig struct {

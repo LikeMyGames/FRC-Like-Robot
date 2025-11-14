@@ -3,20 +3,24 @@ package constants
 import (
 	"math"
 
+	// Importing the constant type from the FRC-Like-Robot State module
 	constantTypes "github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 )
 
+// The Drive contants defined for the robot
+// Used in the Drive Subsystem
+// Do not edit in code ONLY EDIT HERE
 var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 	MaxSpeed: constantTypes.DriveMaxes{
 		TranslationalV: 1,   // Max Translational Velocity of the robot
-		RotationalV:    180, // Max Rotational Velocity of the robot
+		RotationalV:    180, // Max Rotational Velocity of the robot in degrees per second
 		TranslationalA: 0.5, // Max Translational Acceleration of the robot
-		RotationalA:    20,  // Max Rotational Acceleration of the robot
+		RotationalA:    20,  // Max Rotational Acceleration of the robot in degrees per second per second
 	},
 	Modules: constantTypes.Modules{
 		FrontLeft: constantTypes.ModuleConstants{
-			OffsetX:          0.15,
-			OffsetY:          0.15,
+			OffsetX:          0.15, // Offset from center (X direction)
+			OffsetY:          0.15, // Offset from center (Y direction)
 			AngularOffset:    math.Pi,
 			DriveCanID:       10,
 			AzimuthCanID:     11,
@@ -53,6 +57,8 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 	},
 }
 
+// Contansts for the main controller used
+// Used to instantiate a controller object in the main.go file
 var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 	ControllerNum: 0,
 	Precision:     2,
@@ -62,4 +68,5 @@ var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 		TriggerL: 0.2,
 		TriggerR: 0.2,
 	},
+	MinChange: 0.1,
 }
