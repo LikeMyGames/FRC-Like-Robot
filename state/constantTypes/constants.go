@@ -1,4 +1,4 @@
-package constants
+package constantTypes
 
 type (
 	ControllerConfig struct {

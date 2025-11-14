@@ -1,10 +1,13 @@
+// Do not edit in code, ONLY EDIT HERE
 package constants
 
 import (
 	"math"
 
 	// Importing the constant type from the FRC-Like-Robot State module
-	constantTypes "github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
+	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
+
+	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 )
 
 // The Drive contants defined for the robot
@@ -69,4 +72,11 @@ var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 		TriggerR: 0.2,
 	},
 	MinChange: 0.1,
+}
+
+var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
+	MaxFlyWheelVelocity:     10,
+	MaxFlyWheelAcceleration: 1,
+	MaxAzimuthVelocity:      math.Pi / 4,
+	MaxAzimuthAcceleartion:  math.Pi / 16,
 }

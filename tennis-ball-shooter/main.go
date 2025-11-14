@@ -9,6 +9,7 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/state_machine"
 )
 
 func main() {
@@ -28,10 +29,7 @@ func main() {
 	r.AddState("power_on", func(params any) {
 		fmt.Println("checking status")
 	}, nil).AddCondition("idle", func(a any) bool {
-		if r.Clock > 5 {
-			return true
-		}
-		return false
+		return r.Clock > 5
 	})
 
 	// IDLE state
@@ -49,13 +47,17 @@ func main() {
 	// the state in which the robot is running
 	// will fallback to IDLE state if a problem occurs
 	// or will restart program if problem is too great
+	EnabledModeStateMachine := state_machine.NewStateMachine()
 	r.AddState("enabled", func(a any) {
-		// drive.SetDriveController(ctrl0)
+		EnabledModeStateMachine.Run()
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.Enabled
 	}).AddInit(func(s *robot.State) {
 		drive.SetTransEventTarget(ctrl0.GetEventTarget(controller.LeftStick))
 		drive.SetRotEventTarget(ctrl0.GetEventTarget(controller.RightStick))
+	}).AddClose(func(s *robot.State) {
+		drive.SetTransEventTarget("")
+		drive.SetRotEventTarget("")
 	})
 	r.Start()
 }
