@@ -1,20 +1,13 @@
-//go:build linux
+//go:build !linux
 
 package hardware
 
 import (
-	"bytes"
-	"encoding/binary"
 	"fmt"
-	"log"
 	"math"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/pid"
-	"periph.io/x/conn/v3/driver/driverreg"
-	"periph.io/x/conn/v3/physic"
-	"periph.io/x/conn/v3/spi"
-	"periph.io/x/conn/v3/spi/spireg"
 )
 
 type (
@@ -26,8 +19,9 @@ type (
 	}
 
 	CANbus struct {
-		spiPort       spi.Conn
-		spiPortCloser spi.PortCloser
+		SPI_MISO_PIN int
+		SPI_MOSI_PIN int
+		SPI_SCLK_PIN int
 	}
 
 	Device struct {
@@ -42,41 +36,14 @@ type (
 	}
 )
 
-var bus *CANbus = nil
+// var bus = NewCanBus(19, 21, 23)
 
-func NewCanBus() *CANbus {
-	if bus != nil {
-		return bus
+func NewCanBus(MOSI, MISO, SCLK int) *CANbus {
+	return &CANbus{
+		SPI_MISO_PIN: MISO,
+		SPI_MOSI_PIN: MOSI,
+		SPI_SCLK_PIN: SCLK,
 	}
-	// Make sure periph is initialized.
-	// TODO: Use host.Init(). It is not used in this example to prevent circular
-	// go package import.
-	if _, err := driverreg.Init(); err != nil {
-		log.Fatal(err)
-	}
-
-	// Use spireg SPI port registry to find the first available SPI bus.
-	p, err := spireg.Open("/dev/spidev0.0")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Convert the spi.Port into a spi.Conn so it can be used for communication.
-	c, err := p.Connect(physic.MegaHertz, spi.Mode3, 8)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	bus = &CANbus{
-		spiPort:       c,
-		spiPortCloser: p,
-	}
-
-	return bus
-}
-
-func (b *CANbus) Close() {
-	b.spiPortCloser.Close()
 }
 
 func (m *SwerveModule) ReadAzimuthAngle() float64 {
@@ -128,20 +95,6 @@ func (c *MotorController) AtValue() bool {
 	return math.Abs(c.device.target-c.device.value) < 0.2
 }
 
-// idk if this method works
 func (c *MotorController) Write(val float64) {
-	// // Write 0x10 to the device, and read a byte right after.
-	// write := []byte{0x10, 0x00}
-	buf := new(bytes.Buffer)
-	err := binary.Write(buf, binary.LittleEndian, val)
-	if err != nil {
-		fmt.Println("could not convert float to bytes")
-		return
-	}
-	write := append(buf.Bytes(), 0x00)
-	read := make([]byte, len(write))
-	if err := bus.spiPort.Tx(write, read); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(read[1:])
+	fmt.Println("the write function for the MotorController struct only works in Linux, as such, it is only defined when the program is built in Linux")
 }

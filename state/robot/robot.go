@@ -31,12 +31,17 @@ type (
 	}
 )
 
+var RobotRef *Robot = nil
+
 func NewRobot(StartState string, freq time.Duration) *Robot {
-	return &Robot{
-		States:    map[string]*State{},
-		State:     StartState,
-		Frequency: freq,
+	if RobotRef == nil {
+		RobotRef = &Robot{
+			States:    map[string]*State{},
+			State:     StartState,
+			Frequency: freq,
+		}
 	}
+	return RobotRef
 }
 
 func (r *Robot) AddState(name string, action func(any), params any) *State {

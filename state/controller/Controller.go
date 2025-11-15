@@ -102,7 +102,7 @@ func (c *Controller) GetEventTarget(target string) string {
 func ReadController(ctrl *Controller) {
 	state := conn.LastControllerState
 	if state.ControllerID == ctrl.ControllerID {
-		oldState := ctrl.State
+		oldState := *ctrl.State
 		ctrl.State = &State{
 			Buttons:      state.Buttons,
 			LeftTrigger:  state.TriggerL,
@@ -119,17 +119,17 @@ func ReadController(ctrl *Controller) {
 
 		TriggerL := mathutils.MapRange(float64(ctrl.State.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
 		TriggerL = math.Trunc(TriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldTriggerL := mathutils.MapRange(float64(ctrl.State.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
+		OldTriggerL := mathutils.MapRange(float64(oldState.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
 		OldTriggerL = math.Trunc(OldTriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if TriggerL < ctrl.Config.Deadzones.TriggerL {
+		if math.Abs(TriggerL) < ctrl.Config.Deadzones.TriggerL {
 			TriggerL = 0
 		}
 
 		TriggerR := mathutils.MapRange(float64(ctrl.State.RightTrigger), 0.0, 255.0, 0.0, 1.0)
 		TriggerR = math.Trunc(TriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldTriggerR := mathutils.MapRange(float64(ctrl.State.RightTrigger), 0.0, 255.0, 0.0, 1.0)
+		OldTriggerR := mathutils.MapRange(float64(oldState.RightTrigger), 0.0, 255.0, 0.0, 1.0)
 		OldTriggerR = math.Trunc(OldTriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if TriggerR < ctrl.Config.Deadzones.TriggerR {
+		if math.Abs(TriggerR) < ctrl.Config.Deadzones.TriggerR {
 			TriggerR = 0
 		}
 
@@ -137,7 +137,7 @@ func ReadController(ctrl *Controller) {
 		ThumbLX = math.Trunc(ThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
 		OldThumbLX := mathutils.MapRange(float64(oldState.ThumbLX), -32768.0, 32768.0, -1.0, 1.0)
 		OldThumbLX = math.Trunc(OldThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if ThumbLX < ctrl.Config.Deadzones.ThumbL {
+		if math.Abs(ThumbLX) < ctrl.Config.Deadzones.ThumbL {
 			ThumbLX = 0
 		}
 
@@ -145,7 +145,7 @@ func ReadController(ctrl *Controller) {
 		ThumbLY = math.Trunc(ThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
 		OldThumbLY := mathutils.MapRange(float64(oldState.ThumbLY), -32768.0, 32768.0, -1.0, 1.0)
 		OldThumbLY = math.Trunc(OldThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if ThumbLY < ctrl.Config.Deadzones.ThumbL {
+		if math.Abs(ThumbLY) < ctrl.Config.Deadzones.ThumbL {
 			ThumbLY = 0
 		}
 
@@ -153,7 +153,7 @@ func ReadController(ctrl *Controller) {
 		ThumbRX = math.Trunc(ThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
 		OldThumbRX := mathutils.MapRange(float64(oldState.ThumbRX), -32768.0, 32768.0, -1.0, 1.0)
 		OldThumbRX = math.Trunc(OldThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if ThumbRX < ctrl.Config.Deadzones.ThumbR {
+		if math.Abs(ThumbRX) < ctrl.Config.Deadzones.ThumbR {
 			ThumbRX = 0
 		}
 
@@ -161,7 +161,7 @@ func ReadController(ctrl *Controller) {
 		ThumbRY = math.Trunc(ThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
 		OldThumbRY := mathutils.MapRange(float64(oldState.ThumbRY), -32768.0, 32768.0, -1.0, 1.0)
 		OldThumbRY = math.Trunc(OldThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if ThumbRY < ctrl.Config.Deadzones.ThumbR {
+		if math.Abs(ThumbRY) < ctrl.Config.Deadzones.ThumbR {
 			ThumbRY = 0
 		}
 

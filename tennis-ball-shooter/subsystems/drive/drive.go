@@ -91,12 +91,12 @@ func (drive *SwerveDrive) CalculateSwerve(trans, rot mathutils.Vector2D) SwerveD
 	brOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.BackRight.OffsetX, Y: drive.Config.Modules.BackRight.OffsetY})
 	br := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: brOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * brOffset.Magnitude})))
 
-	fmt.Println(SwerveDriveModulesVector{
-		FrontLeft:  fl,
-		FrontRight: fr,
-		BackLeft:   bl,
-		BackRight:  br,
-	})
+	// fmt.Println(SwerveDriveModulesVector{
+	// 	FrontLeft:  fl,
+	// 	FrontRight: fr,
+	// 	BackLeft:   bl,
+	// 	BackRight:  br,
+	// })
 
 	// Setting the swerve calculations in the drive objects pointer
 	return SwerveDriveModulesVector{

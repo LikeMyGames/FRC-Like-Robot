@@ -16,8 +16,8 @@ type (
 	}
 
 	Pose3D struct {
-		XY Pose2D
-		Z  float64
+		Location Location3D
+		Angle    float64
 	}
 
 	Pose2D struct {
@@ -26,13 +26,24 @@ type (
 	}
 
 	Location3D struct {
-		XY Location2D
-		Z  float64
+		X float64
+		Y float64
+		Z float64
 	}
 
 	Location2D struct {
 		X float64
 		Y float64
+	}
+
+	Translation2D struct {
+		X float64
+		Y float64
+	}
+	Translation3D struct {
+		X float64
+		Y float64
+		Z float64
 	}
 
 	Axis struct {

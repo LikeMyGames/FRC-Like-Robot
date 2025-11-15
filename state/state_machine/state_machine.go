@@ -19,11 +19,24 @@ type (
 )
 
 func NewStateMachine(states ...*State) *StateMachine {
-	machine := &StateMachine{}
+	machine := &StateMachine{
+		States: map[string]*State{},
+	}
 	for _, s := range states {
 		machine.States[s.name] = s
 	}
 	return machine
+}
+
+func NewState(name string, action func(any), switches map[string]func(any) bool, parameters any, init func(*State), close func(*State)) *State {
+	return &State{
+		name:       name,
+		action:     action,
+		switches:   switches,
+		parameters: parameters,
+		init:       init,
+		close:      close,
+	}
 }
 
 func (m *StateMachine) AddState(state *State) *StateMachine {
@@ -46,7 +59,9 @@ func (m *StateMachine) Run() {
 			s.init(s)
 		}
 	}
-	s.action(s.parameters)
+	if s.action != nil {
+		s.action(s.parameters)
+	}
 }
 
 func (s *State) CheckCondition() *string {

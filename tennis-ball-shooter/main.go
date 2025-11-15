@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"tennis-ball-shooter/constants"
 	"tennis-ball-shooter/subsystems/drive"
+	"tennis-ball-shooter/subsystems/shooter"
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/state_machine"
 )
 
 func main() {
 	r := robot.NewRobot("power_on", time.Millisecond*100)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.NewSwerveDrive(constants.Drive)
+	shooterSubsystem := shooter.New(constants.Shooter)
 	r.AddPeriodic(func() {
 		controller.ReadController(ctrl0)
 		driveSubsystem.CalculateSwerveFromSavedControllerVals()
@@ -47,9 +48,9 @@ func main() {
 	// the state in which the robot is running
 	// will fallback to IDLE state if a problem occurs
 	// or will restart program if problem is too great
-	EnabledModeStateMachine := state_machine.NewStateMachine()
+	// ShooterStateMachine := state_machine.NewStateMachine(shooterSubsystem.GetStates()...)
 	r.AddState("enabled", func(a any) {
-		EnabledModeStateMachine.Run()
+		// ShooterStateMachine.Run()
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.Enabled
 	}).AddInit(func(s *robot.State) {
@@ -58,6 +59,16 @@ func main() {
 	}).AddClose(func(s *robot.State) {
 		drive.SetTransEventTarget("")
 		drive.SetRotEventTarget("")
+	}).AddEventListener(ctrl0.GetEventTarget(controller.RightTrigger), func(event any) {
+		val := event.(float64)
+		if val > 0 {
+			shooterSubsystem.SpinUp(0.75)
+		}
+	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftTrigger), func(event any) {
+		val := event.(float64)
+		if val > 0 {
+			shooterSubsystem.Shoot()
+		}
 	})
 	r.Start()
 }

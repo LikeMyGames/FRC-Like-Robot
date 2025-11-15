@@ -46,12 +46,27 @@ type (
 	}
 
 	ModuleConstants struct {
-		OffsetX          float64 `json:"x"`
-		OffsetY          float64 `json:"y"`
-		AngularOffset    float64 `json:"angular_Offeset"`
-		DriveCanID       uint    `json:"canID_drive"`
-		AzimuthCanID     uint    `json:"canID_azimuth"`
-		DriveGearRatio   float64 `json:"gearRatio_drive"`
-		AzimuthGearRatio float64 `json:"gearRatio_azimuth"`
+		OffsetX             float64 `json:"x"`
+		OffsetY             float64 `json:"y"`
+		AngularOffset       float64 `json:"angular_Offeset"`
+		DriveCanID          uint    `json:"canID_drive"`
+		AzimuthCanID        uint    `json:"canID_azimuth"`
+		DriveGearRatio      float64 `json:"gearRatio_drive"`
+		DriveGearRatioInv   float64 `json:"gearRatio_driveInv"`
+		AzimuthGearRatio    float64 `json:"gearRatio_azimuth"`
+		AzimuthGearRatioInv float64 `json:"gearRatio_azimuthInv"`
+	}
+
+	MotorController struct {
+		Id  int64         `json:"CanID"`
+		PID PidController `json:"PID"`
+	}
+
+	PidController struct {
+		Kp     float64
+		Ki     float64
+		Kd     float64
+		MaxOut float64
+		MinOut float64
 	}
 )
