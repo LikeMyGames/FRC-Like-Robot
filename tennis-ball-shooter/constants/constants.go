@@ -72,14 +72,14 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 // Used to instantiate a controller object in the main.go file
 var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 	ControllerNum: 0,
-	Precision:     2,
+	Precision:     3,
 	Deadzones: constantTypes.ControllerDeadzones{
 		ThumbL:   0.05,
 		ThumbR:   0.05,
 		TriggerL: 0.05,
 		TriggerR: 0.05,
 	},
-	MinChange: 0.01,
+	MinChange: 0.00,
 }
 
 var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
