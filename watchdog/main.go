@@ -76,6 +76,9 @@ func main() {
 		os.Remove("robot.exe")
 		os.Rename("robot.exe.tmp", "robot.exe")
 
+		// 3.5. MAKE IT EXECUTABLE
+		os.Chmod("robot.exe", 0755)
+
 		// 4. RESTART new robot.exe
 		startRobot()
 	}
