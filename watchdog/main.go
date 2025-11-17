@@ -41,7 +41,7 @@ func main() {
 		runCommand(cmd)
 
 		for range t.C {
-			if exeStarted && !changingRobotExe {
+			if !exeStarted && !changingRobotExe {
 				runCommand(cmd)
 			}
 		}
