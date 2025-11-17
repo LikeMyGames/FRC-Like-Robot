@@ -53,7 +53,7 @@ func main() {
 
 		changingRobotExe = true
 		exeStarted = false
-		cmd.Process.Kill()
+		go cmd.Process.Kill()
 		handleConnection(conn)
 		changingRobotExe = false
 		go runCommand(cmd)
