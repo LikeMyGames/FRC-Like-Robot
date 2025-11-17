@@ -27,11 +27,9 @@ func main() {
 		fmt.Println("Starting robot.exe")
 		stdoutPipe, _ := cmd.StdoutPipe()
 		stderrPipe, _ := cmd.StderrPipe()
-		out, err := cmd.CombinedOutput()
-
+		err := cmd.Start()
 		go io.Copy(os.Stdout, stdoutPipe)
 		go io.Copy(os.Stderr, stderrPipe)
-		fmt.Println(string(out))
 		if err != nil {
 			fmt.Println(err)
 		}
