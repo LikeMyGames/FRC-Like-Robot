@@ -18,8 +18,31 @@ func main() {
 	defer listener.Close()
 	fmt.Println("Listening on :8080")
 	changingRobotExe := false
-	var cmd *exec.Cmd = nil
-	go WatchRobotExe(&changingRobotExe, cmd)
+
+	cmd := exec.Command("./robot.exe")
+
+	runCommand := func(cmd *exec.Cmd) {
+		fmt.Println("Starting robot.exe")
+		out, err := cmd.CombinedOutput()
+		fmt.Println(out)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	checkRunning := func(cmd *exec.Cmd) {
+		if cmd.ProcessState.Exited() && !changingRobotExe {
+			runCommand(cmd)
+		}
+	}
+
+	go func() {
+		t := time.NewTicker(time.Millisecond * 5000)
+
+		for range t.C {
+			checkRunning(cmd)
+		}
+	}()
 
 	for {
 		conn, err := listener.Accept()
@@ -29,11 +52,10 @@ func main() {
 		}
 
 		changingRobotExe = true
-		if cmd != nil {
-			cmd.Process.Kill()
-		}
+		cmd.Process.Kill()
 		handleConnection(conn)
 		changingRobotExe = false
+		go runCommand(cmd)
 	}
 }
 
@@ -59,21 +81,4 @@ func handleConnection(conn net.Conn) {
 	exec.Command("chmod", "+x", "robot.exe")
 
 	fmt.Printf("Received %d bytes and saved to %s\n", bytesCopied, fileName)
-}
-
-func WatchRobotExe(changing *bool, cmd *exec.Cmd) {
-	cmd = exec.Command("./robot.exe")
-
-	for {
-		if !*changing && cmd.ProcessState.Exited() {
-			fmt.Println("Starting robot.exe")
-			out, err := cmd.CombinedOutput()
-			fmt.Println(out)
-			if err != nil {
-
-			}
-		} else {
-			time.Sleep(time.Millisecond * 1500)
-		}
-	}
 }
