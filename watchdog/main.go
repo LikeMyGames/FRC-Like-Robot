@@ -59,10 +59,10 @@ func main() {
 
 		// Kill robot synchronously, not in a goroutine.
 		if cmd.Process != nil {
-			err = cmd.Process.Kill()
-			if err != nil {
-				panic(err)
-			}
+			// err = cmd.Process.Kill()
+			// if err != nil {
+			// 	panic(err)
+			// }
 			err = cmd.Wait()
 			if err != nil {
 				panic(err)
