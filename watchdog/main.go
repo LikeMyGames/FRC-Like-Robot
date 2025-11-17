@@ -25,9 +25,12 @@ func main() {
 	runCommand := func(cmd *exec.Cmd) {
 		exeStarted = true
 		fmt.Println("Starting robot.exe")
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
+		stdoutPipe, _ := cmd.StdoutPipe()
+		stderrPipe, _ := cmd.StderrPipe()
 		out, err := cmd.CombinedOutput()
+
+		go io.Copy(os.Stdout, stdoutPipe)
+		go io.Copy(os.Stderr, stderrPipe)
 		fmt.Println(string(out))
 		if err != nil {
 			fmt.Println(err)
