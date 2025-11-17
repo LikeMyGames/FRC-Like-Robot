@@ -4,5 +4,6 @@
 	"RobotIP": "192.168.1.79",
 	"TeamNum": 1,
 	"Architecture": "Stated",
-	"EntranceFile": "main.go"
+	"EntranceFile": "main.go",
+	"Port": 5000
 }

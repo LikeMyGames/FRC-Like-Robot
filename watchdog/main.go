@@ -10,36 +10,39 @@ import (
 )
 
 func main() {
-	listener, err := net.Listen("tcp", ":8080")
+	listener, err := net.Listen("tcp", ":5000")
 	if err != nil {
 		fmt.Println("Error listening:", err)
 		return
 	}
 	defer listener.Close()
-	fmt.Println("Listening on :8080")
+	fmt.Println("Listening on :5000")
 	changingRobotExe := false
 	exeStarted := false
 
 	cmd := exec.Command("./robot.exe")
 
 	runCommand := func(cmd *exec.Cmd) {
+		exeStarted = true
 		fmt.Println("Starting robot.exe")
 		out, err := cmd.CombinedOutput()
-		fmt.Println(out)
+		fmt.Println(string(out))
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
 
-	go func() {
+	go func(cmd *exec.Cmd) {
 		t := time.NewTicker(time.Millisecond * 5000)
+
+		runCommand(cmd)
 
 		for range t.C {
 			if exeStarted && !changingRobotExe {
 				runCommand(cmd)
 			}
 		}
-	}()
+	}(cmd)
 
 	for {
 		conn, err := listener.Accept()
@@ -53,7 +56,6 @@ func main() {
 		cmd.Process.Kill()
 		handleConnection(conn)
 		changingRobotExe = false
-		exeStarted = true
 		go runCommand(cmd)
 	}
 }

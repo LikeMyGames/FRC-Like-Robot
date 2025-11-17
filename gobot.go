@@ -26,6 +26,7 @@ type (
 		TeamNum      uint8  `json:"TeamNum"`
 		Architecture string `json:"Architecture"`
 		EntranceFile string `json:"EntranceFile"`
+		Port         uint   `json:"Port"`
 	}
 )
 
@@ -101,6 +102,7 @@ func NewProject(name string) {
 		Version:      "0.0.0",
 		Architecture: "Stated",
 		EntranceFile: "main.go",
+		Port:         5000,
 	}
 
 	// ./{project-name}/
@@ -232,7 +234,7 @@ func TransferExeToRobot() {
 		fmt.Println("Could not get working directory of command execution")
 	}
 
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:8080", data.RobotIP)) // Replace localhost with server IP
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, data.Port)) // Replace localhost with server IP
 	if err != nil {
 		fmt.Println("Error connecting:", err)
 		return
