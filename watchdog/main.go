@@ -25,6 +25,8 @@ func main() {
 	runCommand := func(cmd *exec.Cmd) {
 		exeStarted = true
 		fmt.Println("Starting robot.exe")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
 		out, err := cmd.CombinedOutput()
 		fmt.Println(string(out))
 		if err != nil {
@@ -56,8 +58,14 @@ func main() {
 
 		// Kill robot synchronously, not in a goroutine.
 		if cmd.Process != nil {
-			cmd.Process.Kill()
-			cmd.Wait()
+			err = cmd.Process.Kill()
+			if err != nil {
+				panic(err)
+			}
+			err = cmd.Wait()
+			if err != nil {
+				panic(err)
+			}
 		}
 
 		// Receive file fully
