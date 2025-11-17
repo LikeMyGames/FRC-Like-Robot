@@ -53,9 +53,22 @@ func main() {
 
 		changingRobotExe = true
 		exeStarted = false
-		go cmd.Process.Kill()
+
+		// Kill robot synchronously, not in a goroutine.
+		if cmd.Process != nil {
+			cmd.Process.Kill()
+			cmd.Wait()
+		}
+
+		// Receive file fully
 		handleConnection(conn)
+
+		// Recreate the command after overwriting robot.exe
+		cmd = exec.Command("./robot.exe")
+
 		changingRobotExe = false
+
+		// Start robot.exe again
 		go runCommand(cmd)
 	}
 }
@@ -71,13 +84,13 @@ func handleConnection(conn net.Conn) {
 		fmt.Println("Error creating file:", err)
 		return
 	}
+	defer file.Close()
 
 	bytesCopied, err := io.Copy(file, conn)
 	if err != nil {
 		fmt.Println("Error copying data:", err)
 		return
 	}
-	file.Close()
 
 	exec.Command("chmod", "+x", "robot.exe")
 
