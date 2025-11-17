@@ -3,5 +3,6 @@
 	"Version": "0.0.0",
 	"RobotIP": "",
 	"TeamNum": 1,
-	"Architecture": "Stated"
+	"Architecture": "Stated",
+	"EntranceFile": "main.go"
 }

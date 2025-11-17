@@ -4,9 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"runtime"
 )
 
 type (
@@ -17,11 +20,12 @@ type (
 	}
 
 	Settings struct {
-		Name         string
-		Version      string
-		RobotIP      string
-		TeamNum      uint8
-		Architecture string
+		Name         string `json:"Name"`
+		Version      string `json:"Version"`
+		RobotIP      string `json:"RobotIP"`
+		TeamNum      uint8  `json:"TeamNum"`
+		Architecture string `json:"Architecture"`
+		EntranceFile string `json:"EntranceFile"`
 	}
 )
 
@@ -40,18 +44,25 @@ func main() {
 			ShortDescription: "A command that take the next provided argument and creates a new gobot project with that name",
 			LongDescription:  "",
 		},
-		"build": {
-			Action:           func() {},
+		"deploy": {
+			Action: func() {
+				CompileProject()
+				TransferExeToRobot()
+			},
 			ShortDescription: "A command that compiles the code into an exe and sends it to the robot to be executed",
 			LongDescription:  "",
 		},
 		"compile": {
-			Action:           func() {},
+			Action: func() {
+				CompileProject()
+			},
 			ShortDescription: "A command that compiles the gobot project into a linux .exe file",
 			LongDescription:  "",
 		},
 		"send": {
-			Action:           func() {},
+			Action: func() {
+				TransferExeToRobot()
+			},
 			ShortDescription: "A command that sends a compiled linux .exe file to the robot",
 			LongDescription:  "",
 		},
@@ -89,6 +100,7 @@ func NewProject(name string) {
 		TeamNum:      1,
 		Version:      "0.0.0",
 		Architecture: "Stated",
+		EntranceFile: "main.go",
 	}
 
 	// ./{project-name}/
@@ -166,4 +178,82 @@ func NewProject(name string) {
 	// 	// panic(fmt.Sprint("Coult not create dependency in go.mod file:", err))
 	// }
 	fmt.Println(string(out), err)
+}
+
+func CompileProject() {
+	// env GOOS=linux GOARCH=arm64 go build -o my_raspberry_pi_app ./main.go
+
+	fileData, err := os.ReadFile("project.json")
+	if err != nil {
+		fmt.Println("Could not find files necessary for Gobot project compilation. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+	data := Settings{}
+	err = json.Unmarshal(fileData, &data)
+	if err != nil {
+		fmt.Println("Could not read contents of project.json file correctly. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+
+	curGOOS := runtime.GOOS
+	curGOARCH := runtime.GOARCH
+	err = exec.Command("go", "env", "-w", "GOOS=linux", "GOARCH=arm64").Run()
+	if err != nil {
+		panic(err)
+	}
+	cmd := exec.Command("go", "build", "-o", "build/bin.exe", data.EntranceFile)
+	fmt.Println(cmd.Args)
+	// err = cmd.Run()
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println(string(output))
+		panic(err)
+	}
+	err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Run()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TransferExeToRobot() {
+	fileData, err := os.ReadFile("project.json")
+	if err != nil {
+		fmt.Println("Could not find files necessary for Gobot project compilation. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+	data := Settings{}
+	err = json.Unmarshal(fileData, &data)
+	if err != nil {
+		fmt.Println("Could not read contents of project.json file correctly. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+
+	wd, err := os.Getwd()
+	buildPath := filepath.Join(wd, "build", "bin.exe")
+	if err != nil {
+		fmt.Println("Could not get working directory of command execution")
+	}
+
+	// exec.Command("scp", )
+
+	conn, err := net.Dial("tcp", "localhost:8080") // Replace localhost with server IP
+	if err != nil {
+		fmt.Println("Error connecting:", err)
+		return
+	}
+	defer conn.Close()
+
+	sourceFile, err := os.Open(buildPath) // Replace with your file
+	if err != nil {
+		fmt.Println("Error opening source file:", err)
+		return
+	}
+	defer sourceFile.Close()
+
+	bytesSent, err := io.Copy(conn, sourceFile)
+	if err != nil {
+		fmt.Println("Error sending data:", err)
+		return
+	}
+	fmt.Printf("Sent %d bytes from source_file.txt\n", bytesSent)
 }
