@@ -18,6 +18,7 @@ func main() {
 	defer listener.Close()
 	fmt.Println("Listening on :8080")
 	changingRobotExe := false
+	exeStarted := false
 
 	cmd := exec.Command("./robot.exe")
 
@@ -30,17 +31,13 @@ func main() {
 		}
 	}
 
-	checkRunning := func(cmd *exec.Cmd) {
-		if cmd.ProcessState.Exited() && !changingRobotExe {
-			runCommand(cmd)
-		}
-	}
-
 	go func() {
 		t := time.NewTicker(time.Millisecond * 5000)
 
 		for range t.C {
-			checkRunning(cmd)
+			if exeStarted && !changingRobotExe {
+				runCommand(cmd)
+			}
 		}
 	}()
 
@@ -52,9 +49,11 @@ func main() {
 		}
 
 		changingRobotExe = true
+		exeStarted = false
 		cmd.Process.Kill()
 		handleConnection(conn)
 		changingRobotExe = false
+		exeStarted = true
 		go runCommand(cmd)
 	}
 }
