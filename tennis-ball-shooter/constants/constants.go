@@ -79,7 +79,7 @@ var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 		TriggerL: 0.05,
 		TriggerR: 0.05,
 	},
-	MinChange: 0.00,
+	MinChange: 0.05,
 }
 
 var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
