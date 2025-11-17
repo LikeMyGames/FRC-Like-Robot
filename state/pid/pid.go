@@ -1,7 +1,6 @@
 package pid
 
 import (
-	"math"
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
@@ -26,7 +25,6 @@ func NewPIDController(config constantTypes.PidController) *PIDController {
 		Kp:        config.Kp,
 		Ki:        config.Ki,
 		Kd:        config.Kd,
-		setpoint:  math.NaN(),
 		minOutput: config.MinOut,
 		maxOutput: config.MaxOut,
 		dt:        robot.RobotRef.Frequency,

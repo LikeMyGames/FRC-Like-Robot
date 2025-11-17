@@ -181,8 +181,6 @@ func NewProject(name string) {
 }
 
 func CompileProject() {
-	// env GOOS=linux GOARCH=arm64 go build -o my_raspberry_pi_app ./main.go
-
 	fileData, err := os.ReadFile("project.json")
 	if err != nil {
 		fmt.Println("Could not find files necessary for Gobot project compilation. Make sure you are in a valid Gobot project directory.")
@@ -202,7 +200,7 @@ func CompileProject() {
 		panic(err)
 	}
 	cmd := exec.Command("go", "build", "-o", "build/bin.exe", data.EntranceFile)
-	fmt.Println(cmd.Args)
+	// fmt.Println(cmd.Args)
 	// err = cmd.Run()
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -234,9 +232,7 @@ func TransferExeToRobot() {
 		fmt.Println("Could not get working directory of command execution")
 	}
 
-	// exec.Command("scp", )
-
-	conn, err := net.Dial("tcp", "localhost:8080") // Replace localhost with server IP
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:8080", data.RobotIP)) // Replace localhost with server IP
 	if err != nil {
 		fmt.Println("Error connecting:", err)
 		return
@@ -255,5 +251,5 @@ func TransferExeToRobot() {
 		fmt.Println("Error sending data:", err)
 		return
 	}
-	fmt.Printf("Sent %d bytes from source_file.txt\n", bytesSent)
+	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
 }

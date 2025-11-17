@@ -8,6 +8,7 @@ import DrivingPanel from "@/components/Panels/Driving";
 import SettingsPanel from "@/components/Panels/Settings";
 import { useState, createContext, useRef, useEffect } from "react";
 import { runExe } from "./scripts/controller-loader";
+import { RobotView } from "@/components/Main/RobotView";
 
 export type LoggerFilter = {
 	all: boolean;

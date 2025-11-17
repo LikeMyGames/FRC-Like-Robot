@@ -1,16 +1,36 @@
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import style from "./Settings.module.css"
 import { useRobotContext } from "@/app/page"
 
 export default function SettingsPanel() {
 	const { RobotInfoContext } = useRobotContext()
 	const [robotInfo, setRobotInfo] = useContext(RobotInfoContext)
+	const BotNetRef = useRef<string>(robotInfo.botNet)
+
+	function checkBotNot() {
+		const oldBotnet = BotNetRef.current
+		setTimeout(() => {
+			if (oldBotnet != BotNetRef.current || oldBotnet == "") {
+				return
+			}
+			console.log("New BotNet: ", BotNetRef.current)
+			setRobotInfo({ ...robotInfo, botNet: BotNetRef.current })
+		}, 3000)
+	}
+
 	return (
 		<div className={style.settings}>
 			<div className={style.settings_panel}>
 				<div className={style.settings_item}>
 					<h3>Bot Net</h3>
-					<input placeholder={"Bot Net"} defaultValue={robotInfo.botNet} onChange={(e) => { e.preventDefault(); setRobotInfo({ ...robotInfo, botNet: e.target.value }) }}></input>
+					<input placeholder={"Bot Net"} defaultValue={BotNetRef.current}
+						onChange={(e) => {
+							e.preventDefault();
+							BotNetRef.current = e.target.value
+							checkBotNot()
+						}}
+
+					></input>
 				</div>
 			</div>
 			<div className={style.settings_panel}>
@@ -36,6 +56,6 @@ export default function SettingsPanel() {
 					<input placeholder={"Team #"} defaultValue={1}></input>
 				</div>
 			</div>
-		</div>
+		</div >
 	)
 }

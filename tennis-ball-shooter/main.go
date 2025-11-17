@@ -69,6 +69,10 @@ func main() {
 		if val > 0 {
 			shooterSubsystem.Shoot()
 		}
+	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadLeft), func(event any) {
+		shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
+	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadRight), func(event any) {
+		shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
 	})
 	r.Start()
 }

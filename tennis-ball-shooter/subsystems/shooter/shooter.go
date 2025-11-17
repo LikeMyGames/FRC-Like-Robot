@@ -1,6 +1,7 @@
 package shooter
 
 import (
+	"fmt"
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
@@ -12,15 +13,22 @@ type (
 		config         shooter_types.ShooterConfig
 		HasBall        bool
 		ReadyToShoot   bool
-		TopFlyWheel    *hardware.MotorController
-		BottomFlyWheel *hardware.MotorController
-		FeedWheel      *hardware.MotorController
+		FlyWheelMotor  *hardware.MotorController
+		PitchMotor     *hardware.MotorController
+		FeedWheelMotor *hardware.MotorController
+		AzimuthMotor   *hardware.MotorController
 	}
 )
 
 func New(config shooter_types.ShooterConfig) *Shooter {
 	return &Shooter{
-		config: config,
+		config:         config,
+		HasBall:        false,
+		ReadyToShoot:   false,
+		FlyWheelMotor:  hardware.NewMotorController(config.FlyWheelMotor),
+		PitchMotor:     hardware.NewMotorController(config.PitchMotor),
+		FeedWheelMotor: hardware.NewMotorController(config.FeedWheelMotor),
+		AzimuthMotor:   hardware.NewMotorController(config.AzimuthMotor),
 	}
 }
 
@@ -29,29 +37,26 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 // }
 
 func (s *Shooter) SpinUp(speedPercent float64) {
-	s.SpinUpTop(speedPercent)
-	s.SpinUpBottom(speedPercent)
-}
-
-func (s *Shooter) SpinUpTop(speedPercent float64) {
-	s.TopFlyWheel.SetTarget(s.config.MaxFlyWheelVelocity)
-}
-
-func (s *Shooter) SpinUpBottom(speedPercent float64) {
-	s.BottomFlyWheel.SetTarget(s.config.MaxFlyWheelVelocity)
+	s.FlyWheelMotor.SetTarget(s.config.MaxFlyWheelVelocity * speedPercent)
 }
 
 func (s *Shooter) Shoot() {
+	fmt.Println("Shooting Ball")
 	s.SpinUp(1)
 	s.FeedBall()
 }
 
 func (s *Shooter) FeedBall() {
 	if s.HasBall {
-		s.FeedWheel.SetTarget(0)
+		s.FeedWheelMotor.SetTarget(0)
 		return
 	}
-	s.FeedWheel.SetTarget(1)
+	s.FeedWheelMotor.SetTarget(1)
+}
+
+func (s *Shooter) MoveAzimuthByOffset(offset float64) {
+	fmt.Println("Moving azimuth to", (s.AzimuthMotor.GetTarget() + offset))
+	s.AzimuthMotor.SetTarget(s.AzimuthMotor.GetTarget() + offset)
 }
 
 func (s *Shooter) GetStates() []*state_machine.State {

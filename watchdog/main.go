@@ -5,6 +5,8 @@ import (
 	"io"
 	"net"
 	"os"
+	"os/exec"
+	"time"
 )
 
 func main() {
@@ -15,6 +17,9 @@ func main() {
 	}
 	defer listener.Close()
 	fmt.Println("Listening on :8080")
+	changingRobotExe := false
+	var cmd *exec.Cmd = nil
+	go WatchRobotExe(&changingRobotExe, cmd)
 
 	for {
 		conn, err := listener.Accept()
@@ -22,7 +27,13 @@ func main() {
 			fmt.Println("Error accepting connection:", err)
 			continue
 		}
-		go handleConnection(conn)
+
+		changingRobotExe = true
+		if cmd != nil {
+			cmd.Process.Kill()
+		}
+		handleConnection(conn)
+		changingRobotExe = false
 	}
 }
 
@@ -37,12 +48,32 @@ func handleConnection(conn net.Conn) {
 		fmt.Println("Error creating file:", err)
 		return
 	}
-	defer file.Close()
 
 	bytesCopied, err := io.Copy(file, conn)
 	if err != nil {
 		fmt.Println("Error copying data:", err)
 		return
 	}
+	file.Close()
+
+	exec.Command("chmod", "+x", "robot.exe")
+
 	fmt.Printf("Received %d bytes and saved to %s\n", bytesCopied, fileName)
+}
+
+func WatchRobotExe(changing *bool, cmd *exec.Cmd) {
+	cmd = exec.Command("./robot.exe")
+
+	for {
+		if !*changing && cmd.ProcessState.Exited() {
+			fmt.Println("Starting robot.exe")
+			out, err := cmd.CombinedOutput()
+			fmt.Println(out)
+			if err != nil {
+
+			}
+		} else {
+			time.Sleep(time.Millisecond * 1500)
+		}
+	}
 }

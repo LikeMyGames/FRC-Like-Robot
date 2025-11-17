@@ -1,6 +1,7 @@
 package event
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -44,7 +45,7 @@ func Trigger(target string, event any) {
 	if listeners[target] == nil {
 		return
 	}
-	// fmt.Println("Triggering:", target)
+	fmt.Println("Triggering:", target)
 	for _, a := range listeners[target] {
 		a.callback(event)
 	}
