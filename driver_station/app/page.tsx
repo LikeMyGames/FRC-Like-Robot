@@ -109,8 +109,14 @@ export default function Home() {
 		}
 
 		const setRobotStatus = (stat: RobotStatus) => {
-			if (newRobotStat.current !== robotStat) {
-				newRobotStat.current = { ...newRobotStat.current, ...stat } as RobotStatus
+			console.log(stat)
+			console.log(robotStat)
+			if (stat !== robotStat) {
+				newRobotStat.current = {
+					...stat,
+					joy: robotStat.joy
+				} as RobotStatus
+				console.log("set roboting status")
 				setRobotStat(newRobotStat.current)
 			} else {
 				newRobotStat.current = { ...robotStat, ...stat } as RobotStatus
@@ -159,6 +165,7 @@ export default function Home() {
 			robotConn.current.onmessage = (event) => {
 				// Handle incoming messages
 				const data = JSON.parse(event.data) as SocketData;
+				console.log("Most recent robot websocket data", data)
 				lastSocketMessage.current = data
 				socketMessages.current = [...socketMessages.current, lastSocketMessage.current]
 				if (data.system_logger) {
@@ -203,11 +210,14 @@ export default function Home() {
 
 	}, [logs, robotInfo, robotConn, robotStat, newRobotStat, loggerFilter]);
 
-	// useEffect(() => {
-	// 	if (typeof window !== 'undefined') {
-	// 		setIsWindowLoaded(true);
-	// 	}
-	// }, []);
+	useEffect(() => {
+		if (localStorage) {
+			setRobotInfo({
+				...robotInfo,
+				botNet: localStorage.getItem("BotNet") ?? ""
+			})
+		}
+	}, []);
 
 	return (
 		<div className={style.main_container}>

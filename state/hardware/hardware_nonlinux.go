@@ -98,3 +98,11 @@ func (c *MotorController) AtValue() bool {
 func (c *MotorController) Write(val float64) {
 	fmt.Println("the write function for the MotorController struct only works in Linux, as such, it is only defined when the program is built in Linux")
 }
+
+func ReadBatteryPercentage() float64 {
+	return -1
+}
+
+func ReadBatteryVoltage() float64 {
+	return -1
+}

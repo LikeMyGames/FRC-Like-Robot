@@ -114,7 +114,8 @@ func ReadController(ctrl *Controller) {
 		}
 		buttons := getPressedButtons(ctrl.State.Buttons)
 		for _, v := range buttons {
-			event.Trigger(v, nil)
+			// fmt.Println("triggering", v)
+			event.Trigger(ctrl.GetEventTarget(v), nil)
 		}
 
 		TriggerL := mathutils.MapRange(float64(ctrl.State.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
@@ -261,33 +262,33 @@ func getPressedButtons(sum uint16) []string {
 func buttonIntToString(num uint16) string {
 	switch num {
 	case 1:
-		return "DPAD_UP"
+		return DpadUP
 	case 2:
-		return "DPAD_DOWN"
+		return DpadDown
 	case 4:
-		return "DPAD_LEFT"
+		return DpadLeft
 	case 8:
-		return "DPAD_RIGHT"
+		return DpadRight
 	case 16:
-		return "START"
+		return Start
 	case 32:
-		return "BACK"
+		return Back
 	case 64:
-		return "LEFT_THUMB"
+		return LeftStickPress
 	case 128:
-		return "RIGHT_THUMB"
+		return RightStickPress
 	case 256:
-		return "LEFT_SHOULDER"
+		return LeftShoulder
 	case 512:
-		return "RIGHT_SHOULDER"
+		return RightShoulder
 	case 4096:
-		return "BUTTON_A"
+		return A
 	case 8192:
-		return "BUTTON_B"
+		return B
 	case 16384:
-		return "BUTTON_X"
+		return X
 	case 32768:
-		return "BUTTON_Y"
+		return Y
 	default:
 		return ""
 	}

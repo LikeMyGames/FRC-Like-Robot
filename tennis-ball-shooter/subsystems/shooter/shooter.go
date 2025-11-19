@@ -2,6 +2,7 @@ package shooter
 
 import (
 	"fmt"
+	"tennis-ball-shooter/constants"
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
@@ -55,7 +56,7 @@ func (s *Shooter) FeedBall() {
 }
 
 func (s *Shooter) MoveAzimuthByOffset(offset float64) {
-	fmt.Println("Moving azimuth to", (s.AzimuthMotor.GetTarget() + offset))
+	fmt.Println("Moving azimuth to", (s.AzimuthMotor.GetTarget() + constants.Shooter.MinAzimuthOffset))
 	s.AzimuthMotor.SetTarget(s.AzimuthMotor.GetTarget() + offset)
 }
 

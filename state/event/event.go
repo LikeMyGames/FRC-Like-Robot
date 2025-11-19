@@ -1,23 +1,22 @@
 package event
 
 import (
-	"fmt"
 	"time"
 )
 
 type (
 	Listener struct {
-		from     string
-		target   string
+		From     string
+		Target   string
 		id       uint64
-		callback func(event any)
+		Callback func(event any)
 	}
 )
 
 var (
 	listeners                = make(map[string][]*Listener)
 	removingListeners        = false
-	nextId            uint64 = 0
+	nextId            uint64 = 1
 )
 
 func Listen(target, from string, callback func(event any)) *Listener {
@@ -29,7 +28,8 @@ func Listen(target, from string, callback func(event any)) *Listener {
 		}()
 		return listener
 	}
-	listener := &Listener{from: from, target: target, callback: callback}
+	listener := &Listener{From: from, Target: target, Callback: callback, id: nextId}
+	nextId++
 	listeners[target] = append(listeners[target], listener)
 	return listener
 }
@@ -42,12 +42,12 @@ func Trigger(target string, event any) {
 		}()
 		return
 	}
-	if listeners[target] == nil {
+	if listeners[target] == nil || len(listeners[target]) == 0 {
 		return
 	}
-	fmt.Println("Triggering:", target)
+
 	for _, a := range listeners[target] {
-		a.callback(event)
+		a.Callback(event)
 	}
 }
 
@@ -57,10 +57,12 @@ func Remove(listener *Listener) {
 		removingListeners = false
 		return
 	}
-	for i, v := range listeners[listener.target] {
-		if v.from == listener.from {
-			listeners[listener.target] = append(listeners[listener.target][:i], listeners[listener.target][i+1:]...)
+	for i, v := range listeners[listener.Target] {
+		if v.id == listener.id {
+			listeners[listener.Target] = append(listeners[listener.Target][:i], listeners[listener.Target][i+1:]...)
 		}
 	}
 	removingListeners = false
+	listener.id = 0
+	return
 }

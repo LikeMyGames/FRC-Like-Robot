@@ -75,7 +75,7 @@ func (s *State) AddCondition(target string, condition func(any) bool) *State {
 }
 
 func (s *State) AddEventListener(target string, callback func(event any)) *State {
-	s.Listeners = append(s.Listeners, event.Listen(target, fmt.Sprintf("STATE_%s", s.name), callback))
+	s.Listeners = append(s.Listeners, &event.Listener{Target: target, From: fmt.Sprintf("STATE_%s", s.name), Callback: callback})
 	return s
 }
 
@@ -87,6 +87,18 @@ func (s *State) AddInit(action func(*State)) *State {
 func (s *State) AddClose(action func(*State)) *State {
 	s.close = action
 	return s
+}
+
+func (s *State) loadEventListeners() {
+	for i, v := range s.Listeners {
+		s.Listeners[i] = event.Listen(v.Target, fmt.Sprintf("STATE_%s", s.name), v.Callback)
+	}
+}
+
+func (s *State) unLoadEventListeners() {
+	for _, v := range s.Listeners {
+		event.Remove(v)
+	}
 }
 
 func (r *Robot) GetState() *State {
@@ -106,11 +118,13 @@ func (r *Robot) Start() {
 		s := r.States[r.State]
 		if ns := s.CheckCondition(); ns != nil {
 			if r.GetState().close != nil {
+				r.GetState().unLoadEventListeners()
 				r.GetState().close(r.GetState())
 			}
 			fmt.Println("Switching to", *ns)
 			r.SetState(*ns)
 			if r.GetState().init != nil {
+				r.GetState().loadEventListeners()
 				r.GetState().init(r.GetState())
 			}
 			continue

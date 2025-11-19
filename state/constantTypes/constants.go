@@ -69,4 +69,8 @@ type (
 		MaxOut float64
 		MinOut float64
 	}
+
+	Battery struct {
+		NominalVoltage float64
+	}
 )

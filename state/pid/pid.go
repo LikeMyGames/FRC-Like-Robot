@@ -35,6 +35,10 @@ func (pid *PIDController) SetTarget(target float64) {
 	pid.setpoint = target
 }
 
+func (pid *PIDController) GetTarget() float64 {
+	return pid.setpoint
+}
+
 // Calculate computes the control output based on the current process value.
 func (pid *PIDController) Calculate(processValue float64) float64 {
 	err := pid.setpoint - processValue

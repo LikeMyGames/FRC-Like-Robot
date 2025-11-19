@@ -42,7 +42,10 @@ type (
 	}
 )
 
-var bus *CANbus = nil
+var (
+	bus    *CANbus               = nil
+	config constantTypes.Battery = constantTypes.Battery{}
+)
 
 func NewCanBus() *CANbus {
 	if bus != nil {
@@ -112,7 +115,7 @@ func (c *MotorController) GetValue() float64 {
 }
 
 func (c *MotorController) GetTarget() float64 {
-	return c.device.target
+	return c.PidController.GetTarget()
 }
 
 func (c *MotorController) GetId() int64 {
@@ -144,4 +147,16 @@ func (c *MotorController) Write(val float64) {
 		log.Fatal(err)
 	}
 	fmt.Println(read[1:])
+}
+
+func SetConfig(conf constantTypes.Battery) {
+	config = conf
+}
+
+func ReadBatteryPercentage() float64 {
+	return (ReadBatteryVoltage() / config.NominalVoltage) * 100
+}
+
+func ReadBatteryVoltage() float64 {
+	return 12.0
 }

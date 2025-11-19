@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 
 	"github.com/gorilla/websocket"
@@ -77,6 +79,9 @@ var LastControllerState *ControllerState = &ControllerState{
 }
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
+	defer func() {
+		bot.Enabled = false
+	}()
 	fmt.Println(r.URL.Host)
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -85,7 +90,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	connection = conn
 	defer func() {
 		conn.Close()
-		connection.Close()
+		// connection.Close()
 	}()
 
 	_, p, err := conn.ReadMessage()
@@ -93,23 +98,34 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-	log.Printf("received: %s\n", p)
+	fmt.Printf("received: %s\n", p)
 
-	err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"},"robot_status":{"comms":true,"code":true}}`))
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	SendJSONData(WebSocketData{
+		SystemLog: &Logger{
+			Type:    "success",
+			Message: "Robot Connected",
+		},
+		RobotStatus: &Status{
+			Comms: true,
+			Code:  true,
+			Msg:   "Robot Connected",
+			BatP:  uint(math.Trunc(hardware.ReadBatteryPercentage())),
+			BatV:  hardware.ReadBatteryVoltage(),
+		},
+	})
+	// err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"},"robot_status":{"comms":true,"code":true,"message":"Robot Connected"}}`))
 
 	for {
 		_, data, err := connection.ReadMessage()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			return
 		}
 		socketData := WebSocketData{}
 		err = json.Unmarshal(data, &socketData)
 		if err != nil {
 			log.Fatal(err)
+			return
 		}
 		if socketData.Controller != nil {
 			LastControllerState = socketData.Controller
@@ -125,8 +141,14 @@ func Start(r *robot.Robot) {
 	bot = r
 	http.HandleFunc("/", handleWebSocket)
 
-	log.Println("Server started on localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Server started on localhost:8080")
+	for {
+		err := http.ListenAndServe(":8080", nil)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("Driver Station disconnected")
+	}
 }
 
 func SendData(data []byte) {

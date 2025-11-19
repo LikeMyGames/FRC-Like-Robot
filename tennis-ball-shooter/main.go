@@ -70,8 +70,10 @@ func main() {
 			shooterSubsystem.Shoot()
 		}
 	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadLeft), func(event any) {
+		// fmt.Println("Moving azimuth to", (shooterSubsystem.AzimuthMotor.GetTarget() + constants.Shooter.MinAzimuthOffset))
 		shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
 	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadRight), func(event any) {
+		// fmt.Println("Moving azimuth to", (shooterSubsystem.AzimuthMotor.GetTarget() - constants.Shooter.MinAzimuthOffset))
 		shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
 	})
 	r.Start()

@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import style from "./Settings.module.css"
 import { useRobotContext } from "@/app/page"
 
@@ -17,6 +17,12 @@ export default function SettingsPanel() {
 			setRobotInfo({ ...robotInfo, botNet: BotNetRef.current })
 		}, 3000)
 	}
+
+	useEffect(() => {
+		if (localStorage) {
+			localStorage.setItem("BotNet", robotInfo.botNet)
+		}
+	}, [robotInfo])
 
 	return (
 		<div className={style.settings}>
