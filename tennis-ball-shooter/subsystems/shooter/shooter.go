@@ -38,16 +38,17 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 // }
 
 func (s *Shooter) SpinUp(speedPercent float64) {
+	fmt.Println("Spinning up Shooter")
 	s.FlyWheelMotor.SetTarget(s.config.MaxFlyWheelVelocity * speedPercent)
 }
 
 func (s *Shooter) Shoot() {
-	fmt.Println("Shooting Ball")
-	s.SpinUp(1)
-	s.FeedBall()
+	fmt.Println("Feeding ball for Shooting")
+	// s.SpinUp(1)
+	s.feedBall()
 }
 
-func (s *Shooter) FeedBall() {
+func (s *Shooter) feedBall() {
 	if s.HasBall {
 		s.FeedWheelMotor.SetTarget(0)
 		return

@@ -110,12 +110,9 @@ int main()
         {
             continue;
         }
-        else
-        {
-            angle += 0.05f;
-            if (angle > 2 * M_PI)
-                angle = 0;
-        }
+        angle += 0.05f;
+        if (angle > 2 * M_PI)
+            angle = 0;
         // Example rotating vector (simulate FOC voltage command)
 
         ab_t v_ab;

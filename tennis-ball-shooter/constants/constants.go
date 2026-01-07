@@ -3,12 +3,33 @@ package constants
 
 import (
 	"math"
+	"time"
 
 	// Importing the constant type from the FRC-Like-Robot State module
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 )
+
+type (
+	RobotType struct {
+		Frequency   time.Duration
+		Controllers []constantTypes.ControllerConfig
+		Drive       constantTypes.SwerveDriveConfig
+		Shooter     shooter_types.ShooterConfig
+		Battery     constantTypes.Battery
+	}
+)
+
+var Robot RobotType = RobotType{
+	Frequency: time.Millisecond * 100,
+	Controllers: []constantTypes.ControllerConfig{
+		Controller0,
+	},
+	Drive:   Drive,
+	Shooter: Shooter,
+	Battery: Battery,
+}
 
 // The Drive contants defined for the robot
 // Used in the Drive Subsystem
@@ -104,4 +125,8 @@ var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
 		Id:  50,
 		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
 	},
+}
+
+var Battery constantTypes.Battery = constantTypes.Battery{
+	NominalVoltage: 12,
 }

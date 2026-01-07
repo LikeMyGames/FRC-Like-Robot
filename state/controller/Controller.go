@@ -248,7 +248,21 @@ func ReadController(ctrl *Controller) {
 }
 
 func getPressedButtons(sum uint16) []string {
-	nums := []uint16{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 4096, 8192, 16384, 32768}
+	nums := []uint16{0b1,
+		0b10,
+		0b100,
+		0b1000,
+		0b10000,
+		0b100000,
+		0b1000000,
+		0b10000000,
+		0b100000000,
+		0b1000000000,
+		0b1000000000000,
+		0b10000000000000,
+		0b100000000000000,
+		0b1000000000000000,
+	}
 	str := []string{}
 	for i := len(nums) - 1; i >= 0; i-- {
 		if sum >= nums[i] {

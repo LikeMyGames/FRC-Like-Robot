@@ -114,7 +114,7 @@ export default function Home() {
 			if (stat !== robotStat) {
 				newRobotStat.current = {
 					...stat,
-					joy: robotStat.joy
+					joy: controllerConn.current != null
 				} as RobotStatus
 				console.log("set roboting status")
 				setRobotStat(newRobotStat.current)

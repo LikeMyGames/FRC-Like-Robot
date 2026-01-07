@@ -3,14 +3,12 @@
 package hardware
 
 import (
-	"bytes"
-	"encoding/binary"
-	"fmt"
 	"log"
 	"math"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/pid"
+	"github.com/warthog618/go-gpiocdev"
 	"periph.io/x/conn/v3/driver/driverreg"
 	"periph.io/x/conn/v3/physic"
 	"periph.io/x/conn/v3/spi"
@@ -46,6 +44,11 @@ var (
 	bus    *CANbus               = nil
 	config constantTypes.Battery = constantTypes.Battery{}
 )
+
+func CheckStatus() bool {
+	err := gpiocdev.IsChip("gpiochip0")
+	return err != nil
+}
 
 func NewCanBus() *CANbus {
 	if bus != nil {
@@ -107,6 +110,7 @@ func NewMotorController(config constantTypes.MotorController) *MotorController {
 }
 
 func (c *MotorController) SetTarget(val float64) {
+	c.Write(val)
 	c.PidController.SetTarget(val)
 }
 
@@ -135,26 +139,27 @@ func (c *MotorController) AtValue() bool {
 func (c *MotorController) Write(val float64) {
 	// // Write 0x10 to the device, and read a byte right after.
 	// write := []byte{0x10, 0x00}
-	buf := new(bytes.Buffer)
-	err := binary.Write(buf, binary.LittleEndian, val)
-	if err != nil {
-		fmt.Println("could not convert float to bytes")
-		return
-	}
-	write := append(buf.Bytes(), 0x00)
-	read := make([]byte, len(write))
-	if err := bus.spiPort.Tx(write, read); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(read[1:])
+	// buf := new(bytes.Buffer)
+	// err := binary.Write(buf, binary.LittleEndian, val)
+	// if err != nil {
+	// 	fmt.Println("could not convert float to bytes")
+	// 	return
+	// }
+	// write := append(buf.Bytes(), 0x00)
+	// read := make([]byte, len(write))
+	// if err := bus.spiPort.Tx(write, read); err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(read[1:])
+	WriteToCan(uint(c.device.id), []byte{})
 }
 
 func SetConfig(conf constantTypes.Battery) {
 	config = conf
 }
 
-func ReadBatteryPercentage() float64 {
-	return (ReadBatteryVoltage() / config.NominalVoltage) * 100
+func ReadBatteryPercentage() uint {
+	return uint((ReadBatteryVoltage() / config.NominalVoltage) * 100)
 }
 
 func ReadBatteryVoltage() float64 {

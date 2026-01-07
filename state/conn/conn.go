@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math"
 	"net/http"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
@@ -99,6 +98,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Printf("received: %s\n", p)
+	// err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"},"robot_status":{"comms":true,"code":true,"message":"Robot Connected"}}`))
 
 	SendJSONData(WebSocketData{
 		SystemLog: &Logger{
@@ -109,13 +109,18 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			Comms: true,
 			Code:  true,
 			Msg:   "Robot Connected",
-			BatP:  uint(math.Trunc(hardware.ReadBatteryPercentage())),
-			BatV:  hardware.ReadBatteryVoltage(),
 		},
 	})
-	// err = conn.WriteMessage(websocket.TextMessage, []byte(`{"system_logger":{"type":"success","message":"Backend Connected"},"robot_status":{"comms":true,"code":true,"message":"Robot Connected"}}`))
 
 	for {
+		SendJSONData(WebSocketData{
+			RobotStatus: &Status{
+				Comms: true,
+				Code:  true,
+				BatP:  hardware.ReadBatteryPercentage(),
+				BatV:  hardware.ReadBatteryVoltage(),
+			},
+		})
 		_, data, err := connection.ReadMessage()
 		if err != nil {
 			fmt.Println(err)

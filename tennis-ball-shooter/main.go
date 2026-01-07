@@ -9,10 +9,12 @@ import (
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )
 
 func main() {
+	hardware.SetConfig(constants.Battery) // don't remove this line
 	r := robot.NewRobot("power_on", time.Millisecond*100)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.NewSwerveDrive(constants.Drive)
@@ -59,22 +61,20 @@ func main() {
 	}).AddClose(func(s *robot.State) {
 		drive.SetTransEventTarget("")
 		drive.SetRotEventTarget("")
-	}).AddEventListener(ctrl0.GetEventTarget(controller.RightTrigger), func(event any) {
-		val := event.(float64)
-		if val > 0 {
-			shooterSubsystem.SpinUp(0.75)
-		}
+	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftShoulder), func(event any) {
+		shooterSubsystem.SpinUp(1)
 	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftTrigger), func(event any) {
 		val := event.(float64)
 		if val > 0 {
 			shooterSubsystem.Shoot()
 		}
 	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadLeft), func(event any) {
-		// fmt.Println("Moving azimuth to", (shooterSubsystem.AzimuthMotor.GetTarget() + constants.Shooter.MinAzimuthOffset))
 		shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
 	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadRight), func(event any) {
-		// fmt.Println("Moving azimuth to", (shooterSubsystem.AzimuthMotor.GetTarget() - constants.Shooter.MinAzimuthOffset))
 		shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
 	})
+
+	// Starts the robots main loop
+	// This loop starts at the StartingState defined in the NewRobot function
 	r.Start()
 }

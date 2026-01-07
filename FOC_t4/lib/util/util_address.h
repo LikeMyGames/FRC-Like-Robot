@@ -1,0 +1,7 @@
+#ifndef UTIL_ADDRESS_H_
+#define UTIL_ADDRESS_H_
+
+#define CAN_ID_ADDRESS 0
+#define CAN_MAX_TIMEOUT_MS_ADDRESS 1
+
+#endif

@@ -38,6 +38,10 @@ type (
 
 // var bus = NewCanBus(19, 21, 23)
 
+var (
+	config constantTypes.Battery = constantTypes.Battery{}
+)
+
 func NewCanBus(MOSI, MISO, SCLK int) *CANbus {
 	return &CANbus{
 		SPI_MISO_PIN: MISO,
@@ -99,8 +103,12 @@ func (c *MotorController) Write(val float64) {
 	fmt.Println("the write function for the MotorController struct only works in Linux, as such, it is only defined when the program is built in Linux")
 }
 
-func ReadBatteryPercentage() float64 {
-	return -1
+func SetConfig(cfg constantTypes.Battery) {
+	config = cfg
+}
+
+func ReadBatteryPercentage() uint {
+	return 0
 }
 
 func ReadBatteryVoltage() float64 {
