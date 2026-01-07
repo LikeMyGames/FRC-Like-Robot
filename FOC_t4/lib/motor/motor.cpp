@@ -5,14 +5,14 @@
 
 static unsigned int NEXT_MOTOR_ID = 0;
 
-motor_state_t NewMotor(motor_config_t *config)
+motor_state_t *NewMotor(motor_config_t *config)
 {
-    motor_state_t state = {};
-    state.config = config;
-    state.internal_encoder = new Encoder(config->internal_encoder_pin);
-    state.external_encoder = new Encoder(config->external_encoder_pin);
-    state.driver = NewMotorDriver();
-    state.foc_state = init_foc(state.foc_config);
+    motor_state_t *state = {};
+    state->config = config;
+    state->internal_encoder = new Encoder(config->internal_encoder_pin);
+    state->external_encoder = new Encoder(config->external_encoder_pin);
+    state->driver = NewMotorDriver();
+    state->foc_state = init_foc(state->foc_config);
     MOTOR_STATE_MAP.insert_or_assign(NEXT_MOTOR_ID, state);
     NEXT_MOTOR_ID++;
     return state;
@@ -93,11 +93,11 @@ void MotorLoop(int MOTOR_ID)
 {
     motor_state_t *state = MOTOR_STATE_MAP[MOTOR_ID];
     foc_drive(state->foc_state, state->internal_encoder->ReadRad());
-    DriveMotorByPercent(state->driver, state->foc_state->dA, state->foc_state->dB, state->foc_state->dC);
+    DriveMotorByPercent(&(state->driver), state->foc_state->dA, state->foc_state->dB, state->foc_state->dC);
 }
 
 void MotorLoop(motor_state_t *state)
 {
     foc_drive(state->foc_state, state->internal_encoder->ReadRad());
-    DriveMotorByPercent(state->driver, state->foc_state->dA, state->foc_state->dB, state->foc_state->dC);
+    DriveMotorByPercent(&(state->driver), state->foc_state->dA, state->foc_state->dB, state->foc_state->dC);
 }

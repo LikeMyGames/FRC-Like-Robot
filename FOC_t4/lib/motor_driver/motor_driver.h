@@ -58,7 +58,7 @@ namespace motor_driver
     motor_driver_t *motor_2 = &motor2_instance;
 }
 // Functions
-motor_driver_t *NewMotorDriver();
+motor_driver_t NewMotorDriver();
 
 // Duty times should be in percent of the cycle
 void DriveMotorByPercent(motor_driver_t *driver, float dA, float dB, float dC);

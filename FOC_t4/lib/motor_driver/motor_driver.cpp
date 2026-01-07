@@ -4,16 +4,16 @@
 static unsigned int DRIVERS_CREATED = 0;
 const float DeadTimeNs = 50.0;
 
-motor_driver_t *NewMotorDriver()
+motor_driver_t NewMotorDriver()
 {
     motor_driver_t *driver;
     switch (DRIVERS_CREATED)
     {
     case 0:
-        driver = &*motor_driver::motor_1;
+        driver = motor_driver::motor_1;
         break;
     case 1:
-        driver = &*motor_driver::motor_2;
+        driver = motor_driver::motor_2;
         break;
     default:
         Serial.println("MOTOR_NUM_LIMIT reached");
@@ -128,7 +128,7 @@ motor_driver_t *NewMotorDriver()
         Serial.println("eFlexPwm submodules successfully started");
     }
 
-    return driver;
+    return *driver;
 }
 
 void DriveMotorByPercent(motor_driver_t *driver, float dA, float dB, float dC)
