@@ -37,28 +37,15 @@ static eFlex::Timer &Tm2 = Sm20.timer();
 static eFlex::Timer &Tm3 = Sm31.timer();
 static eFlex::Timer &Tm4 = Sm40.timer();
 
-namespace motor_driver
+namespace motor_driver_ns
 {
-    motor_driver_t motor1_instance = {
-        // {13, 20, 22},
-        {Sm13},
-        {Sm20},
-        {Sm22},
-        {Tm1, Tm2},
-    };
+    extern motor_driver_t motor_driver_1;
+    extern motor_driver_t motor_driver_2;
 
-    motor_driver_t motor2_instance = {
-        // {31, 40, 41, 42},
-        {Sm31},
-        {Sm40, Sm41},
-        {Sm42},
-        {Tm3, Tm4},
-    };
-    motor_driver_t *motor_1 = &motor1_instance;
-    motor_driver_t *motor_2 = &motor2_instance;
+    void InitMotorDriver(motor_driver_t *driver);
 }
+
 // Functions
-motor_driver_t NewMotorDriver();
 
 // Duty times should be in percent of the cycle
 void DriveMotorByPercent(motor_driver_t *driver, float dA, float dB, float dC);

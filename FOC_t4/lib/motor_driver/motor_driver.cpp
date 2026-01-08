@@ -1,26 +1,28 @@
 #include <motor_driver.h>
 #include <cstdint>
 
-static unsigned int DRIVERS_CREATED = 0;
+// static unsigned int DRIVERS_CREATED = 0;
 const float DeadTimeNs = 50.0;
 
-motor_driver_t NewMotorDriver()
+namespace motor_driver_ns
 {
-    motor_driver_t *driver;
-    switch (DRIVERS_CREATED)
-    {
-    case 0:
-        driver = motor_driver::motor_1;
-        break;
-    case 1:
-        driver = motor_driver::motor_2;
-        break;
-    default:
-        Serial.println("MOTOR_NUM_LIMIT reached");
-        break;
-    }
-    DRIVERS_CREATED++;
+    motor_driver_t motor_driver_1 = {
+        {Sm13},
+        {Sm20},
+        {Sm22},
+        {Tm1, Tm2},
+    };
 
+    motor_driver_t motor_driver_2 = {
+        {Sm31},
+        {Sm40, Sm41},
+        {Sm42},
+        {Tm3, Tm4},
+    };
+}
+
+void motor_driver_ns::InitMotorDriver(motor_driver_t *driver)
+{
     eFlex::Config myConfig;
     myConfig.setReloadLogic(kPWM_ReloadPwmFullCycle);
     myConfig.setClockSource(kPWM_Submodule0Clock);
@@ -127,8 +129,6 @@ motor_driver_t NewMotorDriver()
     {
         Serial.println("eFlexPwm submodules successfully started");
     }
-
-    return *driver;
 }
 
 void DriveMotorByPercent(motor_driver_t *driver, float dA, float dB, float dC)

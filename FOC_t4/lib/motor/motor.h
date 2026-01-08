@@ -44,12 +44,14 @@ typedef struct
     Encoder *external_encoder;
     int MOTOR_THREAD_ID = -1;
     bool MOTOR_THREAD_STARTED = false;
-    motor_driver_t driver;
+    motor_driver_t *driver;
 } motor_state_t;
 
 static std::unordered_map<uint, motor_state_t *> MOTOR_STATE_MAP;
 
 motor_state_t *NewMotor(motor_config_t *config);
+
+void InitMotor(motor_state_t *motor, motor_driver_t *driver);
 
 void disableMotor(motor_state_t *motor);
 void disableMotor(motor_state_t *motor, motor_error error);

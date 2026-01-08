@@ -1,6 +1,7 @@
 #include <can.h>
 #include <motor.h>
 #include <util_math.h>
+#include <motor_driver.h>
 
 std::vector<uint8_t> Motor1_Iq_read();
 bool Motor1_Iq_write(uint8_t buf[7]);
@@ -35,22 +36,26 @@ static motor_config_t motor2_config = {
 
 void setup()
 {
+    digitalToggle(LED_BUILTIN);
     Serial.begin(115200);
     // Serial.setTimeout(0);
     Serial.println("Starting setup");
     initCan();
     Serial.println("finished motor controller setup");
-    Motor1 = NewMotor(&motor1_config);
-    Motor2 = NewMotor(&motor2_config);
+    // Motor1 = NewMotor(&motor1_config);
+    // Motor2 = NewMotor(&motor2_config);
+    // InitMotor(Motor1, &motor_driver_ns::motor_driver_1);
+    // InitMotor(Motor2, &motor_driver_ns::motor_driver_2);
     addCanRegister(0, "echo", CanEchoRead, CanEchoWrite);
-    addCanRegister(1, "motor1 mode", Motor1_mode_read, Motor1_mode_write);
-    addCanRegister(2, "motor2 mode", Motor2_mode_read, Motor2_mode_write);
-    addCanRegister(3, "motor1 target iq", Motor1_Iq_read, Motor1_Iq_write);
-    addCanRegister(4, "motor2 target iq", Motor2_Iq_read, Motor2_Iq_write);
-    addCanRegister(5, "motor1 target pos", Motor1_target_pos_read, Motor1_target_pos_write);
-    addCanRegister(6, "motor1 target vel", Motor1_target_vel_read, Motor1_target_vel_write);
-    addCanRegister(7, "motor2 target pos", Motor2_target_pos_read, Motor2_target_pos_write);
-    addCanRegister(8, "motor2 target vel", Motor2_target_vel_read, Motor2_target_vel_write);
+    // addCanRegister(1, "motor1 mode", Motor1_mode_read, Motor1_mode_write);
+    // addCanRegister(2, "motor2 mode", Motor2_mode_read, Motor2_mode_write);
+    // addCanRegister(3, "motor1 target iq", Motor1_Iq_read, Motor1_Iq_write);
+    // addCanRegister(4, "motor2 target iq", Motor2_Iq_read, Motor2_Iq_write);
+    // addCanRegister(5, "motor1 target pos", Motor1_target_pos_read, Motor1_target_pos_write);
+    // addCanRegister(6, "motor1 target vel", Motor1_target_vel_read, Motor1_target_vel_write);
+    // addCanRegister(7, "motor2 target pos", Motor2_target_pos_read, Motor2_target_pos_write);
+    // addCanRegister(8, "motor2 target vel", Motor2_target_vel_read, Motor2_target_vel_write);
+    // digitalToggle(LED_BUILTIN);
 }
 
 std::vector<uint8_t> Motor1_Iq_read()
@@ -165,4 +170,5 @@ void loop()
 {
     MotorLoop(Motor1);
     MotorLoop(Motor2);
+    delayMicroseconds(50);
 }

@@ -72,7 +72,7 @@ bool CanEchoWrite(uint8_t args[])
 /// @param msg
 void canSniff(const CAN_message_t &msg)
 {
-    digitalToggleFast(LED_BUILTIN);
+    digitalToggle(LED_BUILTIN);
     Serial.print("MB ");
     Serial.print(msg.mb);
     Serial.print("  OVERRUN: ");
