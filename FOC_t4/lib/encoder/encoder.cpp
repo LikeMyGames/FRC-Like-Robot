@@ -10,12 +10,22 @@ Encoder::Encoder(uint pin)
 
 uint16_t Encoder::Read()
 {
-    return analogRead(this->pin) + this->offset;
+    val = analogRead(this->pin) + this->offset;
+    angle = utils_map_range((float)val, 0.f, (float)res, 0.f, (float)TWO_PI);
+    return val;
 }
 
 float Encoder::ReadRad()
 {
-    return utils_map_range((float)(this->Read()), 0.f, (float)res, 0.f, (float)TWO_PI);
+    angle = utils_map_range((float)(this->Read()), 0.f, (float)res, 0.f, TWO_PI);
+    val = utils_map_range((float)angle, 0.f, TWO_PI, 0.f, (float)res);
+    return angle;
+}
+
+void Encoder::Update()
+{
+    val = analogRead(this->pin) + this->offset;
+    angle = utils_map_range((float)val, 0.f, (float)res, 0.f, (float)TWO_PI);
 }
 
 void Encoder::SetOffset(uint16_t offset)

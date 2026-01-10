@@ -2,47 +2,47 @@
 #include <util_math.h>
 #include <math.h>
 
-foc_state_t *init_foc(foc_config_t *config)
+Foc::Foc(foc_config_t config)
 {
-    foc_state_t *state = {};
-    state->Ts = config->Ts;
+    Ts = config.Ts;
+    Serial.println("added foc config");
 
-    state->pid_i_d = NewPidController(&(state->id_target), config->kp_d, config->ki_d, config->kd_d, config->Ts);
-    state->pid_i_q = NewPidController(&(state->iq_target), config->kp_q, config->ki_q, config->kd_q, config->Ts);
-
-    return state;
+    pid_i_d = new Pid(&(id_target), config.kp_d, config.ki_d, config.kd_d, config.Ts);
+    Serial.println("created i_d pid controller");
+    pid_i_q = new Pid(&(iq_target), config.kp_q, config.ki_q, config.kd_q, config.Ts);
+    Serial.println("created i_q pid controller");
 }
 
-foc_phase_duty_timings_t foc_drive(foc_state_t *state, float theta)
+void Foc::Drive(float theta)
 {
     // motor_phase_currents_t abc = state->readPhaseCurrents();
 
     // clark transform
-    float i_alpha = ((2.f * state->i_a) - (state->i_b - state->i_c)) / 3.f;
-    float i_beta = (TWO_BY_SQRT3 * (state->i_b - state->i_c));
+    float i_alpha = ((2.f * i_a) - (i_b - i_c)) / 3.f;
+    float i_beta = (TWO_BY_SQRT3 * (i_b - i_c));
 
-    state->i_alpha = i_alpha;
-    state->i_beta = i_beta;
+    i_alpha = i_alpha;
+    i_beta = i_beta;
 
     float cos_theta = cosf(theta);
     float sin_theta = sinf(theta);
 
-    state->phase = theta;
-    state->phase_cos = cos_theta;
-    state->phase_sin = sin_theta;
+    phase = theta;
+    phase_cos = cos_theta;
+    phase_sin = sin_theta;
 
     // park transform
     float i_d = (i_alpha * cos_theta) + (i_beta * sin_theta);
     float i_q = (i_beta * cos_theta) - (i_alpha * sin_theta);
 
     // d and q pid updates
-    UpdatePid(state->pid_i_d, i_d);
-    UpdatePid(state->pid_i_q, i_q);
+    pid_i_d->Update(i_d);
+    pid_i_q->Update(i_q);
 
     // inv_park transform
     float v_alpha = (i_d * cos_theta) - (i_q * sin_theta);
     float v_beta = (i_q * cos_theta) + (i_d * sin_theta);
-    foc_svpwm(v_alpha, v_beta, (float)1, state->Ts, &(state->dA), &(state->dB), &(state->dA), &(state->svm_sector));
+    this->Svpwm(v_alpha, v_beta, (float)1, Ts, &(dA), &(dB), &(dA), &(svm_sector));
 }
 
 /**
@@ -55,8 +55,8 @@ foc_phase_duty_timings_t foc_drive(foc_state_t *state, float theta)
  * @param tBout PWM duty cycle phase B
  * @param tCout PWM duty cycle phase C
  */
-void foc_svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,
-               float *tAout, float *tBout, float *tCout, uint32_t *svm_sector)
+void Foc::Svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,
+                float *tAout, float *tBout, float *tCout, uint32_t *svm_sector)
 {
     uint32_t sector;
 

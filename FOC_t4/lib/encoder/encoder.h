@@ -15,11 +15,14 @@ public:
     uint16_t offset;
     uint16_t res = 1023;
     uint pin;
+    uint16_t val;
+    float angle;
 
     Encoder(uint pin);
 
     uint16_t Read();
     float ReadRad();
+    void Update();
     void SetOffset(uint16_t offset);
     void SetRadOffset(float radOffset);
 };

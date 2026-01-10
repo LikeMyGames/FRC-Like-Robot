@@ -3,11 +3,12 @@
 
 #include <eFlexPwm.h>
 
-#define PWM_FREQ 20000
-
 typedef struct
 {
-    // std::vector<int> submodule_numbers;
+    std::vector<uint> phaseA_submodule_num;
+    std::vector<uint> phaseB_submodule_num;
+    std::vector<uint> phaseC_submodule_num;
+
     std::vector<eFlex::SubModule> phaseA_submodules;
     std::vector<eFlex::SubModule> phaseB_submodules;
     std::vector<eFlex::SubModule> phaseC_submodules;
@@ -42,8 +43,8 @@ namespace motor_driver_ns
     extern motor_driver_t motor_driver_1;
     extern motor_driver_t motor_driver_2;
 
-    void InitMotorDriver(motor_driver_t *driver);
-}
+    void InitMotorDriver(motor_driver_t *driver, int PWM_FREQ);
+};
 
 // Functions
 

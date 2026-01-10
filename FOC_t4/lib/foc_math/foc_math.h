@@ -38,8 +38,8 @@ typedef struct
     float v_beta;
     float i_d;
     float i_q;
-    pid_controller_t *pid_i_d;
-    pid_controller_t *pid_i_q;
+    Pid *pid_i_d;
+    Pid *pid_i_q;
     float vd;
     float vq;
     uint32_t svm_sector;
@@ -75,9 +75,55 @@ typedef struct
 } foc_phase_duty_timings_t;
 
 // Functions
-foc_state_t *init_foc(foc_config_t *config);
-foc_phase_duty_timings_t foc_drive(foc_state_t *, float theta);
+foc_state_t *init_foc(foc_config_t config);
+void foc_drive(foc_state_t *, float theta);
 void foc_svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,
                float *tAout, float *tBout, float *tCout, uint32_t *svm_sector);
+
+class Foc
+{
+public:
+    float va;
+    float vb;
+    float vc;
+    float id_target;
+    float iq_target;
+    float max_duty;
+    float duty_now;
+    float phase;
+    float phase_cos;
+    float phase_sin;
+    float i_a;
+    float i_b;
+    float i_c;
+    float i_alpha;
+    float i_beta;
+    float i_abs;
+    float i_bus;
+    float v_bus;
+    float v_alpha;
+    float v_beta;
+    float i_d;
+    float i_q;
+    Pid *pid_i_d;
+    Pid *pid_i_q;
+    float vd;
+    float vq;
+    uint32_t svm_sector;
+    float dA;
+    float dB;
+    float dC;
+    foc_mode mode;
+    float targetAngle;
+    float targetVel;
+    float Ts;
+
+    Foc(foc_config_t config);
+    void Drive(float theta);
+
+private:
+    void Svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,
+               float *tAout, float *tBout, float *tCout, uint32_t *svm_sector);
+};
 
 #endif /* FOC_MATH_H_ */

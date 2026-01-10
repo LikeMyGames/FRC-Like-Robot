@@ -1,25 +1,22 @@
 #include <pid.h>
 
-pid_controller_t *NewPidController(float *process, float kp, float ki, float kd, float dt)
+Pid::Pid(float *process, float kp, float ki, float kd, float dt)
 {
-    pid_controller_t *controller = {};
-    controller->kp = kp;
-    controller->ki = ki;
-    controller->kd = kd;
-    controller->dT = dt;
-    controller->process = process;
-
-    return controller;
+    this->kp = kp;
+    this->ki = ki;
+    this->kd = kd;
+    this->dT = dt;
+    this->process = process;
 }
 
-void UpdatePid(pid_controller_t *pid, float input)
+void Pid::Update(float input)
 {
-    float err = *(pid->process) - input;
+    float err = *(process)-input;
 
-    pid->integralTerm += (err * pid->dT);
+    integralTerm += (err * dT);
 
-    pid->derivativeTerm = (err - pid->lastErr) / pid->dT;
-    pid->lastErr = err;
+    derivativeTerm = (err - lastErr) / dT;
+    lastErr = err;
 
-    pid->output = (pid->kp * err) + (pid->ki * pid->integralTerm) + (pid->kd * pid->derivativeTerm);
+    output = (kp * err) + (ki * integralTerm) + (kd * derivativeTerm);
 }

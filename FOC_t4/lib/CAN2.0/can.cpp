@@ -60,7 +60,7 @@ void initCan()
 
 std::vector<uint8_t> CanEchoRead()
 {
-    return (std::vector<uint8_t>){0};
+    return (std::vector<uint8_t>){0, 0, 0, 0, 0, 0, 0};
 }
 
 bool CanEchoWrite(uint8_t args[])
@@ -105,9 +105,15 @@ void ProcessIdSpecificMessage(const CAN_message_t &msg)
     }
 
     CAN_message_t rmsg;
-    rmsg.id = msg.id;
+    rmsg.id = 0;
     rmsg.buf[0] = msg.buf[0];
     rmsg.flags.extended = true;
+    Serial.println(rmsg.idhit);
+
+    Serial.print("manipulating register: ");
+    Serial.println(rmsg.buf[0]);
+    Serial.print("message length: ");
+    Serial.println(msg.len);
 
     if (msg.len == 1)
     {
@@ -123,15 +129,16 @@ void ProcessIdSpecificMessage(const CAN_message_t &msg)
         std::vector<uint8_t> buf = reg->read();
         if (buf.size() > 7)
         {
+            rmsg.seq = true;
             uint size = buf.size();
             size %= 7;
             uint bytesRead = 0;
             rmsg.len = 8;
-            while (buf.size() - bytesRead > size)
+            while (bytesRead <= buf.size() - size)
             {
                 for (int i = 0; i < 7; i++)
                 {
-                    rmsg.buf[i + 1] = buf.at(bytesRead + i);
+                    rmsg.buf[i + 1] = buf[bytesRead + i];
                     bytesRead++;
                 }
 
@@ -153,7 +160,7 @@ void ProcessIdSpecificMessage(const CAN_message_t &msg)
             rmsg.len = buf.size() + 1;
             for (uint i = 1; i < buf.size(); i++)
             {
-                rmsg.buf[i] = buf.at(i - 1);
+                rmsg.buf[i] = buf[i - 1];
             }
             Can0.write(rmsg);
         }
@@ -179,12 +186,15 @@ void addCanRegister(uint8_t id, std::string name, std::function<std::vector<uint
         Serial.println("Could not add register, already exists");
     }
 
-    CAN_REGISTER_t *reg = {};
+    CAN_REGISTER_t *reg = new CAN_REGISTER_t();
+    Serial.println("created new can register");
     reg->name = name;
     reg->read = readAction;
     reg->write = writeAction;
+    Serial.println("configured new can register");
 
     REG_MAP.insert_or_assign(id, reg);
+    Serial.println("added new can register to map");
 }
 
 void canLoop()
@@ -196,6 +206,7 @@ void canLoop()
         {
             Serial.println(Can0.getRXQueueCount());
         }
+        delayMicroseconds(50);
     }
 }
 
