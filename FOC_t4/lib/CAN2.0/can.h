@@ -16,7 +16,7 @@ void resetTimeout();
 void checkTimeout();
 void canSniff(const CAN_message_t &);
 void ProcessIdSpecificMessage(const CAN_message_t &);
-void canLoop();
+void CanUpdate();
 void Status();
 
 extern std::vector<uint8_t> CanEchoRead();

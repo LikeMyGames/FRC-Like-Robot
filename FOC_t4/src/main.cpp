@@ -2,6 +2,7 @@
 #include <motor.h>
 #include <util_math.h>
 #include <motor_driver.h>
+#include <TeensyThreads.h>
 
 std::vector<uint8_t> Motor1_Iq_read();
 bool Motor1_Iq_write(uint8_t buf[7]);
@@ -23,8 +24,10 @@ bool Motor2_target_vel_write(uint8_t buf[7]);
 Motor *Motor1;
 static motor_config_t motor1_config = {
     1.f,
-    21U,
-    20U,
+    21,
+    20,
+    17,
+    16,
     50,
 };
 
@@ -33,6 +36,8 @@ static motor_config_t motor2_config = {
     1.f,
     19,
     18,
+    15,
+    14,
     50,
 };
 
@@ -45,6 +50,7 @@ void setup()
     initCan();
     Serial.println("finished motor controller setup");
     Motor1 = new Motor(motor1_config);
+    Motor1->Kt = 0.0097;
     Serial.println("created motor 1");
     Motor2 = new Motor(motor2_config);
     Serial.println("created motor 2");
@@ -131,7 +137,7 @@ void setup()
 
 std::vector<uint8_t> Motor1_Iq_read()
 {
-    return utils_float_to_bytes(Motor1->foc->iq_target);
+    return utils_float_to_bytes(Motor1->cur_current);
 }
 
 bool Motor1_Iq_write(uint8_t buf[7])
@@ -141,13 +147,13 @@ bool Motor1_Iq_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor1->foc->iq_target = utils_bytes_to_float(newBuf);
+    Motor1->cur_current = utils_bytes_to_float(newBuf);
     return true;
 }
 
 std::vector<uint8_t> Motor2_Iq_read()
 {
-    return utils_float_to_bytes(Motor2->foc->iq_target);
+    return utils_float_to_bytes(Motor2->cur_current);
 }
 
 bool Motor2_Iq_write(uint8_t buf[7])
@@ -157,35 +163,35 @@ bool Motor2_Iq_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor2->foc->iq_target = utils_bytes_to_float(newBuf);
+    Motor2->cur_current = utils_bytes_to_float(newBuf);
     return true;
 }
 
 std::vector<uint8_t> Motor1_mode_read()
 {
-    return {(uint8_t)(Motor1->foc->mode)};
+    return {(uint8_t)(Motor1->running_mode)};
 }
 
 bool Motor1_mode_write(uint8_t buf[7])
 {
-    Motor1->foc->mode = (foc_mode)buf[0];
+    Motor1->SetRunningMode((motor_running_mode)buf[0]);
     return true;
 }
 
 std::vector<uint8_t> Motor2_mode_read()
 {
-    return {(u_int8_t)(Motor2->foc->mode)};
+    return {(u_int8_t)(Motor2->running_mode)};
 }
 
 bool Motor2_mode_write(uint8_t buf[7])
 {
-    Motor2->foc->mode = (foc_mode)buf[0];
+    Motor1->SetRunningMode((motor_running_mode)buf[0]);
     return true;
 }
 
 std::vector<uint8_t> Motor1_target_pos_read()
 {
-    return utils_float_to_bytes(Motor1->foc->targetAngle);
+    return utils_float_to_bytes(Motor1->target_pos);
 }
 
 bool Motor1_target_pos_write(uint8_t buf[7])
@@ -195,13 +201,13 @@ bool Motor1_target_pos_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor1->foc->targetAngle = utils_bytes_to_float(newBuf);
+    Motor1->target_pos = utils_bytes_to_float(newBuf);
     return true;
 }
 
 std::vector<uint8_t> Motor2_target_pos_read()
 {
-    return utils_float_to_bytes(Motor2->foc->targetAngle);
+    return utils_float_to_bytes(Motor2->target_pos);
 }
 
 bool Motor2_target_pos_write(uint8_t buf[7])
@@ -211,13 +217,13 @@ bool Motor2_target_pos_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor2->foc->targetAngle = utils_bytes_to_float(newBuf);
+    Motor2->target_pos = utils_bytes_to_float(newBuf);
     return true;
 }
 
 std::vector<uint8_t> Motor1_target_vel_read()
 {
-    return utils_float_to_bytes(Motor1->foc->targetVel);
+    return utils_float_to_bytes(Motor1->target_vel);
 }
 
 bool Motor1_target_vel_write(uint8_t buf[7])
@@ -227,13 +233,13 @@ bool Motor1_target_vel_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor1->foc->targetVel = utils_bytes_to_float(newBuf);
+    Motor1->target_vel = utils_bytes_to_float(newBuf);
     return true;
 }
 
 std::vector<uint8_t> Motor2_target_vel_read()
 {
-    return utils_float_to_bytes(Motor2->foc->targetVel);
+    return utils_float_to_bytes(Motor2->target_vel);
 }
 
 bool Motor2_target_vel_write(uint8_t buf[7])
@@ -243,13 +249,14 @@ bool Motor2_target_vel_write(uint8_t buf[7])
     {
         newBuf[i] = buf[i];
     }
-    Motor2->foc->targetVel = utils_bytes_to_float(newBuf);
+    Motor2->target_vel = utils_bytes_to_float(newBuf);
     return true;
 }
 
 void loop()
 {
+    CanUpdate();
     Motor1->Update();
     Motor2->Update();
-    delayMicroseconds(50);
+    delayMicroseconds(100);
 }

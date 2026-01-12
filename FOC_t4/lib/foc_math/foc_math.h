@@ -119,7 +119,7 @@ public:
     float Ts;
 
     Foc(foc_config_t config);
-    void Drive(float theta);
+    void Drive(float theta, motor_running_mode running_mode);
 
 private:
     void Svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,

@@ -19,7 +19,7 @@ typedef struct
 FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can0;
 std::unordered_map<uint8_t, CAN_REGISTER_t *> REG_MAP;
 uint32_t CAN_ID = 4;
-int LOOP_THREAD_ID;
+// int LOOP_THREAD_ID;
 int TIMEOUT_THREAD_ID;
 volatile uint16_t TIMEOUT_MS_COUNT = 0;
 volatile static uint16_t MAX_TIMEOUT_MS = 2000;
@@ -52,9 +52,8 @@ void initCan()
     Can0.mailboxStatus();
     Can0.distribute();
     Serial.println(getID());
-    LOOP_THREAD_ID = threads.addThread(canLoop);
     TIMEOUT_THREAD_ID = threads.addThread(checkTimeout);
-    Serial.println(LOOP_THREAD_ID);
+    // Serial.println(LOOP_THREAD_ID);
     Serial.println(TIMEOUT_THREAD_ID);
 }
 
@@ -197,17 +196,9 @@ void addCanRegister(uint8_t id, std::string name, std::function<std::vector<uint
     Serial.println("added new can register to map");
 }
 
-void canLoop()
+void CanUpdate()
 {
-    while (1)
-    {
-        Can0.events();
-        if (Can0.getRXQueueCount() != 0)
-        {
-            Serial.println(Can0.getRXQueueCount());
-        }
-        delayMicroseconds(50);
-    }
+    Can0.events();
 }
 
 void Status()

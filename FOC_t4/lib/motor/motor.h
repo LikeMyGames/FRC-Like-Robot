@@ -26,6 +26,8 @@ typedef struct
     float internal_by_external_ratio;
     uint internal_encoder_pin;
     uint external_encoder_pin;
+    uint phaseA_current_read_pin;
+    uint phaseB_current_read_pin;
     int PWM_FREQ;
 } motor_config_t;
 
@@ -63,7 +65,16 @@ public:
     motor_driver_t *driver;
     Pid *pos_pid;
     Pid *vel_pid;
+    Pid *torque_pid;
     motor_running_mode running_mode;
+    float Kt;
+    float target_pos;
+    float cur_pos;
+    float target_vel;
+    float cur_vel;
+    float target_torque;
+    float cur_torque;
+    float cur_current;
 
     Motor(motor_config_t config);
 
@@ -75,6 +86,12 @@ public:
     void Enable();
 
     void Update();
+    void SetRunningMode(motor_running_mode newMode);
+    void ClearFault();
+    void Error(motor_error error);
+
+private:
+    void ReadCurrents();
 };
 
 void disableMotor(unsigned int id);

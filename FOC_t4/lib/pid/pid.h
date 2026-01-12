@@ -12,8 +12,10 @@ public:
     float derivativeTerm;
     float lastErr;
     float output;
+    float out_min;
+    float out_max;
 
-    Pid(float *process, float kp, float ki, float kd, float dt);
+    Pid(float *process, float kp, float ki, float kd, float dt, float out_min, float out_max);
     void Update(float input);
 };
 
