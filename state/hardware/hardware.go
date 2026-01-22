@@ -23,11 +23,6 @@ type (
 		AzimuthMotorCanID int
 	}
 
-	CANbus struct {
-		spiPort       spi.Conn
-		spiPortCloser spi.PortCloser
-	}
-
 	Device struct {
 		id     int64
 		value  float64
@@ -151,7 +146,7 @@ func (c *MotorController) Write(val float64) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Println(read[1:])
-	WriteToCan(uint(c.device.id), []byte{})
+	// WriteToCan(uint(c.device.id), []byte{})
 }
 
 func SetConfig(conf constantTypes.Battery) {

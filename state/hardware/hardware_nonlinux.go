@@ -11,17 +11,15 @@ import (
 )
 
 type (
-	SwerveModule struct {
-		DriveAngle        float64
-		AzimuthAngle      float64
-		DriveMotorCanID   int
-		AzimuthMotorCanID int
-	}
-
-	CANbus struct {
+	CanBus struct {
 		SPI_MISO_PIN int
 		SPI_MOSI_PIN int
 		SPI_SCLK_PIN int
+	}
+
+	CanNode struct {
+		id          int
+		registerMap map[string]int
 	}
 
 	Device struct {
@@ -42,17 +40,12 @@ var (
 	config constantTypes.Battery = constantTypes.Battery{}
 )
 
-func NewCanBus(MOSI, MISO, SCLK int) *CANbus {
-	return &CANbus{
+func NewCanBus(MOSI, MISO, SCLK int) *CanBus {
+	return &CanBus{
 		SPI_MISO_PIN: MISO,
 		SPI_MOSI_PIN: MOSI,
 		SPI_SCLK_PIN: SCLK,
 	}
-}
-
-func (m *SwerveModule) ReadAzimuthAngle() float64 {
-
-	return 0
 }
 
 // func NewDevice(id int64) *Device {
