@@ -9,3 +9,14 @@ type (
 		motor *motor.Motor
 	}
 )
+
+var singleMotorRegisterMap map[string]int = map[string]int{
+	"": 0,
+}
+
+func NewSingleMotorController(CanId int) *SingleMotorController {
+	controller := &SingleMotorController{}
+	controller.motor.LoadRegisterMap(singleMotorRegisterMap)
+
+	return controller
+}

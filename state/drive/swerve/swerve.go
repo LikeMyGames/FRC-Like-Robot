@@ -116,7 +116,7 @@ func (drive *SwerveDrive) CalculateSwerve(trans, rot mathutils.Vector2D) SwerveD
 	}
 }
 
-func (drive *SwerveDrive) DriveWheels(modules SwerveDriveModules) {
+func (drive *SwerveDrive) Drive(modules SwerveDriveModules) {
 
 }
 
