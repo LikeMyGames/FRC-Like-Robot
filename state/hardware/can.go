@@ -2,6 +2,7 @@ package hardware
 
 import (
 	"bytes"
+	"reflect"
 
 	"github.com/warthog618/go-gpiocdev"
 	"periph.io/x/conn/v3/spi"
@@ -9,6 +10,10 @@ import (
 
 type (
 	CanFrame struct {
+		canId int
+		cmd   int
+		id    int
+		data  [8]uint8
 	}
 
 	CANbus struct {
@@ -35,6 +40,29 @@ func setUpGPIO() {
 	}
 	lowLine = low
 	highLine = high
+}
+
+// canId is a 6 bit max integer
+// cmd is a 5 bit max integer
+func BuildFrame(canId, cmd int, data [8]any) *CanFrame {
+	frame := &CanFrame{}
+	frame.canId = canId
+	frame.cmd = cmd
+	frame.id = (canId << 5) | cmd
+	for i, v := range data {
+		// need to convert data to [8]uint8
+		reflect.TypeOf(v).Kind().String()
+	}
+	return frame
+}
+
+func BuildSendFrame(canId, cmd int, data [8]uint8) {
+	frame := BuildFrame(canId, cmd, data)
+	SendFrame(frame)
+}
+
+func SendFrame(frame *CanFrame) {
+
 }
 
 // need to figure out i want to do this

@@ -23,8 +23,22 @@ type (
 	}
 )
 
+const (
+	MOTOR_ENABLED = iota
+	MOTOR_DISABLED
+	MOTOR_
+)
+
+func (m *Motor) Configure(config Config) {
+	m.config = config
+}
+
 func (m *Motor) LoadRegisterMap(regMap map[string]int) {
 	m.config.regMap = regMap
+}
+
+func (m *Motor) SetRunningMode() {
+
 }
 
 func (m *Motor) ReadAngle() float64 {
