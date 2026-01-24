@@ -11,7 +11,12 @@ type (
 )
 
 var singleMotorRegisterMap map[string]int = map[string]int{
-	"": 0x1,
+	"Status":       0x0,
+	"Estop":        0x3,
+	"Input_Pos":    0x0c,
+	"Input_Vel":    0x0d,
+	"Input_Torque": 0x0e,
+	"Limits":       0x0f,
 }
 
 func NewSingleMotorController(CanId int) *SingleMotorController {
@@ -37,10 +42,10 @@ func (c *SingleMotorController) SetMotorVelocity(velocity float64) {
 	c.motor.SetVelocity(velocity)
 }
 
-func (c *SingleMotorController) ReadAcceleration() float64 {
-	return c.motor.ReadAcceleration()
+func (c *SingleMotorController) ReadTorque() float64 {
+	return c.motor.ReadTorque()
 }
 
-func (c *SingleMotorController) SetAcceleration(acceleration float64) {
-	c.motor.SetAcceleration(acceleration)
+func (c *SingleMotorController) SetTorque(torque float64) {
+	c.motor.SetTorque(torque)
 }

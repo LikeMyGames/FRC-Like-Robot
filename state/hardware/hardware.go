@@ -3,15 +3,9 @@
 package hardware
 
 import (
-	"log"
-
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/pid"
 	"github.com/warthog618/go-gpiocdev"
-	"periph.io/x/conn/v3/driver/driverreg"
-	"periph.io/x/conn/v3/physic"
-	"periph.io/x/conn/v3/spi"
-	"periph.io/x/conn/v3/spi/spireg"
 )
 
 type (
@@ -35,48 +29,12 @@ type (
 )
 
 var (
-	bus    *CANbus               = nil
 	config constantTypes.Battery = constantTypes.Battery{}
 )
 
 func CheckStatus() bool {
 	err := gpiocdev.IsChip("gpiochip0")
 	return err != nil
-}
-
-func NewCanBus() *CANbus {
-	if bus != nil {
-		return bus
-	}
-	// Make sure periph is initialized.
-	// TODO: Use host.Init(). It is not used in this example to prevent circular
-	// go package import.
-	if _, err := driverreg.Init(); err != nil {
-		log.Fatal(err)
-	}
-
-	// Use spireg SPI port registry to find the first available SPI bus.
-	p, err := spireg.Open("/dev/spidev0.0")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Convert the spi.Port into a spi.Conn so it can be used for communication.
-	c, err := p.Connect(physic.MegaHertz, spi.Mode3, 8)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	bus = &CANbus{
-		spiPort:       c,
-		spiPortCloser: p,
-	}
-
-	return bus
-}
-
-func (b *CANbus) Close() {
-	b.spiPortCloser.Close()
 }
 
 func (m *SwerveModule) ReadAzimuthAngle() float64 {

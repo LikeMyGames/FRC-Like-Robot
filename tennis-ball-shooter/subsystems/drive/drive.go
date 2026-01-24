@@ -5,8 +5,8 @@ import (
 	"math"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
@@ -21,10 +21,10 @@ type (
 	}
 
 	SwerveDriveModules struct {
-		FrontLeft  hardware.SwerveModule
-		FrontRight hardware.SwerveModule
-		BackLeft   hardware.SwerveModule
-		BackRight  hardware.SwerveModule
+		FrontLeft  swerve.SwerveModule
+		FrontRight swerve.SwerveModule
+		BackLeft   swerve.SwerveModule
+		BackRight  swerve.SwerveModule
 	}
 
 	SwerveDriveModulesVector struct {

@@ -3,9 +3,6 @@
 package hardware
 
 import (
-	"fmt"
-	"math"
-
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/pid"
 )
@@ -60,41 +57,41 @@ func NewCanBus(MOSI, MISO, SCLK int) *CanBus {
 // 	fmt.Println(d.id, "target value is", target)
 // }
 
-func NewMotorController(config constantTypes.MotorController) *MotorController {
-	return &MotorController{
-		device:        Device{id: config.Id},
-		PidController: pid.NewPIDController(config.PID),
-	}
-}
+// func NewMotorController(config constantTypes.MotorController) *MotorController {
+// 	return &MotorController{
+// 		device:        Device{id: config.Id},
+// 		PidController: pid.NewPIDController(config.PID),
+// 	}
+// }
 
-func (c *MotorController) SetTarget(val float64) {
-	c.PidController.SetTarget(val)
-}
+// func (c *MotorController) SetTarget(val float64) {
+// 	c.PidController.SetTarget(val)
+// }
 
-func (c *MotorController) GetValue() float64 {
-	return c.device.value
-}
+// func (c *MotorController) GetValue() float64 {
+// 	return c.device.value
+// }
 
-func (c *MotorController) GetTarget() float64 {
-	return c.device.target
-}
+// func (c *MotorController) GetTarget() float64 {
+// 	return c.device.target
+// }
 
-func (c *MotorController) GetId() int64 {
-	return int64(c.device.target)
-}
+// func (c *MotorController) GetId() int64 {
+// 	return int64(c.device.target)
+// }
 
-func (c *MotorController) Run() {
-	c.PidController.Calculate(c.device.value)
-}
+// func (c *MotorController) Run() {
+// 	c.PidController.Calculate(c.device.value)
+// }
 
-func (c *MotorController) AtValue() bool {
-	// replace less than val later
-	return math.Abs(c.device.target-c.device.value) < 0.2
-}
+// func (c *MotorController) AtValue() bool {
+// 	// replace less than val later
+// 	return math.Abs(c.device.target-c.device.value) < 0.2
+// }
 
-func (c *MotorController) Write(val float64) {
-	fmt.Println("the write function for the MotorController struct only works in Linux, as such, it is only defined when the program is built in Linux")
-}
+// func (c *MotorController) Write(val float64) {
+// 	fmt.Println("the write function for the MotorController struct only works in Linux, as such, it is only defined when the program is built in Linux")
+// }
 
 func SetConfig(cfg constantTypes.Battery) {
 	config = cfg
