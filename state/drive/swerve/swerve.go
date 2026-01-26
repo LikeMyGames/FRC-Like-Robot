@@ -6,6 +6,7 @@ import (
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
+	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
@@ -13,10 +14,9 @@ import (
 
 type (
 	SwerveModule struct {
-		DriveAngle        float64
-		AzimuthAngle      float64
-		DriveMotorCanID   int
-		AzimuthMotorCanID int
+		driveMotor   *motor.Motor
+		turningMotor *motor.Motor
+		targetVector mathutils.VectorTheta
 	}
 
 	SwerveDrive struct {
@@ -38,9 +38,6 @@ type (
 		FrontRight mathutils.VectorTheta
 		BackLeft   mathutils.VectorTheta
 		BackRight  mathutils.VectorTheta
-	}
-
-	SwerveModuleState struct {
 	}
 
 	DriveProperties struct {
@@ -116,8 +113,8 @@ func (drive *SwerveDrive) CalculateSwerve(trans, rot mathutils.Vector2D) SwerveD
 	}
 }
 
-func (drive *SwerveDrive) Drive(modules SwerveDriveModules) {
-
+func (drive *SwerveDrive) Drive(modules SwerveDriveModulesVector) {
+	drive.SwerveModules.BackLeft.SetVector(modules.BackLeft)
 }
 
 func (drive *SwerveDrive) DriveToPose(pose mathutils.Pose2D) {
@@ -163,6 +160,8 @@ func (m *SwerveModule) ReadAzimuthAngle() float64 {
 
 	return 0
 }
+
+func (m *SwerveModule) SetVector(newVector mathutils.VectorTheta)
 
 // func GetDriveVectorsFromController(ctrl *controller.Controller) (trans, rot mathutils.Vector2D) {
 // 	return mathutils.Vector2D{}, mathutils.Vector2D{}

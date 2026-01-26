@@ -5,7 +5,7 @@ import (
 	"tennis-ball-shooter/constants"
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
-	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
+	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/state_machine"
 )
 
@@ -14,10 +14,10 @@ type (
 		config         shooter_types.ShooterConfig
 		HasBall        bool
 		ReadyToShoot   bool
-		FlyWheelMotor  *hardware.MotorController
-		PitchMotor     *hardware.MotorController
-		FeedWheelMotor *hardware.MotorController
-		AzimuthMotor   *hardware.MotorController
+		FlyWheelMotor  *motor.Motor
+		PitchMotor     *motor.Motor
+		FeedWheelMotor *motor.Motor
+		AzimuthMotor   *motor.Motor
 	}
 )
 
@@ -26,10 +26,10 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 		config:         config,
 		HasBall:        false,
 		ReadyToShoot:   false,
-		FlyWheelMotor:  hardware.NewMotorController(config.FlyWheelMotor),
-		PitchMotor:     hardware.NewMotorController(config.PitchMotor),
-		FeedWheelMotor: hardware.NewMotorController(config.FeedWheelMotor),
-		AzimuthMotor:   hardware.NewMotorController(config.AzimuthMotor),
+		FlyWheelMotor:  motor.NewMotor(int(config.FlyWheelMotor.Id)),
+		PitchMotor:     motor.NewMotor(int(config.PitchMotor.Id)),
+		FeedWheelMotor: motor.NewMotor(int(config.FeedWheelMotor.Id)),
+		AzimuthMotor:   motor.NewMotor(int(config.AzimuthMotor.Id)),
 	}
 }
 
@@ -39,7 +39,7 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 
 func (s *Shooter) SpinUp(speedPercent float64) {
 	fmt.Println("Spinning up Shooter")
-	s.FlyWheelMotor.SetTarget(s.config.MaxFlyWheelVelocity * speedPercent)
+	s.FlyWheelMotor.SetVelocity(s.config.MaxFlyWheelVelocity * speedPercent)
 }
 
 func (s *Shooter) Shoot() {
@@ -50,15 +50,15 @@ func (s *Shooter) Shoot() {
 
 func (s *Shooter) feedBall() {
 	if s.HasBall {
-		s.FeedWheelMotor.SetTarget(0)
+		s.FeedWheelMotor.SetVelocity(0)
 		return
 	}
-	s.FeedWheelMotor.SetTarget(1)
+	s.FeedWheelMotor.SetVelocity(1)
 }
 
 func (s *Shooter) MoveAzimuthByOffset(offset float64) {
-	fmt.Println("Moving azimuth to", (s.AzimuthMotor.GetTarget() + constants.Shooter.MinAzimuthOffset))
-	s.AzimuthMotor.SetTarget(s.AzimuthMotor.GetTarget() + offset)
+	fmt.Println("Moving azimuth to", (s.AzimuthMotor.ReadAngle() + constants.Shooter.MinAzimuthOffset))
+	s.AzimuthMotor.SetAngle(s.AzimuthMotor.ReadAngle() + offset)
 }
 
 func (s *Shooter) GetStates() []*state_machine.State {

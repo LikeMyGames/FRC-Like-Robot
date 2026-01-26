@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 )
 
 type (
@@ -18,6 +19,7 @@ type (
 		Clock       int64
 		RunningMode string
 		PeriodFuncs []func()
+		CanBus      *can.CanBus
 	}
 
 	State struct {
@@ -39,6 +41,7 @@ func NewRobot(StartState string, freq time.Duration) *Robot {
 			States:    map[string]*State{},
 			State:     StartState,
 			Frequency: freq,
+			CanBus:    can.NewCanBus(),
 		}
 	}
 	return RobotRef
@@ -116,6 +119,7 @@ func (r *Robot) Start() {
 	for range t.C {
 		r.Clock++
 		s := r.States[r.State]
+		r.CanBus.UpdateDevices()
 		if ns := s.CheckCondition(); ns != nil {
 			if r.GetState().close != nil {
 				r.GetState().unLoadEventListeners()

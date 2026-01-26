@@ -23,9 +23,16 @@ type (
 		callbackEventListener *event.Listener
 	}
 
-	CANbus struct {
+	CanBus struct {
 		spiPort       spi.Conn
 		spiPortCloser spi.PortCloser
+		messageBuffer map[int]([]*CanFrame)
+		devices       []CanDevice
+	}
+
+	CanDevice interface {
+		Update()
+		GetCanId() int
 	}
 )
 
@@ -34,14 +41,20 @@ var (
 	highLine    *gpiocdev.Line
 	writeBuffer *bytes.Buffer = new(bytes.Buffer)
 	readBuffer  *bytes.Buffer = new(bytes.Buffer)
-	bus         *CANbus       = nil
+	bus         *CanBus       = nil
 )
 
-func (b *CANbus) Close() {
+func (b *CanBus) Close() {
 	b.spiPortCloser.Close()
 }
 
-func NewCanBus() *CANbus {
+func (b *CanBus) UpdateDevices() {
+	for _, v := range b.devices {
+		v.Update()
+	}
+}
+
+func NewCanBus() *CanBus {
 	if bus != nil {
 		return bus
 	}
@@ -64,12 +77,26 @@ func NewCanBus() *CANbus {
 		log.Fatal(err)
 	}
 
-	bus = &CANbus{
+	bus = &CanBus{
 		spiPort:       c,
 		spiPortCloser: p,
 	}
 
 	return bus
+}
+
+func AddDeviceToBus(device CanDevice) {
+	if bus == nil {
+		return
+	}
+	bus.devices = append(bus.devices, device)
+}
+
+func GetCanMessageFromBuffer(canId, i int) [8]byte {
+	bus := NewCanBus()
+	data := bus.messageBuffer[canId][i].data
+	bus.messageBuffer[canId] = append(bus.messageBuffer[canId][:i], bus.messageBuffer[canId][i+1:]...)
+	return data
 }
 
 func setUpGPIO() {
@@ -109,24 +136,47 @@ func BuildFrame(canId, cmd int, data ...any) *CanFrame {
 	return frame
 }
 
-func BuildFrameWithCallback(canId, cmd int, callbackEventTrigger string, callbackFunc func(event any), data ...any) *CanFrame {
+// canId is a 6 bit max integer
+// cmd is a 5 bit max integer
+// The max sendable data size is 8 bytes (64 bits)
+// the event parameter in the callback function is the index of the desired *CanFrame in the CanBus object's message buffer map (map[CanId]([]*CanFrame))
+func BuildFrameWithCallback(canId, cmd int, callbackFunc func(event any), data ...any) *CanFrame {
 	frame := BuildFrame(canId, cmd, data)
+	callbackEventTrigger := fmt.Sprintf("CAN_CALLBACK_%v_%v", canId, cmd)
 	frame.callbackEventListener = event.Listen(callbackEventTrigger, "", callbackFunc)
 	return frame
 }
 
+// canId is a 6 bit max integer
+// cmd is a 5 bit max integer
+// The max sendable data size is 8 bytes (64 bits)
 func BuildAndSendFrame(canId, cmd int, data ...any) {
 	frame := BuildFrame(canId, cmd, data)
 	SendFrame(frame)
 }
 
-func BuildAndSendFrameWithCallback(canId, cmd int, callbackEventTrigger string, callbackFunc func(event any), data ...any) {
-	frame := BuildFrameWithCallback(canId, cmd, callbackEventTrigger, callbackFunc, data)
+// canId is a 6 bit max integer
+// cmd is a 5 bit max integer
+// The max sendable data size is 8 bytes (64 bits)
+func BuildAndSendFrameWithCallback(canId, cmd int, callbackFunc func(event any), data ...any) {
+	frame := BuildFrameWithCallback(canId, cmd, callbackFunc, data)
 	SendFrame(frame)
 }
 
 func SendFrame(frame *CanFrame) {
 
+}
+
+func (f *CanFrame) GetCanId() int {
+	return f.canId
+}
+
+func (f *CanFrame) GetCmd() int {
+	return f.cmd
+}
+
+func (f *CanFrame) GetData() [8]byte {
+	return f.data
 }
 
 // need to figure out i want to do this

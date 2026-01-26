@@ -52,3 +52,10 @@ func Avg(n ...float64) float64 {
 	}
 	return sum / float64(len(n))
 }
+
+func Deadband(value, deadSize float64) float64 {
+	if value > deadSize {
+		return value
+	}
+	return 0
+}
