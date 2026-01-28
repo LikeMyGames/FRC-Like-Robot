@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	hardware.SetConfig(constants.Battery) // don't remove this line
+	hardware.SetBatteryConfig(constants.Battery) // don't remove this line
 	r := robot.NewRobot("power_on", time.Millisecond*100)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.NewSwerveDrive(constants.Drive)

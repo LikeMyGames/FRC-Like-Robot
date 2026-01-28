@@ -12,8 +12,8 @@ var (
 	config constantTypes.Battery = constantTypes.Battery{}
 )
 
-func SetConfig(cfg constantTypes.Battery) {
-	config = cfg
+func SetBatteryConfig(conf constantTypes.Battery) {
+	config = conf
 }
 
 func ReadBatteryPercentage() uint {

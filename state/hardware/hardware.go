@@ -9,10 +9,10 @@ import (
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/warthog618/go-gpiocdev"
-	"periph.io/x/conn/v3/driver/driverreg"
 	"periph.io/x/conn/v3/physic"
 	"periph.io/x/conn/v3/spi"
 	"periph.io/x/conn/v3/spi/spireg"
+	"periph.io/x/host/v3"
 )
 
 type ()
@@ -25,7 +25,7 @@ func OpenSpi() {
 	// Make sure periph is initialized.
 	// TODO: Use host.Init(). It is not used in this example to prevent circular
 	// go package import.
-	if _, err := driverreg.Init(); err != nil {
+	if _, err := host.Init(); err != nil {
 		log.Fatal(err)
 	}
 

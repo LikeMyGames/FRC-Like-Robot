@@ -4,21 +4,39 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Gobot Compile",
+            "label": "Gobot: Compile",
             "type": "shell",
-            "command": "gobot compile"
+            "command": "gobot compile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "label": "Gobot Send",
+            "label": "Gobot: Send",
             "type": "shell",
-            "command": "gobot send"
+            "command": "gobot send",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "label": "Gobot Deploy",
+            "label": "Gobot: Deploy",
             "type": "shell",
             "command": "gobot deploy",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "options": {
-                "cwd": "${workspaceFolder}/tennis-ball-shooter/"
+                "cwd": "${workspaceFolder}"
             }
         }
     ]

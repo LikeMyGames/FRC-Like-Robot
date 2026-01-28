@@ -120,7 +120,7 @@ func BuildFrame(canId, cmd int, data ...any) *CanFrame {
 	frame.canId = canId
 	frame.cmd = cmd
 	frame.id = (canId << 5) | cmd
-	var dataBin []byte
+	var dataBin []byte = make([]byte, 8)
 	var err error
 	for _, v := range data {
 		dataBin, err = binary.Append(dataBin, binary.BigEndian, v)

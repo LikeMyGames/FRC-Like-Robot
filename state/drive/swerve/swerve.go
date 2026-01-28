@@ -161,7 +161,9 @@ func (m *SwerveModule) ReadAzimuthAngle() float64 {
 	return 0
 }
 
-func (m *SwerveModule) SetVector(newVector mathutils.VectorTheta)
+func (m *SwerveModule) SetVector(newVector mathutils.VectorTheta) {
+	m.targetVector = newVector
+}
 
 // func GetDriveVectorsFromController(ctrl *controller.Controller) (trans, rot mathutils.Vector2D) {
 // 	return mathutils.Vector2D{}, mathutils.Vector2D{}
