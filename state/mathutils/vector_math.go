@@ -85,6 +85,12 @@ func VectorThetatoVector2D(v VectorTheta) Vector2D {
 	return Vector2D{X: x, Y: y}
 }
 
+// VectorAdd adds the two Vector2D's provided in a head to tail fashion
+// v2 is essentially translated so that its tail is on the same exact point as the head of v1.
+// The vector output from this function is then acquaried by creating a new vector that goes
+// from the tail of v1 to the head of v2.
+// The way the function actually works is by adding the X's individually and the Y's individually.
+// This has the same effect as the explaination first provided.
 func VectorAdd(v1, v2 Vector2D) Vector2D {
 	x := v1.X + v2.X
 	y := v1.Y + v2.Y
@@ -146,4 +152,14 @@ func ClampVector(val, max, min Vector2D) Vector2D {
 		val.Y = min.Y
 	}
 	return val
+}
+
+func (v *Vector2D) Rotate(angle float64) {
+	sin, cos := math.Sincos(angle)
+	v.X = (v.X * cos) - (v.X * sin)
+	v.Y = (v.X * sin) + (v.Y * cos)
+}
+
+func (v *Vector2D) ToVectorTheta() VectorTheta {
+	return Vector2DtoVectorTheta(*v)
 }

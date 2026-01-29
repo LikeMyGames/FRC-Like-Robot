@@ -69,9 +69,8 @@ var motorRegisterMap map[string]int = map[string]int{
 	"Reboot":                  0x06,
 	"Get_Bus_Voltage_Current": 0x07,
 	"Clear_Errors":            0x08,
-	"Internal_Enocder":        0x09,
-	"External_Encoder":        0x0a,
-	"Running_Mode":            0x0b,
+	"Encoders":                0x09,
+	"Running_Mode":            0x0a,
 }
 
 func NewMotor(CanId int) *Motor {
@@ -94,12 +93,12 @@ func (m *Motor) LoadRegisterMap(regMap map[string]int) {
 	m.config.regMap = regMap
 }
 
-func (m *Motor) SetIsDoubleMotor(val bool) {
+func (m *Motor) SetIsSecondaryMotorOnController(val bool) {
 	m.config.IsSecondaryMotor = val
 	if val {
-		m.config.secondarySumValue = 0xf0
+		m.config.secondarySumValue = 0b10000
 	} else {
-		m.config.secondarySumValue = 0x0
+		m.config.secondarySumValue = 0b0
 	}
 }
 

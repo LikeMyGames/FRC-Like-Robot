@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 )
 
@@ -15,11 +16,12 @@ type (
 		States      map[string]*State
 		State       string
 		Frequency   time.Duration
-		Enabled     bool
+		enabled     bool
 		Clock       int64
 		RunningMode string
 		PeriodFuncs []func()
 		CanBus      *can.CanBus
+		rsl         *hardware.Pin
 	}
 
 	State struct {
@@ -61,6 +63,18 @@ func (r *Robot) AddState(name string, action func(any), params any) *State {
 func (r *Robot) SetState(newState string) *State {
 	r.State = newState
 	return r.States[r.State]
+}
+
+func (r *Robot) Enable() {
+	r.enabled = true
+}
+
+func (r *Robot) Disable() {
+	r.enabled = false
+}
+
+func (r *Robot) IsEnabled() bool {
+	return r.enabled
 }
 
 func (s *State) CheckCondition() *string {

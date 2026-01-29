@@ -197,7 +197,8 @@ func CompileProject() {
 
 	curGOOS := runtime.GOOS
 	curGOARCH := runtime.GOARCH
-	err = exec.Command("go", "env", "-w", "GOOS=linux", "GOARCH=arm64").Run()
+	out, err := exec.Command("go", "env", "-w", "GOOS=linux", "GOARCH=arm64").Output()
+	fmt.Println(string(out))
 	if err != nil {
 		panic(err)
 	}
@@ -209,7 +210,8 @@ func CompileProject() {
 		fmt.Println(string(output))
 		panic(err)
 	}
-	err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Run()
+	out, err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Output()
+	fmt.Println(string(out))
 	if err != nil {
 		panic(err)
 	}

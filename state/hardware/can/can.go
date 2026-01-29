@@ -4,14 +4,10 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"log"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
-	"github.com/warthog618/go-gpiocdev"
-	"periph.io/x/conn/v3/driver/driverreg"
-	"periph.io/x/conn/v3/physic"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"periph.io/x/conn/v3/spi"
-	"periph.io/x/conn/v3/spi/spireg"
 )
 
 type (
@@ -37,8 +33,6 @@ type (
 )
 
 var (
-	lowLine     *gpiocdev.Line
-	highLine    *gpiocdev.Line
 	writeBuffer *bytes.Buffer = new(bytes.Buffer)
 	readBuffer  *bytes.Buffer = new(bytes.Buffer)
 	bus         *CanBus       = nil
@@ -58,28 +52,12 @@ func NewCanBus() *CanBus {
 	if bus != nil {
 		return bus
 	}
-	// Make sure periph is initialized.
-	// TODO: Use host.Init(). It is not used in this example to prevent circular
-	// go package import.
-	if _, err := driverreg.Init(); err != nil {
-		log.Fatal(err)
-	}
 
-	// Use spireg SPI port registry to find the first available SPI bus.
-	p, err := spireg.Open("/dev/spidev0.0")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// Convert the spi.Port into a spi.Conn so it can be used for communication.
-	c, err := p.Connect(physic.MegaHertz, spi.Mode3, 8)
-	if err != nil {
-		log.Fatal(err)
-	}
+	hardware.OpenSpi()
 
 	bus = &CanBus{
-		spiPort:       c,
-		spiPortCloser: p,
+		spiPort:       nil, // c
+		spiPortCloser: nil, // p
 	}
 
 	return bus
@@ -99,18 +77,18 @@ func GetCanMessageFromBuffer(canId, i int) [8]byte {
 	return data
 }
 
-func setUpGPIO() {
-	low, err := gpiocdev.RequestLine("gpiochip0", 29)
-	if err != nil {
-		panic(err)
-	}
-	high, err := gpiocdev.RequestLine("gpiochip0", 29)
-	if err != nil {
-		panic(err)
-	}
-	lowLine = low
-	highLine = high
-}
+// func setUpGPIO() {
+// 	low, err := gpiocdev.RequestLine("gpiochip0", 29)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	high, err := gpiocdev.RequestLine("gpiochip0", 29)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	lowLine = low
+// 	highLine = high
+// }
 
 // canId is a 6 bit max integer
 // cmd is a 5 bit max integer
@@ -120,19 +98,43 @@ func BuildFrame(canId, cmd int, data ...any) *CanFrame {
 	frame.canId = canId
 	frame.cmd = cmd
 	frame.id = (canId << 5) | cmd
-	var dataBin []byte = make([]byte, 8)
+	buf := make([]byte, 8)
 	var err error
 	for _, v := range data {
-		dataBin, err = binary.Append(dataBin, binary.BigEndian, v)
+		switch v := v.(type) {
+		case int:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case int8:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case int16:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case int32:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case int64:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case uint:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case uint8:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case uint16:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case uint32:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case uint64:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case float32:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case float64:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		case bool:
+			buf, err = binary.Append(buf, binary.BigEndian, v)
+		}
 		if err != nil {
 			panic(err)
 		}
 	}
-	fmt.Print("Can data (in binary)")
-	for _, v := range dataBin {
-		fmt.Printf("%b", v)
-	}
-	fmt.Println()
+	frame.data = [8]byte(buf[:8])
+	fmt.Printf("Can data (in binary): %s\n", frame.data)
 	return frame
 }
 

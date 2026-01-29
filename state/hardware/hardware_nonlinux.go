@@ -6,11 +6,16 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 )
 
-type ()
+type (
+	Pin struct {
+	}
+)
 
 var (
 	config constantTypes.Battery = constantTypes.Battery{}
 )
+
+func OpenSpi()
 
 func SetBatteryConfig(conf constantTypes.Battery) {
 	config = conf

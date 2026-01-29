@@ -15,10 +15,16 @@ import (
 	"periph.io/x/host/v3"
 )
 
-type ()
+type (
+	Pin struct {
+		line gpiocdev.Line
+	}
+)
 
 var (
-	config constantTypes.Battery = constantTypes.Battery{}
+	config        constantTypes.Battery = constantTypes.Battery{}
+	spiPortCloser spi.PortCloser
+	spiConn       spi.Conn
 )
 
 func OpenSpi() {
@@ -52,7 +58,11 @@ func OpenSpi() {
 	fmt.Printf("%v\n", read[1:])
 }
 
-func Pin() {
+func SpiTxRx() {
+	// spiConn.
+}
+
+func NewPin() *Pin {
 	v := 0
 	l, err := gpiocdev.RequestLine("gpiochip0", 4, gpiocdev.AsOutput(v))
 	if err != nil {
@@ -63,6 +73,18 @@ func Pin() {
 		v ^= 1
 		l.SetValue(v)
 	}
+}
+
+func Set(pin *Pin, state bool) {
+	pin.line.SetValue(map[bool]int{true: 1, false: 0}[state])
+}
+
+func Read(pin *Pin) bool {
+	val, err := pin.line.Value()
+	if err != nil {
+		panic(err)
+	}
+	return map[int]bool{0: false, 1: true}[val]
 }
 
 func CheckStatus() bool {

@@ -79,7 +79,7 @@ var LastControllerState *ControllerState = &ControllerState{
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	defer func() {
-		bot.Enabled = false
+		bot.Disable()
 	}()
 	fmt.Println(r.URL.Host)
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -136,7 +136,11 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			LastControllerState = socketData.Controller
 		}
 		if socketData.RunSettings != nil {
-			bot.Enabled = socketData.RunSettings.Enabled
+			if socketData.RunSettings.Enabled {
+				bot.Enable()
+			} else {
+				bot.Disable()
+			}
 			bot.RunningMode = socketData.RunSettings.Mode
 		}
 	}

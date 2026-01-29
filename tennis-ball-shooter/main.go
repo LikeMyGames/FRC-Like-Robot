@@ -9,19 +9,18 @@ import (
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )
 
 func main() {
-	hardware.SetBatteryConfig(constants.Battery) // don't remove this line
+	// hardware.SetBatteryConfig(constants.Battery) // don't remove this line
 	r := robot.NewRobot("power_on", time.Millisecond*100)
 	ctrl0 := controller.NewController(constants.Controller0)
-	driveSubsystem := drive.NewSwerveDrive(constants.Drive)
+	driveSubsystem := drive.New()
 	shooterSubsystem := shooter.New(constants.Shooter)
 	r.AddPeriodic(func() {
 		controller.ReadController(ctrl0)
-		driveSubsystem.CalculateSwerveFromSavedControllerVals()
 	})
 
 	go conn.Start(r)
@@ -40,7 +39,7 @@ func main() {
 	// waits for the user to enable the robot from the dashboard
 	r.AddState("idle", func(a any) {
 	}, nil).AddCondition("enabled", func(a any) bool {
-		return r.Enabled
+		return r.IsEnabled()
 	}).AddInit(func(s *robot.State) {
 		drive.SetTransEventTarget("")
 		drive.SetRotEventTarget("")
@@ -50,11 +49,10 @@ func main() {
 	// the state in which the robot is running
 	// will fallback to IDLE state if a problem occurs
 	// or will restart program if problem is too great
-	// ShooterStateMachine := state_machine.NewStateMachine(shooterSubsystem.GetStates()...)
 	r.AddState("enabled", func(a any) {
-		// ShooterStateMachine.Run()
+		driveSubsystem.Drive(ctrl0.Values.LeftStick, mathutils.Vector2D{X: ctrl0.Values.RightStickX}, true)
 	}, nil).AddCondition("idle", func(a any) bool {
-		return !r.Enabled
+		return !r.IsEnabled()
 	}).AddInit(func(s *robot.State) {
 		drive.SetTransEventTarget(ctrl0.GetEventTarget(controller.LeftStick))
 		drive.SetRotEventTarget(ctrl0.GetEventTarget(controller.RightStick))
