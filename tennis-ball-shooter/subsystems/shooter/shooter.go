@@ -37,9 +37,17 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 
 // }
 
-func (s *Shooter) SpinUp(speedPercent float64) {
+func (s *Shooter) SpinUp(speed float64) {
 	fmt.Println("Spinning up Shooter")
-	s.FlyWheelMotor.SetVelocity(s.config.MaxFlyWheelVelocity * speedPercent)
+	s.FlyWheelMotor.SetVelocity(s.config.MaxFlyWheelVelocity * speed)
+}
+
+func (s *Shooter) SpinDown() {
+	s.FlyWheelMotor.SetTorque(0)
+}
+
+func (s *Shooter) BrakeFlyWheel() {
+	s.FlyWheelMotor.SetVelocity(0)
 }
 
 func (s *Shooter) Shoot() {
@@ -53,7 +61,7 @@ func (s *Shooter) feedBall() {
 		s.FeedWheelMotor.SetVelocity(0)
 		return
 	}
-	s.FeedWheelMotor.SetVelocity(1)
+	s.FeedWheelMotor.SetVelocity(s.config.MaxFeedVelocity)
 }
 
 func (s *Shooter) MoveAzimuthByOffset(offset float64) {
@@ -68,7 +76,11 @@ func (s *Shooter) GetStates() []*state_machine.State {
 			func(a any) {
 
 			},
-			map[string]func(any) bool{},
+			map[string]func(any) bool{
+				"SHOOTING": func(a any) bool {
+					return true
+				},
+			},
 			nil,
 			func(st *state_machine.State) {
 

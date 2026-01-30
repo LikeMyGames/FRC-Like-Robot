@@ -27,6 +27,7 @@ type (
 	}
 
 	CanDevice interface {
+		Status() bool
 		Update()
 		GetCanId() int
 	}
@@ -46,6 +47,17 @@ func (b *CanBus) UpdateDevices() {
 	for _, v := range b.devices {
 		v.Update()
 	}
+}
+
+func (b *CanBus) CheckStatuses() {
+	statuses := map[int]bool{}
+	for _, v := range b.devices {
+		statuses[v.GetCanId()] = v.Status()
+	}
+}
+
+func ReceiveFrame(frame *CanFrame) {
+	NewCanBus().messageBuffer[frame.canId] = append(NewCanBus().messageBuffer[frame.canId], frame)
 }
 
 func NewCanBus() *CanBus {

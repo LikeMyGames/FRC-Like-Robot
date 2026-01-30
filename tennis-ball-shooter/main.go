@@ -31,7 +31,7 @@ func main() {
 	r.AddState("power_on", func(params any) {
 		fmt.Println("checking status")
 	}, nil).AddCondition("idle", func(a any) bool {
-		return r.Clock > 5
+		return r.Status()
 	})
 
 	// IDLE state
@@ -54,21 +54,23 @@ func main() {
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.IsEnabled()
 	}).AddInit(func(s *robot.State) {
-		drive.SetTransEventTarget(ctrl0.GetEventTarget(controller.LeftStick))
-		drive.SetRotEventTarget(ctrl0.GetEventTarget(controller.RightStick))
+		// drive.SetTransEventTarget(ctrl0.GetEventTarget(controller.LeftStick))
+		// drive.SetRotEventTarget(ctrl0.GetEventTarget(controller.RightStick))
 	}).AddClose(func(s *robot.State) {
-		drive.SetTransEventTarget("")
-		drive.SetRotEventTarget("")
-	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftShoulder), func(event any) {
+		// drive.SetTransEventTarget("")
+		// drive.SetRotEventTarget("")
+	}).AddEventListener(ctrl0.GetEventTarget(controller.Y), func(event any) {
 		shooterSubsystem.SpinUp(1)
-	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftTrigger), func(event any) {
+	}).AddEventListener(ctrl0.GetEventTarget(controller.X), func(event any) {
+		shooterSubsystem.SpinDown()
+	}).AddEventListener(ctrl0.GetEventTarget(controller.RightTrigger), func(event any) {
 		val := event.(float64)
 		if val > 0 {
 			shooterSubsystem.Shoot()
 		}
-	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadLeft), func(event any) {
+	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftShoulder), func(event any) {
 		shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
-	}).AddEventListener(ctrl0.GetEventTarget(controller.DpadRight), func(event any) {
+	}).AddEventListener(ctrl0.GetEventTarget(controller.RightShoulder), func(event any) {
 		shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
 	})
 

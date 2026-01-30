@@ -187,3 +187,8 @@ func (m *Motor) Update() {
 		binary.Decode(buf[4:], binary.BigEndian, &m.maxCurrent)
 	})
 }
+
+func (m *Motor) Status() bool {
+	buf := can.GetCanMessageFromBuffer(m.config.canID, m.config.regMap["Status"])
+	return false
+}

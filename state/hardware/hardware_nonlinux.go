@@ -26,5 +26,5 @@ func ReadBatteryPercentage() uint {
 }
 
 func ReadBatteryVoltage() float64 {
-	return -1
+	return 12
 }

@@ -61,7 +61,7 @@ func NewSwerveDrive(config constantTypes.SwerveDriveConfig) *SwerveDrive {
 	config.MaxSpeed.RotationalV = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalV))
 	config.MaxSpeed.RotationalA = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalA))
 	// fmt.Println("Drive Config: ", config)
-	swerve_modules := make([]SwerveModule, 0)
+	swerve_modules := make([]SwerveModule, len(config.Modules))
 	for i, v := range config.Modules {
 		swerve_modules[i] = SwerveModule{
 			driveMotor:   motor.NewMotor(int(v.DriveCanID)),

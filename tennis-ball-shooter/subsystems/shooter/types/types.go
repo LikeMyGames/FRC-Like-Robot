@@ -9,6 +9,7 @@ type (
 		MaxAzimuthVelocity      float64 // Max rotational velocity of azimuth action of shooter, measured in radians/second
 		MaxAzimuthAcceleartion  float64 // Max rotational acceleration of azimuth action of shooter, measured in radians/second/second
 		MinAzimuthOffset        float64
+		MaxFeedVelocity         float64
 		FlyWheelMotor           constantTypes.MotorController
 		PitchMotor              constantTypes.MotorController
 		FeedWheelMotor          constantTypes.MotorController

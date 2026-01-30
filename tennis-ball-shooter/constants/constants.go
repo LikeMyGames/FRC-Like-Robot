@@ -157,6 +157,7 @@ var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
 	MaxAzimuthVelocity:      math.Pi / 4,
 	MaxAzimuthAcceleartion:  math.Pi / 16,
 	MinAzimuthOffset:        math.Pi / 32,
+	MaxFeedVelocity:         2,
 	FlyWheelMotor: constantTypes.MotorController{
 		Id:  52,
 		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
