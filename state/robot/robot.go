@@ -77,6 +77,10 @@ func (r *Robot) IsEnabled() bool {
 	return r.enabled
 }
 
+func (r *Robot) Status() bool {
+	return r.CanBus.CheckStatuses()
+}
+
 func (s *State) CheckCondition() *string {
 	for i, v := range s.switches {
 		if v(nil) {

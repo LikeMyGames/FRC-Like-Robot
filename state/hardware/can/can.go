@@ -49,11 +49,14 @@ func (b *CanBus) UpdateDevices() {
 	}
 }
 
-func (b *CanBus) CheckStatuses() {
+func (b *CanBus) CheckStatuses() bool {
 	statuses := map[int]bool{}
 	for _, v := range b.devices {
 		statuses[v.GetCanId()] = v.Status()
 	}
+
+	// temporary
+	return false
 }
 
 func ReceiveFrame(frame *CanFrame) {

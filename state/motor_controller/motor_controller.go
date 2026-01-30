@@ -189,6 +189,9 @@ func (m *Motor) Update() {
 }
 
 func (m *Motor) Status() bool {
+	// create structure for status return, then parse [8]byte into said structure
 	buf := can.GetCanMessageFromBuffer(m.config.canID, m.config.regMap["Status"])
+
+	// temporary
 	return false
 }
