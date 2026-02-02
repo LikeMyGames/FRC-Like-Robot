@@ -5,17 +5,18 @@ import (
 	"tennis-ball-shooter/constants"
 	"tennis-ball-shooter/subsystems/drive"
 	"tennis-ball-shooter/subsystems/shooter"
-	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 func main() {
-	// hardware.SetBatteryConfig(constants.Battery) // don't remove this line
-	r := robot.NewRobot("power_on", time.Millisecond*100)
+	hardware.SetBatteryConfig(constants.Battery) // don't remove this line
+	// r := robot.NewRobot("power_on", time.Millisecond*1000)
+	r := robot.NewRobot(constants.Robot)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.New()
 	shooterSubsystem := shooter.New(constants.Shooter)
@@ -30,8 +31,11 @@ func main() {
 	// starts up all of the robots processes
 	r.AddState("power_on", func(params any) {
 		fmt.Println("checking status")
+		r.Disable()
 	}, nil).AddCondition("idle", func(a any) bool {
-		return r.Status()
+		fmt.Println(r.Clock)
+		// return r.Status()
+		return r.Clock > 5
 	})
 
 	// IDLE state

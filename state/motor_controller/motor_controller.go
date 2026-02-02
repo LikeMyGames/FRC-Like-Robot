@@ -2,6 +2,8 @@ package motor
 
 import (
 	"encoding/binary"
+	"fmt"
+	"reflect"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 )
@@ -41,7 +43,7 @@ type (
 
 	Config struct {
 		canID             int
-		regMap            map[string]int
+		regMap            map[string]register
 		IsSecondaryMotor  bool
 		secondarySumValue int
 	}
@@ -51,6 +53,11 @@ type (
 		Disabled int
 		Estopped int
 	}
+
+	register struct {
+		cmd           int
+		dataStructure []reflect.Kind
+	}
 )
 
 var RunningMode runningMode = runningMode{
@@ -59,24 +66,66 @@ var RunningMode runningMode = runningMode{
 	Estopped: 3,
 }
 
-var motorRegisterMap map[string]int = map[string]int{
-	"Status":                  0x00,
-	"Estop":                   0x01,
-	"Input_Pos":               0x02,
-	"Input_Vel":               0x03,
-	"Input_Torque":            0x04,
-	"Limits":                  0x05,
-	"Reboot":                  0x06,
-	"Get_Bus_Voltage_Current": 0x07,
-	"Clear_Errors":            0x08,
-	"Encoders":                0x09,
-	"Running_Mode":            0x0a,
+const (
+	NOT_RESPONDING int = iota
+	NO_ERROR
+	CAN_TIMEOUT
+)
+
+// a motor is marked as secondary, 0x10 is ored on to what every register is used
+var motorRegisterMap map[string]register = map[string]register{
+	"Status": {
+		cmd:           0x00,
+		dataStructure: []reflect.Kind{reflect.Int8},
+	},
+	"Estop": {
+		cmd:           0x01,
+		dataStructure: []reflect.Kind{},
+	},
+	"Input_Pos": {
+		cmd:           0x02,
+		dataStructure: []reflect.Kind{reflect.Float32, reflect.Int16, reflect.Int16},
+	},
+	"Input_Vel": {
+		cmd:           0x03,
+		dataStructure: []reflect.Kind{reflect.Float32, reflect.Int16},
+	},
+	"Input_Torque": {
+		cmd:           0x04,
+		dataStructure: []reflect.Kind{reflect.Float32},
+	},
+	"Limits": {
+		cmd:           0x05,
+		dataStructure: []reflect.Kind{reflect.Float32, reflect.Float32},
+	},
+	"Reboot": {
+		cmd:           0x06,
+		dataStructure: []reflect.Kind{},
+	},
+	"Get_Bus_Voltage_Current": {
+		cmd:           0x07,
+		dataStructure: []reflect.Kind{},
+	},
+	"Clear_Errors": {
+		cmd:           0x08,
+		dataStructure: []reflect.Kind{},
+	},
+	"Encoders": {
+		cmd:           0x09,
+		dataStructure: []reflect.Kind{},
+	},
+	"Running_Mode": {
+		cmd:           0x0a,
+		dataStructure: []reflect.Kind{reflect.Int8},
+	},
 }
 
-func NewMotor(CanId int) *Motor {
+func New(CanId int) *Motor {
 	motor := &Motor{}
 	motor.LoadRegisterMap(motorRegisterMap)
+	motor.config.canID = CanId
 	can.AddDeviceToBus(motor)
+	fmt.Println("Created new motor with id: ", CanId)
 
 	return motor
 }
@@ -89,7 +138,7 @@ func (m *Motor) Configure(config Config) {
 	m.config = config
 }
 
-func (m *Motor) LoadRegisterMap(regMap map[string]int) {
+func (m *Motor) LoadRegisterMap(regMap map[string]register) {
 	m.config.regMap = regMap
 }
 
@@ -108,11 +157,11 @@ func (m *Motor) SetRunningMode(newMode int) {
 
 func (m *Motor) Estop() {
 	m.runningMode = RunningMode.Estopped
-	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Estop"]|m.config.secondarySumValue)
+	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Estop"].cmd|m.config.secondarySumValue)
 }
 
 func (m *Motor) Reboot() {
-	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Reboot"]|m.config.secondarySumValue)
+	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Reboot"].cmd|m.config.secondarySumValue)
 }
 
 func (m *Motor) ReadAngle() float64 {
@@ -121,7 +170,7 @@ func (m *Motor) ReadAngle() float64 {
 
 func (m *Motor) SetAngle(angle float64) {
 	m.angle = angle
-	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Pos"]|m.config.secondarySumValue, float64(m.angle))
+	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Pos"].cmd|m.config.secondarySumValue, float64(m.angle))
 }
 
 func (m *Motor) ReadVelocity() float64 {
@@ -130,7 +179,7 @@ func (m *Motor) ReadVelocity() float64 {
 
 func (m *Motor) SetVelocity(velocity float64) {
 	m.velocity = velocity
-	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Vel"]|m.config.secondarySumValue, float64(m.velocity))
+	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Vel"].cmd|m.config.secondarySumValue, float64(m.velocity))
 }
 
 func (m *Motor) ReadTorque() float64 {
@@ -139,7 +188,7 @@ func (m *Motor) ReadTorque() float64 {
 
 func (m *Motor) SetTorque(torque float64) {
 	m.torque = torque
-	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Torque"]|m.config.secondarySumValue, float64(m.torque))
+	can.BuildAndSendFrame(m.config.canID, m.config.regMap["Input_Torque"].cmd|m.config.secondarySumValue, float64(m.torque))
 }
 
 func (m *Motor) ReadLimits() (velocity, current float64) {
@@ -147,7 +196,7 @@ func (m *Motor) ReadLimits() (velocity, current float64) {
 }
 
 func (m *Motor) Update() {
-	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Pos"]|m.config.secondarySumValue, func(event any) {
+	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Pos"].cmd|m.config.secondarySumValue, func(event any) {
 		i, ok := event.(int)
 		if !ok {
 			return
@@ -157,7 +206,7 @@ func (m *Motor) Update() {
 		binary.Decode(buf[:8], binary.BigEndian, &m.angle)
 		m.angleErr = m.targetAngle - m.angle
 	})
-	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Vel"]|m.config.secondarySumValue, func(event any) {
+	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Vel"].cmd|m.config.secondarySumValue, func(event any) {
 		i, ok := event.(int)
 		if !ok {
 			return
@@ -167,7 +216,7 @@ func (m *Motor) Update() {
 		binary.Decode(buf[:8], binary.BigEndian, &m.velocity)
 		m.velocityErr = m.targetVelocity - m.velocity
 	})
-	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Torque"]|m.config.secondarySumValue, func(event any) {
+	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Input_Torque"].cmd|m.config.secondarySumValue, func(event any) {
 		i, ok := event.(int)
 		if !ok {
 			return
@@ -177,7 +226,7 @@ func (m *Motor) Update() {
 		binary.Decode(buf[:8], binary.BigEndian, &m.torque)
 		m.torqueErr = m.targetTorque - m.torque
 	})
-	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Limits"]|m.config.secondarySumValue, func(event any) {
+	can.BuildAndSendFrameWithCallback(m.config.canID, m.config.regMap["Limits"].cmd|m.config.secondarySumValue, func(event any) {
 		i, ok := event.(int)
 		if !ok {
 			return
@@ -190,8 +239,13 @@ func (m *Motor) Update() {
 
 func (m *Motor) Status() bool {
 	// create structure for status return, then parse [8]byte into said structure
-	buf := can.GetCanMessageFromBuffer(m.config.canID, m.config.regMap["Status"])
-
-	// temporary
-	return false
+	// fmt.Println("Getting CAN message frame from buffer")
+	buf := can.GetCanMessageFromBuffer(m.config.canID, m.config.regMap["Status"].cmd|m.config.secondarySumValue)
+	if buf == nil {
+		return false
+	}
+	// fmt.Println("got message from buffer")
+	var status int
+	binary.Decode(buf[:1], binary.BigEndian, status)
+	return status == 0
 }

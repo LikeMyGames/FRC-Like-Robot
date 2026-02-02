@@ -8,7 +8,7 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 
-	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 type (

@@ -2,37 +2,48 @@ package robot
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
+	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/rsl"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils"
 )
 
 type (
 	Robot struct {
-		TeamNum     uint8
-		Addr        string
-		States      map[string]*State
-		State       string
-		Frequency   time.Duration
-		enabled     bool
-		Clock       int64
-		RunningMode string
-		PeriodFuncs []func()
-		CanBus      *can.CanBus
-		rsl         *hardware.Pin
+		TeamNum        uint8
+		Addr           string
+		States         map[string]*State
+		State          string
+		Frequency      time.Duration
+		enabled        bool
+		enabledChannel chan bool
+		Clock          int64
+		RunningMode    string
+		PeriodFuncs    []func()
+		CanBus         *can.CanBus
+		rsl            *rsl.RSL
 	}
 )
 
 var RobotRef *Robot = nil
 
-func NewRobot(StartState string, freq time.Duration) *Robot {
+func NewRobot(config constantTypes.RobotConfig) *Robot {
+	hardware.OpenSpi()
 	if RobotRef == nil {
 		RobotRef = &Robot{
-			States:    map[string]*State{},
-			State:     StartState,
-			Frequency: freq,
-			CanBus:    can.NewCanBus(),
+			States:         map[string]*State{},
+			State:          config.StartingState,
+			Frequency:      config.Period,
+			CanBus:         can.NewCanBus(),
+			rsl:            rsl.New(config.RslPin),
+			enabledChannel: make(chan bool, 1),
 		}
 	}
 	return RobotRef
@@ -55,11 +66,11 @@ func (r *Robot) SetState(newState string) *State {
 }
 
 func (r *Robot) Enable() {
-	r.enabled = true
+	r.enabledChannel <- true
 }
 
 func (r *Robot) Disable() {
-	r.enabled = false
+	r.enabledChannel <- false
 }
 
 func (r *Robot) IsEnabled() bool {
@@ -82,8 +93,22 @@ func (r *Robot) AddPeriodic(a func()) *Robot {
 func (r *Robot) Start() {
 	t := time.NewTicker(r.Frequency)
 
+	event.Trigger("ROBOT_ENABLE_STATUS", false)
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	defer signal.Stop(quit)
+
 	for range t.C {
+		if q := utils.ReadChannelNonBlocking(quit); q != nil {
+			hardware.CloseAllPins()
+			return
+		}
 		r.Clock++
+		if enabled := utils.ReadChannelNonBlocking(r.enabledChannel); enabled != nil {
+			event.Trigger("ROBOT_ENABLE_STATUS", *enabled)
+			r.enabled = *enabled
+		}
 		s := r.States[r.State]
 		r.CanBus.UpdateDevices()
 		if ns := s.CheckCondition(); ns != nil {

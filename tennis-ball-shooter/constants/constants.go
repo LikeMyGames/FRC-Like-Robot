@@ -21,14 +21,20 @@ type (
 	}
 )
 
-var Robot RobotType = RobotType{
-	Frequency: time.Millisecond * 100,
-	Controllers: []constantTypes.ControllerConfig{
-		Controller0,
-	},
-	Drive:   Drive,
-	Shooter: Shooter,
-	Battery: Battery,
+// var Robot RobotType = RobotType{
+// 	Frequency: time.Millisecond * 100,
+// 	Controllers: []constantTypes.ControllerConfig{
+// 		Controller0,
+// 	},
+// 	Drive:   Drive,
+// 	Shooter: Shooter,
+// 	Battery: Battery,
+// }
+
+var Robot constantTypes.RobotConfig = constantTypes.RobotConfig{
+	Period:        time.Millisecond * 100,
+	StartingState: "power_on",
+	RslPin:        22,
 }
 
 // The Drive contants defined for the robot

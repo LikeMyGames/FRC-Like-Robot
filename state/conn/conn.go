@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 
@@ -43,7 +44,7 @@ type (
 		Code  bool    `json:"code"`
 		Joy   bool    `json:"joy"`
 		Msg   string  `json:"message"`
-		BatP  uint    `json:"bat_p"`
+		BatP  float64 `json:"bat_p"`
 		BatV  float64 `json:"bat_v"`
 	}
 
@@ -76,6 +77,10 @@ var LastControllerState *ControllerState = &ControllerState{
 	ThumbRX:      0,
 	ThumbRY:      0,
 }
+
+var (
+	robotEnabled = false
+)
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	defer func() {
@@ -112,6 +117,13 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 
+	event.Listen("ROBOT_ENABLE_STATUS", "DRIVER_STATION_CONNECTION_HANDLER", func(event any) {
+		enabled, ok := event.(bool)
+		if ok {
+			robotEnabled = enabled
+		}
+	})
+
 	for {
 		SendJSONData(WebSocketData{
 			RobotStatus: &Status{
@@ -119,6 +131,10 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 				Code:  true,
 				BatP:  hardware.ReadBatteryPercentage(),
 				BatV:  hardware.ReadBatteryVoltage(),
+			},
+			RunSettings: &RunSettings{
+				Enabled: robotEnabled,
+				Mode:    bot.RunningMode,
 			},
 		})
 		_, data, err := connection.ReadMessage()

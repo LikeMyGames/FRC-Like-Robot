@@ -1,6 +1,13 @@
 package constantTypes
 
+import "time"
+
 type (
+	RobotConfig struct {
+		StartingState string
+		Period        time.Duration
+		RslPin        int
+	}
 	ControllerConfig struct {
 		ControllerNum int                 `json:"controllerNum"`
 		Precision     int                 `json:"precision"`

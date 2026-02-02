@@ -9,7 +9,7 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	constants "github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 const (

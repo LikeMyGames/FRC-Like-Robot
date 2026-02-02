@@ -26,10 +26,10 @@ func New(config shooter_types.ShooterConfig) *Shooter {
 		config:         config,
 		HasBall:        false,
 		ReadyToShoot:   false,
-		FlyWheelMotor:  motor.NewMotor(int(config.FlyWheelMotor.Id)),
-		PitchMotor:     motor.NewMotor(int(config.PitchMotor.Id)),
-		FeedWheelMotor: motor.NewMotor(int(config.FeedWheelMotor.Id)),
-		AzimuthMotor:   motor.NewMotor(int(config.AzimuthMotor.Id)),
+		FlyWheelMotor:  motor.New(int(config.FlyWheelMotor.Id)),
+		PitchMotor:     motor.New(int(config.PitchMotor.Id)),
+		FeedWheelMotor: motor.New(int(config.FeedWheelMotor.Id)),
+		AzimuthMotor:   motor.New(int(config.AzimuthMotor.Id)),
 	}
 }
 

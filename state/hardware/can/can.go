@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils"
 	"periph.io/x/conn/v3/spi"
 )
 
@@ -21,8 +23,7 @@ type (
 
 	CanBus struct {
 		spiPort       spi.Conn
-		spiPortCloser spi.PortCloser
-		messageBuffer map[int]([]*CanFrame)
+		messageBuffer map[int](map[int](chan *CanFrame))
 		devices       []CanDevice
 	}
 
@@ -39,8 +40,30 @@ var (
 	bus         *CanBus       = nil
 )
 
+func NewCanBus() *CanBus {
+	if bus != nil {
+		return bus
+	}
+
+	bus = &CanBus{
+		spiPort: hardware.GetSpiConn(),
+	}
+
+	go listenOnHardwareSpiBus()
+
+	return bus
+}
+
+func listenOnHardwareSpiBus() {
+	canTicker := time.NewTicker(time.Millisecond)
+
+	for range canTicker.C {
+
+	}
+}
+
 func (b *CanBus) Close() {
-	b.spiPortCloser.Close()
+	hardware.CloseSpiPort()
 }
 
 func (b *CanBus) UpdateDevices() {
@@ -50,32 +73,27 @@ func (b *CanBus) UpdateDevices() {
 }
 
 func (b *CanBus) CheckStatuses() bool {
-	statuses := map[int]bool{}
+	// fmt.Println("starting CAN device status check")
+	bad := make([]int, 0)
 	for _, v := range b.devices {
-		statuses[v.GetCanId()] = v.Status()
+		// fmt.Printf("Checking status of CAN device %d\n", v.GetCanId())
+		if !v.Status() {
+			// fmt.Println("adding CAN device to bad status list")
+			bad = append(bad, v.GetCanId())
+		}
+	}
+
+	for _, i := range bad {
+		fmt.Printf("Could not get good status from CAN device %d\n", i)
+		// fmt.Println("Check connection to CAN chain and power status of device for troubleshooting")
 	}
 
 	// temporary
-	return false
+	return len(bad) == 0
 }
 
 func ReceiveFrame(frame *CanFrame) {
-	NewCanBus().messageBuffer[frame.canId] = append(NewCanBus().messageBuffer[frame.canId], frame)
-}
-
-func NewCanBus() *CanBus {
-	if bus != nil {
-		return bus
-	}
-
-	hardware.OpenSpi()
-
-	bus = &CanBus{
-		spiPort:       nil, // c
-		spiPortCloser: nil, // p
-	}
-
-	return bus
+	NewCanBus().messageBuffer[frame.canId][frame.cmd] <- frame
 }
 
 func AddDeviceToBus(device CanDevice) {
@@ -83,27 +101,17 @@ func AddDeviceToBus(device CanDevice) {
 		return
 	}
 	bus.devices = append(bus.devices, device)
+	fmt.Printf("Added new device with id %d to CanBus device list\n", device.GetCanId())
 }
 
-func GetCanMessageFromBuffer(canId, i int) [8]byte {
+func GetCanMessageFromBuffer(canId, cmd int) *[8]byte {
 	bus := NewCanBus()
-	data := bus.messageBuffer[canId][i].data
-	bus.messageBuffer[canId] = append(bus.messageBuffer[canId][:i], bus.messageBuffer[canId][i+1:]...)
-	return data
+	frame := (utils.ReadChannelNonBlocking(bus.messageBuffer[canId][cmd]))
+	if frame == nil {
+		return nil
+	}
+	return &(*frame).data
 }
-
-// func setUpGPIO() {
-// 	low, err := gpiocdev.RequestLine("gpiochip0", 29)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	high, err := gpiocdev.RequestLine("gpiochip0", 29)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	lowLine = low
-// 	highLine = high
-// }
 
 // canId is a 6 bit max integer
 // cmd is a 5 bit max integer
@@ -149,7 +157,7 @@ func BuildFrame(canId, cmd int, data ...any) *CanFrame {
 		}
 	}
 	frame.data = [8]byte(buf[:8])
-	fmt.Printf("Can data (in binary): %s\n", frame.data)
+	// fmt.Printf("Can data (in binary): %s\n", frame.data)
 	return frame
 }
 

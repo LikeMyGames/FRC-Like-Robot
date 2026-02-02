@@ -9,7 +9,7 @@ import (
 	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/mathutils"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 type (
@@ -64,10 +64,11 @@ func NewSwerveDrive(config constantTypes.SwerveDriveConfig) *SwerveDrive {
 	swerve_modules := make([]SwerveModule, len(config.Modules))
 	for i, v := range config.Modules {
 		swerve_modules[i] = SwerveModule{
-			driveMotor:   motor.NewMotor(int(v.DriveCanID)),
-			turningMotor: motor.NewMotor(int(v.AzimuthCanID)),
+			driveMotor:   motor.New(int(v.DriveCanID)),
+			turningMotor: motor.New(int(v.AzimuthCanID)),
 			targetVector: mathutils.VectorTheta{},
 		}
+		// fmt.Printf("Created new swerve drive with drive motor id: %d; and turning motor id: %d\n", v.DriveCanID, v.AzimuthCanID)
 		swerve_modules[i].turningMotor.SetIsSecondaryMotorOnController(true)
 	}
 

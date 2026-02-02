@@ -5,9 +5,9 @@ package hardware
 import (
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils"
 	"github.com/warthog618/go-gpiocdev"
 	"periph.io/x/conn/v3/physic"
 	"periph.io/x/conn/v3/spi"
@@ -17,7 +17,8 @@ import (
 
 type (
 	Pin struct {
-		line gpiocdev.Line
+		line  *gpiocdev.Line
+		close func()
 	}
 )
 
@@ -25,6 +26,13 @@ var (
 	config        constantTypes.Battery = constantTypes.Battery{}
 	spiPortCloser spi.PortCloser
 	spiConn       spi.Conn
+	Os            string = "linux"
+	pins          []*Pin
+)
+
+const (
+	PIN_HIGH bool = true
+	PIN_LOW  bool = false
 )
 
 func OpenSpi() {
@@ -48,6 +56,8 @@ func OpenSpi() {
 		log.Fatal(err)
 	}
 
+	spiConn = c
+
 	// Write 0x10 to the device, and read a byte right after.
 	write := []byte{0x10, 0x00}
 	read := make([]byte, len(write))
@@ -58,33 +68,49 @@ func OpenSpi() {
 	fmt.Printf("%v\n", read[1:])
 }
 
-func SpiTxRx() {
-	// spiConn.
+func GetSpiConn() spi.Conn {
+	return spiConn
 }
 
-func NewPin() *Pin {
+func CloseSpiPort() {
+	spiPortCloser.Close()
+}
+
+func NewPin(pinNum int) *Pin {
 	v := 0
-	l, err := gpiocdev.RequestLine("gpiochip0", 4, gpiocdev.AsOutput(v))
+	l, err := gpiocdev.RequestLine("gpiochip0", pinNum, gpiocdev.AsOutput(v))
 	if err != nil {
 		panic(err)
 	}
-	for {
-		<-time.After(time.Second)
-		v ^= 1
-		l.SetValue(v)
-	}
+	pin := &Pin{line: l}
+	pins = append(pins, pin)
+	return pin
 }
 
-func Set(pin *Pin, state bool) {
+func (pin *Pin) Set(state bool) {
 	pin.line.SetValue(map[bool]int{true: 1, false: 0}[state])
 }
 
-func Read(pin *Pin) bool {
+func (pin *Pin) Read() bool {
 	val, err := pin.line.Value()
 	if err != nil {
 		panic(err)
 	}
 	return map[int]bool{0: false, 1: true}[val]
+}
+
+func (pin *Pin) OnClose(action func()) {
+	pin.close = action
+}
+
+func CloseAllPins() {
+	for _, v := range pins {
+		if v.close != nil {
+			v.close()
+		}
+		v.line.Reconfigure(gpiocdev.AsInput)
+		v.line.Close()
+	}
 }
 
 func CheckStatus() bool {
@@ -96,8 +122,8 @@ func SetBatteryConfig(conf constantTypes.Battery) {
 	config = conf
 }
 
-func ReadBatteryPercentage() uint {
-	return uint((ReadBatteryVoltage() / config.NominalVoltage) * 100)
+func ReadBatteryPercentage() float64 {
+	return utils.TruncateFloat64(float64((ReadBatteryVoltage()/config.NominalVoltage)*100), 2)
 }
 
 func ReadBatteryVoltage() float64 {
