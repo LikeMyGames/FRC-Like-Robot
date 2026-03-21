@@ -121,10 +121,11 @@ func main() {
 
 		io.Copy(buf, conn)
 
-		// figure out proper reading
-
 		hierarchy := new(Hierarchy)
-		json.Unmarshal(buf.Bytes(), hierarchy)
+		err = json.Unmarshal(buf.Bytes(), hierarchy)
+		if err != nil {
+			panic(err)
+		}
 
 		// dir, err := os.Open("./deploy")
 		// if err != nil {
@@ -141,12 +142,12 @@ func saveFolder(folder *Hierarchy) {
 		fmt.Println(v.Name)
 		file, err := os.Create(v.Name)
 		if err != nil {
-			if err == os.ErrNotExist {
-				err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], os.ModeDir)
-				if err != nil {
-					panic(err)
-				}
-			} else {
+			err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], os.ModeDir)
+			if err != nil {
+				panic(err)
+			}
+			file, err = os.Create(v.Name)
+			if err != nil {
 				panic(err)
 			}
 		}
