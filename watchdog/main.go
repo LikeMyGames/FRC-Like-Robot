@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 var cmd *exec.Cmd
@@ -112,10 +113,12 @@ func main() {
 		fmt.Println("Receiving File Hierarchy Update")
 
 		buf := new(bytes.Buffer)
-		n, err := buf.ReadFrom(conn)
+		_, err = buf.ReadFrom(conn)
 		if err != nil {
-			panic(n)
+			panic(err)
 		}
+
+		// figure out proper reading
 
 		hierarchy := new(Hierarchy)
 		json.Unmarshal(buf.Bytes(), hierarchy)
@@ -132,9 +135,17 @@ func main() {
 
 func saveFolder(folder *Hierarchy) {
 	for _, v := range folder.Files {
-		file, err := os.Create(fmt.Sprintf("./deploy/%s", v.Name))
+		fmt.Println(v.Name)
+		file, err := os.Create(v.Name)
 		if err != nil {
-			panic(err)
+			if err == os.ErrNotExist {
+				err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], os.ModeDir)
+				if err != nil {
+					panic(err)
+				}
+			} else {
+				panic(err)
+			}
 		}
 
 		file.WriteString(v.Data)
