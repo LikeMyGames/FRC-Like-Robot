@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -108,11 +109,16 @@ func main() {
 			continue
 		}
 
-		bytes := make([]byte, 0)
-		conn.Read(bytes)
+		fmt.Println("Receiving File Hierarchy Update")
+
+		buf := new(bytes.Buffer)
+		n, err := buf.ReadFrom(conn)
+		if err != nil {
+			panic(n)
+		}
 
 		hierarchy := new(Hierarchy)
-		json.Unmarshal(bytes, hierarchy)
+		json.Unmarshal(buf.Bytes(), hierarchy)
 
 		// dir, err := os.Open("./deploy")
 		// if err != nil {
