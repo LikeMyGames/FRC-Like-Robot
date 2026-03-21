@@ -112,11 +112,14 @@ func main() {
 
 		fmt.Println("Receiving File Hierarchy Update")
 
+		// file, err := os.Create("hierarchy.json")
+		// if err != nil {
+		// 	panic(err)
+		// }
+
 		buf := new(bytes.Buffer)
-		_, err = buf.ReadFrom(conn)
-		if err != nil {
-			panic(err)
-		}
+
+		io.Copy(buf, conn)
 
 		// figure out proper reading
 

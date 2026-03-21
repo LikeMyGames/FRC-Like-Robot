@@ -285,7 +285,7 @@ func TransferExeToRobot() {
 
 	conn, err = net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
 
-	conn.Write(encodedData)
+	io.Copy(conn, logFile)
 
 }
 
