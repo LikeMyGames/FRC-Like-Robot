@@ -75,6 +75,9 @@ public:
     float target_torque;
     float cur_torque;
     float cur_current;
+    uint32_t torque_loop_time;
+    uint32_t velocity_loop_time;
+    uint32_t position_loop_time;
 
     Motor(motor_config_t config);
 
@@ -90,8 +93,10 @@ public:
     void ClearFault();
     void Error(motor_error error);
 
-private:
     void ReadCurrents();
+
+    void DrivePhasesByPercent(float dA, float dB, float dC);
+    void DrivePhasesByPercentFOC();
 };
 
 void disableMotor(unsigned int id);

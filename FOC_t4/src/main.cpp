@@ -255,8 +255,39 @@ bool Motor2_target_vel_write(uint8_t buf[7])
 
 void loop()
 {
-    CanUpdate();
-    Motor1->Update();
-    Motor2->Update();
-    delayMicroseconds(100);
+    // CanUpdate();
+    // Motor1->Update();
+    // Motor2->Update();
+    // delayMicroseconds(100);
+
+    // Positional Loop
+    while (true)
+    {
+        elapsedMicros positionLoopElapsedTime;
+
+        // Velocity Loop
+        while (true)
+        {
+            elapsedMicros velocityLoopElapsedTime;
+
+            // Torque Loop
+            while (true)
+            {
+                elapsedMicros torqueLoopElaspedTime;
+                // Motor 1
+                Motor1->ReadCurrents();
+                Motor1->foc->Drive(Motor1->internal_encoder->ReadRad(), Motor1->running_mode);
+                Motor1->DrivePhasesByPercentFOC();
+
+                // Motor 2
+                Motor2->ReadCurrents();
+                Motor2->foc->Drive(Motor1->internal_encoder->ReadRad(), Motor1->running_mode);
+                Motor2->DrivePhasesByPercentFOC();
+
+                delayMicroseconds(Motor1->torque_loop_time - torqueLoopElaspedTime);
+            }
+            delayMicroseconds(Motor1->velocity_loop_time - velocityLoopElapsedTime);
+        }
+        delayMicroseconds(Motor1->position_loop_time - positionLoopElapsedTime);
+    }
 }

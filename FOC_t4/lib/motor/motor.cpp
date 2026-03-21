@@ -158,6 +158,16 @@ void Motor::ReadCurrents()
     // most likely going to use voltage divider on main incoming power to detect current
 }
 
+void Motor::DrivePhasesByPercent(float dA, float dB, float dC)
+{
+    DriveMotorByPercent(driver, dA, dB, dC);
+}
+
+void Motor::DrivePhasesByPercentFOC()
+{
+    DriveMotorByPercent(driver, foc->dA, foc->dB, foc->dC);
+}
+
 void disableMotor(unsigned int id)
 {
     MOTOR_STATE_MAP.at(id)->Disable();
