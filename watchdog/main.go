@@ -121,6 +121,13 @@ func main() {
 
 		io.Copy(buf, conn)
 
+		logFile, err := os.Create("logfile.txt")
+		if err != nil {
+			panic(err)
+		}
+
+		logFile.Write(buf.Bytes())
+
 		hierarchy := new(Hierarchy)
 		err = json.Unmarshal(buf.Bytes(), hierarchy)
 		if err != nil {
