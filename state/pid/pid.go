@@ -20,7 +20,7 @@ type PIDController struct {
 
 // NewPIDController creates and returns a new PIDController instance.
 // func NewPIDController(Kp, Ki, Kd, setpoint, minOutput, maxOutput float64) *PIDController {
-func NewPIDController(config constantTypes.PidController) *PIDController {
+func NewFromConfig(config constantTypes.PidController) *PIDController {
 	return &PIDController{
 		Kp:        config.Kp,
 		Ki:        config.Ki,
@@ -29,6 +29,57 @@ func NewPIDController(config constantTypes.PidController) *PIDController {
 		maxOutput: config.MaxOut,
 		dt:        robot.RobotRef.Frequency,
 	}
+}
+
+func New() *PIDController {
+	return &PIDController{
+		Kp:        0,
+		Ki:        0,
+		Kd:        0,
+		minOutput: 0,
+		maxOutput: 0,
+		dt:        0,
+	}
+}
+
+func (p *PIDController) SetP(kP float64) {
+	p.Kp = kP
+}
+
+func (p *PIDController) SetI(kI float64) {
+	p.Kp = kI
+}
+
+func (p *PIDController) SetD(kD float64) {
+	p.Kd = kD
+}
+
+func (p *PIDController) GetP() float64 {
+	return p.Kp
+}
+
+func (p *PIDController) GetI() float64 {
+	return p.Ki
+}
+
+func (p *PIDController) GetD() float64 {
+	return p.Kd
+}
+
+func (p *PIDController) SetMaxOuput(max float64) {
+	p.maxOutput = max
+}
+
+func (p *PIDController) SetMinOuput(min float64) {
+	p.minOutput = min
+}
+
+func (p *PIDController) GetMaxOuput() float64 {
+	return p.maxOutput
+}
+
+func (p *PIDController) GetMinOuput() float64 {
+	return p.minOutput
 }
 
 func (pid *PIDController) SetTarget(target float64) {
