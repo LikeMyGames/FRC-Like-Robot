@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -10,6 +11,18 @@ import (
 
 var cmd *exec.Cmd
 var running bool
+
+type (
+	Hierarchy struct {
+		Files   []File       `json:"files"`
+		Folders []*Hierarchy `json:"folders"`
+	}
+
+	File struct {
+		Name string `json:"name"`
+		Data string `json:"data"`
+	}
+)
 
 func startRobot() {
 	cmd = exec.Command("./robot.exe")
@@ -47,42 +60,83 @@ func stopRobot() {
 }
 
 func main() {
-	listener, _ := net.Listen("tcp", ":5000")
-	fmt.Println("Listening for updates...")
+	robotFileListener, _ := net.Listen("tcp", ":5000")
+	fmt.Println("Listening for updates to robot.exe file...")
+
+	projectHeirarchyListener, _ := net.Listen("tcp", ":5050")
+	fmt.Println("Listening for updates to robot.exe file...")
 
 	startRobot() // start initially
 
+	go func() {
+		for {
+			conn, err := robotFileListener.Accept()
+			if err != nil {
+				fmt.Println("Accept error:", err)
+				continue
+			}
+
+			fmt.Println("Incoming update!")
+
+			// 1. STOP old process
+			stopRobot()
+
+			// 2. RECEIVE new file
+			if err := receiveFile(conn, "robot.exe.tmp"); err != nil {
+				fmt.Println("Error receiving file:", err)
+				conn.Close()
+				continue
+			}
+			conn.Close()
+
+			// 3. ATOMIC SWAP: replace old exe
+			os.Remove("robot.exe")
+			os.Rename("robot.exe.tmp", "robot.exe")
+
+			// 3.5. MAKE IT EXECUTABLE
+			os.Chmod("robot.exe", 0755)
+
+			// 4. RESTART new robot.exe
+			startRobot()
+		}
+	}()
+
 	for {
-		conn, err := listener.Accept()
+		conn, err := projectHeirarchyListener.Accept()
 		if err != nil {
 			fmt.Println("Accept error:", err)
 			continue
 		}
 
-		fmt.Println("Incoming update!")
+		bytes := make([]byte, 0)
+		conn.Read(bytes)
 
-		// 1. STOP old process
-		stopRobot()
+		hierarchy := new(Hierarchy)
+		json.Unmarshal(bytes, hierarchy)
 
-		// 2. RECEIVE new file
-		if err := receiveFile(conn, "robot.exe.tmp"); err != nil {
-			fmt.Println("Error receiving file:", err)
-			conn.Close()
-			continue
-		}
-		conn.Close()
+		// dir, err := os.Open("./deploy")
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		// 3. ATOMIC SWAP: replace old exe
-		os.Remove("robot.exe")
-		os.Rename("robot.exe.tmp", "robot.exe")
-
-		// 3.5. MAKE IT EXECUTABLE
-		os.Chmod("robot.exe", 0755)
-
-		// 4. RESTART new robot.exe
-		startRobot()
+		saveFolder(hierarchy)
 	}
 
+}
+
+func saveFolder(folder *Hierarchy) {
+	for _, v := range folder.Files {
+		file, err := os.Open(fmt.Sprintf("./deploy/%s", v.Name))
+		if err != nil {
+			panic(err)
+		}
+
+		file.WriteString(v.Data)
+	}
+
+	for _, v := range folder.Folders {
+		saveFolder(v)
+	}
 }
 
 func receiveFile(conn net.Conn, tempName string) error {

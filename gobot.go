@@ -28,6 +28,16 @@ type (
 		EntranceFile string `json:"EntranceFile"`
 		Port         uint   `json:"Port"`
 	}
+
+	Hierarchy struct {
+		Files   []File       `json:"files"`
+		Folders []*Hierarchy `json:"folders"`
+	}
+
+	File struct {
+		Name string `json:"name"`
+		Data string `json:"data"`
+	}
 )
 
 func main() {
@@ -256,4 +266,44 @@ func TransferExeToRobot() {
 		return
 	}
 	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
+
+	hierarchy := recursiveDirRead("./deploy")
+
+	conn, err = net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
+
+	encodedData, err := json.Marshal(hierarchy)
+	if err != nil {
+		panic(err)
+	}
+
+	conn.Write(encodedData)
+	fmt.Println(encodedData)
+}
+
+func recursiveDirRead(dir string) *Hierarchy {
+	entrys, err := os.ReadDir(dir)
+	if err != nil {
+		panic(err)
+	}
+
+	hierarchy := new(Hierarchy)
+
+	for _, v := range entrys {
+		name := fmt.Sprintf("%s/%s", dir, v.Name())
+		if !v.IsDir() {
+			hierarchy.Folders = append(hierarchy.Folders, recursiveDirRead(name))
+		} else {
+			data, err := os.ReadFile(name)
+			if err != nil {
+				panic(err)
+			}
+			file := File{
+				Name: name,
+				Data: string(data),
+			}
+			hierarchy.Files = append(hierarchy.Files, file)
+		}
+	}
+
+	return hierarchy
 }
