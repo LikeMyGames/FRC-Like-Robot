@@ -126,7 +126,7 @@ func main() {
 
 func saveFolder(folder *Hierarchy) {
 	for _, v := range folder.Files {
-		file, err := os.Open(fmt.Sprintf("./deploy/%s", v.Name))
+		file, err := os.Create(fmt.Sprintf("./deploy/%s", v.Name))
 		if err != nil {
 			panic(err)
 		}

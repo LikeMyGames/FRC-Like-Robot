@@ -267,17 +267,26 @@ func TransferExeToRobot() {
 	}
 	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
 
+	_, err = os.ReadDir("./deploy")
+	if err != nil {
+		os.Mkdir("./deploy", os.ModeDir)
+	}
+
 	hierarchy := recursiveDirRead("./deploy")
 
-	conn, err = net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
-
-	encodedData, err := json.Marshal(hierarchy)
+	encodedData, err := json.MarshalIndent(hierarchy, "", "\t")
 	if err != nil {
 		panic(err)
 	}
 
+	logFile, _ := os.Create("logger.txt")
+	logFile.Write(encodedData)
+	fmt.Println(string(encodedData))
+
+	conn, err = net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
+
 	conn.Write(encodedData)
-	fmt.Println(encodedData)
+
 }
 
 func recursiveDirRead(dir string) *Hierarchy {
@@ -290,7 +299,7 @@ func recursiveDirRead(dir string) *Hierarchy {
 
 	for _, v := range entrys {
 		name := fmt.Sprintf("%s/%s", dir, v.Name())
-		if !v.IsDir() {
+		if v.IsDir() {
 			hierarchy.Folders = append(hierarchy.Folders, recursiveDirRead(name))
 		} else {
 			data, err := os.ReadFile(name)
