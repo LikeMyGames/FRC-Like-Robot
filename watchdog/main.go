@@ -140,7 +140,9 @@ func saveFolder(folder *Hierarchy) {
 				nextDir += v + "/"
 				err = os.Mkdir(nextDir, 755)
 				if err != nil {
-					panic(err)
+					if err != os.ErrExist {
+						panic(err)
+					}
 				}
 				os.Chmod(nextDir, 0755)
 			}
