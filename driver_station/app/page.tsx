@@ -133,7 +133,7 @@ export default function Home() {
 				if (event.data.system_logger) {
 					addLog(event.data.system_logger as Log)
 				}
-				if (robotConn.current) {
+				if (robotConn.current && robotConn.current?.readyState == robotConn.current?.OPEN) {
 					robotConn.current.send(event.data)
 				}
 			};
@@ -158,9 +158,9 @@ export default function Home() {
 			};
 		}
 
-		if ((robotConn.current == null) && !loggerFilter.pause) {
+		if ((robotConn.current == null)) {
 			console.log("attempting websocket re-connect")
-			robotConn.current = new WebSocket(robotInfo.botNet);
+			robotConn.current = new WebSocket("ws://" + robotInfo.botNet + ":8080");
 
 			robotConn.current.onmessage = (event) => {
 				// Handle incoming messages
