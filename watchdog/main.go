@@ -133,14 +133,16 @@ func saveFolder(folder *Hierarchy) {
 		if err != nil {
 			directories := strings.Split(v.Name, "/")
 			directories = directories[1 : len(directories)-1]
+			fmt.Println(directories)
 
 			nextDir := "./"
 			for _, v := range directories {
 				nextDir += v
-				err = os.Mkdir(nextDir, 777)
+				err = os.Mkdir(nextDir, 755)
 				if err != nil {
 					panic(err)
 				}
+				os.Chmod(nextDir, 0755)
 			}
 			file, err = os.Create(v.Name)
 			if err != nil {
