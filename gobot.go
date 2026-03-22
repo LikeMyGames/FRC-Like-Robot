@@ -247,27 +247,7 @@ func TransferExeToRobot() {
 		fmt.Println("Could not get working directory of command execution")
 	}
 
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, data.Port)) // Replace localhost with server IP
-	if err != nil {
-		fmt.Println("Error connecting:", err)
-		return
-	}
-	defer conn.Close()
-
-	sourceFile, err := os.Open(buildPath) // Replace with your file
-	if err != nil {
-		fmt.Println("Error opening source file:", err)
-		return
-	}
-	defer sourceFile.Close()
-
-	bytesSent, err := io.Copy(conn, sourceFile)
-	if err != nil {
-		fmt.Println("Error sending data:", err)
-		return
-	}
-	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
-
+	// sending dependency files (paths, etc.) to robot
 	_, err = os.ReadDir("./deploy")
 	if err != nil {
 		os.Mkdir("./deploy", os.ModeDir)
@@ -284,6 +264,27 @@ func TransferExeToRobot() {
 
 	io.Copy(conn2, bytes.NewBufferString(string(encodedData)))
 
+	// sending robot code to robot
+	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, data.Port)) // Replace localhost with server IP
+	if err != nil {
+		fmt.Println("Error connecting:", err)
+		return
+	}
+	defer conn.Close()
+
+	sourceFile, err := os.Open(buildPath)
+	if err != nil {
+		fmt.Println("Error opening source file:", err)
+		return
+	}
+	defer sourceFile.Close()
+
+	bytesSent, err := io.Copy(conn, sourceFile)
+	if err != nil {
+		fmt.Println("Error sending data:", err)
+		return
+	}
+	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
 }
 
 func recursiveDirRead(dir string) *Hierarchy {

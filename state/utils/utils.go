@@ -25,3 +25,19 @@ func TruncateFloat64(num float64, precision int) float64 {
 	num /= math.Pow(10, float64(precision))
 	return num
 }
+
+func ConvertEdgeAlignedAngleToCenterAligned(angle float64) float64 {
+	if angle >= 180 {
+		angle = 180 - angle
+	} else if angle < -180 {
+		angle = 360 + angle
+	}
+	return angle
+}
+
+func ConvertCenterAlignedAngleToEdgeAligned(angle float64) float64 {
+	if angle < 0 {
+		angle = 180 - angle
+	}
+	return angle
+}

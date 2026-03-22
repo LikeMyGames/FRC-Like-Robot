@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"sync/atomic"
 	"syscall"
 	"time"
 
@@ -12,41 +13,43 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/rsl"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/utils"
 )
 
 type (
 	Robot struct {
-		TeamNum        uint8
-		Addr           string
-		States         map[string]*State
-		State          string
-		Frequency      time.Duration
-		enabled        bool
-		enabledChannel chan bool
-		Clock          int64
-		RunningMode    string
-		PeriodFuncs    []func()
-		CanBus         *can.CanBus
-		rsl            *rsl.RSL
+		TeamNum     uint8
+		Addr        string
+		States      map[string]*State
+		State       string
+		Frequency   time.Duration
+		enabled     atomic.Bool
+		Clock       int64
+		RunningMode string
+		PeriodFuncs []func()
+		CanBus      *can.CanBus
+		rsl         *rsl.RSL
 	}
 )
 
 var RobotRef *Robot = nil
+var DeferList []func() = make([]func(), 0)
 
 func NewRobot(config constantTypes.RobotConfig) *Robot {
 	hardware.OpenSpi()
 	if RobotRef == nil {
 		RobotRef = &Robot{
-			States:         map[string]*State{},
-			State:          config.StartingState,
-			Frequency:      config.Period,
-			CanBus:         can.NewCanBus(),
-			rsl:            rsl.New(config.RslPin),
-			enabledChannel: make(chan bool, 1),
+			States:    map[string]*State{},
+			State:     config.StartingState,
+			Frequency: config.Period,
+			CanBus:    can.NewCanBus(),
+			rsl:       rsl.New(config.RslPin),
 		}
 	}
 	return RobotRef
+}
+
+func AddDeferFunction(function func()) {
+	DeferList = append(DeferList, function)
 }
 
 func (r *Robot) AddState(name string, action func(any), params any) *State {
@@ -66,15 +69,15 @@ func (r *Robot) SetState(newState string) *State {
 }
 
 func (r *Robot) Enable() {
-	r.enabledChannel <- true
+	r.enabled.Store(true)
 }
 
 func (r *Robot) Disable() {
-	r.enabledChannel <- false
+	r.enabled.Store(false)
 }
 
 func (r *Robot) IsEnabled() bool {
-	return r.enabled
+	return r.enabled.Load()
 }
 
 func (r *Robot) Status() bool {
@@ -99,16 +102,18 @@ func (r *Robot) Start() {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	defer signal.Stop(quit)
 
+	// figure out why the pins aren't being closed properly
+	defer func() {
+		hardware.CloseAllPins()
+		hardware.CloseSpiPort()
+		for _, v := range DeferList {
+			v()
+		}
+	}()
+
 	for range t.C {
-		if q := utils.ReadChannelNonBlocking(quit); q != nil {
-			hardware.CloseAllPins()
-			return
-		}
 		r.Clock++
-		if enabled := utils.ReadChannelNonBlocking(r.enabledChannel); enabled != nil {
-			event.Trigger("ROBOT_ENABLE_STATUS", *enabled)
-			r.enabled = *enabled
-		}
+		r.rsl.SetEnabled(r.IsEnabled())
 		s := r.States[r.State]
 		r.CanBus.UpdateDevices()
 		if ns := s.CheckCondition(); ns != nil {

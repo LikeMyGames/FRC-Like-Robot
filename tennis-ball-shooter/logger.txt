@@ -1,0 +1,38 @@
+{
+	"files": null,
+	"folders": [
+		{
+			"files": [
+				{
+					"name": "./deploy/pathplanner/navgrid.json"
+				},
+				{
+					"name": "./deploy/pathplanner/settings.json"
+				}
+			],
+			"folders": [
+				{
+					"files": null,
+					"folders": null
+				},
+				{
+					"files": [
+						{
+							"name": "./deploy/pathplanner/paths/Alliance to Neutral trought Left Trench.path"
+						},
+						{
+							"name": "./deploy/pathplanner/paths/Alliance to Neutral trought Right Trench.path"
+						},
+						{
+							"name": "./deploy/pathplanner/paths/Neutral to Alliance trought Left Trench.path"
+						},
+						{
+							"name": "./deploy/pathplanner/paths/Neutral to Alliance trought Right Trench.path"
+						}
+					],
+					"folders": null
+				}
+			]
+		}
+	]
+}

@@ -1,6 +1,8 @@
 package constantTypes
 
-import "time"
+import (
+	"time"
+)
 
 type (
 	RobotConfig struct {

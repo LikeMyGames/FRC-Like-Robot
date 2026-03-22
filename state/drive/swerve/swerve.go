@@ -1,7 +1,6 @@
 package swerve
 
 import (
-	"fmt"
 	"math"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
@@ -14,9 +13,10 @@ import (
 
 type (
 	SwerveModule struct {
-		driveMotor   *motor.Motor
-		turningMotor *motor.Motor
-		targetVector mathutils.VectorTheta
+		driveMotor    *motor.Motor
+		turningMotor  *motor.Motor
+		targetVector  mathutils.VectorTheta
+		angularOffset float64
 	}
 
 	SwerveDrive struct {
@@ -64,9 +64,10 @@ func NewSwerveDrive(config constantTypes.SwerveDriveConfig) *SwerveDrive {
 	swerve_modules := make([]SwerveModule, len(config.Modules))
 	for i, v := range config.Modules {
 		swerve_modules[i] = SwerveModule{
-			driveMotor:   motor.New(int(v.DriveCanID)),
-			turningMotor: motor.New(int(v.AzimuthCanID)),
-			targetVector: mathutils.VectorTheta{},
+			driveMotor:    motor.New(int(v.DriveCanID)),
+			turningMotor:  motor.New(int(v.AzimuthCanID)),
+			targetVector:  mathutils.VectorTheta{},
+			angularOffset: v.AngularOffset,
 		}
 		// fmt.Printf("Created new swerve drive with drive motor id: %d; and turning motor id: %d\n", v.DriveCanID, v.AzimuthCanID)
 		swerve_modules[i].turningMotor.SetIsSecondaryMotorOnController(true)
@@ -83,19 +84,23 @@ func (drive *SwerveDrive) CalculateSwerveFromSavedControllerVals() {
 }
 
 func (drive *SwerveDrive) CalculateSwerve(x, y, rot float64) []mathutils.VectorTheta {
-	drive.DriveProps.TranslationalV = mathutils.Vector2D{X: mathutils.Clamp(x, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV), Y: mathutils.Clamp(y, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)}
-	drive.DriveProps.RotationalV = mathutils.Clamp(rot, drive.Config.MaxSpeed.RotationalV, -drive.Config.MaxSpeed.RotationalV)
+	x = mathutils.Clamp(x, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)
+	y = mathutils.Clamp(y, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)
+	rot = mathutils.Clamp(rot, drive.Config.MaxSpeed.RotationalV, -drive.Config.MaxSpeed.RotationalV)
+	drive.DriveProps.TranslationalV = mathutils.Vector2D{X: x, Y: y}
+	drive.DriveProps.RotationalV = rot
 
 	states := make([]mathutils.VectorTheta, len(drive.SwerveModules))
 
 	for i, v := range drive.Config.Modules {
-		offset := v.AngularOffset
+		// offset := v.AngularOffset
+		moduleOffsetAngle := mathutils.Vector2D{X: v.OffsetX, Y: v.OffsetY}.ToVectorTheta().Angle
 		distance := math.Hypot(v.OffsetX, v.OffsetY)
 
 		rotVector := mathutils.Vector2D{X: 0, Y: distance}
-		rotVector.Rotate(offset)
+		rotVector.Rotate(moduleOffsetAngle).Multiply(rot)
 
-		vector := mathutils.VectorAdd(mathutils.Vector2D{X: x, Y: y}, rotVector)
+		vector := mathutils.Add(mathutils.Vector2D{X: x, Y: y}, rotVector)
 		newstate := vector.ToVectorTheta()
 		oldstate := drive.SwerveModules[i].targetVector
 		angleErr := newstate.Angle - oldstate.Angle
@@ -105,32 +110,28 @@ func (drive *SwerveDrive) CalculateSwerve(x, y, rot float64) []mathutils.VectorT
 		states[i] = newstate
 	}
 
-	// // Front Left Wheel Calculation
-	// flOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.FrontLeft.OffsetX, Y: drive.Config.Modules.FrontLeft.OffsetY})
-	// fl := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: flOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * flOffset.Magnitude})))
-	// // drive.SwerveModules.FrontLeft
-
-	// // Front Right Wheel Calculation
-	// frOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.FrontRight.OffsetX, Y: drive.Config.Modules.FrontRight.OffsetY})
-	// fr := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: frOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * frOffset.Magnitude})))
-
-	// // Back Left Wheel Calculation
-	// blOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.BackLeft.OffsetX, Y: drive.Config.Modules.BackLeft.OffsetY})
-	// bl := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: blOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * blOffset.Magnitude})))
-
-	// // Back Right Wheel Calculation
-	// brOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.BackRight.OffsetX, Y: drive.Config.Modules.BackRight.OffsetY})
-	// br := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: brOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * brOffset.Magnitude})))
-
-	fmt.Println(states)
-
-	// Setting the swerve calculations in the drive objects pointer
 	return states
 }
 
-func (drive *SwerveDrive) Normalize(states []mathutils.VectorTheta, xSpeed, ySpeed, rotSpeed float64) {
+// func (drive *SwerveDrive) Normalize(states *[]mathutils.VectorTheta, x, y, rot float64) {
+// 	maxModuleSpeed := 0.0
+// 	for _, v := range *states {
+// 		maxModuleSpeed = math.Max(maxModuleSpeed, math.Abs(v.Magnitude))
+// 	}
+
+// 	if drive.Config.MaxSpeed.TranslationalV == 0 || drive.Config.MaxSpeed.RotationalV == 0 || maxModuleSpeed == 0 {
+// 		return
+// 	}
+
+// 	// math.Hypot(x, y) / maxModuleSpeed
+// 	for _, v := range *states {
+// 		v.Magnitude *= maxModuleSpeed / drive.Config.MaxSpeed.TranslationalV
+// 	}
+// }
+
+func (drive *SwerveDrive) Normalize(states *[]mathutils.VectorTheta, xSpeed, ySpeed, rotSpeed float64) {
 	realMaxSpeed := 0.0
-	for _, v := range states {
+	for _, v := range *states {
 		realMaxSpeed = math.Max(realMaxSpeed, math.Abs(v.Magnitude))
 	}
 
@@ -142,7 +143,7 @@ func (drive *SwerveDrive) Normalize(states []mathutils.VectorTheta, xSpeed, ySpe
 	rotationalK := math.Abs(rotSpeed) / drive.Config.MaxSpeed.RotationalV
 	k := math.Max(translationalK, rotationalK)
 	scale := math.Min(k*drive.Config.MaxSpeed.TranslationalV/realMaxSpeed, 1)
-	for _, v := range states {
+	for _, v := range *states {
 		v.Magnitude *= scale
 	}
 }
@@ -187,7 +188,7 @@ func (m *SwerveModule) ReadAzimuthAngle() float64 {
 func (m *SwerveModule) SetTarget(target mathutils.VectorTheta) {
 	m.targetVector = target
 	m.driveMotor.SetVelocity(m.targetVector.Magnitude)
-	m.turningMotor.SetAngle(m.targetVector.Angle)
+	m.turningMotor.SetAngle(m.targetVector.Angle + m.angularOffset)
 }
 
 // func GetDriveVectorsFromController(ctrl *controller.Controller) (trans, rot mathutils.Vector2D) {

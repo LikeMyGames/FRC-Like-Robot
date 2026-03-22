@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func loadAllPathPlannerPaths() {
@@ -12,12 +13,18 @@ func loadAllPathPlannerPaths() {
 		panic(err)
 	}
 
+	sum := 0
+
 	for _, v := range entrys {
-		if !v.IsDir() {
-			paths[v.Name()] = loadPath(v.Name())
-			fmt.Printf("%s\n\n", paths[v.Name()])
+		if !v.IsDir() && strings.Contains(v.Name(), ".path") {
+			sum++
+			name, _ := strings.CutSuffix(v.Name(), ".path")
+			paths[name] = loadPath(name)
+			fmt.Printf("%s\n\n", paths[name])
 		}
 	}
+
+	fmt.Printf("Found %v Paths\n", sum)
 }
 
 func loadAllPathPlannerAutos() {
@@ -26,12 +33,18 @@ func loadAllPathPlannerAutos() {
 		panic(err)
 	}
 
+	sum := 0
+
 	for _, v := range entrys {
-		if !v.IsDir() {
-			autos[v.Name()] = loadAuto(v.Name())
-			fmt.Printf("%s\n\n", autos[v.Name()])
+		if !v.IsDir() && strings.Contains(v.Name(), ".auto") {
+			sum++
+			name, _ := strings.CutSuffix(v.Name(), ".auto")
+			autos[name] = loadAuto(name)
+			fmt.Printf("%s\n\n", autos[name])
 		}
 	}
+
+	fmt.Printf("Found %v Autos\n", sum)
 }
 
 func loadPath(name string) *Path {

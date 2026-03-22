@@ -6,8 +6,8 @@ import (
 )
 
 var (
-	paths map[string]*Path
-	autos map[string]*Auto
+	paths map[string]*Path = make(map[string]*Path)
+	autos map[string]*Auto = make(map[string]*Auto)
 )
 
 func init() {

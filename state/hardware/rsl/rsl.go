@@ -1,27 +1,21 @@
 package rsl
 
 import (
+	"sync/atomic"
 	"time"
 
-	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 )
 
 type (
 	RSL struct {
-		isEnabled bool
+		isEnabled atomic.Bool
 		pin       *hardware.Pin
 	}
 )
 
 func New(rslPin int) *RSL {
 	rsl := &RSL{pin: hardware.NewPin(rslPin)}
-	event.Listen("ROBOT_ENABLE_STATUS", "RSL", func(event any) {
-		enabled, ok := event.(bool)
-		if ok {
-			rsl.isEnabled = enabled
-		}
-	})
 	rsl.pin.OnClose(func() {
 		rsl.pin.Set(false)
 	})
@@ -33,10 +27,14 @@ func (rsl *RSL) loop() {
 	t := time.NewTicker(time.Millisecond * 500)
 
 	for range t.C {
-		if rsl.isEnabled {
+		if rsl.isEnabled.Load() {
 			rsl.pin.Set(!rsl.pin.Read())
 		} else {
 			rsl.pin.Set(hardware.PIN_HIGH)
 		}
 	}
+}
+
+func (rsl *RSL) SetEnabled(val bool) {
+	rsl.isEnabled.Store(val)
 }
