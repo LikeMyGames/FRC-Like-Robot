@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net"
@@ -138,14 +139,17 @@ func saveFolder(folder *Hierarchy) {
 			nextDir := "./"
 			for _, v := range directories {
 				nextDir += v + "/"
-				err = os.Mkdir(nextDir, 755)
+				_, err = os.ReadDir(nextDir)
 				if err != nil {
-					fmt.Println(err)
-					if err != os.ErrExist {
-						panic(err)
+					err = os.Mkdir(nextDir, 755)
+					if err != nil {
+						fmt.Println(err)
+						if errors.Is(err, os.ErrExist) {
+							panic(err)
+						}
 					}
+					os.Chmod(nextDir, 0755)
 				}
-				os.Chmod(nextDir, 0755)
 			}
 			file, err = os.Create(v.Name)
 			if err != nil {
