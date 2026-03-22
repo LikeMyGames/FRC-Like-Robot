@@ -140,6 +140,7 @@ func saveFolder(folder *Hierarchy) {
 				nextDir += v + "/"
 				err = os.Mkdir(nextDir, 755)
 				if err != nil {
+					fmt.Println(err)
 					if err != os.ErrExist {
 						panic(err)
 					}
