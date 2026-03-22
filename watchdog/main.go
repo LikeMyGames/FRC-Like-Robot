@@ -119,6 +119,7 @@ func main() {
 
 		buf := new(bytes.Buffer)
 		io.Copy(buf, conn)
+		receiveFile(conn, "logfile.txt")
 
 		hierarchy := new(Hierarchy)
 		err = json.Unmarshal(buf.Bytes(), hierarchy)
