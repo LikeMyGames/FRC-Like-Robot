@@ -131,7 +131,7 @@ func saveFolder(folder *Hierarchy) {
 		fmt.Println(v.Name)
 		file, err := os.Create(v.Name)
 		if err != nil {
-			err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], os.ModeDir)
+			err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], 0666)
 			if err != nil {
 				panic(err)
 			}
