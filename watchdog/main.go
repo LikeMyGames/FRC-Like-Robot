@@ -137,7 +137,7 @@ func saveFolder(folder *Hierarchy) {
 
 			nextDir := "./"
 			for _, v := range directories {
-				nextDir += v
+				nextDir += v + "/"
 				err = os.Mkdir(nextDir, 755)
 				if err != nil {
 					panic(err)
