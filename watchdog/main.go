@@ -131,6 +131,7 @@ func saveFolder(folder *Hierarchy) {
 		fmt.Println(v.Name)
 		file, err := os.Create(v.Name)
 		if err != nil {
+			fmt.Printf("Creating Directory: %s\tfor file %s", v.Name[:strings.LastIndex(v.Name, "/")], v.Name)
 			err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], 777)
 			if err != nil {
 				panic(err)
