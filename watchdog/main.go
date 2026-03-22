@@ -112,32 +112,14 @@ func main() {
 
 		fmt.Println("Receiving File Hierarchy Update")
 
-		// file, err := os.Create("hierarchy.json")
-		// if err != nil {
-		// 	panic(err)
-		// }
-
 		buf := new(bytes.Buffer)
-
 		io.Copy(buf, conn)
-
-		logFile, err := os.Create("logfile.txt")
-		if err != nil {
-			panic(err)
-		}
-
-		logFile.Write(buf.Bytes())
 
 		hierarchy := new(Hierarchy)
 		err = json.Unmarshal(buf.Bytes(), hierarchy)
 		if err != nil {
 			panic(err)
 		}
-
-		// dir, err := os.Open("./deploy")
-		// if err != nil {
-		// 	panic(err)
-		// }
 
 		saveFolder(hierarchy)
 	}

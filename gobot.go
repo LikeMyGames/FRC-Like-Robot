@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -279,13 +280,9 @@ func TransferExeToRobot() {
 		panic(err)
 	}
 
-	logFile, _ := os.Create("logger.txt")
-	logFile.Write(encodedData)
-	fmt.Println(string(encodedData))
+	conn2, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
 
-	conn, err = net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
-
-	io.Copy(conn, logFile)
+	io.Copy(conn2, bytes.NewBufferString(string(encodedData)))
 
 }
 
@@ -308,11 +305,20 @@ func recursiveDirRead(dir string) *Hierarchy {
 			}
 			file := File{
 				Name: name,
-				Data: string(data),
+				Data: stringToBinary(string(data)),
 			}
 			hierarchy.Files = append(hierarchy.Files, file)
 		}
 	}
 
 	return hierarchy
+}
+
+func stringToBinary(str string) string {
+	buf := new(bytes.Buffer)
+	for i := range len(str) {
+		fmt.Fprintf(buf, "%08b", str[i])
+	}
+
+	return buf.String()
 }
