@@ -113,6 +113,10 @@ func main() {
 
 		fmt.Println("Receiving File Hierarchy Update")
 
+		stopRobot()
+
+		exec.Command("rm", "-rf", "deploy").Run()
+
 		buf := new(bytes.Buffer)
 		io.Copy(buf, conn)
 
