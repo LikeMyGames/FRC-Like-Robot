@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -27,6 +28,16 @@ type (
 		Architecture string `json:"Architecture"`
 		EntranceFile string `json:"EntranceFile"`
 		Port         uint   `json:"Port"`
+	}
+
+	Hierarchy struct {
+		Files   []File       `json:"files"`
+		Folders []*Hierarchy `json:"folders"`
+	}
+
+	File struct {
+		Name string `json:"name"`
+		Data string `json:"data"`
 	}
 )
 
@@ -236,6 +247,24 @@ func TransferExeToRobot() {
 		fmt.Println("Could not get working directory of command execution")
 	}
 
+	// sending dependency files (paths, etc.) to robot
+	_, err = os.ReadDir("./deploy")
+	if err != nil {
+		os.Mkdir("./deploy", os.ModeDir)
+	}
+
+	hierarchy := recursiveDirRead("./deploy")
+
+	encodedData, err := json.MarshalIndent(hierarchy, "", "\t")
+	if err != nil {
+		panic(err)
+	}
+
+	conn2, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, 5050))
+
+	io.Copy(conn2, bytes.NewBufferString(string(encodedData)))
+
+	// sending robot code to robot
 	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%v", data.RobotIP, data.Port)) // Replace localhost with server IP
 	if err != nil {
 		fmt.Println("Error connecting:", err)
@@ -243,7 +272,7 @@ func TransferExeToRobot() {
 	}
 	defer conn.Close()
 
-	sourceFile, err := os.Open(buildPath) // Replace with your file
+	sourceFile, err := os.Open(buildPath)
 	if err != nil {
 		fmt.Println("Error opening source file:", err)
 		return
@@ -256,4 +285,41 @@ func TransferExeToRobot() {
 		return
 	}
 	fmt.Printf("Sent %d bytes from %s\n", bytesSent, buildPath)
+}
+
+func recursiveDirRead(dir string) *Hierarchy {
+	entrys, err := os.ReadDir(dir)
+	if err != nil {
+		panic(err)
+	}
+
+	hierarchy := new(Hierarchy)
+
+	for _, v := range entrys {
+		name := fmt.Sprintf("%s/%s", dir, v.Name())
+		if v.IsDir() {
+			hierarchy.Folders = append(hierarchy.Folders, recursiveDirRead(name))
+		} else {
+			data, err := os.ReadFile(name)
+			if err != nil {
+				panic(err)
+			}
+			file := File{
+				Name: name,
+				Data: stringToBinary(string(data)),
+			}
+			hierarchy.Files = append(hierarchy.Files, file)
+		}
+	}
+
+	return hierarchy
+}
+
+func stringToBinary(str string) string {
+	buf := new(bytes.Buffer)
+	for i := range len(str) {
+		fmt.Fprintf(buf, "%08b", str[i])
+	}
+
+	return buf.String()
 }

@@ -28,6 +28,10 @@ var (
 	spiConn       spi.Conn
 	Os            string = "linux"
 	pins          []*Pin
+	// spiReadBuffer  [](chan Packet) = make([](chan Packet), 0)
+	// spiWriteBuffer [](chan Packet) = make([](chan Packet), 0)
+	spiReadBuffer  [](chan []byte) = make([](chan []byte), 0)
+	spiWriteBuffer chan []byte     = make(chan []byte)
 )
 
 const (
@@ -66,6 +70,38 @@ func OpenSpi() {
 	}
 	// Use read.
 	fmt.Printf("%v\n", read[1:])
+
+	go spiListen()
+}
+
+func spiListen() {
+	for {
+		w := <-spiWriteBuffer
+		r := make([]byte, len(w))
+		err := spiConn.Tx(w, r)
+		if err != nil {
+			log.Println(err)
+		}
+		fmt.Println(r)
+	}
+}
+
+func SendSpiMessage(address, len uint8, data []byte) {
+	packet := make([]byte, 0)
+	packet = append(packet, address)
+	packet = append(packet, data...)
+	spiWriteBuffer <- packet
+}
+
+func ReadSpiMessage(address uint8) (data []byte) {
+	data = <-spiReadBuffer[address]
+	return
+}
+
+func RegisterSpiAddress() (address uint8) {
+	address = uint8(len(spiReadBuffer))
+	spiReadBuffer = append(spiReadBuffer, make(chan []byte))
+	return
 }
 
 func GetSpiConn() spi.Conn {

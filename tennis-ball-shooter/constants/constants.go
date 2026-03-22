@@ -42,7 +42,7 @@ var Robot constantTypes.RobotConfig = constantTypes.RobotConfig{
 // Do not edit in code ONLY EDIT HERE
 var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 	MaxSpeed: constantTypes.DriveMaxes{
-		TranslationalV: 1,   // Max Translational Velocity of the robot
+		TranslationalV: 2,   // Max Translational Velocity of the robot
 		RotationalV:    180, // Max Rotational Velocity of the robot in degrees per second
 		TranslationalA: 0.5, // Max Translational Acceleration of the robot
 		RotationalA:    20,  // Max Rotational Acceleration of the robot in degrees per second per second
@@ -63,7 +63,7 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 		{
 			Name:                "FrontRight",
 			OffsetX:             0.15,
-			OffsetY:             0.15,
+			OffsetY:             -0.15,
 			AngularOffset:       -math.Pi / 2,
 			DriveCanID:          20,
 			AzimuthCanID:        21,
@@ -74,7 +74,7 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 		},
 		{
 			Name:                "BackLeft",
-			OffsetX:             0.15,
+			OffsetX:             -0.15,
 			OffsetY:             0.15,
 			AngularOffset:       math.Pi / 2,
 			DriveCanID:          30,
@@ -86,8 +86,8 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 		},
 		{
 			Name:                "BackRight",
-			OffsetX:             0.15,
-			OffsetY:             0.15,
+			OffsetX:             -0.15,
+			OffsetY:             -0.15,
 			AngularOffset:       math.Pi,
 			DriveCanID:          40,
 			AzimuthCanID:        41,
@@ -147,7 +147,7 @@ var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
 // Used to instantiate a controller object in the main.go file
 var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 	ControllerNum: 0,
-	Precision:     3,
+	Precision:     2,
 	Deadzones: constantTypes.ControllerDeadzones{
 		ThumbL:   0.05,
 		ThumbR:   0.05,

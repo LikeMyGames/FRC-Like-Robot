@@ -9,8 +9,8 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
+	_ "github.com/LikeMyGames/FRC-Like-Robot/state/pathing/pathplanner"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 func main() {
@@ -54,7 +54,7 @@ func main() {
 	// will fallback to IDLE state if a problem occurs
 	// or will restart program if problem is too great
 	r.AddState("enabled", func(a any) {
-		driveSubsystem.Drive(ctrl0.Values.LeftStick, mathutils.Vector2D{X: ctrl0.Values.RightStickX}, true)
+		driveSubsystem.Drive(ctrl0.Values.LeftStick, ctrl0.Values.RightStick, true)
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.IsEnabled()
 	}).AddInit(func(s *robot.State) {

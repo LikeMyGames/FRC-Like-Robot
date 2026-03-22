@@ -90,22 +90,32 @@ func New() *DriveSubsystem {
 }
 
 func (drive *DriveSubsystem) Drive(trans, rot mathutils.Vector2D, worldRelative bool) {
-	// xSpeed := trans.X * drive.Config.MaxSpeed.TranslationalV
-	// ySpeed := trans.Y * drive.Config.MaxSpeed.TranslationalV
-	// rotSpeed := rot.X * drive.Config.MaxSpeed.TranslationalV
+	xSpeed := trans.X * drive.swerveDrive.Config.MaxSpeed.TranslationalV
+	ySpeed := trans.Y * drive.swerveDrive.Config.MaxSpeed.TranslationalV
+	rotSpeed := rot.X * drive.swerveDrive.Config.MaxSpeed.RotationalV
 
-	xSpeed := trans.X
-	ySpeed := trans.Y
-	rotSpeed := rot.X
+	// xSpeed := trans.X
+	// ySpeed := trans.Y
+	// rotSpeed := rot.X
 
-	if worldRelative {
-		trans.Rotate(drive.Pose.Angle)
+	if !worldRelative {
+		trans.Rotate(-drive.Pose.Angle)
 		xSpeed = trans.X
 		ySpeed = trans.Y
 	}
 
 	states := drive.swerveDrive.CalculateSwerve(xSpeed, ySpeed, rotSpeed)
-	drive.swerveDrive.Normalize(states, xSpeed, ySpeed, rotSpeed)
+
+	fmt.Println()
+	for i, v := range states {
+		fmt.Println(i, ": ", v)
+	}
+	drive.swerveDrive.Normalize(&states, xSpeed, ySpeed, rotSpeed)
+
+	fmt.Println()
+	for i, v := range states {
+		fmt.Println(i, ": ", v)
+	}
 
 	for i, v := range drive.swerveDrive.SwerveModules {
 		v.SetTarget(states[i])

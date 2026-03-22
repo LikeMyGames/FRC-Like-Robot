@@ -1,7 +1,6 @@
 package can
 
 import (
-	"bytes"
 	"encoding/binary"
 	"fmt"
 	"time"
@@ -35,9 +34,9 @@ type (
 )
 
 var (
-	writeBuffer *bytes.Buffer = new(bytes.Buffer)
-	readBuffer  *bytes.Buffer = new(bytes.Buffer)
-	bus         *CanBus       = nil
+	// writeBuffer *bytes.Buffer = new(bytes.Buffer)
+	// readBuffer  *bytes.Buffer = new(bytes.Buffer)
+	bus *CanBus = nil
 )
 
 func NewCanBus() *CanBus {

@@ -56,7 +56,8 @@ type (
 
 	register struct {
 		cmd           int
-		dataStructure []reflect.Kind
+		sendStructure []reflect.Kind
+		receiveStructure []reflect.Kind
 	}
 )
 
@@ -76,47 +77,58 @@ const (
 var motorRegisterMap map[string]register = map[string]register{
 	"Status": {
 		cmd:           0x00,
-		dataStructure: []reflect.Kind{reflect.Int8},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{reflect.Int8},
 	},
 	"Estop": {
 		cmd:           0x01,
-		dataStructure: []reflect.Kind{},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Input_Pos": {
 		cmd:           0x02,
-		dataStructure: []reflect.Kind{reflect.Float32, reflect.Int16, reflect.Int16},
+		sendStructure: []reflect.Kind{reflect.Float32, reflect.Int16, reflect.Int16},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Input_Vel": {
 		cmd:           0x03,
-		dataStructure: []reflect.Kind{reflect.Float32, reflect.Int16},
+		sendStructure: []reflect.Kind{reflect.Float32, reflect.Int16},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Input_Torque": {
 		cmd:           0x04,
-		dataStructure: []reflect.Kind{reflect.Float32},
+		sendStructure: []reflect.Kind{reflect.Float32},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Limits": {
 		cmd:           0x05,
-		dataStructure: []reflect.Kind{reflect.Float32, reflect.Float32},
+		sendStructure: []reflect.Kind{reflect.Float32, reflect.Float32},
+		receiveStructure: []reflect.Kind{reflect.Float32, reflect.Float32},
 	},
 	"Reboot": {
 		cmd:           0x06,
-		dataStructure: []reflect.Kind{},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Get_Bus_Voltage_Current": {
 		cmd:           0x07,
-		dataStructure: []reflect.Kind{},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Clear_Errors": {
 		cmd:           0x08,
-		dataStructure: []reflect.Kind{},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Encoders": {
 		cmd:           0x09,
-		dataStructure: []reflect.Kind{},
+		sendStructure: []reflect.Kind{},
+		receiveStructure: []reflect.Kind{},
 	},
 	"Running_Mode": {
 		cmd:           0x0a,
-		dataStructure: []reflect.Kind{reflect.Int8},
+		sendStructure: []reflect.Kind{reflect.Int8},
+		receiveStructure: []reflect.Kind{},
 	},
 }
 
