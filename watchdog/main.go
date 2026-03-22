@@ -131,15 +131,28 @@ func saveFolder(folder *Hierarchy) {
 		fmt.Println(v.Name)
 		file, err := os.Create(v.Name)
 		if err != nil {
-			fmt.Printf("Creating Directory: %s\tfor file %s", v.Name[:strings.LastIndex(v.Name, "/")], v.Name)
-			err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], 777)
-			if err != nil {
-				panic(err)
+			directories := strings.Split(v.Name, "/")
+			directories = directories[1 : len(directories)-1]
+
+			nextDir := "./"
+			for _, v := range directories {
+				nextDir += v
+				err = os.Mkdir(nextDir, 777)
+				if err != nil {
+					panic(err)
+				}
 			}
 			file, err = os.Create(v.Name)
 			if err != nil {
 				panic(err)
 			}
+
+			// fmt.Printf("Creating Directory: %s\tfor file %s\n", v.Name[:strings.LastIndex(v.Name, "/")], v.Name)
+			// err := os.MkdirAll(v.Name[:strings.LastIndex(v.Name, "/")], 777)
+			// if err != nil {
+			// 	panic(err)
+			// }
+
 		}
 
 		file.WriteString(v.Data)
@@ -160,28 +173,4 @@ func receiveFile(conn net.Conn, tempName string) error {
 	// Copy until sender closes connection
 	_, err = io.Copy(file, conn)
 	return err
-}
-
-func handleConnection(conn net.Conn) {
-	defer conn.Close()
-
-	// In a real application, you'd receive metadata first (filename, size)
-	// For simplicity, let's assume a fixed filename for now.
-	fileName := "robot.exe"
-	file, err := os.Create(fileName)
-	if err != nil {
-		fmt.Println("Error creating file:", err)
-		return
-	}
-	defer file.Close()
-
-	bytesCopied, err := io.Copy(file, conn)
-	if err != nil {
-		fmt.Println("Error copying data:", err)
-		return
-	}
-
-	exec.Command("chmod", "+x", "robot.exe")
-
-	fmt.Printf("Received %d bytes and saved to %s\n", bytesCopied, fileName)
 }
