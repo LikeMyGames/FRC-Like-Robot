@@ -1,9 +1,18 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.889,
+  "robotLength": 0.889,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "Director Paths",
+    "Climb Line Ups",
+    "Shoot - Outside Climb",
+    "Start - Shoot",
+    "Start - Single Pass - Shoot Position"
+  ],
+  "autoFolders": [
+    "Start - Neutral Pass - Left Outside Climb",
+    "Start - Preload Shoot - Outside Climb"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
@@ -15,18 +24,23 @@
   "driveWheelRadius": 0.048,
   "driveGearing": 5.143,
   "maxDriveSpeed": 5.45,
-  "driveMotorType": "NEO",
-  "driveCurrentLimit": 30.0,
+  "driveMotorType": "vortex",
+  "driveCurrentLimit": 60.0,
   "wheelCOF": 1.2,
-  "flModuleX": 0.273,
-  "flModuleY": 0.273,
-  "frModuleX": 0.273,
-  "frModuleY": -0.273,
-  "blModuleX": -0.273,
-  "blModuleY": 0.273,
-  "brModuleX": -0.273,
-  "brModuleY": -0.273,
+  "flModuleX": 0.32385,
+  "flModuleY": 0.32385,
+  "frModuleX": 0.32385,
+  "frModuleY": -0.32385,
+  "blModuleX": -0.32385,
+  "blModuleY": 0.32385,
+  "brModuleX": -0.32385,
+  "brModuleY": -0.32385,
   "bumperOffsetX": 0.0,
   "bumperOffsetY": 0.0,
-  "robotFeatures": []
+  "robotFeatures": [
+    "{\"name\":\"Shooter\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.34,\"y\":0.0},\"size\":{\"width\":0.6,\"length\":0.2},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Intake\",\"type\":\"line\",\"data\":{\"start\":{\"x\":-0.6985,\"y\":0.2032},\"end\":{\"x\":-0.6985,\"y\":-0.2032},\"strokeWidth\":0.02}}",
+    "{\"name\":\"Climber Indent\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.3429},\"size\":{\"width\":0.2032,\"length\":0.127},\"borderRadius\":0.025,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Robot Frame\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.0},\"size\":{\"width\":0.7366,\"length\":0.7366},\"borderRadius\":0.025,\"strokeWidth\":0.02,\"filled\":false}}"
+  ]
 }
