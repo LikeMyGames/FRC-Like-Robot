@@ -59,3 +59,7 @@ func Deadband(value, deadSize float64) float64 {
 	}
 	return 0
 }
+
+func Lerp(start, end, percent float64) float64 {
+	return (percent * (end - start)) + start
+}

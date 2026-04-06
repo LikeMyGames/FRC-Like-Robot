@@ -76,39 +76,39 @@ func VectorThetatoVector2D(v VectorTheta) Vector2D {
 // from the tail of v1 to the head of v2.
 // The way the function actually works is by adding the X's individually and the Y's individually.
 // This has the same effect as the explaination first provided.
-func Add(v1, v2 Vector2D) Vector2D {
+func AddVector2D(v1, v2 Vector2D) *Vector2D {
 	x := v1.X + v2.X
 	y := v1.Y + v2.Y
-	return Vector2D{X: x, Y: y}
+	return &Vector2D{X: x, Y: y}
 }
 
-func Subtract(v1, v2 Vector2D) Vector2D {
+func SubtractVector2D(v1, v2 Vector2D) *Vector2D {
 	x := v1.X - v2.X
 	y := v1.Y - v2.Y
-	return Vector2D{X: x, Y: y}
+	return &Vector2D{X: x, Y: y}
 }
 
-func Multiply(v Vector2D, num float64) Vector2D {
-	return *v.Multiply(num)
+func MultiplyVector2D(v Vector2D, num float64) *Vector2D {
+	return v.Multiply(num)
 }
 
-func Divide(v Vector2D, num float64) Vector2D {
-	return *v.Divide(num)
+func DivideVector2D(v Vector2D, num float64) *Vector2D {
+	return v.Divide(num)
 }
 
 func VectorThetaAdd(v1, v2 VectorTheta) VectorTheta {
-	return Vector2DtoVectorTheta(Add(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
+	return Vector2DtoVectorTheta(*AddVector2D(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 }
 
 func VectorThetaSubtract(v1, v2 VectorTheta) VectorTheta {
-	return Vector2DtoVectorTheta(Subtract(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
+	return Vector2DtoVectorTheta(*SubtractVector2D(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 }
 
 func VectorAddNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v1theta := Vector2DtoVectorTheta(v1)
 	v2theta := Vector2DtoVectorTheta(v2)
-	v3 := Add(v1, v2)
-	v3theta := Vector2DtoVectorTheta(v3)
+	v3 := AddVector2D(v1, v2)
+	v3theta := Vector2DtoVectorTheta(*v3)
 	v3theta.Magnitude = MapRange(v3theta.Magnitude, 0, v1theta.Magnitude+v2theta.Magnitude, 0, maxLen)
 	return VectorThetatoVector2D(v3theta)
 }
@@ -116,20 +116,20 @@ func VectorAddNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 func VectorSubtractNormalized(v1, v2 Vector2D, maxLen float64) Vector2D {
 	v1theta := Vector2DtoVectorTheta(v1)
 	v2theta := Vector2DtoVectorTheta(v2)
-	v3 := Subtract(v1, v2)
-	v3theta := Vector2DtoVectorTheta(v3)
+	v3 := SubtractVector2D(v1, v2)
+	v3theta := Vector2DtoVectorTheta(*v3)
 	v3theta.Magnitude = MapRange(v3theta.Magnitude, 0, v1theta.Magnitude-v2theta.Magnitude, 0, maxLen)
 	return VectorThetatoVector2D(v3theta)
 }
 
 func VectorThetaAddNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
-	v3 := Vector2DtoVectorTheta(Add(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
+	v3 := Vector2DtoVectorTheta(*AddVector2D(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 	v3.Magnitude = MapRange(v3.Magnitude, 0, v1.Magnitude+v2.Magnitude, 0, maxLen)
 	return v3
 }
 
 func VectorThetaSubtractNormalized(v1, v2 VectorTheta, maxLen float64) VectorTheta {
-	v3 := Vector2DtoVectorTheta(Subtract(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
+	v3 := Vector2DtoVectorTheta(*SubtractVector2D(VectorThetatoVector2D(v1), VectorThetatoVector2D(v2)))
 	v3.Magnitude = MapRange(v3.Magnitude, 0, v1.Magnitude-v2.Magnitude, 0, maxLen)
 	return v3
 }
@@ -176,6 +176,18 @@ func (v Vector2D) CrossProduct(v2 Vector2D) float64 {
 	return CrossProductVector2D(v, v2)
 }
 
+func (o *Vector2D) Add(v *Vector2D) *Vector2D {
+	o.X += v.X
+	o.Y += v.X
+	return o
+}
+
+func (o *Vector2D) Subtract(v *Vector2D) *Vector2D {
+	o.X -= v.X
+	o.Y -= v.X
+	return o
+}
+
 func (v *Vector2D) Multiply(num float64) *Vector2D {
 	v.X *= num
 	v.Y *= num
@@ -186,6 +198,10 @@ func (v *Vector2D) Divide(num float64) *Vector2D {
 	v.X /= num
 	v.Y /= num
 	return v
+}
+
+func (v *Vector2D) Length() float64 {
+	return math.Sqrt(v.DotProduct(*v))
 }
 
 func (v Vector2D) String() string {

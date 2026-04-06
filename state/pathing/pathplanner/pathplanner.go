@@ -3,6 +3,8 @@ package pathplanner
 import (
 	"fmt"
 	"strings"
+
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/curves"
 )
 
 var (
@@ -21,6 +23,24 @@ func PathPlannerPath(name string) *Path {
 
 func PathPlannerAuto(name string) *Auto {
 	return autos[name]
+}
+
+func RefreshPathPlannerPathCurve(name string) {
+	paths[name].RefreshCurve()
+}
+
+func (p *Path) RefreshCurve() {
+	for i := range len(p.Waypoints) - 2 {
+		start := p.Waypoints[i]
+		end := p.Waypoints[i+1]
+		curve := curves.NewCubicBezier(
+			start.Anchor,
+			start.NextControl,
+			end.PrevControl,
+			end.Anchor,
+		)
+		p.bezier_curves = append(p.bezier_curves, curve)
+	}
 }
 
 func (p Constraints) String() string {

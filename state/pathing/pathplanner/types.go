@@ -1,6 +1,7 @@
 package pathplanner
 
 import (
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/curves"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
@@ -15,8 +16,9 @@ type (
 
 	Path struct {
 		Name                  string
-		Version               string             `json:"version"`
-		Waypoints             []Waypoint         `json:"waypoints"`
+		Version               string     `json:"version"`
+		Waypoints             []Waypoint `json:"waypoints"`
+		bezier_curves         []*curves.CubicBezier
 		RotationTargets       []RotationTarget   `json:"rotationTargets"`
 		ConstraintZones       []ConstraintZone   `json:"constraintZones"`
 		PointTowardsZones     []PointTowardsZone `json:"pointTowardsZones"`
