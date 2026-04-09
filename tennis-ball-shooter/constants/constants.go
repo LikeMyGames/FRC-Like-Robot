@@ -6,19 +6,23 @@ import (
 	"time"
 
 	// Importing the constant type from the FRC-Like-Robot State module
+	drive_types "tennis-ball-shooter/subsystems/drive/types"
+	intake_types "tennis-ball-shooter/subsystems/intake/types"
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
+	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 )
 
 type (
-	RobotType struct {
-		Frequency   time.Duration
-		Controllers []constantTypes.ControllerConfig
-		Drive       constantTypes.SwerveDriveConfig
-		Shooter     shooter_types.ShooterConfig
-		Battery     constantTypes.Battery
-	}
+//	RobotType struct {
+//		Frequency   time.Duration
+//		Controllers []constantTypes.ControllerConfig
+//		Drive       constantTypes.SwerveDriveConfig
+//		Shooter     shooter_types.ShooterConfig
+//		Battery     constantTypes.Battery
+//	}
 )
 
 // var Robot RobotType = RobotType{
@@ -40,106 +44,83 @@ var Robot constantTypes.RobotConfig = constantTypes.RobotConfig{
 // The Drive contants defined for the robot
 // Used in the Drive Subsystem
 // Do not edit in code ONLY EDIT HERE
-var Drive constantTypes.SwerveDriveConfig = constantTypes.SwerveDriveConfig{
-	MaxSpeed: constantTypes.DriveMaxes{
-		TranslationalV: 2,   // Max Translational Velocity of the robot
-		RotationalV:    180, // Max Rotational Velocity of the robot in degrees per second
-		TranslationalA: 0.5, // Max Translational Acceleration of the robot
-		RotationalA:    20,  // Max Rotational Acceleration of the robot in degrees per second per second
-	},
-	Modules: []constantTypes.ModuleConstants{
-		{
-			Name:                "FrontLeft",
-			OffsetX:             0.15, // Offset from center (X direction)
-			OffsetY:             0.15, // Offset from center (Y direction)
-			AngularOffset:       0,
-			DriveCanID:          10,
-			AzimuthCanID:        11,
-			DriveGearRatio:      23.0 / 44,
-			DriveGearRatioInv:   44.0 / 23,
-			AzimuthGearRatio:    4.0 / 57,
-			AzimuthGearRatioInv: 57 / 4,
+var Drive drive_types.Constants = drive_types.Constants{
+	PositionalPidP: 0,
+	PositionalPidI: 0,
+	PositionalPidD: 0,
+	Swerve: swerve.Config{
+		MaxSpeed: swerve.DriveMaxes{
+			TranslationalV: 2,   // Max Translational Velocity of the robot
+			RotationalV:    180, // Max Rotational Velocity of the robot in degrees per second
+			TranslationalA: 0.5, // Max Translational Acceleration of the robot
+			RotationalA:    20,  // Max Rotational Acceleration of the robot in degrees per second per second
 		},
-		{
-			Name:                "FrontRight",
-			OffsetX:             0.15,
-			OffsetY:             -0.15,
-			AngularOffset:       -math.Pi / 2,
-			DriveCanID:          20,
-			AzimuthCanID:        21,
-			DriveGearRatio:      23.0 / 44,
-			DriveGearRatioInv:   44.0 / 23,
-			AzimuthGearRatio:    4.0 / 57,
-			AzimuthGearRatioInv: 57 / 4,
+		Modules: []swerve.ModuleConstants{
+			{
+				Name:          "FrontLeft",
+				OffsetX:       0.15, // Offset from center (X direction)
+				OffsetY:       0.15, // Offset from center (Y direction)
+				AngularOffset: 0,
+				DriveMotorConfig: motor.Config{
+					CanId: 10,
+				},
+				AzimuthMotorConfig: motor.Config{
+					CanId: 11,
+				},
+				DriveGearRatio:      23.0 / 44.0,
+				DriveGearRatioInv:   44.0 / 23.0,
+				AzimuthGearRatio:    4.0 / 57.0,
+				AzimuthGearRatioInv: 57.0 / 4.0,
+			},
+			{
+				Name:          "FrontRight",
+				OffsetX:       0.15,
+				OffsetY:       -0.15,
+				AngularOffset: -math.Pi / 2,
+				DriveMotorConfig: motor.Config{
+					CanId: 20,
+				},
+				AzimuthMotorConfig: motor.Config{
+					CanId: 21,
+				},
+				DriveGearRatio:      23.0 / 44.0,
+				DriveGearRatioInv:   44.0 / 23.0,
+				AzimuthGearRatio:    4.0 / 57.0,
+				AzimuthGearRatioInv: 57.0 / 4.0,
+			},
+			{
+				Name:          "BackLeft",
+				OffsetX:       -0.15,
+				OffsetY:       0.15,
+				AngularOffset: math.Pi / 2,
+				DriveMotorConfig: motor.Config{
+					CanId: 30,
+				},
+				AzimuthMotorConfig: motor.Config{
+					CanId: 31,
+				},
+				DriveGearRatio:      23.0 / 44.0,
+				DriveGearRatioInv:   44.0 / 23.0,
+				AzimuthGearRatio:    4.0 / 57.0,
+				AzimuthGearRatioInv: 57.0 / 4.0,
+			},
+			{
+				Name:          "BackRight",
+				OffsetX:       -0.15,
+				OffsetY:       -0.15,
+				AngularOffset: math.Pi,
+				DriveMotorConfig: motor.Config{
+					CanId: 40,
+				},
+				AzimuthMotorConfig: motor.Config{
+					CanId: 41,
+				},
+				DriveGearRatio:      23.0 / 44.0,
+				DriveGearRatioInv:   44.0 / 23.0,
+				AzimuthGearRatio:    4.0 / 57.0,
+				AzimuthGearRatioInv: 57.0 / 4.0,
+			},
 		},
-		{
-			Name:                "BackLeft",
-			OffsetX:             -0.15,
-			OffsetY:             0.15,
-			AngularOffset:       math.Pi / 2,
-			DriveCanID:          30,
-			AzimuthCanID:        31,
-			DriveGearRatio:      23.0 / 44,
-			DriveGearRatioInv:   44.0 / 23,
-			AzimuthGearRatio:    4.0 / 57,
-			AzimuthGearRatioInv: 57 / 4,
-		},
-		{
-			Name:                "BackRight",
-			OffsetX:             -0.15,
-			OffsetY:             -0.15,
-			AngularOffset:       math.Pi,
-			DriveCanID:          40,
-			AzimuthCanID:        41,
-			DriveGearRatio:      23.0 / 44,
-			DriveGearRatioInv:   44.0 / 23,
-			AzimuthGearRatio:    4.0 / 57,
-			AzimuthGearRatioInv: 57 / 4,
-		},
-		// FrontLeft: constantTypes.ModuleConstants{
-		// 	OffsetX:             0.15, // Offset from center (X direction)
-		// 	OffsetY:             0.15, // Offset from center (Y direction)
-		// 	AngularOffset:       math.Pi,
-		// 	DriveCanID:          10,
-		// 	AzimuthCanID:        11,
-		// 	DriveGearRatio:      23 / 44,
-		// 	DriveGearRatioInv:   44 / 23,
-		// 	AzimuthGearRatio:    4 / 57,
-		// 	AzimuthGearRatioInv: 57 / 4,
-		// },
-		// FrontRight: constantTypes.ModuleConstants{
-		// 	OffsetX:             0.15,
-		// 	OffsetY:             0.15,
-		// 	AngularOffset:       math.Pi / 2,
-		// 	DriveCanID:          20,
-		// 	AzimuthCanID:        21,
-		// 	DriveGearRatio:      23 / 44,
-		// 	DriveGearRatioInv:   44 / 23,
-		// 	AzimuthGearRatio:    4 / 57,
-		// 	AzimuthGearRatioInv: 57 / 4,
-		// },
-		// BackLeft: constantTypes.ModuleConstants{
-		// 	OffsetX:             0.15,
-		// 	OffsetY:             0.15,
-		// 	AngularOffset:       -math.Pi / 2,
-		// 	DriveCanID:          30,
-		// 	AzimuthCanID:        31,
-		// 	DriveGearRatio:      23 / 44,
-		// 	DriveGearRatioInv:   44 / 23,
-		// 	AzimuthGearRatio:    4 / 57,
-		// 	AzimuthGearRatioInv: 57 / 4,
-		// },
-		// BackRight: constantTypes.ModuleConstants{
-		// 	OffsetX:             0.15,
-		// 	OffsetY:             0.15,
-		// 	AngularOffset:       0,
-		// 	DriveCanID:          40,
-		// 	AzimuthCanID:        41,
-		// 	DriveGearRatio:      23 / 44,
-		// 	DriveGearRatioInv:   44 / 23,
-		// 	AzimuthGearRatio:    4 / 57,
-		// 	AzimuthGearRatioInv: 57 / 4,
-		// },
 	},
 }
 
@@ -157,29 +138,54 @@ var Controller0 constantTypes.ControllerConfig = constantTypes.ControllerConfig{
 	MinChange: 0.05,
 }
 
-var Shooter shooter_types.ShooterConfig = shooter_types.ShooterConfig{
+var Shooter shooter_types.Constants = shooter_types.Constants{
 	MaxFlyWheelVelocity:     10,
 	MaxFlyWheelAcceleration: 1,
 	MaxAzimuthVelocity:      math.Pi / 4,
 	MaxAzimuthAcceleartion:  math.Pi / 16,
 	MinAzimuthOffset:        math.Pi / 32,
 	MaxFeedVelocity:         2,
-	FlyWheelMotor: constantTypes.MotorController{
-		Id:  52,
-		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
-	},
-	PitchMotor: constantTypes.MotorController{
-		Id:  51,
-		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
-	},
-	FeedWheelMotor: constantTypes.MotorController{
-		Id:  53,
-		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
-	},
-	AzimuthMotor: constantTypes.MotorController{
-		Id:  50,
-		PID: constantTypes.PidController{Kp: 0, Ki: 0, Kd: 0},
-	},
+
+	SpinnerMotorCanId:                  52,
+	SpinnerMotorP:                      0,
+	SpinnerMotorD:                      0,
+	SpinnerMotorFF:                     0,
+	SpinnerMotorVelocityConversion:     1,
+	SpinnerMotorAccelerationConversion: 1,
+
+	TiltMotorCanId:                  51,
+	TiltMotorP:                      0,
+	TiltMotorI:                      0,
+	TiltMotorD:                      0,
+	TiltMotorPositionConversion:     1,
+	TiltMotorVelocityConversion:     1,
+	TiltMotorAccelerationConversion: 1,
+
+	AzimuthMotorCanId:                  50,
+	AzimuthMotorP:                      0,
+	AzimuthMotorI:                      0,
+	AzimuthMotorD:                      0,
+	AzimuthMotorPositionConversion:     1,
+	AzimuthMotorVelocityConversion:     1,
+	AzimuthMotorAccelerationConversion: 1,
+}
+
+var Intake intake_types.Constants = intake_types.Constants{
+	RollerMotorCanId:    50,
+	ExtensionMotorCanId: 51,
+
+	RollerMotorP:                      0,
+	RollerMotorD:                      0,
+	RollerMotorFF:                     0,
+	RollerMotorVelocityConversion:     1,
+	RollerMotorAccelerationConversion: 1,
+
+	ExtensionMotorP:                      0,
+	ExtensionMotorI:                      0,
+	ExtensionMotorD:                      0,
+	ExtensionMotorCosFF:                  0,
+	ExtensionMotorVelocityConversion:     1,
+	ExtensionMotorAccelerationConversion: 1,
 }
 
 var Battery constantTypes.Battery = constantTypes.Battery{

@@ -7,7 +7,6 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 
-	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
@@ -22,7 +21,7 @@ type (
 	SwerveDrive struct {
 		DriveProps    DriveProperties
 		SwerveModules []SwerveModule
-		Config        constantTypes.SwerveDriveConfig
+		Config        Config
 	}
 
 	SwerveDriveModules struct {
@@ -45,6 +44,43 @@ type (
 		TranslationalA mathutils.Vector2D
 		RotationalA    float64
 	}
+
+	Config struct {
+		MaxSpeed DriveMaxes `json:"drive_maxes"`
+		// ModuleConfig ModuleConfig `json:"module_config"`
+		// Modules Modules `json:"modules"`
+		Modules []ModuleConstants
+	}
+
+	DriveMaxes struct {
+		TranslationalV float64 `json:"translationalV"`
+		RotationalV    float64 `json:"rotationalV"`
+		TranslationalA float64 `json:"translationalA"`
+		RotationalA    float64 `json:"rotationalA"`
+	}
+
+	ModuleConstants struct {
+		Name                string  `json:"name"`
+		OffsetX             float64 `json:"x"`               // in meters
+		OffsetY             float64 `json:"y"`               // in meters
+		AngularOffset       float64 `json:"angular_Offeset"` // in radians
+		DriveMotorConfig    motor.Config
+		AzimuthMotorConfig  motor.Config
+		DriveGearRatio      float64 `json:"gearRatio_drive"`
+		DriveGearRatioInv   float64 `json:"gearRatio_driveInv"`
+		AzimuthGearRatio    float64 `json:"gearRatio_azimuth"`
+		AzimuthGearRatioInv float64 `json:"gearRatio_azimuthInv"`
+	}
+
+	// ModuleConfig struct {
+	// 	MaxTransSpeed   float64 `json:"maxTrans_speed"`   // in meters per second
+	// 	MaxTransAccel   float64 `json:"maxTrans_accel"`   // in meters per second per second
+	// 	MaxRotSpeed     float64 `json:"maxRot_speed"`     // in radians per second
+	// 	MaxRotAccel     float64 `json:"maxRot_accel"`     // in radians per second per second
+	// 	WheelRadius     float64 `json:"wheel_radius"`     // in meters
+	// 	DriveBaseWidth  float64 `json:"driveBase_width"`  // in meters
+	// 	DriveBaseLength float64 `json:"driveBase_length"` // in meters
+	// }
 )
 
 var (
@@ -57,15 +93,15 @@ var (
 	rotEventListener   *event.Listener    = nil
 )
 
-func NewSwerveDrive(config constantTypes.SwerveDriveConfig) *SwerveDrive {
+func NewSwerveDrive(config Config) *SwerveDrive {
 	config.MaxSpeed.RotationalV = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalV))
 	config.MaxSpeed.RotationalA = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalA))
 	// fmt.Println("Drive Config: ", config)
 	swerve_modules := make([]SwerveModule, len(config.Modules))
 	for i, v := range config.Modules {
 		swerve_modules[i] = SwerveModule{
-			driveMotor:    motor.New(int(v.DriveCanID)),
-			turningMotor:  motor.New(int(v.AzimuthCanID)),
+			driveMotor:    motor.New(v.DriveMotorConfig),
+			turningMotor:  motor.New(v.AzimuthMotorConfig),
 			targetVector:  mathutils.VectorTheta{},
 			angularOffset: v.AngularOffset,
 		}
@@ -100,7 +136,7 @@ func (drive *SwerveDrive) CalculateSwerve(x, y, rot float64) []mathutils.VectorT
 		rotVector := mathutils.Vector2D{X: 0, Y: distance}
 		rotVector.Rotate(moduleOffsetAngle).Multiply(rot)
 
-		vector := mathutils.Add(mathutils.Vector2D{X: x, Y: y}, rotVector)
+		vector := mathutils.AddVector2D(mathutils.Vector2D{X: x, Y: y}, rotVector)
 		newstate := vector.ToVectorTheta()
 		oldstate := drive.SwerveModules[i].targetVector
 		angleErr := newstate.Angle - oldstate.Angle

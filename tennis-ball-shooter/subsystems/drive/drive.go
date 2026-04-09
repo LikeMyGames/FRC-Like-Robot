@@ -3,19 +3,16 @@ package drive
 import (
 	"fmt"
 	"tennis-ball-shooter/constants"
+	drive_types "tennis-ball-shooter/subsystems/drive/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
-
 	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 type (
-	DriveSubsystem struct {
-		swerveDrive *swerve.SwerveDrive
-		Pose        mathutils.Pose2D
-	}
+	DriveSubsystem drive_types.DriveSubsystem
 )
 
 var (
@@ -84,15 +81,15 @@ var (
 // }
 
 func New() *DriveSubsystem {
-	return &DriveSubsystem{
-		swerveDrive: swerve.NewSwerveDrive(constants.Drive),
-	}
+	s := new(DriveSubsystem)
+	s.SwerveDrive = swerve.NewSwerveDrive(constants.Drive.Swerve)
+	return s
 }
 
 func (drive *DriveSubsystem) Drive(trans, rot mathutils.Vector2D, worldRelative bool) {
-	xSpeed := trans.X * drive.swerveDrive.Config.MaxSpeed.TranslationalV
-	ySpeed := trans.Y * drive.swerveDrive.Config.MaxSpeed.TranslationalV
-	rotSpeed := rot.X * drive.swerveDrive.Config.MaxSpeed.RotationalV
+	xSpeed := trans.X * drive.SwerveDrive.Config.MaxSpeed.TranslationalV
+	ySpeed := trans.Y * drive.SwerveDrive.Config.MaxSpeed.TranslationalV
+	rotSpeed := rot.X * drive.SwerveDrive.Config.MaxSpeed.RotationalV
 
 	// xSpeed := trans.X
 	// ySpeed := trans.Y
@@ -104,20 +101,20 @@ func (drive *DriveSubsystem) Drive(trans, rot mathutils.Vector2D, worldRelative 
 		ySpeed = trans.Y
 	}
 
-	states := drive.swerveDrive.CalculateSwerve(xSpeed, ySpeed, rotSpeed)
+	states := drive.SwerveDrive.CalculateSwerve(xSpeed, ySpeed, rotSpeed)
 
 	fmt.Println()
 	for i, v := range states {
 		fmt.Println(i, ": ", v)
 	}
-	drive.swerveDrive.Normalize(&states, xSpeed, ySpeed, rotSpeed)
+	drive.SwerveDrive.Normalize(&states, xSpeed, ySpeed, rotSpeed)
 
 	fmt.Println()
 	for i, v := range states {
 		fmt.Println(i, ": ", v)
 	}
 
-	for i, v := range drive.swerveDrive.SwerveModules {
+	for i, v := range drive.SwerveDrive.SwerveModules {
 		v.SetTarget(states[i])
 	}
 }

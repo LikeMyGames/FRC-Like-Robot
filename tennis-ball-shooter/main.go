@@ -19,7 +19,7 @@ func main() {
 	r := robot.NewRobot(constants.Robot)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.New()
-	shooterSubsystem := shooter.New(constants.Shooter)
+	shooterSubsystem := shooter.New()
 	r.AddPeriodic(func() {
 		controller.ReadController(ctrl0)
 	})
@@ -55,6 +55,7 @@ func main() {
 	// or will restart program if problem is too great
 	r.AddState("enabled", func(a any) {
 		driveSubsystem.Drive(ctrl0.Values.LeftStick, ctrl0.Values.RightStick, true)
+		shooterSubsystem.Periodic()
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.IsEnabled()
 	}).AddInit(func(s *robot.State) {
@@ -63,20 +64,21 @@ func main() {
 	}).AddClose(func(s *robot.State) {
 		// drive.SetTransEventTarget("")
 		// drive.SetRotEventTarget("")
-	}).AddEventListener(ctrl0.GetEventTarget(controller.Y), func(event any) {
-		shooterSubsystem.SpinUp(1)
-	}).AddEventListener(ctrl0.GetEventTarget(controller.X), func(event any) {
-		shooterSubsystem.SpinDown()
-	}).AddEventListener(ctrl0.GetEventTarget(controller.RightTrigger), func(event any) {
-		val := event.(float64)
-		if val > 0 {
-			shooterSubsystem.Shoot()
-		}
-	}).AddEventListener(ctrl0.GetEventTarget(controller.LeftShoulder), func(event any) {
-		shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
-	}).AddEventListener(ctrl0.GetEventTarget(controller.RightShoulder), func(event any) {
-		shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
 	})
+	// .AddEventListener(ctrl0.GetEventTarget(controller.Y), func(event any) {
+	// 	shooterSubsystem.SpinUp(1)
+	// }).AddEventListener(ctrl0.GetEventTarget(controller.X), func(event any) {
+	// 	shooterSubsystem.SpinDown()
+	// }).AddEventListener(ctrl0.GetEventTarget(controller.RightTrigger), func(event any) {
+	// 	val := event.(float64)
+	// 	if val > 0 {
+	// 		shooterSubsystem.Shoot()
+	// 	}
+	// }).AddEventListener(ctrl0.GetEventTarget(controller.LeftShoulder), func(event any) {
+	// 	shooterSubsystem.MoveAzimuthByOffset(constants.Shooter.MinAzimuthOffset)
+	// }).AddEventListener(ctrl0.GetEventTarget(controller.RightShoulder), func(event any) {
+	// 	shooterSubsystem.MoveAzimuthByOffset(-constants.Shooter.MinAzimuthOffset)
+	// })
 
 	// Starts the robots main loop
 	// This loop starts at the StartingState defined in the NewRobot function
