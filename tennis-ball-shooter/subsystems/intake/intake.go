@@ -27,10 +27,14 @@ func New() *intake_types.IntakeSubsystem {
 	return s
 }
 
-// func (s *IntakeSubsystem) Initialize() {
-// 	// s.machine.AddState()
-// }
+func (s *IntakeSubsystem) Initialize() {
+
+}
 
 func (s *IntakeSubsystem) Periodic() {
 	s.StateMachine.Run()
+}
+
+func (s *IntakeSubsystem) SetState(stateName string) {
+
 }
