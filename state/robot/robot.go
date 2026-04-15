@@ -13,6 +13,7 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/rsl"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/subsystem"
 )
 
 type (
@@ -28,6 +29,7 @@ type (
 		PeriodFuncs []func()
 		CanBus      *can.CanBus
 		rsl         *rsl.RSL
+		subsystems  []*subsystem.Subsystem
 	}
 )
 
@@ -93,6 +95,10 @@ func (r *Robot) AddPeriodic(a func()) *Robot {
 	return r
 }
 
+func (r *Robot) AddSubsystem(subsystem *subsystem.Subsystem) {
+	r.subsystems = append(r.subsystems, subsystem)
+}
+
 func (r *Robot) Start() {
 	t := time.NewTicker(r.Frequency)
 
@@ -110,6 +116,10 @@ func (r *Robot) Start() {
 			v()
 		}
 	}()
+
+	for _, v := range r.subsystems {
+		(*v).Initialize()
+	}
 
 	for range t.C {
 		r.Clock++
@@ -131,6 +141,9 @@ func (r *Robot) Start() {
 		}
 		for _, v := range r.PeriodFuncs {
 			v()
+		}
+		for _, v := range r.subsystems {
+			(*v).Periodic()
 		}
 		s.action(s.parameters)
 	}

@@ -25,6 +25,15 @@ type (
 		End()
 		GetSwitches() map[string]func(any) bool
 	}
+
+	// State interface {
+	// 	GetName() string
+	// 	Action(any)
+	// 	GetSwitches() map[string]func(any) bool
+	// 	GetParameters() any
+	// 	Init() *State
+	// 	Close() *State
+	// }
 )
 
 func NewStateMachine(states ...State) *StateMachine {

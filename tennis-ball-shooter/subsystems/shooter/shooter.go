@@ -25,8 +25,16 @@ func New() *ShooterSubsystem {
 	return s
 }
 
+func (s *ShooterSubsystem) Initialize() {
+
+}
+
 func (s *ShooterSubsystem) Periodic() {
 	s.StateMachine.Run()
+}
+
+func (s *ShooterSubsystem) SetState(stateName string) {
+
 }
 
 // func (s *ShooterSubsystem) SpinUp(speed float64) {

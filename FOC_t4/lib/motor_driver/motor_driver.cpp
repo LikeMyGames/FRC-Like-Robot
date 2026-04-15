@@ -10,9 +10,9 @@ namespace motor_driver_ns
         {13},
         {20},
         {22},
-        {Sm13},
-        {Sm20},
-        {Sm22},
+        {Sm13}, // U phase High: 8, Low: 7
+        {Sm20}, // V phase High: 4, Low: 33
+        {Sm22}, // W phase High: 6, Low: 9
         {Tm1, Tm2},
     };
 
@@ -20,9 +20,9 @@ namespace motor_driver_ns
         {31},
         {40, 41},
         {42},
-        {Sm31},
-        {Sm40, Sm41},
-        {Sm42},
+        {Sm31},       // U phase High: 29, Low: 28
+        {Sm40, Sm41}, // V phase High: 22, Low: 23 // move to pins 2 and 3
+        {Sm42},       // W phase High: 2, Low: 3
         {Tm3, Tm4},
     };
 }
