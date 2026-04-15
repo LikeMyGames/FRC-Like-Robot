@@ -10,20 +10,22 @@ import (
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 
 	"github.com/gorilla/websocket"
+	nt4 "github.com/levifitzpatrick1/go-nt4"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool {
-		// return true // Accept connections from any origin
-		return true
-	},
-}
-
-var connection *websocket.Conn
-
-var bot *robot.Robot
+var (
+	upgrader = websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+		CheckOrigin: func(r *http.Request) bool {
+			// return true // Accept connections from any origin
+			return true
+		},
+	}
+	connection *websocket.Conn
+	bot        *robot.Robot
+	nt4Client  *nt4.Client
+)
 
 type (
 	WebSocketData struct {
@@ -75,6 +77,21 @@ var LastControllerState *ControllerState = &ControllerState{
 	ThumbLY:      0,
 	ThumbRX:      0,
 	ThumbRY:      0,
+}
+
+func GetNT4Client() *nt4.Client {
+	if nt4Client == nil {
+		opts := nt4.DefaultClientOptions("")
+		nt4Client = nt4.NewClient(opts)
+		if err := nt4Client.Connect(); err != nil {
+			panic(err)
+		}
+	}
+	return nt4Client
+}
+
+func Close() {
+	nt4Client.Disconnect()
 }
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {

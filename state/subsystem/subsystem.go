@@ -2,7 +2,7 @@ package subsystem
 
 type (
 	Subsystem interface {
-		SetState(string)
+		// SetState(string)
 		Initialize()
 		Periodic()
 	}

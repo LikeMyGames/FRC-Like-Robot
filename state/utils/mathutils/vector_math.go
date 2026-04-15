@@ -37,16 +37,6 @@ type (
 		Y float64
 	}
 
-	Translation2D struct {
-		X float64
-		Y float64
-	}
-	Translation3D struct {
-		X float64
-		Y float64
-		Z float64
-	}
-
 	Axis struct {
 		X float64
 		Y float64
