@@ -2,28 +2,25 @@
 #include <Arduino.h>
 #include <TeensyThreads.h>
 #include <motor_driver.h>
+#include <can.h>
 
 static unsigned int NEXT_MOTOR_ID = 0;
 
-Motor::Motor(motor_config_t config)
+Motor::Motor()
 {
-    Serial.println("created new motor state");
-    this->config = config;
-    foc_config.Ts = 1000000 / config.PWM_FREQ;
-    Serial.println("assigned config to new state");
-    internal_encoder = new Encoder(config.internal_encoder_pin);
-    Serial.println("created internal encoder object");
-    external_encoder = new Encoder(config.external_encoder_pin);
-    Serial.println("created external encoder object");
-    foc = new Foc(foc_config);
-    Serial.println("init foc_state");
-    MOTOR_STATE_MAP.insert_or_assign(NEXT_MOTOR_ID, this);
-    Serial.println("added motor to motor map");
-    pos_pid = new Pid(&(cur_pos), 0, 0, 0, 1000000 / config.PWM_FREQ, 0, 0);
-    vel_pid = new Pid(&(cur_vel), 0, 0, 0, 1000000 / config.PWM_FREQ, 0, 0);
-    torque_pid = new Pid(&(cur_torque), 0, 0, 0, 1000000 / config.PWM_FREQ, 0, 0);
-    NEXT_MOTOR_ID++;
-    Serial.println("incremented NEXT_MOTOR_ID");
+    this->position_loop_time = MOTOR_POSITION_LOOP_TIME;
+    this->velocity_loop_time = MOTOR_VELOCITY_LOOP_TIME;
+    this->torque_loop_time = MOTOR_TORQUE_LOOP_TIME;
+    this->foc_config.Ts = MOTOR_PWM_DUTY_CYCLE / 1000000;
+    // this->internal_encoder = new Encoder(MOTOR_INTERNAL_ENCODER);
+    // this->external_encoder = new Encoder(MOTOR_EXTERNAL_ENCODER);
+    this->foc = new Foc(this->foc_config);
+    this->pos_pid = new Pid(&(this->cur_pos), 0.f, 0.f, 0.f, MOTOR_POSITION_LOOP_TIME / 1000000.f, -1.f, 1.f);
+    this->vel_pid = new Pid(&(this->cur_vel), 0.f, 0.f, 0.f, MOTOR_VELOCITY_LOOP_TIME / 1000000.f, -1.f, 1.f);
+    this->Init(&motor_driver_ns::motor_driver_1);
+    Motor_ns::ref = this;
+    // Motor_ns::map.insert_or_assign(0, this);
+    // threads.addThread(threadDriveMotor);
 }
 
 void Motor::Init(motor_driver_t *driver)
@@ -88,8 +85,14 @@ void Motor::SetRunningMode(motor_running_mode newMode)
         vel_pid->lastErr = 0;
         break;
     case CONTROL_MODE_TORQUE:
+        torque_pid->integralTerm = 0;
+        torque_pid->derivativeTerm = 0;
+        torque_pid->lastErr = 0;
         break;
     case CONTROL_MODE_TORQUE_BRAKE:
+        torque_pid->integralTerm = 0;
+        torque_pid->derivativeTerm = 0;
+        torque_pid->lastErr = 0;
         break;
     default:
         return;
@@ -99,46 +102,38 @@ void Motor::SetRunningMode(motor_running_mode newMode)
 
 void Motor::Update()
 {
-    this->ReadCurrents();
+    elapsedMicros elapsedLoopTime;
+    if (this->error != NO_MOTOR_ERROR || this->status != MOTOR_ENABLED)
+    {
+        threads.delay_us(max(0, int(elapsedLoopTime - this->torque_loop_time)));
+        return;
+    }
     switch (running_mode)
     {
     case CONTROL_MODE_POS:
-        pos_pid->Update(target_pos);
-        vel_pid->Update(pos_pid->output);
-        cur_torque = Kt * cur_current;
-        torque_pid->Update(vel_pid->output);
-        foc->iq_target = torque_pid->output;
+        this->PositionLoop();
         break;
     case CONTROL_MODE_POS_BRAKE:
-        pos_pid->Update(target_pos);
-        vel_pid->Update(pos_pid->output);
-        torque_pid->Update(vel_pid->output);
-        foc->iq_target = torque_pid->output;
+        this->PositionLoop();
         break;
     case CONTROL_MODE_SPEED:
-        vel_pid->Update(target_vel);
-        torque_pid->Update(vel_pid->output);
-        foc->iq_target = torque_pid->output;
+        this->VelocityLoop();
         break;
     case CONTROL_MODE_SPEED_BRAKE:
-        vel_pid->Update(target_vel);
-        torque_pid->Update(vel_pid->output);
-        foc->iq_target = torque_pid->output;
+        this->VelocityLoop();
         break;
     case CONTROL_MODE_TORQUE:
-        torque_pid->Update(target_torque);
-        foc->iq_target = torque_pid->output;
+        this->TorqueLoop();
         break;
     case CONTROL_MODE_TORQUE_BRAKE:
-        torque_pid->Update(target_torque);
-        foc->iq_target = torque_pid->output;
+        this->TorqueLoop();
         break;
     default:
         return;
     }
 
-    foc->Drive(internal_encoder->ReadRad(), running_mode);
-    DriveMotorByPercent(driver, foc->dA, foc->dB, foc->dC);
+    // foc->Drive(internal_encoder->ReadRad(), running_mode);
+    // DriveMotorByPercent(driver, foc->dA, foc->dB, foc->dC);
 }
 
 void Motor::ClearFault()
@@ -168,48 +163,87 @@ void Motor::DrivePhasesByPercentFOC()
     DriveMotorByPercent(driver, foc->dA, foc->dB, foc->dC);
 }
 
-void disableMotor(unsigned int id)
+void Motor::TorqueLoop()
 {
-    MOTOR_STATE_MAP.at(id)->Disable();
+    elapsedMicros elapsedTime;
+    this->ReadCurrents();
+    torque_pid->Update(target_torque);
+    foc->iq_target = torque_pid->output;
+    threads.delay_us(max(0, int(elapsedTime - this->torque_loop_time)));
+    CanUpdate();
 }
 
-void disableMotor(unsigned int id, motor_error error)
+void Motor::VelocityLoop()
 {
-    MOTOR_STATE_MAP.at(id)->Disable(error);
-}
-
-void disableAllMotors()
-{
-    // Serial.println("Disabling all motors on controller");
-    for (auto pair : MOTOR_STATE_MAP)
+    elapsedMicros elapsedTime;
+    vel_pid->Update(target_vel);
+    while (elapsedTime <= this->velocity_loop_time)
     {
-        pair.second->Disable();
+        TorqueLoop();
     }
 }
 
-void disableAllMotors(motor_error error)
+void Motor::PositionLoop()
 {
-    for (auto pair : MOTOR_STATE_MAP)
+    elapsedMicros elapsedTime;
+    pos_pid->Update(target_pos);
+    while (elapsedTime <= this->position_loop_time)
     {
-        pair.second->Disable(error);
+        VelocityLoop();
     }
 }
 
-void enableMotor(unsigned int id)
+void Motor::LoadParameterChanges(std::unordered_map<int, std::vector<uint8_t>> changes)
 {
-    MOTOR_STATE_MAP.at(id)->Enable();
 }
 
-void enableAllMotors()
+void threadDriveMotor()
 {
-    for (auto pair : MOTOR_STATE_MAP)
+    while (true)
     {
-        pair.second->Enable();
+        Motor_ns::ref->Update();
+        if (Motor_ns::changes_to_parameters)
+        {
+            Motor_ns::ref->LoadParameterChanges(Motor_ns::changes);
+        }
     }
 }
 
-// Main motor loop
-void MotorLoop(int MOTOR_ID)
+// void disableMotor(unsigned int id)
+// {
+//     MOTOR_STATE_MAP.at(id)->Disable();
+// }
+
+// void disableMotor(unsigned int id, motor_error error)
+// {
+//     MOTOR_STATE_MAP.at(id)->Disable(error);
+// }
+
+void disableMotor()
 {
-    MOTOR_STATE_MAP[MOTOR_ID]->Update();
+    Motor_ns::ref->Disable();
 }
+
+void disableMotor(motor_error error)
+{
+    Motor_ns::ref->Disable(error);
+}
+
+// void enableMotor(unsigned int id)
+// {
+//     MOTOR_STATE_MAP.at(id)->Enable();
+// }
+
+// void enableAllMotors()
+// {
+//     for (auto pair : MOTOR_STATE_MAP)
+//     {
+//         pair.second->Enable();
+//     }
+// }
+
+// // Main motor loop
+// void MotorLoop(int MOTOR_ID)
+// {
+//     MOTOR_STATE_MAP[MOTOR_ID]->Update();
+// }

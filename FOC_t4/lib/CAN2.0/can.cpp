@@ -16,7 +16,7 @@ typedef struct
     std::function<bool(uint8_t[])> write;
 } CAN_REGISTER_t;
 
-FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can0;
+FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> Can0;
 std::unordered_map<uint8_t, CAN_REGISTER_t *> REG_MAP;
 uint32_t CAN_ID = 4;
 // int LOOP_THREAD_ID;
@@ -230,7 +230,7 @@ void checkTimeout()
     {
         if (TIMEOUT_MS_COUNT >= MAX_TIMEOUT_MS)
         {
-            disableAllMotors();
+            disableMotor();
             threads.delay(500);
         }
         TIMEOUT_MS_COUNT++;

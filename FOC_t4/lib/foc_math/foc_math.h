@@ -86,16 +86,16 @@ public:
     float va;
     float vb;
     float vc;
-    float id_target;
-    float iq_target;
+    volatile float id_target;
+    volatile float iq_target;
     float max_duty;
     float duty_now;
     float phase;
     float phase_cos;
     float phase_sin;
-    float i_a;
-    float i_b;
-    float i_c;
+    volatile float i_a;
+    volatile float i_b;
+    volatile float i_c;
     float i_alpha;
     float i_beta;
     float i_abs;
@@ -114,8 +114,8 @@ public:
     float dB;
     float dC;
     foc_mode mode;
-    float targetAngle;
-    float targetVel;
+    // float targetAngle;
+    // float targetVel;
     float Ts;
 
     Foc(foc_config_t config);

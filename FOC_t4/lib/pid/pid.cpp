@@ -9,6 +9,8 @@ Pid::Pid(float *process, float kp, float ki, float kd, float dt, float out_min, 
     this->process = process;
     this->out_min = out_min;
     this->out_max = out_max;
+    this->izone = 0.f;
+    this->ff = 0.f;
 }
 
 void Pid::Update(float input)
