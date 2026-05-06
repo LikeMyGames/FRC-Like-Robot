@@ -13,7 +13,7 @@ void addCanRegister(uint8_t id,
                     std::function<bool(uint8_t[])> writeAction);
 uint32_t getID();
 void resetTimeout();
-void checkTimeout();
+// void checkTimeout();
 void canSniff(const CAN_message_t &);
 void ProcessIdSpecificMessage(const CAN_message_t &);
 void CanUpdate();

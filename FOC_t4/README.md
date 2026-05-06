@@ -76,14 +76,27 @@ The example above refers to a motor controller that refers to with a CanId of 10
 
 ### API Class Reference
 
-| API Class |    Name     |                       Description                        |
-| :-------: | :---------: | :------------------------------------------------------: |
-|     0     | Information |         Provides basic information of the device         |
-|     1     |   Slot 0    | Sets the values stored in the ControlSlot.SLot0 position |
-|     2     |   Slot 1    | Sets the values stored in the ControlSlot.Slot1 position |
+| API Class |        Name         |                                Description                                |
+| :-------: | :-----------------: | :-----------------------------------------------------------------------: |
+|     0     |     Information     |                 Provides basic information of the device                  |
+|     1     | Slot 0 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
+|     2     | Slot 0 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
+|     3     |  Slot 0 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
+|     4     | Slot 1 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
+|     5     | Slot 1 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
+|     6     |  Slot 1 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
+|     7     | Slot 2 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
+|     8     | Slot 2 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
+|     9     |  Slot 2 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
+|    10     | Slot 3 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
+|    11     | Slot 3 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
+|    12     |  Slot 3 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
+|    13     |        Read         |                   Reads various values from the device                    |
+
+<!-- |     2     |   Slot 1    | Sets the values stored in the ControlSlot.Slot1 position |
 |     3     |   Slot 2    | Sets the values stored in the ControlSlot.Slot2 position |
-|     4     |   Slot 3    | Sets the values stored in the ControlSlot.Slot3 position |
-|     5     |    Read     |           Reads various values from the device           |
+|     4     |   Slot 3    | Sets the values stored in the ControlSlot.Slot3 position | -->
+
 
 <!-- |     6     |             |                                                          |
 |     7     |             |                                                          | -->
@@ -92,14 +105,13 @@ The example above refers to a motor controller that refers to with a CanId of 10
 
 #### Slot 0 -> Slot 3: (Classes 1-4)
 
-| API Index |       Name       |                           Description                            |
-| :-------: | :--------------: | :--------------------------------------------------------------: |
-|     0     | Set Control Type | Sets the control type of the slot (ex. Voltage, Speed, Position) |
-|     1     |      Set P       |        Sets the P value in the PID controller of the slot        |
-|     2     |      Set I       |        Sets the I value in the PID controller of the slot        |
-|     3     |      Set D       |        Sets the D value in the PID Controller of the slot        |
-|     4     |    Set I Zone    |     Sets the I Zone value in the PID Controller of hte slot      |
-|     5     |      Set FF      |  Sets the Feed Forward value in the PID Controller of the slot   |
+| API Index |    Name    |                          Description                          |
+| :-------: | :--------: | :-----------------------------------------------------------: |
+|     0     |   Set P    |      Sets the P value in the PID controller of the slot       |
+|     1     |   Set I    |      Sets the I value in the PID controller of the slot       |
+|     2     |   Set D    |      Sets the D value in the PID Controller of the slot       |
+|     3     | Set I Zone |    Sets the I Zone value in the PID Controller of hte slot    |
+|     4     |   Set FF   | Sets the Feed Forward value in the PID Controller of the slot |
 
 #### Read: (Class 5)
 

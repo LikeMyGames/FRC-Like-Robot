@@ -96,6 +96,7 @@ public:
     uint32_t torque_loop_time;
     uint32_t velocity_loop_time;
     uint32_t position_loop_time;
+    uint activeSlot = 0;
 
     Motor();
 
@@ -115,7 +116,7 @@ public:
 
     void DrivePhasesByPercent(float dA, float dB, float dC);
     void DrivePhasesByPercentFOC();
-    void LoadParameterChanges(std::unordered_map<int, std::vector<uint8_t>> changes);
+    void LoadParameterChanges();
 
 private:
     void TorqueLoop();
@@ -130,7 +131,7 @@ void threadDriveMotor();
 void disableMotor();
 void disableMotor(motor_error error);
 
-// void enableMotor(unsigned int id);
+void enableMotor();
 // void enableAllMotors();
 
 // void MotorLoop(int MOTOR_ID);
@@ -139,7 +140,19 @@ namespace Motor_ns
 {
     static Motor *ref;
     bool changes_to_parameters;
-    std::unordered_map<int, std::vector<uint8_t>> changes;
+    std::unordered_map<std::string, std::vector<uint8_t>> changes;
+
+    // void SetSlotControllerControlType(int slotNum, int type, uint8_t type);
+    void SetSlotControllerP(int slotNum, int type, float p);
+    void SetSlotControllerI(int slotNum, int type, float i);
+    void SetSlotControllerD(int slotNum, int type, float d);
+    void SetSlotControllerIZone(int slotNum, int type, float izone);
+    void SetSlotControllerFF(int slotNum, int type, float ff);
+    float GetInternalEncoderAngle();
+    float GetExternalEncoderAngle();
+    void SetInternalEncoderOffset(float offset);
+    void SetExternalEncoderOffset(float offset);
+    void SetExternalEncoderType(int type);
     // static std::unordered_map<uint, Motor *> map;
 }
 

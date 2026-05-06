@@ -193,8 +193,20 @@ void Motor::PositionLoop()
     }
 }
 
-void Motor::LoadParameterChanges(std::unordered_map<int, std::vector<uint8_t>> changes)
+void Motor::LoadParameterChanges()
 {
+    this->activeSlot = Motor_ns::changes["CONFIGURATION_ACTIVE_SLOT"];
+
+    char slot_index[20];
+    sprintf(slot_index, "CONFIGURATION_SLOT_%d", activeSlot);
+
+    auto running_mode_index = slot_index;
+    strcat(running_mode_index, "_CONTROL_TYPE");
+    this->running_mode = Motor_ns::changes[running_mode_index];
+
+    auto p_index = slot_index;
+    strcat(p_index, "_PID_P");
+    // this->
 }
 
 void threadDriveMotor()
@@ -204,7 +216,7 @@ void threadDriveMotor()
         Motor_ns::ref->Update();
         if (Motor_ns::changes_to_parameters)
         {
-            Motor_ns::ref->LoadParameterChanges(Motor_ns::changes);
+            Motor_ns::ref->LoadParameterChanges();
         }
     }
 }
@@ -229,10 +241,10 @@ void disableMotor(motor_error error)
     Motor_ns::ref->Disable(error);
 }
 
-// void enableMotor(unsigned int id)
-// {
-//     MOTOR_STATE_MAP.at(id)->Enable();
-// }
+void enableMotor()
+{
+    Motor_ns::ref->Enable();
+}
 
 // void enableAllMotors()
 // {
@@ -247,3 +259,130 @@ void disableMotor(motor_error error)
 // {
 //     MOTOR_STATE_MAP[MOTOR_ID]->Update();
 // }
+
+void Motor_ns::SetSlotControllerP(int slotNum, int type, float p)
+{
+    std::string index = "CONFIGURATION_SLOT_";
+    index += slotNum;
+    switch (type)
+    {
+    case 0:
+        index += "_POSITION_PID_P";
+        changes[index] = p;
+        break;
+    case 1:
+        index += "_VELOCITY_PID_P";
+        changes[index] = p;
+        break;
+    case 2:
+        index += "_TORQUE_PID_P";
+        changes[index] = p;
+        break;
+    }
+}
+
+void Motor_ns::SetSlotControllerI(int slotNum, int type, float i)
+{
+    std::string index = "CONFIGURATION_SLOT_";
+    index += slotNum;
+    switch (type)
+    {
+    case 0:
+        index += "_POSITION_PID_I";
+        changes[index] = i;
+        break;
+    case 1:
+        index += "_VELOCITY_PID_I";
+        changes[index] = i;
+        break;
+    case 2:
+        index += "_TORQUE_PID_I";
+        changes[index] = i;
+        break;
+    }
+}
+
+void Motor_ns::SetSlotControllerD(int slotNum, int type, float d)
+{
+    std::string index = "CONFIGURATION_SLOT_";
+    index += slotNum;
+    switch (type)
+    {
+    case 0:
+        index += "_POSITION_PID_D";
+        changes[index] = d;
+        break;
+    case 1:
+        index += "_VELOCITY_PID_D";
+        changes[index] = d;
+        break;
+    case 2:
+        index += "_TORQUE_PID_D";
+        changes[index] = d;
+        break;
+    }
+}
+
+void Motor_ns::SetSlotControllerIZone(int slotNum, int type, float izone)
+{
+    std::string index = "CONFIGURATION_SLOT_";
+    index += slotNum;
+    switch (type)
+    {
+    case 0:
+        index += "_POSITION_PID_I_ZONE";
+        changes[index] = izone;
+        break;
+    case 1:
+        index += "_VELOCITY_PID_I_ZONE";
+        changes[index] = izone;
+        break;
+    case 2:
+        index += "_TORQUE_PID_I_ZONE";
+        changes[index] = izone;
+        break;
+    }
+}
+
+void Motor_ns::SetSlotControllerFF(int slotNum, int type, float ff)
+{
+    std::string index = "CONFIGURATION_SLOT_";
+    index += slotNum;
+    switch (type)
+    {
+    case 0:
+        index += "_POSITION_PID_FEED_FORWARD";
+        changes[index] = ff;
+        break;
+    case 1:
+        index += "_VELOCITY_PID_FEED_FORWARD";
+        changes[index] = ff;
+        break;
+    case 2:
+        index += "_TORQUE_PID_FEED_FORWARD";
+        changes[index] = ff;
+        break;
+    }
+}
+
+float Motor_ns::GetInternalEncoderAngle()
+{
+    return ref->internal_encoder->angle;
+}
+
+float Motor_ns::GetExternalEncoderAngle()
+{
+    return ref->external_encoder->angle;
+}
+
+void Motor_ns::SetInternalEncoderOffset(float offset)
+{
+}
+
+void Motor_ns::SetExternalEncoderOffset(float offset)
+{
+}
+
+void Motor_ns::SetExternalEncoderType(int type)
+{
+}
