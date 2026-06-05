@@ -60,7 +60,7 @@ type (
 	}
 
 	ControllerState struct {
-		// ControllerID uint   `json:"ctrlID"`
+		Id           uint   `json:"ctrlID"`
 		Buttons      uint16 `json:"buttons"`
 		LeftTrigger  uint8  `json:"triggerL"`
 		RightTrigger uint8  `json:"triggerR"`
@@ -71,7 +71,7 @@ type (
 	}
 )
 
-var LastMessage *WebSocketData = nil
+var LastMessage *WebSocketData = new(WebSocketData)
 
 // var LastControllerState *ControllerState = &ControllerState{
 // 	ControllerID: 0,
@@ -194,7 +194,16 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if socketData.Controller != nil {
-			controller.AddControllerState(0, (*controller.State)(socketData.Controller))
+			ctrl := socketData.Controller
+			controller.AddControllerState(int(ctrl.Id), &controller.State{
+				Buttons:      ctrl.Buttons,
+				ThumbLX:      ctrl.ThumbLX,
+				ThumbLY:      ctrl.ThumbLY,
+				ThumbRX:      ctrl.ThumbRX,
+				ThumbRY:      ctrl.ThumbRY,
+				LeftTrigger:  ctrl.LeftTrigger,
+				RightTrigger: ctrl.RightTrigger,
+			})
 		}
 		if socketData.RunSettings != nil {
 			if socketData.RunSettings.Enabled {
