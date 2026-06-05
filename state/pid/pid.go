@@ -3,67 +3,85 @@ package pid
 import (
 	"time"
 
-	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 )
 
 // PIDController represents a PID controller.
 type PIDController struct {
-	Kp, Ki, Kd float64       // PID gains
-	prevError  float64       // Previous error for derivative term
-	integral   float64       // Integral sum for integral term
-	setpoint   float64       // Desired target value
-	minOutput  float64       // Minimum allowed output
-	maxOutput  float64       // Maximum allowed output
-	dt         time.Duration // Time step for calculations
+	constants Constants
+	prevError float64       // Previous error for derivative term
+	integral  float64       // Integral sum for integral term
+	setpoint  float64       // Desired target value
+	minOutput float64       // Minimum allowed output
+	maxOutput float64       // Maximum allowed output
+	dt        time.Duration // Time step for calculations
+}
+
+type Constants struct {
+	kP, kI, kD, kIzone, kFF float64
+}
+
+type Config struct {
+	constants    Constants
+	min, max, dt float64
 }
 
 // NewPIDController creates and returns a new PIDController instance.
 // func NewPIDController(Kp, Ki, Kd, setpoint, minOutput, maxOutput float64) *PIDController {
-func NewFromConfig(config constantTypes.PidController) *PIDController {
-	return &PIDController{
-		Kp:        config.Kp,
-		Ki:        config.Ki,
-		Kd:        config.Kd,
-		minOutput: config.MinOut,
-		maxOutput: config.MaxOut,
-		dt:        robot.RobotRef.Frequency,
-	}
+func NewFromConfig(config Config) *PIDController {
+	controller := new(PIDController)
+	controller.constants = config.constants
+	controller.maxOutput = config.max
+	controller.minOutput = config.min
+	controller.dt = robot.RobotRef.Frequency
+
+	return controller
 }
 
 func New() *PIDController {
 	return &PIDController{
-		Kp:        0,
-		Ki:        0,
-		Kd:        0,
+		constants: Constants{},
 		minOutput: 0,
 		maxOutput: 0,
 		dt:        0,
 	}
 }
 
+func NewFromConstants(constants Constants) *PIDController {
+	controller := new(PIDController)
+	controller.constants = constants
+
+	return controller
+}
+
 func (p *PIDController) SetP(kP float64) {
-	p.Kp = kP
+	// p.Kp = kP
+	p.constants.SetP(kP)
 }
 
 func (p *PIDController) SetI(kI float64) {
-	p.Kp = kI
+	// p.Kp = kI
+	p.constants.SetI(kI)
 }
 
 func (p *PIDController) SetD(kD float64) {
-	p.Kd = kD
+	// p.Kd = kD
+	p.constants.SetD(kD)
 }
 
 func (p *PIDController) GetP() float64 {
-	return p.Kp
+	// return p.Kp
+	return p.constants.kP
 }
 
 func (p *PIDController) GetI() float64 {
-	return p.Ki
+	// return p.Ki
+	return p.constants.kI
 }
 
 func (p *PIDController) GetD() float64 {
-	return p.Kd
+	// return p.Kd
+	return p.constants.kD
 }
 
 func (p *PIDController) SetMaxOuput(max float64) {
@@ -95,7 +113,7 @@ func (pid *PIDController) Calculate(processValue float64) float64 {
 	err := pid.setpoint - processValue
 
 	// Proportional term
-	proportionalTerm := pid.Kp * err
+	proportionalTerm := pid.constants.kP * err
 
 	// Integral term
 	pid.integral += err * pid.dt.Seconds()
@@ -105,10 +123,10 @@ func (pid *PIDController) Calculate(processValue float64) float64 {
 	} else if pid.integral < pid.minOutput {
 		pid.integral = pid.minOutput
 	}
-	integralTerm := pid.Ki * pid.integral
+	integralTerm := pid.constants.kI * pid.integral
 
 	// Derivative term
-	derivativeTerm := pid.Kd * (err - pid.prevError) / pid.dt.Seconds()
+	derivativeTerm := pid.constants.kD * (err - pid.prevError) / pid.dt.Seconds()
 	pid.prevError = err
 
 	// Total output
@@ -151,3 +169,40 @@ func (pid *PIDController) Calculate(processValue float64) float64 {
 // 		time.Sleep(dt)
 // 	}
 // }
+
+func NewConstants(p, i, d float64) Constants {
+	return Constants{
+		kP: p,
+		kI: i,
+		kD: d,
+	}
+}
+
+func (c *Constants) GetAsArray() []float64 {
+	return []float64{c.kP, c.kI, c.kD, c.kIzone, c.kFF}
+}
+
+func (c *Constants) SetP(p float64) *Constants {
+	c.kP = p
+	return c
+}
+
+func (c *Constants) SetI(i float64) *Constants {
+	c.kI = i
+	return c
+}
+
+func (c *Constants) SetD(d float64) *Constants {
+	c.kD = d
+	return c
+}
+
+func (c *Constants) SetIZone(izone float64) *Constants {
+	c.kIzone = izone
+	return c
+}
+
+func (c *Constants) SetFF(ff float64) *Constants {
+	c.kFF = ff
+	return c
+}

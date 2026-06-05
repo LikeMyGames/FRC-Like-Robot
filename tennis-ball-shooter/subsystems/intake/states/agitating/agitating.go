@@ -9,7 +9,7 @@ type Agitating struct {
 
 func Get(intakeSubsystem *intake_types.IntakeSubsystem) *Agitating {
 	s := new(Agitating)
-	s.name = "INTAKE_AGITATING"
+	s.name = "AGITATING"
 	s.intakeSubsystem = intakeSubsystem
 
 	return s
@@ -31,6 +31,6 @@ func (s *Agitating) End() {
 
 }
 
-func (s *Agitating) GetSwitches() map[string]func(any) bool {
-	return map[string]func(any) bool{}
+func (s *Agitating) GetSwitches() map[string]func() bool {
+	return map[string]func() bool{}
 }

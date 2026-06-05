@@ -64,8 +64,10 @@ type (
 		OffsetX             float64 `json:"x"`               // in meters
 		OffsetY             float64 `json:"y"`               // in meters
 		AngularOffset       float64 `json:"angular_Offeset"` // in radians
-		DriveMotorConfig    motor.Config
-		AzimuthMotorConfig  motor.Config
+		DriveMotorCanId     int
+		DriveMotorConfig    *motor.Config
+		AzimuthMotorCanId   int
+		AzimuthMotorConfig  *motor.Config
 		DriveGearRatio      float64 `json:"gearRatio_drive"`
 		DriveGearRatioInv   float64 `json:"gearRatio_driveInv"`
 		AzimuthGearRatio    float64 `json:"gearRatio_azimuth"`
@@ -100,19 +102,27 @@ func NewSwerveDrive(config Config) *SwerveDrive {
 	swerve_modules := make([]SwerveModule, len(config.Modules))
 	for i, v := range config.Modules {
 		swerve_modules[i] = SwerveModule{
-			driveMotor:    motor.New(v.DriveMotorConfig),
-			turningMotor:  motor.New(v.AzimuthMotorConfig),
+			driveMotor:    motor.New(v.DriveMotorCanId, *v.DriveMotorConfig),
+			turningMotor:  motor.New(v.AzimuthMotorCanId, *v.AzimuthMotorConfig),
 			targetVector:  mathutils.VectorTheta{},
 			angularOffset: v.AngularOffset,
 		}
 		// fmt.Printf("Created new swerve drive with drive motor id: %d; and turning motor id: %d\n", v.DriveCanID, v.AzimuthCanID)
-		swerve_modules[i].turningMotor.SetIsSecondaryMotorOnController(true)
+		// swerve_modules[i].turningMotor.SetIsSecondaryMotorOnController(true)
 	}
 
 	return &SwerveDrive{
 		Config:        config,
 		SwerveModules: swerve_modules,
 	}
+}
+
+func NewSwerveDriveWithConfigs(config Config, driveMotorConfig, azimuthMotorConfig motor.Config) *SwerveDrive {
+	for i := range config.Modules {
+		config.Modules[i].DriveMotorConfig = &driveMotorConfig
+		config.Modules[i].AzimuthMotorConfig = &azimuthMotorConfig
+	}
+	return NewSwerveDrive(config)
 }
 
 func (drive *SwerveDrive) CalculateSwerveFromSavedControllerVals() {
@@ -191,7 +201,7 @@ func (drive *SwerveDrive) Normalize(states *[]mathutils.VectorTheta, xSpeed, ySp
 func SetTransEventTarget(target string) {
 	event.Remove(transEventListener)
 	if target != "" {
-		transEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_TRANS", func(event any) {
+		transEventListener = event.Listen(target, func(event any) { // old from:  "DRIVE_SUBSYSTEM_TRANS"
 			trans := event.(mathutils.Vector2D)
 			ctrlTrans = trans
 		})
@@ -205,7 +215,7 @@ func GetTransEventTarget() string {
 func SetRotEventTarget(target string) {
 	event.Remove(rotEventListener)
 	if target != "" {
-		rotEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_ROT", func(event any) {
+		rotEventListener = event.Listen(target, func(event any) { // old from: "DRIVE_SUBSYSTEM_ROT"
 			rot := event.(mathutils.Vector2D)
 			ctrlRot = rot
 		})

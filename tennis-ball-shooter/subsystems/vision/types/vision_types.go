@@ -6,13 +6,20 @@ import (
 )
 
 type VisionSubsystem struct {
-	FrontCamera *photonvision.Camera
-	BackCamera  *photonvision.Camera
-	LeftCamera  *photonvision.Camera
-	RightCamera *photonvision.Camera
+	FrontCamera   *photonvision.Camera
+	BackCamera    *photonvision.Camera
+	LeftCamera    *photonvision.Camera
+	RightCamera   *photonvision.Camera
+	PoseEstimator *photonvision.PoseEstimator
 }
 
 type Constants struct {
 	FrontCameraName   string
-	FrontCameraOffset mathutils.Transorm3D
+	FrontCameraOffset mathutils.Transform3D
+	BackCameraName    string
+	BackCameraOffset  mathutils.Transform3D
+	LeftCameraName    string
+	LeftCameraOffset  mathutils.Transform3D
+	RightCameraName   string
+	RightCameraOffset mathutils.Transform3D
 }

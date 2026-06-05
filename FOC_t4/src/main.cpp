@@ -19,6 +19,8 @@ void setup()
     digitalWrite(LED_BUILTIN, HIGH);
     Serial.begin(115200);
     Serial.println("Starting setup");
+    analogReadResolution(12);
+    analogReadAveraging(1);
     initCan();
     motor = new Motor();
     Serial.println("Finished setup");

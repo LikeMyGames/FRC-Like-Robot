@@ -86,8 +86,8 @@ public:
     float va;
     float vb;
     float vc;
-    volatile float id_target;
-    volatile float iq_target;
+    float id_target;
+    float iq_target;
     float max_duty;
     float duty_now;
     float phase;

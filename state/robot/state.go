@@ -1,8 +1,6 @@
 package robot
 
 import (
-	"fmt"
-
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 )
 
@@ -33,7 +31,7 @@ func (s *State) AddCondition(target string, condition func(any) bool) *State {
 }
 
 func (s *State) AddEventListener(target string, callback func(event any)) *State {
-	s.Listeners = append(s.Listeners, &event.Listener{Target: target, From: fmt.Sprintf("STATE_%s", s.name), Callback: callback})
+	s.Listeners = append(s.Listeners, &event.Listener{Target: target, Callback: callback})
 	return s
 }
 
@@ -49,7 +47,7 @@ func (s *State) AddClose(action func(*State)) *State {
 
 func (s *State) loadEventListeners() {
 	for i, v := range s.Listeners {
-		s.Listeners[i] = event.Listen(v.Target, fmt.Sprintf("STATE_%s", s.name), v.Callback)
+		s.Listeners[i] = event.Listen(v.Target, v.Callback)
 	}
 }
 

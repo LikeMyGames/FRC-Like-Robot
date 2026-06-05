@@ -14,8 +14,9 @@ This is a simple foc motor controller project designed to run with a PJRC Teensy
   - [CAN API Classes and Indecies](#can-api-classes-and-indecies)
     - [API Class Reference](#api-class-reference)
     - [API Index Reference](#api-index-reference)
-      - [Slot 0 -\> Slot 3: (Classes 1-4)](#slot-0---slot-3-classes-1-4)
-      - [Read: (Class 5)](#read-class-5)
+      - [Slot 0 -\> Slot 3: (Classes 1-12)](#slot-0---slot-3-classes-1-12)
+      - [Read: (Class 13)](#read-class-13)
+      - [Set Setpoint: (Class 14)](#set-setpoint-class-14)
     - [Full List](#full-list)
   - [FOC](#foc)
 
@@ -79,19 +80,20 @@ The example above refers to a motor controller that refers to with a CanId of 10
 | API Class |        Name         |                                Description                                |
 | :-------: | :-----------------: | :-----------------------------------------------------------------------: |
 |     0     |     Information     |                 Provides basic information of the device                  |
-|     1     | Slot 0 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
-|     2     | Slot 0 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
-|     3     |  Slot 0 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
-|     4     | Slot 1 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
-|     5     | Slot 1 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
-|     6     |  Slot 1 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
-|     7     | Slot 2 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
-|     8     | Slot 2 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
-|     9     |  Slot 2 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
-|    10     | Slot 3 Position PID | Sets the values stored in the ControlSlot.SLot0 position for position PID |
-|    11     | Slot 3 Velocity PID | Sets the values stored in the ControlSlot.SLot0 position for velocity PID |
-|    12     |  Slot 3 Torque PID  |  Sets the values stored in the ControlSlot.SLot0 position for torque PID  |
+|     1     | Slot 0 Position PID | Sets the values stored in the ControlSlot.Slot0 position for position PID |
+|     2     | Slot 0 Velocity PID | Sets the values stored in the ControlSlot.Slot0 position for velocity PID |
+|     3     |  Slot 0 Torque PID  |  Sets the values stored in the ControlSlot.Slot0 position for torque PID  |
+|     4     | Slot 1 Position PID | Sets the values stored in the ControlSlot.Slot1 position for position PID |
+|     5     | Slot 1 Velocity PID | Sets the values stored in the ControlSlot.Slot1 position for velocity PID |
+|     6     |  Slot 1 Torque PID  |  Sets the values stored in the ControlSlot.Slot1 position for torque PID  |
+|     7     | Slot 2 Position PID | Sets the values stored in the ControlSlot.Slot2 position for position PID |
+|     8     | Slot 2 Velocity PID | Sets the values stored in the ControlSlot.Slot2 position for velocity PID |
+|     9     |  Slot 2 Torque PID  |  Sets the values stored in the ControlSlot.Slot2 position for torque PID  |
+|    10     | Slot 3 Position PID | Sets the values stored in the ControlSlot.Slot3 position for position PID |
+|    11     | Slot 3 Velocity PID | Sets the values stored in the ControlSlot.Slot3 position for velocity PID |
+|    12     |  Slot 3 Torque PID  |  Sets the values stored in the ControlSlot.Slot3 position for torque PID  |
 |    13     |        Read         |                   Reads various values from the device                    |
+|    14     |    Set Setpoint     |              Sets the setpoint of the active PID controller               |
 
 <!-- |     2     |   Slot 1    | Sets the values stored in the ControlSlot.Slot1 position |
 |     3     |   Slot 2    | Sets the values stored in the ControlSlot.Slot2 position |
@@ -103,7 +105,7 @@ The example above refers to a motor controller that refers to with a CanId of 10
 
 ### API Index Reference
 
-#### Slot 0 -> Slot 3: (Classes 1-4)
+#### Slot 0 -> Slot 3: (Classes 1-12)
 
 | API Index |    Name    |                          Description                          |
 | :-------: | :--------: | :-----------------------------------------------------------: |
@@ -113,7 +115,7 @@ The example above refers to a motor controller that refers to with a CanId of 10
 |     3     | Set I Zone |    Sets the I Zone value in the PID Controller of hte slot    |
 |     4     |   Set FF   | Sets the Feed Forward value in the PID Controller of the slot |
 
-#### Read: (Class 5)
+#### Read: (Class 13)
 
 | API Index |           Name            |                                          Description                                          |
 | :-------: | :-----------------------: | :-------------------------------------------------------------------------------------------: |
@@ -123,22 +125,28 @@ The example above refers to a motor controller that refers to with a CanId of 10
 |     3     |   Set External Encoder    |      Sets the encoder to the specified position by applying an offset to the zero value       |
 |     4     | Set External Encoder Type |   Sets the type of encoder plugged into the external encoder port (Absolute or Quadrature)    |
 
+#### Set Setpoint: (Class 14)
+
+| API Index |     Name     |                  Description                   |
+| :-------: | :----------: | :--------------------------------------------: |
+|     0     | Set Setpoint | Sets the setpoint for the defined control slot |
+
 ### Full List
 
-|       Command Name        | API Class | API Index | Input / Return Types | Input / Return Meanings |
-| :-----------------------: | :-------: | :-------: | :------------------: | :---------------------: |
-|          Version          |     0     |     0     |   int8, int8, int8   |   major, minor, patch   |
-|     Set Control Type      |   1 - 4   |     0     |         int8         |    ControlType value    |
-|           Set P           |   1 - 4   |     1     |       float32        |         P value         |
-|           Set I           |   1 - 4   |     2     |       float32        |         I value         |
-|           Set D           |   1 - 4   |     3     |       float32        |         S value         |
-|        Set I Zone         |   1 - 4   |     4     |       float32        |      I Zone value       |
-|          Set FF           |   1 - 4   |     5     |       float32        |        FF value         |
-|   Read Internal Encoder   |     5     |     0     |       float32        |    Encoder position     |
-|   Read External Encoder   |     5     |     1     |       float32        |    Encoder position     |
-|   Set Internal Encoder    |     5     |     2     |       float32        |    Encoder position     |
-|   Set External Encoder    |     5     |     3     |       float32        |    Encoder position     |
-| Set External Encoder Type |     5     |     4     |         int8         |      Encoder type       |
+|       Command Name        | API Class | API Index | Input / Output Types |       Input / Output Meanings        |
+| :-----------------------: | :-------: | :-------: | :------------------: | :----------------------------------: |
+|          Version          |     0     |     0     |   int8, int8, int8   |         major, minor, patch          |
+|           Set P           |  1 - 12   |     0     |       float32        |               P value                |
+|           Set I           |  1 - 12   |     1     |       float32        |               I value                |
+|           Set D           |  1 - 12   |     2     |       float32        |               S value                |
+|        Set I Zone         |  1 - 12   |     3     |       float32        |             I Zone value             |
+|          Set FF           |  1 - 12   |     4     |       float32        |               FF value               |
+|   Read Internal Encoder   |    13     |     0     |       float32        |           Encoder position           |
+|   Read External Encoder   |    13     |     1     |       float32        |           Encoder position           |
+|   Set Internal Encoder    |    13     |     2     |       float32        |           Encoder position           |
+|   Set External Encoder    |    13     |     3     |       float32        |           Encoder position           |
+| Set External Encoder Type |    13     |     4     |         int8         |             Encoder type             |
+|       Set Setpoint        |    14     |     0     | float32, int8, int8  | setpoint, control type, control slot |
 
 ## FOC
 

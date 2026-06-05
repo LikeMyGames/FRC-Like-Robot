@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/LikeMyGames/FRC-Like-Robot/state/conn/driver_station"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/robot"
 
@@ -24,7 +27,7 @@ var (
 	}
 	connection *websocket.Conn
 	bot        *robot.Robot
-	nt4Client  *nt4.Client
+	NT4        *nt4.Client
 )
 
 type (
@@ -50,15 +53,17 @@ type (
 	}
 
 	RunSettings struct {
-		Enabled bool   `json:"enabled"`
-		Mode    string `json:"mode"`
+		Enabled               bool   `json:"enabled"`
+		Mode                  string `json:"mode"`
+		RedAlliance           bool   `json:"alliance"`
+		DriverStationPosition int    `json:"driverStationPosition"`
 	}
 
 	ControllerState struct {
-		ControllerID uint   `json:"ctrlID"`
+		// ControllerID uint   `json:"ctrlID"`
 		Buttons      uint16 `json:"buttons"`
-		TriggerL     uint8  `json:"triggerL"`
-		TriggerR     uint8  `json:"triggerR"`
+		LeftTrigger  uint8  `json:"triggerL"`
+		RightTrigger uint8  `json:"triggerR"`
 		ThumbLX      int16  `json:"thumbLX"`
 		ThumbLY      int16  `json:"thumbLY"`
 		ThumbRX      int16  `json:"thumbRX"`
@@ -66,32 +71,51 @@ type (
 	}
 )
 
-var LastMessage *WebSocketData
+var LastMessage *WebSocketData = nil
 
-var LastControllerState *ControllerState = &ControllerState{
-	ControllerID: 0,
-	Buttons:      0,
-	TriggerL:     0,
-	TriggerR:     0,
-	ThumbLX:      0,
-	ThumbLY:      0,
-	ThumbRX:      0,
-	ThumbRY:      0,
+// var LastControllerState *ControllerState = &ControllerState{
+// 	ControllerID: 0,
+// 	Buttons:      0,
+// 	TriggerL:     0,
+// 	TriggerR:     0,
+// 	ThumbLX:      0,
+// 	ThumbLY:      0,
+// 	ThumbRX:      0,
+// 	ThumbRY:      0,
+// }
+
+func OpenNT4Connection() {
+	opts := nt4.DefaultClientOptions(nt4.TeamNumberToAddress(0))
+	NT4 := nt4.NewClient(opts)
+	if err := NT4.Connect(); err != nil {
+		panic(err)
+	}
 }
 
-func GetNT4Client() *nt4.Client {
-	if nt4Client == nil {
-		opts := nt4.DefaultClientOptions("")
-		nt4Client = nt4.NewClient(opts)
-		if err := nt4Client.Connect(); err != nil {
-			panic(err)
+func GetLatestNT4Update(updates chan nt4.TopicUpdate) (update nt4.TopicUpdate) {
+	update = <-updates
+	for v := range updates {
+		if v.Timestamp > update.Timestamp {
+			update = v
 		}
 	}
-	return nt4Client
+
+	return update
 }
 
+// func GetNT4Client() *nt4.Client {
+// 	if nt4Client == nil {
+// 		opts := nt4.DefaultClientOptions("")
+// 		nt4Client = nt4.NewClient(opts)
+// 		if err := nt4Client.Connect(); err != nil {
+// 			panic(err)
+// 		}
+// 	}
+// 	return nt4Client
+// }
+
 func Close() {
-	nt4Client.Disconnect()
+	NT4.Disconnect()
 }
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
@@ -129,6 +153,20 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 
+	logFile, err := os.Create("log_file.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer logFile.Close()
+
+	os.Stdout = logFile
+
+	LastMessage.RunSettings = new(RunSettings)
+	LastMessage.RunSettings.Enabled = false
+	LastMessage.RunSettings.Mode = ""
+	LastMessage.RunSettings.RedAlliance = true
+	LastMessage.RunSettings.DriverStationPosition = 0
+
 	for {
 		SendJSONData(WebSocketData{
 			RobotStatus: &Status{
@@ -138,8 +176,10 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 				BatV:  hardware.ReadBatteryVoltage(),
 			},
 			RunSettings: &RunSettings{
-				Enabled: bot.IsEnabled(),
-				Mode:    bot.RunningMode,
+				Enabled:               bot.IsEnabled(),
+				Mode:                  LastMessage.RunSettings.Mode,
+				RedAlliance:           LastMessage.RunSettings.RedAlliance,
+				DriverStationPosition: LastMessage.RunSettings.DriverStationPosition,
 			},
 		})
 		_, data, err := connection.ReadMessage()
@@ -154,7 +194,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if socketData.Controller != nil {
-			LastControllerState = socketData.Controller
+			controller.AddControllerState(0, (*controller.State)(socketData.Controller))
 		}
 		if socketData.RunSettings != nil {
 			if socketData.RunSettings.Enabled {
@@ -163,7 +203,20 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 				bot.Disable()
 			}
 			bot.RunningMode = socketData.RunSettings.Mode
+			driver_station.SetAlliance(socketData.RunSettings.RedAlliance)
+			driver_station.SetDriverStationPosition(socketData.RunSettings.DriverStationPosition)
 		}
+
+		// data, err = io.ReadAll(logFile)
+		// if err != nil {
+		// 	panic(err)
+		// }
+		// logs := strings.Split(string(data), "\n")
+		// for _, v := range logs {
+		// 	Log(v)
+		// }
+
+		// io.Copy(os.Stdout)
 	}
 }
 

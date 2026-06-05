@@ -23,7 +23,7 @@ type (
 		Initialize()
 		Execute()
 		End()
-		GetSwitches() map[string]func(any) bool
+		GetSwitches() map[string]func() bool
 	}
 
 	// State interface {
@@ -82,7 +82,7 @@ func (m *StateMachine) Run() {
 
 func checkStateCondititon(s State) *string {
 	for i, v := range s.GetSwitches() {
-		if v(nil) {
+		if v() {
 			return &i
 		}
 	}

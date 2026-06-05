@@ -7,9 +7,9 @@ Foc::Foc(foc_config_t config)
     Ts = config.Ts;
     Serial.println("added foc config");
 
-    pid_i_d = new Pid(&(id_target), config.kp_d, config.ki_d, config.kd_d, config.Ts, 0, 0);
+    pid_i_d = new Pid(&(id_target), config.kp_d, config.ki_d, config.kd_d, config.Ts, 0.f, 0.f);
     Serial.println("created i_d pid controller");
-    pid_i_q = new Pid(&(iq_target), config.kp_q, config.ki_q, config.kd_q, config.Ts, 0, 0);
+    pid_i_q = new Pid(&(iq_target), config.kp_q, config.ki_q, config.kd_q, config.Ts, 0.f, 0.f);
     Serial.println("created i_q pid controller");
 }
 

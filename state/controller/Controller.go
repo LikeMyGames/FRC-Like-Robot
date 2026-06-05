@@ -6,7 +6,7 @@ import (
 	"math"
 
 	// "github.com/LikeMyGames/FRC-Like-Robot/state/command"
-	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
+
 	constants "github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
@@ -102,10 +102,27 @@ type (
 		X float64
 		Y float64
 	}
+
+	// State struct {
+	// 	ControllerID uint   `json:"ctrlID"`
+	// 	Buttons      uint16 `json:"buttons"`
+	// 	TriggerL     uint8  `json:"triggerL"`
+	// 	TriggerR     uint8  `json:"triggerR"`
+	// 	ThumbLX      int16  `json:"thumbLX"`
+	// 	ThumbLY      int16  `json:"thumbLY"`
+	// 	ThumbRX      int16  `json:"thumbRX"`
+	// 	ThumbRY      int16  `json:"thumbRY"`
+	// }
 )
 
 var (
-	Controllers []*Controller
+	controllers map[int]*Controller = make(map[int]*Controller)
+	newStates   map[int]*State      = make(map[int]*State)
+)
+
+// Errors
+var (
+	ControllerNotOpened error = fmt.Errorf("The controller you were trying to access was never opened/instaniated. Please make sure that you run \"NewController()\" for every controller you are trying to use")
 )
 
 func NewController(config constants.ControllerConfig) *Controller {
@@ -114,7 +131,10 @@ func NewController(config constants.ControllerConfig) *Controller {
 		ControllerID: uint(config.ControllerNum),
 		state:        &State{},
 	}
-	Controllers = append(Controllers, ctrl)
+	if controllers[config.ControllerNum] != nil {
+		return nil
+	}
+	controllers[config.ControllerNum] = ctrl
 	return ctrl
 }
 
@@ -126,189 +146,128 @@ func (c *Controller) GetEventTarget(target string) string {
 }
 
 func ReadController(ctrl *Controller) {
-	state := conn.LastControllerState
-	if state.ControllerID == ctrl.ControllerID {
-		oldState := *ctrl.state
-		ctrl.state = &State{
-			Buttons:      state.Buttons,
-			LeftTrigger:  state.TriggerL,
-			RightTrigger: state.TriggerR,
-			ThumbLX:      state.ThumbLX,
-			ThumbLY:      state.ThumbLY,
-			ThumbRX:      state.ThumbRX,
-			ThumbRY:      state.ThumbRY,
-		}
-		buttons := getPressedButtons(ctrl.state.Buttons)
-		buttonsMap := map[string]bool{
-			"BUTTON_A":       false,
-			"BUTTON_B":       false,
-			"BUTTON_X":       false,
-			"BUTTON_Y":       false,
-			"DPAD_UP":        false,
-			"DPAD_DOWN":      false,
-			"DPAD_LEFT":      false,
-			"DPAD_RIGHT":     false,
-			"LEFT_THUMB":     false,
-			"RIGHT_THUMB":    false,
-			"LEFT_SHOULDER":  false,
-			"RIGHT_SHOULDER": false,
-			"START":          false,
-			"BACK":           false,
-		}
-		for _, v := range buttons {
-			// fmt.Println("triggering", v)
-			buttonsMap[v] = true
-			event.Trigger(ctrl.GetEventTarget(v), nil)
-		}
-
-		TriggerL := mathutils.MapRange(float64(ctrl.state.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
-		TriggerL = math.Trunc(TriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldTriggerL := mathutils.MapRange(float64(oldState.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
-		OldTriggerL = math.Trunc(OldTriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(TriggerL) < ctrl.Config.Deadzones.TriggerL {
-			TriggerL = 0
-		}
-
-		TriggerR := mathutils.MapRange(float64(ctrl.state.RightTrigger), 0.0, 255.0, 0.0, 1.0)
-		TriggerR = math.Trunc(TriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldTriggerR := mathutils.MapRange(float64(oldState.RightTrigger), 0.0, 255.0, 0.0, 1.0)
-		OldTriggerR = math.Trunc(OldTriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(TriggerR) < ctrl.Config.Deadzones.TriggerR {
-			TriggerR = 0
-		}
-
-		ThumbLX := mathutils.MapRange(float64(ctrl.state.ThumbLX), -32768.0, 32768.0, -1.0, 1.0)
-		ThumbLX = math.Trunc(ThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldThumbLX := mathutils.MapRange(float64(oldState.ThumbLX), -32768.0, 32768.0, -1.0, 1.0)
-		OldThumbLX = math.Trunc(OldThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(ThumbLX) < ctrl.Config.Deadzones.ThumbL {
-			ThumbLX = 0
-		}
-
-		ThumbLY := mathutils.MapRange(float64(ctrl.state.ThumbLY), -32768.0, 32768.0, -1.0, 1.0)
-		ThumbLY = math.Trunc(ThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldThumbLY := mathutils.MapRange(float64(oldState.ThumbLY), -32768.0, 32768.0, -1.0, 1.0)
-		OldThumbLY = math.Trunc(OldThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(ThumbLY) < ctrl.Config.Deadzones.ThumbL {
-			ThumbLY = 0
-		}
-
-		ThumbRX := mathutils.MapRange(float64(ctrl.state.ThumbRX), -32768.0, 32768.0, -1.0, 1.0)
-		ThumbRX = math.Trunc(ThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldThumbRX := mathutils.MapRange(float64(oldState.ThumbRX), -32768.0, 32768.0, -1.0, 1.0)
-		OldThumbRX = math.Trunc(OldThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(ThumbRX) < ctrl.Config.Deadzones.ThumbR {
-			ThumbRX = 0
-		}
-
-		ThumbRY := mathutils.MapRange(float64(ctrl.state.ThumbRY), -32768.0, 32768.0, -1.0, 1.0)
-		ThumbRY = math.Trunc(ThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		OldThumbRY := mathutils.MapRange(float64(oldState.ThumbRY), -32768.0, 32768.0, -1.0, 1.0)
-		OldThumbRY = math.Trunc(OldThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
-		if math.Abs(ThumbRY) < ctrl.Config.Deadzones.ThumbR {
-			ThumbRY = 0
-		}
-
-		ctrl.Values.LeftStick = mathutils.Vector2D{X: ThumbLX, Y: ThumbLY}
-		ctrl.Values.RightStick = mathutils.Vector2D{X: ThumbRX, Y: ThumbRY}
-		ctrl.Values.LeftStickX = ThumbLX
-		ctrl.Values.LeftStickY = ThumbLY
-		ctrl.Values.RightStickX = ThumbRX
-		ctrl.Values.RightStickY = ThumbRY
-		ctrl.Values.LeftTrigger = TriggerL
-		ctrl.Values.RightTrigger = TriggerR
-		ctrl.Values.LeftStickPress = buttonsMap[LeftStickPress]
-		ctrl.Values.RightStickPress = buttonsMap[RightStickPress]
-		ctrl.Values.A = buttonsMap[A]
-		ctrl.Values.B = buttonsMap[B]
-		ctrl.Values.X = buttonsMap[X]
-		ctrl.Values.Y = buttonsMap[Y]
-		ctrl.Values.DpadUp = buttonsMap[DpadUP]
-		ctrl.Values.DpadDown = buttonsMap[DpadDown]
-		ctrl.Values.DpadLeft = buttonsMap[DpadLeft]
-		ctrl.Values.DpadRight = buttonsMap[DpadRight]
-		ctrl.Values.Start = buttonsMap[Start]
-		ctrl.Values.Back = buttonsMap[Back]
-
-		if math.Abs(TriggerL-OldTriggerL) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(LeftTrigger), TriggerL)
-		}
-		if math.Abs(TriggerR-OldTriggerR) > ctrl.Config.Deadzones.TriggerR {
-			event.Trigger(ctrl.GetEventTarget(RightTrigger), TriggerR)
-		}
-		if math.Abs(ThumbLX-OldThumbLX) > ctrl.Config.MinChange || math.Abs(ThumbLY)-math.Abs(OldThumbLY) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(LeftStick), mathutils.Vector2D{X: ThumbLX, Y: ThumbLY})
-		}
-		if math.Abs(ThumbLX-OldThumbLX) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(LeftStickX), ThumbLX)
-		}
-		if math.Abs(ThumbLY-OldThumbLY) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(LeftStickY), ThumbLY)
-		}
-		if math.Abs(ThumbRX-OldThumbRX) > ctrl.Config.MinChange || math.Abs(ThumbRY)-math.Abs(OldThumbRY) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(RightStick), mathutils.Vector2D{X: ThumbRX, Y: ThumbRY})
-		}
-		if math.Abs(ThumbRX-OldThumbRX) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(RightStickY), ThumbRY)
-		}
-		if math.Abs(ThumbRY-OldThumbRY) > ctrl.Config.MinChange {
-			event.Trigger(ctrl.GetEventTarget(RightStickY), ThumbRY)
-		}
+	if newStates[ctrl.Config.ControllerNum] == nil {
+		newStates[ctrl.Config.ControllerNum] = new(State)
+	}
+	state := newStates[ctrl.Config.ControllerNum]
+	oldState := *ctrl.state
+	ctrl.state = state
+	buttons := getPressedButtons(ctrl.state.Buttons)
+	buttonsMap := map[string]bool{
+		"BUTTON_A":       false,
+		"BUTTON_B":       false,
+		"BUTTON_X":       false,
+		"BUTTON_Y":       false,
+		"DPAD_UP":        false,
+		"DPAD_DOWN":      false,
+		"DPAD_LEFT":      false,
+		"DPAD_RIGHT":     false,
+		"LEFT_THUMB":     false,
+		"RIGHT_THUMB":    false,
+		"LEFT_SHOULDER":  false,
+		"RIGHT_SHOULDER": false,
+		"START":          false,
+		"BACK":           false,
+	}
+	for _, v := range buttons {
+		// fmt.Println("triggering", v)
+		buttonsMap[v] = true
+		event.Trigger(ctrl.GetEventTarget(v), nil)
 	}
 
-	// return &command.Command{
-	// 	Required: struct {
-	// 		ctrl      *Controller
-	// 		scheduler *command.CommandScheduler
-	// 	}{ctrl: ctrl, scheduler: scheduler},
-	// 	FirstRun:   true,
-	// 	Name:       fmt.Sprintf("Read Controller ID: %v", ctrl.ControllerID),
-	// 	Initialize: func() {},
-	// 	Execute: func(required any) bool {
-	// 		req, ok := required.(struct {
-	// 			ctrl      *Controller
-	// 			scheduler *command.CommandScheduler
-	// 		})
-	// 		if ok {
-	// 			state := conn.LastControllerState
-	// 			if state.ControllerID == req.ctrl.ControllerID {
-	// 				req.ctrl.State = &State{
-	// 					Buttons:      state.Buttons,
-	// 					LeftTrigger:  state.TriggerL,
-	// 					RightTrigger: state.TriggerR,
-	// 					ThumbLX:      state.ThumbLX,
-	// 					ThumbLY:      state.ThumbLY,
-	// 					ThumbRX:      state.ThumbRX,
-	// 					ThumbRY:      state.ThumbRY,
-	// 				}
-	// 				buttons := GetPressedButtons(req.ctrl.State.Buttons)
-	// 				// fmt.Println(buttons)
-	// 				contains := false
-	// 				for _, action := range req.ctrl.Actions {
-	// 					contains = slices.Contains(buttons, action.ListenValue)
-	// 					if (action.whileTrue && contains) || (!action.whileTrue && !contains) {
-	// 						// Only schedule if not already scheduled
-	// 						if !slices.ContainsFunc(req.scheduler.Commands, func(command *command.Command) bool {
-	// 							has := command.Name == action.Command.Name && !command.End
-	// 							// fmt.Println(has)
-	// 							return has
-	// 						}) {
-	// 							command := new(command.Command)
-	// 							*command = *action.Command
-	// 							req.scheduler.ScheduleCommand(command)
-	// 						}
-	// 					}
-	// 					if action.ListenValue == LeftStick || action.ListenValue == RightStick {
-	// 						command := new(command.Command)
-	// 						*command = *action.Command
-	// 						req.scheduler.ScheduleCommand(command)
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 		return false
-	// 	},
-	// }
+	TriggerL := mathutils.MapRange(float64(ctrl.state.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
+	TriggerL = math.Trunc(TriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldTriggerL := mathutils.MapRange(float64(oldState.LeftTrigger), 0.0, 255.0, 0.0, 1.0)
+	OldTriggerL = math.Trunc(OldTriggerL*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(TriggerL) < ctrl.Config.Deadzones.TriggerL {
+		TriggerL = 0
+	}
+
+	TriggerR := mathutils.MapRange(float64(ctrl.state.RightTrigger), 0.0, 255.0, 0.0, 1.0)
+	TriggerR = math.Trunc(TriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldTriggerR := mathutils.MapRange(float64(oldState.RightTrigger), 0.0, 255.0, 0.0, 1.0)
+	OldTriggerR = math.Trunc(OldTriggerR*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(TriggerR) < ctrl.Config.Deadzones.TriggerR {
+		TriggerR = 0
+	}
+
+	ThumbLX := mathutils.MapRange(float64(ctrl.state.ThumbLX), -32768.0, 32768.0, -1.0, 1.0)
+	ThumbLX = math.Trunc(ThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldThumbLX := mathutils.MapRange(float64(oldState.ThumbLX), -32768.0, 32768.0, -1.0, 1.0)
+	OldThumbLX = math.Trunc(OldThumbLX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(ThumbLX) < ctrl.Config.Deadzones.ThumbL {
+		ThumbLX = 0
+	}
+
+	ThumbLY := mathutils.MapRange(float64(ctrl.state.ThumbLY), -32768.0, 32768.0, -1.0, 1.0)
+	ThumbLY = math.Trunc(ThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldThumbLY := mathutils.MapRange(float64(oldState.ThumbLY), -32768.0, 32768.0, -1.0, 1.0)
+	OldThumbLY = math.Trunc(OldThumbLY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(ThumbLY) < ctrl.Config.Deadzones.ThumbL {
+		ThumbLY = 0
+	}
+
+	ThumbRX := mathutils.MapRange(float64(ctrl.state.ThumbRX), -32768.0, 32768.0, -1.0, 1.0)
+	ThumbRX = math.Trunc(ThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldThumbRX := mathutils.MapRange(float64(oldState.ThumbRX), -32768.0, 32768.0, -1.0, 1.0)
+	OldThumbRX = math.Trunc(OldThumbRX*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(ThumbRX) < ctrl.Config.Deadzones.ThumbR {
+		ThumbRX = 0
+	}
+
+	ThumbRY := mathutils.MapRange(float64(ctrl.state.ThumbRY), -32768.0, 32768.0, -1.0, 1.0)
+	ThumbRY = math.Trunc(ThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	OldThumbRY := mathutils.MapRange(float64(oldState.ThumbRY), -32768.0, 32768.0, -1.0, 1.0)
+	OldThumbRY = math.Trunc(OldThumbRY*math.Pow(10, float64(ctrl.Config.Precision))) / math.Pow(10, float64(ctrl.Config.Precision))
+	if math.Abs(ThumbRY) < ctrl.Config.Deadzones.ThumbR {
+		ThumbRY = 0
+	}
+
+	ctrl.Values.LeftStick = mathutils.Vector2D{X: ThumbLX, Y: ThumbLY}
+	ctrl.Values.RightStick = mathutils.Vector2D{X: ThumbRX, Y: ThumbRY}
+	ctrl.Values.LeftStickX = ThumbLX
+	ctrl.Values.LeftStickY = ThumbLY
+	ctrl.Values.RightStickX = ThumbRX
+	ctrl.Values.RightStickY = ThumbRY
+	ctrl.Values.LeftTrigger = TriggerL
+	ctrl.Values.RightTrigger = TriggerR
+	ctrl.Values.LeftStickPress = buttonsMap[LeftStickPress]
+	ctrl.Values.RightStickPress = buttonsMap[RightStickPress]
+	ctrl.Values.A = buttonsMap[A]
+	ctrl.Values.B = buttonsMap[B]
+	ctrl.Values.X = buttonsMap[X]
+	ctrl.Values.Y = buttonsMap[Y]
+	ctrl.Values.DpadUp = buttonsMap[DpadUP]
+	ctrl.Values.DpadDown = buttonsMap[DpadDown]
+	ctrl.Values.DpadLeft = buttonsMap[DpadLeft]
+	ctrl.Values.DpadRight = buttonsMap[DpadRight]
+	ctrl.Values.Start = buttonsMap[Start]
+	ctrl.Values.Back = buttonsMap[Back]
+
+	if math.Abs(TriggerL-OldTriggerL) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(LeftTrigger), TriggerL)
+	}
+	if math.Abs(TriggerR-OldTriggerR) > ctrl.Config.Deadzones.TriggerR {
+		event.Trigger(ctrl.GetEventTarget(RightTrigger), TriggerR)
+	}
+	if math.Abs(ThumbLX-OldThumbLX) > ctrl.Config.MinChange || math.Abs(ThumbLY)-math.Abs(OldThumbLY) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(LeftStick), mathutils.Vector2D{X: ThumbLX, Y: ThumbLY})
+	}
+	if math.Abs(ThumbLX-OldThumbLX) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(LeftStickX), ThumbLX)
+	}
+	if math.Abs(ThumbLY-OldThumbLY) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(LeftStickY), ThumbLY)
+	}
+	if math.Abs(ThumbRX-OldThumbRX) > ctrl.Config.MinChange || math.Abs(ThumbRY)-math.Abs(OldThumbRY) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(RightStick), mathutils.Vector2D{X: ThumbRX, Y: ThumbRY})
+	}
+	if math.Abs(ThumbRX-OldThumbRX) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(RightStickY), ThumbRY)
+	}
+	if math.Abs(ThumbRY-OldThumbRY) > ctrl.Config.MinChange {
+		event.Trigger(ctrl.GetEventTarget(RightStickY), ThumbRY)
+	}
 }
 
 func getPressedButtons(sum uint16) []string {
@@ -390,3 +349,17 @@ func EventDataToJoystickInput(event any) (JoystickInput, error) {
 // 	input.whileTrue = true
 // 	return input
 // }
+
+func AddControllerState(num int, state *State) {
+	newStates[num] = state
+}
+
+func ReadAllControllers() {
+	for _, ctrl := range controllers {
+		ReadController(ctrl)
+	}
+}
+
+func GetController(num int) *Controller {
+	return controllers[num]
+}

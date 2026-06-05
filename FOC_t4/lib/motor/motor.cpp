@@ -20,7 +20,7 @@ Motor::Motor()
     this->Init(&motor_driver_ns::motor_driver_1);
     Motor_ns::ref = this;
     // Motor_ns::map.insert_or_assign(0, this);
-    // threads.addThread(threadDriveMotor);
+    threads.addThread(threadDriveMotor);
 }
 
 void Motor::Init(motor_driver_t *driver)
@@ -151,6 +151,13 @@ void Motor::ReadCurrents()
     // need to implement current sensing
     // might be able to use hall sensors on rev motors to sense phase current
     // most likely going to use voltage divider on main incoming power to detect current
+
+    // V=IR
+    // voltage_drop / MOTOR_CURRENT_SENSE_GAIN = current * MOTOR_CURRENT_SENSE_RESISTANCE
+
+    this->foc->i_a = (analogRead(MOTOR_PHASE_A_CURRENT_READ) / MOTOR_CURRENT_SENSE_GAIN) / MOTOR_CURRENT_SENSE_RESISTANCE;
+    this->foc->i_b = (analogRead(MOTOR_PHASE_B_CURRENT_READ) / MOTOR_CURRENT_SENSE_GAIN) / MOTOR_CURRENT_SENSE_RESISTANCE;
+    this->foc->i_c = (analogRead(MOTOR_PHASE_C_CURRENT_READ) / MOTOR_CURRENT_SENSE_GAIN) / MOTOR_CURRENT_SENSE_RESISTANCE;
 }
 
 void Motor::DrivePhasesByPercent(float dA, float dB, float dC)

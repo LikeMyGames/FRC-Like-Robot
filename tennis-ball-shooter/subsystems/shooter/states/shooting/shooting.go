@@ -9,7 +9,7 @@ type Shooting struct {
 
 func Get(shooterSubsystem *shooter_types.ShooterSubsystem) *Shooting {
 	s := new(Shooting)
-	s.name = "SHOOTER_SHOOTING"
+	s.name = "SHOOTING"
 	s.shooterSubsystem = shooterSubsystem
 
 	return s
@@ -31,6 +31,12 @@ func (s *Shooting) End() {
 
 }
 
-func (s *Shooting) GetSwitches() map[string]func(any) bool {
-	return map[string]func(any) bool{}
+func (s *Shooting) GetSwitches() map[string]func() bool {
+	return map[string]func() bool{
+		"STORED": toStored,
+	}
+}
+
+func toStored() bool {
+	return false
 }

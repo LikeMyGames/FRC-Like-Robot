@@ -9,7 +9,7 @@ type Extended struct {
 
 func Get(intakeSubsystem *intake_types.IntakeSubsystem) *Extended {
 	s := new(Extended)
-	s.name = "INTAKE_EXTENDED"
+	s.name = "EXTENDED"
 	s.intakeSubsystem = intakeSubsystem
 
 	return s
@@ -31,7 +31,7 @@ func (s *Extended) End() {
 
 }
 
-func (s *Extended) GetSwitches() map[string]func(any) bool {
+func (s *Extended) GetSwitches() map[string]func() bool {
 
-	return map[string]func(any) bool{}
+	return map[string]func() bool{}
 }

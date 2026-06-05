@@ -14,42 +14,45 @@ type (
 		MinAzimuthOffset        float64
 		MaxFeedVelocity         float64
 
-		SpinnerMotorCanId                  int
-		SpinnerMotorP                      float64
-		SpinnerMotorD                      float64
-		SpinnerMotorFF                     float64
-		SpinnerMotorVelocityConversion     float64
-		SpinnerMotorAccelerationConversion float64
+		FlywheelMotorCanId                  int
+		FlywheelMotorP                      float64
+		FlywheelMotorD                      float64
+		FlywheelMotorFF                     float64
+		FlywheelMotorVelocityConversion     float64
+		FlywheelMotorAccelerationConversion float64
 
-		TiltMotorCanId                  int
-		TiltMotorP                      float64
-		TiltMotorI                      float64
-		TiltMotorD                      float64
-		TiltMotorPositionConversion     float64
-		TiltMotorVelocityConversion     float64
-		TiltMotorAccelerationConversion float64
+		HoodMotorCanId                  int
+		HoodMotorP                      float64
+		HoodMotorI                      float64
+		HoodMotorD                      float64
+		HoodMotorPositionConversion     float64
+		HoodMotorVelocityConversion     float64
+		HoodMotorAccelerationConversion float64
 
-		AzimuthMotorCanId                  int
-		AzimuthMotorP                      float64
-		AzimuthMotorI                      float64
-		AzimuthMotorD                      float64
-		AzimuthMotorPositionConversion     float64
-		AzimuthMotorVelocityConversion     float64
-		AzimuthMotorAccelerationConversion float64
+		TurretMotorCanId                  int
+		TurretMotorP                      float64
+		TurretMotorI                      float64
+		TurretMotorD                      float64
+		TurretMotorPositionConversion     float64
+		TurretMotorVelocityConversion     float64
+		TurretMotorAccelerationConversion float64
 	}
 
 	MotorConfigs struct {
-		SpinnerMotor motor.Config
-		TiltMotor    motor.Config
-		AzimuthMotor motor.Config
+		FlywheelMotor *motor.Config
+		HoodMotor     *motor.Config
+		TurretMotor   *motor.Config
 	}
 
 	ShooterSubsystem struct {
-		HasBall      bool
-		ReadyToShoot bool
-		SpinnerMotor *motor.Motor
-		TiltMotor    *motor.Motor
-		AzimuthMotor *motor.Motor
-		StateMachine *state_machine.StateMachine
+		HasBall       bool
+		ReadyToShoot  bool
+		FlywheelMotor *motor.Motor
+		HoodMotor     *motor.Motor
+		TurretMotor   *motor.Motor
+		StateMachine  *state_machine.StateMachine
+
+		// RobotPose         mathutils.Pose2D // this is gets resolved by an event listener triggered from the drive subsystem
+		// RobotPoseListener *event.Listener
 	}
 )

@@ -2,12 +2,16 @@ package drive
 
 import (
 	"fmt"
+	"tennis-ball-shooter/configs"
 	"tennis-ball-shooter/constants"
+	"tennis-ball-shooter/subsystems/drive/states/auto"
+	"tennis-ball-shooter/subsystems/drive/states/teleop"
 	drive_types "tennis-ball-shooter/subsystems/drive/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/state_machine"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
@@ -25,65 +29,44 @@ var (
 	rotEventListener   *event.Listener    = nil
 )
 
-// func NewSwerveDrive(config constantTypes.SwerveDriveConfig) *SwerveDrive {
-// 	pose := mathutils.Pose2D{Location: mathutils.Vector2D{X: 0, Y: 0}, Angle: 0}
-// 	config.MaxSpeed.RotationalV = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalV))
-// 	config.MaxSpeed.RotationalA = mathutils.DegtoRad(float64(config.MaxSpeed.RotationalA))
-// 	// fmt.Println("Drive Config: ", config)
-// 	swerve_modules := SwerveDriveModules{}
+const (
+	PoseListenerTarget string = "DRIVE_SUBSYSTEM_POSE"
+)
 
-// 	return &SwerveDrive{
-// 		Pose:          pose,
-// 		Config:        config,
-// 		SwerveModules: swerve_modules,
-// 	}
-// }
-
-// func (drive *SwerveDrive) CalculateSwerveFromSavedControllerVals() {
-// 	drive.CalculateSwerve(ctrlTrans, ctrlRot)
-// }
-
-// func (drive *SwerveDrive) CalculateSwerve(trans, rot mathutils.Vector2D) SwerveDriveModulesVector {
-// 	drive.DriveProps.TranslationalV = mathutils.Vector2D{X: mathutils.Clamp(trans.X, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV), Y: mathutils.Clamp(trans.Y, drive.Config.MaxSpeed.TranslationalV, -drive.Config.MaxSpeed.TranslationalV)}
-// 	drive.DriveProps.RotationalV = mathutils.Clamp(rot.X, drive.Config.MaxSpeed.RotationalV, -drive.Config.MaxSpeed.RotationalV)
-
-// 	// Front Left Wheel Calculation
-// 	flOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.FrontLeft.OffsetX, Y: drive.Config.Modules.FrontLeft.OffsetY})
-// 	fl := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: flOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * flOffset.Magnitude})))
-// 	// drive.SwerveModules.FrontLeft
-
-// 	// Front Right Wheel Calculation
-// 	frOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.FrontRight.OffsetX, Y: drive.Config.Modules.FrontRight.OffsetY})
-// 	fr := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: frOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * frOffset.Magnitude})))
-
-// 	// Back Left Wheel Calculation
-// 	blOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.BackLeft.OffsetX, Y: drive.Config.Modules.BackLeft.OffsetY})
-// 	bl := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: blOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * blOffset.Magnitude})))
-
-// 	// Back Right Wheel Calculation
-// 	brOffset := mathutils.Vector2DtoVectorTheta(mathutils.Vector2D{X: drive.Config.Modules.BackRight.OffsetX, Y: drive.Config.Modules.BackRight.OffsetY})
-// 	br := mathutils.Vector2DtoVectorTheta(mathutils.VectorAdd(drive.DriveProps.TranslationalV, mathutils.VectorThetatoVector2D(mathutils.VectorTheta{Angle: brOffset.Angle + (math.Pi / 2), Magnitude: drive.DriveProps.RotationalV * brOffset.Magnitude})))
-
-// 	// fmt.Println(SwerveDriveModulesVector{
-// 	// 	FrontLeft:  fl,
-// 	// 	FrontRight: fr,
-// 	// 	BackLeft:   bl,
-// 	// 	BackRight:  br,
-// 	// })
-
-// 	// Setting the swerve calculations in the drive objects pointer
-// 	return SwerveDriveModulesVector{
-// 		FrontLeft:  fl,
-// 		FrontRight: fr,
-// 		BackLeft:   bl,
-// 		BackRight:  br,
-// 	}
-// }
+var instance *DriveSubsystem
 
 func New() *DriveSubsystem {
 	s := new(DriveSubsystem)
-	s.SwerveDrive = swerve.NewSwerveDrive(constants.Drive.Swerve)
+	s.SwerveDrive = swerve.NewSwerveDriveWithConfigs(constants.Drive.Swerve, configs.DriveMotor(), configs.AzimuthMotor())
+	s.StateMachine = state_machine.NewStateMachine(
+		teleop.Get(s.purify()),
+		auto.Get(s.purify()),
+	)
+
+	s.DriverController = controller.GetController(constants.DriverControllerNum)
+
+	instance = s
+
 	return s
+}
+
+func GetInstance() *DriveSubsystem {
+	if instance != nil {
+		return instance
+	}
+	return nil
+}
+
+func (s *DriveSubsystem) purify() *drive_types.DriveSubsystem {
+	return (*drive_types.DriveSubsystem)(s)
+}
+
+func (s *DriveSubsystem) Initialize() {
+
+}
+
+func (s *DriveSubsystem) Periodic() {
+
 }
 
 func (drive *DriveSubsystem) Drive(trans, rot mathutils.Vector2D, worldRelative bool) {
@@ -130,10 +113,18 @@ func (drive *DriveSubsystem) DriveToPose(pose mathutils.Pose2D) {
 // 	ctrl = controller
 // }
 
+func (s *DriveSubsystem) GetPose2D() mathutils.Pose2D {
+	return s.Pose
+}
+
 func SetTransEventTarget(target string) {
 	event.Remove(transEventListener)
 	if target != "" {
-		transEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_TRANS", func(event any) {
+		// transEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_TRANS", func(event any) {
+		// 	trans := event.(mathutils.Vector2D)
+		// 	ctrlTrans = trans
+		// })
+		transEventListener = event.Listen(target, func(event any) {
 			trans := event.(mathutils.Vector2D)
 			ctrlTrans = trans
 		})
@@ -147,7 +138,11 @@ func GetTransEventTarget() string {
 func SetRotEventTarget(target string) {
 	event.Remove(rotEventListener)
 	if target != "" {
-		rotEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_ROT", func(event any) {
+		// rotEventListener = event.Listen(target, "DRIVE_SUBSYSTEM_ROT", func(event any) {
+		// 	rot := event.(mathutils.Vector2D)
+		// 	ctrlRot = rot
+		// })
+		rotEventListener = event.Listen(target, func(event any) {
 			rot := event.(mathutils.Vector2D)
 			ctrlRot = rot
 		})

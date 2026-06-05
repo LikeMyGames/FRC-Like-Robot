@@ -8,7 +8,9 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/LikeMyGames/FRC-Like-Robot/state/conn/driver_station"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/event"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
@@ -25,6 +27,7 @@ type (
 		Frequency   time.Duration
 		enabled     atomic.Bool
 		Clock       int64
+		MatchTime   int64
 		RunningMode string
 		PeriodFuncs []func()
 		CanBus      *can.CanBus
@@ -122,10 +125,10 @@ func (r *Robot) Start() {
 	}
 
 	for range t.C {
-		r.Clock++
+		r.MatchTime = r.Clock / int64(r.Frequency) / 1000
+		controller.ReadAllControllers()
 		r.rsl.SetEnabled(r.IsEnabled())
 		s := r.States[r.State]
-		r.CanBus.UpdateDevices()
 		if ns := s.CheckCondition(); ns != nil {
 			if r.GetState().close != nil {
 				r.GetState().unLoadEventListeners()
@@ -146,5 +149,8 @@ func (r *Robot) Start() {
 			(*v).Periodic()
 		}
 		s.action(s.parameters)
+		r.CanBus.UpdateDevices()
+		can.SendSyncMessage(r.MatchTime, int64(driver_station.GetMatchNumber()), int64(driver_station.GetReplayNumber()), driver_station.GetAlliance().IsRed(), r.IsEnabled(), r.RunningMode == "Autonomous", r.RunningMode == "Test", true, int64(driver_station.GetTournamentType()))
+		r.Clock++
 	}
 }

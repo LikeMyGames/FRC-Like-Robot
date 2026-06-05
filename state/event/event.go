@@ -6,7 +6,7 @@ import (
 
 type (
 	Listener struct {
-		From     string
+		// From     string
 		Target   string
 		id       uint64
 		Callback func(event any)
@@ -19,16 +19,16 @@ var (
 	nextId            uint64 = 1
 )
 
-func Listen(target, from string, callback func(event any)) *Listener {
+func Listen(target string, callback func(event any)) *Listener {
 	if removingListeners {
 		listener := &Listener{}
 		go func() {
 			time.Sleep(time.Millisecond * 10)
-			listener = Listen(target, from, callback)
+			listener = Listen(target, callback)
 		}()
 		return listener
 	}
-	listener := &Listener{From: from, Target: target, Callback: callback, id: nextId}
+	listener := &Listener{Target: target, Callback: callback, id: nextId}
 	nextId++
 	listeners[target] = append(listeners[target], listener)
 	return listener
@@ -42,7 +42,7 @@ func Trigger(target string, event any) {
 		}()
 		return
 	}
-	if listeners[target] == nil || len(listeners[target]) == 0 {
+	if len(listeners[target]) == 0 {
 		return
 	}
 
@@ -64,5 +64,4 @@ func Remove(listener *Listener) {
 	}
 	removingListeners = false
 	listener.id = 0
-	return
 }

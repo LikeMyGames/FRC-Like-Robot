@@ -9,7 +9,7 @@ type Stored struct {
 
 func Get(intakeSubsystem *intake_types.IntakeSubsystem) *Stored {
 	s := new(Stored)
-	s.name = "INTAKE_STORED"
+	s.name = "STORED"
 	s.intakeSubsystem = intakeSubsystem
 	return s
 }
@@ -30,12 +30,12 @@ func (s *Stored) End() {
 
 }
 
-func (s *Stored) GetSwitches() map[string]func(any) bool {
-	return map[string]func(any) bool{
-		"EXTENDED": func(a any) bool {
+func (s *Stored) GetSwitches() map[string]func() bool {
+	return map[string]func() bool{
+		"EXTENDED": func() bool {
 			return false
 		},
-		"AGITATING": func(a any) bool {
+		"AGITATING": func() bool {
 			return false
 		},
 	}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"tennis-ball-shooter/constants"
 	"tennis-ball-shooter/subsystems/drive"
+	"tennis-ball-shooter/subsystems/intake"
 	"tennis-ball-shooter/subsystems/shooter"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn"
@@ -15,14 +16,14 @@ import (
 
 func main() {
 	hardware.SetBatteryConfig(constants.Battery) // don't remove this line
-	// r := robot.NewRobot("power_on", time.Millisecond*1000)
 	r := robot.NewRobot(constants.Robot)
 	ctrl0 := controller.NewController(constants.Controller0)
 	driveSubsystem := drive.New()
 	shooterSubsystem := shooter.New()
-	r.AddPeriodic(func() {
-		controller.ReadController(ctrl0)
-	})
+	intakeSubsystem := intake.New()
+	// r.AddPeriodic(func() {
+	// 	controller.ReadController(ctrl0)
+	// })
 
 	go conn.Start(r)
 
@@ -54,8 +55,11 @@ func main() {
 	// will fallback to IDLE state if a problem occurs
 	// or will restart program if problem is too great
 	r.AddState("enabled", func(a any) {
-		driveSubsystem.Drive(ctrl0.Values.LeftStick, ctrl0.Values.RightStick, true)
+		driveSubsystem.Periodic()
 		shooterSubsystem.Periodic()
+		intakeSubsystem.Periodic()
+		driveSubsystem.Drive(ctrl0.Values.LeftStick, ctrl0.Values.RightStick, true)
+
 	}, nil).AddCondition("idle", func(a any) bool {
 		return !r.IsEnabled()
 	}).AddInit(func(s *robot.State) {

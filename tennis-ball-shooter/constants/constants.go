@@ -6,13 +6,13 @@ import (
 	"time"
 
 	// Importing the constant type from the FRC-Like-Robot State module
+
 	drive_types "tennis-ball-shooter/subsystems/drive/types"
 	intake_types "tennis-ball-shooter/subsystems/intake/types"
 	shooter_types "tennis-ball-shooter/subsystems/shooter/types"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/constantTypes"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/drive/swerve"
-	motor "github.com/LikeMyGames/FRC-Like-Robot/state/motor_controller"
 )
 
 type (
@@ -57,64 +57,48 @@ var Drive drive_types.Constants = drive_types.Constants{
 		},
 		Modules: []swerve.ModuleConstants{
 			{
-				Name:          "FrontLeft",
-				OffsetX:       0.15, // Offset from center (X direction)
-				OffsetY:       0.15, // Offset from center (Y direction)
-				AngularOffset: 0,
-				DriveMotorConfig: motor.Config{
-					CanId: 10,
-				},
-				AzimuthMotorConfig: motor.Config{
-					CanId: 11,
-				},
+				Name:                "FrontLeft",
+				OffsetX:             0.15, // Offset from center (X direction)
+				OffsetY:             0.15, // Offset from center (Y direction)
+				AngularOffset:       0,
+				DriveMotorCanId:     10,
+				AzimuthMotorCanId:   11,
 				DriveGearRatio:      23.0 / 44.0,
 				DriveGearRatioInv:   44.0 / 23.0,
 				AzimuthGearRatio:    4.0 / 57.0,
 				AzimuthGearRatioInv: 57.0 / 4.0,
 			},
 			{
-				Name:          "FrontRight",
-				OffsetX:       0.15,
-				OffsetY:       -0.15,
-				AngularOffset: -math.Pi / 2,
-				DriveMotorConfig: motor.Config{
-					CanId: 20,
-				},
-				AzimuthMotorConfig: motor.Config{
-					CanId: 21,
-				},
+				Name:                "FrontRight",
+				OffsetX:             0.15,
+				OffsetY:             -0.15,
+				AngularOffset:       -math.Pi / 2,
+				DriveMotorCanId:     20,
+				AzimuthMotorCanId:   21,
 				DriveGearRatio:      23.0 / 44.0,
 				DriveGearRatioInv:   44.0 / 23.0,
 				AzimuthGearRatio:    4.0 / 57.0,
 				AzimuthGearRatioInv: 57.0 / 4.0,
 			},
 			{
-				Name:          "BackLeft",
-				OffsetX:       -0.15,
-				OffsetY:       0.15,
-				AngularOffset: math.Pi / 2,
-				DriveMotorConfig: motor.Config{
-					CanId: 30,
-				},
-				AzimuthMotorConfig: motor.Config{
-					CanId: 31,
-				},
+				Name:                "BackLeft",
+				OffsetX:             -0.15,
+				OffsetY:             0.15,
+				AngularOffset:       math.Pi / 2,
+				DriveMotorCanId:     30,
+				AzimuthMotorCanId:   31,
 				DriveGearRatio:      23.0 / 44.0,
 				DriveGearRatioInv:   44.0 / 23.0,
 				AzimuthGearRatio:    4.0 / 57.0,
 				AzimuthGearRatioInv: 57.0 / 4.0,
 			},
 			{
-				Name:          "BackRight",
-				OffsetX:       -0.15,
-				OffsetY:       -0.15,
-				AngularOffset: math.Pi,
-				DriveMotorConfig: motor.Config{
-					CanId: 40,
-				},
-				AzimuthMotorConfig: motor.Config{
-					CanId: 41,
-				},
+				Name:                "BackRight",
+				OffsetX:             -0.15,
+				OffsetY:             -0.15,
+				AngularOffset:       math.Pi,
+				DriveMotorCanId:     40,
+				AzimuthMotorCanId:   41,
 				DriveGearRatio:      23.0 / 44.0,
 				DriveGearRatioInv:   44.0 / 23.0,
 				AzimuthGearRatio:    4.0 / 57.0,
@@ -146,28 +130,28 @@ var Shooter shooter_types.Constants = shooter_types.Constants{
 	MinAzimuthOffset:        math.Pi / 32,
 	MaxFeedVelocity:         2,
 
-	SpinnerMotorCanId:                  52,
-	SpinnerMotorP:                      0,
-	SpinnerMotorD:                      0,
-	SpinnerMotorFF:                     0,
-	SpinnerMotorVelocityConversion:     1,
-	SpinnerMotorAccelerationConversion: 1,
+	FlywheelMotorCanId:                  52,
+	FlywheelMotorP:                      0,
+	FlywheelMotorD:                      0,
+	FlywheelMotorFF:                     0,
+	FlywheelMotorVelocityConversion:     1,
+	FlywheelMotorAccelerationConversion: 1,
 
-	TiltMotorCanId:                  51,
-	TiltMotorP:                      0,
-	TiltMotorI:                      0,
-	TiltMotorD:                      0,
-	TiltMotorPositionConversion:     1,
-	TiltMotorVelocityConversion:     1,
-	TiltMotorAccelerationConversion: 1,
+	HoodMotorCanId:                  51,
+	HoodMotorP:                      0,
+	HoodMotorI:                      0,
+	HoodMotorD:                      0,
+	HoodMotorPositionConversion:     1,
+	HoodMotorVelocityConversion:     1,
+	HoodMotorAccelerationConversion: 1,
 
-	AzimuthMotorCanId:                  50,
-	AzimuthMotorP:                      0,
-	AzimuthMotorI:                      0,
-	AzimuthMotorD:                      0,
-	AzimuthMotorPositionConversion:     1,
-	AzimuthMotorVelocityConversion:     1,
-	AzimuthMotorAccelerationConversion: 1,
+	TurretMotorCanId:                  50,
+	TurretMotorP:                      0,
+	TurretMotorI:                      0,
+	TurretMotorD:                      0,
+	TurretMotorPositionConversion:     1,
+	TurretMotorVelocityConversion:     1,
+	TurretMotorAccelerationConversion: 1,
 }
 
 var Intake intake_types.Constants = intake_types.Constants{
@@ -191,3 +175,7 @@ var Intake intake_types.Constants = intake_types.Constants{
 var Battery constantTypes.Battery = constantTypes.Battery{
 	NominalVoltage: 12,
 }
+
+const (
+	DriverControllerNum int = 0
+)

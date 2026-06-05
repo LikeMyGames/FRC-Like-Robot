@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"net"
@@ -41,8 +42,18 @@ type (
 	}
 )
 
+var targetGOOS string
+var targetGOARCH string
+
+func init() {
+	flag.StringVar(&targetGOOS, "goos", "", "the target operating system for the build")
+	flag.StringVar(&targetGOARCH, "goarch", "", "the target system architecture for the build")
+}
+
 func main() {
-	args := os.Args[1:]
+	flag.Parse()
+
+	args := flag.Args()
 
 	cmds := map[string]Command{
 		"create": {
@@ -194,6 +205,8 @@ func NewProject(name string) {
 }
 
 func CompileProject() {
+	fmt.Printf("Building for: %s/%s\n", targetGOOS, targetGOARCH)
+
 	fileData, err := os.ReadFile("project.json")
 	if err != nil {
 		fmt.Println("Could not find files necessary for Gobot project compilation. Make sure you are in a valid Gobot project directory.")
@@ -208,21 +221,27 @@ func CompileProject() {
 
 	curGOOS := runtime.GOOS
 	curGOARCH := runtime.GOARCH
-	out, err := exec.Command("go", "env", "-w", "GOOS=linux", "GOARCH=arm64").Output()
+	out, err := exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", targetGOOS), fmt.Sprintf("GOARCH=%s", targetGOARCH)).Output()
 	fmt.Println(string(out))
 	if err != nil {
 		panic(err)
 	}
-	cmd := exec.Command("go", "build", "-o", "build/bin.exe", data.EntranceFile)
+
+	defer func() {
+		fmt.Printf("Reverting system to: %s/%s", curGOOS, curGOARCH)
+		out, err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Output()
+		fmt.Println(string(out))
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	cmd := exec.Command("go", "build", "-v", "-x", "-o", ".build/bin.exe", data.EntranceFile)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	// fmt.Println(cmd.Args)
 	// err = cmd.Run()
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Println(string(output))
-		panic(err)
-	}
-	out, err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Output()
-	fmt.Println(string(out))
+	err = cmd.Run()
 	if err != nil {
 		panic(err)
 	}
