@@ -33,7 +33,7 @@ func NewFromConfig(config Config) *PIDController {
 	controller.constants = config.constants
 	controller.maxOutput = config.max
 	controller.minOutput = config.min
-	controller.dt = robot.RobotRef.Frequency
+	controller.dt = robot.RobotRef.Period
 
 	return controller
 }

@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <Arduino.h>
 
+#define COUNTS_PER_REV 42
+
 typedef enum
 {
     NO_ENCODER_ERROR = 0,
@@ -12,19 +14,23 @@ typedef enum
 class Encoder
 {
 public:
-    uint16_t offset;
-    uint16_t res = 1023;
+    float offset;
     uint pin;
     uint16_t val;
     float angle;
 
     Encoder(uint pin);
 
-    uint16_t Read();
-    float ReadRad();
-    void Update();
-    void SetOffset(uint16_t offset);
-    void SetRadOffset(float radOffset);
+    float ReadRadians();
+    float ReadDegrees();
+    void SetOffsetRadians(float radians);
+    void SetOffsetDegrees(float degrees);
 };
+
+namespace Encoder_ns
+{
+    float countsToRad(int counts);
+    float countsToDegrees(int counts);
+}
 
 #endif

@@ -9,66 +9,52 @@ import (
 )
 
 func DriveMotor() motor.Config {
-	config := new(motor.Config)
+	config := motor.NewConfig()
 
-	return *config
+	return config
 }
 
 func AzimuthMotor() motor.Config {
-	config := new(motor.Config)
+	config := motor.NewConfig()
 
-	return *config
+	return config
 }
 
 func FlywheelMotor() motor.Config {
-	config := new(motor.Config)
+	config := motor.NewConfig()
 
 	config.Velocity().SetP(constants.Shooter.FlywheelMotorP).SetD(constants.Shooter.FlywheelMotorD).SetFF(constants.Shooter.FlywheelMotorFF)
 	config.VelocityConversion = constants.Shooter.FlywheelMotorVelocityConversion
 	config.AccelerationConversion = constants.Shooter.FlywheelMotorAccelerationConversion
 
-	return *config
+	return config
 }
 
 func HoodMotor() motor.Config {
-	config := new(motor.Config)
+	config := motor.NewConfig()
 
 	config.Position().SetP(constants.Shooter.HoodMotorP).SetI(constants.Shooter.HoodMotorI).SetD(constants.Shooter.HoodMotorD)
 	config.PositionConversion = constants.Shooter.HoodMotorPositionConversion
 	config.VelocityConversion = constants.Shooter.HoodMotorVelocityConversion
 	config.AccelerationConversion = constants.Shooter.HoodMotorAccelerationConversion
 
-	return *config
+	return config
 }
 
 func TurretMotor() motor.Config {
-	config := new(motor.Config)
+	config := motor.NewConfig()
 
 	config.Position().SetP(constants.Shooter.TurretMotorP).SetI(constants.Shooter.TurretMotorI).SetD(constants.Shooter.TurretMotorD)
 	config.PositionConversion = constants.Shooter.TurretMotorPositionConversion
 	config.VelocityConversion = constants.Shooter.TurretMotorVelocityConversion
 	config.AccelerationConversion = constants.Shooter.TurretMotorAccelerationConversion
 
-	return *config
+	return config
 }
 
 var IntakeMotors intake_types.MotorConfigs = intake_types.MotorConfigs{
-	// RollerMotorConfig: motor.Config{
-	// 	CanId:                  constants.Intake.RollerMotorCanId,
-	// 	PID_P:                  constants.Intake.RollerMotorP,
-	// 	PID_D:                  constants.Intake.RollerMotorD,
-	// 	PID_FF:                 constants.Intake.RollerMotorFF,
-	// 	VelocityConversion:     constants.Intake.RollerMotorVelocityConversion,
-	// 	AccelerationConversion: constants.Intake.RollerMotorAccelerationConversion,
-	// },
-	// ExtensionMotorConfig: motor.Config{
-	// 	CanId:                  constants.Intake.ExtensionMotorCanId,
-	// 	PID_P:                  constants.Intake.ExtensionMotorP,
-	// 	PID_I:                  constants.Intake.ExtensionMotorI,
-	// 	PID_D:                  constants.Intake.ExtensionMotorD,
-	// 	VelocityConversion:     constants.Intake.ExtensionMotorVelocityConversion,
-	// 	AccelerationConversion: constants.Intake.ExtensionMotorAccelerationConversion,
-	// },
+	RollerMotorConfig:    Intake_RollerMotorConfig,
+	ExtensionMotorConfig: Intake_ExtensionMotorConfig,
 }
 
 var ShooterMotors shooter_types.MotorConfigs = shooter_types.MotorConfigs{
@@ -81,4 +67,25 @@ var ShooterMotors shooter_types.MotorConfigs = shooter_types.MotorConfigs{
 	// 	AccelerationConversion: constants.Shooter.SpinnerMotorAccelerationConversion,
 	// },
 	// FlywheelMotor: ,
+}
+
+func Intake_RollerMotorConfig() motor.Config {
+	config := motor.NewConfig()
+
+	config.Velocity().SetP(constants.Intake.RollerMotorP).SetD(constants.Intake.RollerMotorD).SetFF(constants.Intake.RollerMotorFF)
+	config.VelocityConversion = constants.Intake.RollerMotorVelocityConversion
+	config.AccelerationConversion = constants.Intake.RollerMotorAccelerationConversion
+
+	return config
+}
+
+func Intake_ExtensionMotorConfig() motor.Config {
+	config := motor.NewConfig()
+
+	config.Velocity().SetP(constants.Intake.ExtensionMotorP).SetI(constants.Intake.ExtensionMotorI).SetD(constants.Intake.ExtensionMotorD).SetFF(constants.Intake.ExtensionMotorCosFF)
+	config.PositionConversion = constants.Intake.ExtensionMotorPositionConversion
+	config.VelocityConversion = constants.Intake.ExtensionMotorVelocityConversion
+	config.AccelerationConversion = constants.Intake.ExtensionMotorAccelerationConversion
+
+	return config
 }

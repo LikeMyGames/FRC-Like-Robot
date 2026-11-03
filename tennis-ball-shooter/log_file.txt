@@ -1,0 +1,4025 @@
+Switching to enabled
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+Switching to idle
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+
+0 :  {Magnitude: 0.000000 Angle: 0.000000}
+1 :  {Magnitude: 0.000000 Angle: 0.000000}
+2 :  {Magnitude: 0.000000 Angle: 0.000000}
+3 :  {Magnitude: 0.000000 Angle: 0.000000}
+http: Server closed
+server shutdown
+stopping rsl

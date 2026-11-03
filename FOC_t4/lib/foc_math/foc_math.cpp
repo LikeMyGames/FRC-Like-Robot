@@ -13,7 +13,7 @@ Foc::Foc(foc_config_t config)
     Serial.println("created i_q pid controller");
 }
 
-void Foc::Drive(float theta, motor_running_mode running_mode)
+void Foc::Drive(float theta)
 {
     // motor_phase_currents_t abc = state->readPhaseCurrents();
 

@@ -19,8 +19,8 @@ var instance *IntakeSubsystem
 func New() *IntakeSubsystem {
 	s := new(IntakeSubsystem)
 
-	s.RollerMotor = *motor.New(constants.Intake.RollerMotorCanId, configs.IntakeMotors.RollerMotorConfig)
-	s.ExtensionMotor = *motor.New(constants.Intake.ExtensionMotorCanId, configs.IntakeMotors.ExtensionMotorConfig)
+	s.RollerMotor = *motor.New(constants.Intake.RollerMotorCanId, configs.IntakeMotors.RollerMotorConfig())
+	s.ExtensionMotor = *motor.New(constants.Intake.ExtensionMotorCanId, configs.IntakeMotors.ExtensionMotorConfig())
 
 	s.StateMachine = state_machine.NewStateMachine()
 	s.StateMachine.AddState(stored.Get(s.purify()))

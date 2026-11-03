@@ -26,8 +26,8 @@ type Constants struct {
 }
 
 type MotorConfigs struct {
-	RollerMotorConfig    motor.Config
-	ExtensionMotorConfig motor.Config
+	RollerMotorConfig    func() motor.Config
+	ExtensionMotorConfig func() motor.Config
 }
 
 type IntakeSubsystem struct {

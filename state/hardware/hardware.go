@@ -71,7 +71,7 @@ func OpenSpi() {
 	// Use read.
 	fmt.Printf("%v\n", read[1:])
 
-	go spiListen()
+	// go spiListen()
 }
 
 func spiListen() {

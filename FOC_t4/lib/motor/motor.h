@@ -3,9 +3,13 @@
 
 #include <motor_driver.h>
 #include <foc_math.h>
-#include <unordered_map>
+#include <string>
+#include <map>
+#include <array>
 #include <Arduino.h>
 #include <encoder.h>
+// #include <QuadEncoder.h>
+#include <Encoder.h>
 
 #define MOTOR_PWM_DUTY_CYCLE ((uint32_t)20) // try 50 //in microseconds
 #define MOTOR_TORQUE_LOOP_TIME 20           // try 100 // in microseconds
@@ -28,6 +32,8 @@
 #define MOTOR_CURRENT_SENSE_RESISTANCE 0.001 // ohms
 #define MOTOR_CURRENT_SENSE_GAIN 100         // V/V
 
+#define MOTOR_INTERNAL_COUNTS_PER_REV 42
+
 typedef enum
 {
     MOTOR_DISABLED = 0,
@@ -36,7 +42,7 @@ typedef enum
 
 typedef enum
 {
-    NO_MOTOR_ERROR = 0,
+    NO_ERROR = 0,
     CAN_TIMEOUT,
 } motor_error;
 
@@ -55,6 +61,17 @@ typedef struct
     float a, b, c;
 } motor_phase_currents_t;
 
+typedef struct
+{
+    uint activeSlot = 0;
+    float Slot0_P, Slot1_P, Slot2_P, Slot3_P;
+    float Slot0_I, Slot1_I, Slot2_I, Slot3_I;
+    float Slot0_D, Slot1_D, Slot2_D, Slot3_D;
+    float Slot0_IZone, Slot1_IZone, Slot2_IZone, Slot3_IZone;
+    float Slot0_FF, Slot1_FF, Slot2_FF, Slot3_FF;
+
+} motor_parameters_t;
+
 // typedef struct
 // {
 //     motor_status status;
@@ -69,7 +86,7 @@ typedef struct
 //     motor_driver_t driver;
 // } motor_state_t;
 
-static Motor *ref;
+// static Motor *ref;
 
 class Motor
 {
@@ -87,23 +104,28 @@ public:
     Pid *pos_pid;
     Pid *vel_pid;
     Pid *torque_pid;
+    std::array<PidConstants, 12> pid_slots; // 0-2: slot 0, 3-5: slot 1, 6-8: slot 2, 9-11: slot 3;
     motor_running_mode running_mode;
     float Kt;
     volatile float target_pos;
-    float cur_pos;
+    float cur_pos_internal;
+    float cur_pos_external;
     volatile float target_vel;
-    float cur_vel;
+    float cur_vel_internal;
+    float cur_vel_external;
     volatile float target_torque;
-    float cur_torque;
+    float cur_torque_internal;
+    float cur_torque_external;
     float cur_current;
     uint32_t torque_loop_time;
     uint32_t velocity_loop_time;
     uint32_t position_loop_time;
     uint activeSlot = 0;
+    int internal_encoder_a, internal_encoder_b, internal_encoder_c;
 
     Motor();
 
-    void Init(motor_driver_t *driver);
+    // void Init(motor_driver_t *driver);
 
     void Disable();
     void Disable(motor_error error);
@@ -121,13 +143,22 @@ public:
     void DrivePhasesByPercentFOC();
     void LoadParameterChanges();
 
+    void StartHardwareTimers();
+    void StopHardwareTimers();
+
+    void UpdateEncoderValues();
+
 private:
-    void TorqueLoop();
-    void VelocityLoop();
-    void PositionLoop();
+    IntervalTimer posLoop;
+    IntervalTimer velLoop;
+    IntervalTimer torqueLoop;
+
+    static void TorqueLoop();
+    static void VelocityLoop();
+    static void PositionLoop();
 };
 
-void threadDriveMotor();
+// void threadDriveMotor();
 
 // void disableMotor(unsigned int id);
 // void disableMotor(unsigned int id, motor_error error);
@@ -141,11 +172,34 @@ void enableMotor();
 
 namespace Motor_ns
 {
-    static Motor *ref;
-    bool changes_to_parameters;
-    std::unordered_map<std::string, std::vector<uint8_t>> changes;
+    inline Motor *ref;
+
+    inline int newRunningStatus;
+
+    // bool changes_to_parameters;
+    // motor_parameters_t changes;
+    // std::unordered_map<std::string, std::vector<uint8_t>> changes;
+
+    inline std::map<int, float> slot_pid_changes;
 
     // void SetSlotControllerControlType(int slotNum, int type, uint8_t type);
+
+    // void TorqueLoop();
+    // void VelocityLoop();
+    // void PositionLoop();
+
+    int32_t MotorInternalPosition();
+    float MotorInternalVelocity();
+    float MotorInternalAcceleration();
+
+    float MotorExternalPosition();
+    float MotorExternalVelocity();
+    float MotorExternalAccerlation();
+
+    void PersistParameters();
+
+    void SetSetpoint(float value, int control_type, int slot);
+
     void SetSlotControllerP(int slotNum, int type, float p);
     void SetSlotControllerI(int slotNum, int type, float i);
     void SetSlotControllerD(int slotNum, int type, float d);
@@ -156,6 +210,7 @@ namespace Motor_ns
     void SetInternalEncoderOffset(float offset);
     void SetExternalEncoderOffset(float offset);
     void SetExternalEncoderType(int type);
+
     // static std::unordered_map<uint, Motor *> map;
 }
 

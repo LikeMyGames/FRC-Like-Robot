@@ -5,6 +5,7 @@ import (
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware/can"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/pid"
+	"github.com/LikeMyGames/FRC-Like-Robot/state/utils/mathutils"
 )
 
 type (
@@ -44,13 +45,13 @@ type (
 	}
 
 	Config struct {
-		deviceType                 int
-		manufacturer               int
-		class                      int
-		index                      int
-		deviceId                   int
-		pid_map                    map[int]pid.Constants
-		Slot0, Slot1, Slot2, Slot3 Slot
+		// deviceType   int
+		// manufacturer int
+		// class        int
+		// index        int
+		deviceId int
+		// pid_map                    map[int]pid.Constants
+		Slot0, Slot1, Slot2, Slot3 *Slot
 
 		// Position_PID_0 pid.Constants
 		// Velocity_PID_0 pid.Constants
@@ -90,8 +91,8 @@ type (
 		VelocityConversion     float64
 		AccelerationConversion float64
 		// regMap                 map[string]register
-		IsSecondaryMotor  bool
-		secondarySumValue int
+		// IsSecondaryMotor  bool
+		// secondarySumValue int
 	}
 
 	runningMode struct {
@@ -113,9 +114,9 @@ type (
 		Torque   pid.Constants
 	}
 
-	ControlSlot int
+	ControlSlot uint8
 
-	ControlType int
+	ControlType uint8
 )
 
 var RunningMode runningMode = runningMode{
@@ -138,11 +139,15 @@ const (
 )
 
 const (
-	PositionControl ControlType = iota
+	_DisabledControl ControlType = iota
+	PositionControl
+	_PositionControl
 	VelocityControl
+	_VelocityControl
 	TorqueControl
-	VoltageControl
-	PercentControl
+	_TorqueControl
+	_VoltageControl
+	_PercentControl
 )
 
 const (
@@ -241,8 +246,6 @@ func New(CanId int, config Config) *Motor {
 
 	motor.canMessageBuffer = can.NewMessageBuffer()
 	motor.registerIds()
-
-	can.AddBufferToBus(motor.canMessageBuffer)
 	slog.Info("Created new motor controller", "CanId", CanId)
 	// fmt.Println("Created new motor with id: ", CanId)
 
@@ -251,16 +254,50 @@ func New(CanId int, config Config) *Motor {
 	return motor
 }
 
+func NewConfig() Config {
+	config := Config{}
+	config.Slot0 = new(Slot)
+	config.Slot1 = new(Slot)
+	config.Slot2 = new(Slot)
+	config.Slot3 = new(Slot)
+
+	return config
+}
+
 func (m *Motor) registerIds() {
 	// internal encoder
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 0)) // position read
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 1)) // velocity read
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 2)) // acceleration read
+	m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 0), func(data []byte) {
+		if len(data) >= 4 {
+			m.angle = float64(mathutils.BytesToFloat32(data[:4]))
+		}
+	}) // position read
+	m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 1), func(data []byte) {
+		if len(data) >= 4 {
+			m.velocity = float64(mathutils.BytesToFloat32(data[:4]))
+		}
+	}) // velocity read
+	m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 2), func(data []byte) {
+		if len(data) >= 4 {
+			m.torque = float64(mathutils.BytesToFloat32(data[:4]))
+		}
+	}) // acceleration read
 
-	// external encoder
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 3)) // position read
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 4)) // velocity read
-	m.canMessageBuffer.RegisterId(m.buildCanId(13, 5)) // acceleration read
+	// // external encoder
+	// m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 3), func(data []byte) {
+	// 	if len(data) >= 4 {
+	// 		m. = float64(mathutils.BytesToFloat32(data[:4]))
+	// 	}
+	// }) // position read
+	// m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 4), func(data []byte) {
+	// 	if len(data) >= 4 {
+	// 		m.angle = float64(mathutils.BytesToFloat32(data[:4]))
+	// 	}
+	// }) // velocity read
+	// m.canMessageBuffer.RegisterCallbackOnID(m.buildCanId(13, 5), func(data []byte) {
+	// 	if len(data) >= 4 {
+	// 		m.angle = float64(mathutils.BytesToFloat32(data[:4]))
+	// 	}
+	// }) // acceleration read
 }
 
 func (m *Motor) GetCanId() int {
@@ -273,54 +310,54 @@ func (m *Motor) Configure(config Config) {
 
 	// slot 0
 	for i, value := range config.Slot0.Position.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot0PositionPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot0PositionPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot0.Velocity.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot0VelocityPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot0VelocityPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot0.Torque.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot0TorquePidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot0TorquePidClass, i), float32(value))
 	}
 
 	// slot 1
 	for i, value := range config.Slot1.Position.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot1PositionPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot1PositionPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot1.Velocity.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot1VelocityPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot1VelocityPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot1.Torque.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot1TorquePidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot1TorquePidClass, i), float32(value))
 	}
 
 	// slot 2
 	for i, value := range config.Slot2.Position.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot2PositionPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot2PositionPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot2.Velocity.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot2VelocityPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot2VelocityPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot2.Torque.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot2TorquePidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot2TorquePidClass, i), float32(value))
 	}
 
 	// slot 3
 	for i, value := range config.Slot3.Position.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot3PositionPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot3PositionPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot3.Velocity.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot3VelocityPidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot3VelocityPidClass, i), float32(value))
 	}
 
 	for i, value := range config.Slot3.Torque.GetAsArray() {
-		can.BuildAndSendFrame(m.buildCanId(slot3TorquePidClass, i), value)
+		can.BuildAndSendFrame(m.buildCanId(slot3TorquePidClass, i), float32(value))
 	}
 }
 
@@ -357,6 +394,7 @@ func (m *Motor) SetAngleToSlot(angle float64, slot ControlSlot) {
 	m.angle = angle
 	can.BuildAndSendFrame(
 		m.buildCanId(14, 0),
+		float32(m.angle),
 		PositionControl,
 		slot,
 	)
@@ -367,8 +405,8 @@ func (m *Motor) ReadVelocity() float64 {
 }
 
 func (m *Motor) SetVelocity(velocity float64) {
-	m.velocity = velocity
-	// can.BuildAndSendFrame(m.config.CanId, m.config.regMap["Input_Vel"].cmd|m.config.secondarySumValue, float64(m.velocity))
+	m.targetVelocity = velocity
+	can.BuildAndSendFrame(m.buildCanId(14, 0), float32(velocity), VelocityControl, Slot_0)
 }
 
 func (m *Motor) ReadTorque() float64 {
@@ -376,20 +414,20 @@ func (m *Motor) ReadTorque() float64 {
 }
 
 func (m *Motor) SetTorque(torque float64) {
-	m.torque = torque
-	// can.BuildAndSendFrame(m.config.CanId, m.config.regMap["Input_Torque"].cmd|m.config.secondarySumValue, float64(m.torque))
+	m.targetTorque = torque
+	can.BuildAndSendFrame(m.buildCanId(14, 0), float32(torque), TorqueControl, Slot_0)
 }
 
 func (m *Motor) ReadLimits() (velocity, current float64) {
 	return m.maxVelocity, m.maxCurrent
 }
 
-func (m *Motor) ReceiveCanFrame() {
+// func (m *Motor) ReceiveCanFrame() {
 
-}
+// }
 
 func (m *Motor) buildCanId(apiClass, apiIndex int) int {
-	return (apiClass<<4|apiIndex)<<5 | m.canid
+	return (apiClass<<4|apiIndex)<<6 | m.canid
 }
 
 // func (m *Motor) Update() {
@@ -461,19 +499,23 @@ func (c *Config) Torque() *pid.Constants {
 }
 
 func (c *Config) SetSlot0(slot Slot) {
-	c.Slot0 = slot
+	c.Slot0 = &slot
 }
 
 func (c *Config) SetSlot1(slot Slot) {
-	c.Slot1 = slot
+	c.Slot1 = &slot
 }
 
 func (c *Config) SetSlot2(slot Slot) {
-	c.Slot2 = slot
+	c.Slot2 = &slot
 }
 
 func (c *Config) SetSlot3(slot Slot) {
-	c.Slot3 = slot
+	c.Slot3 = &slot
+}
+
+func (c *Config) SetCanID(id int) {
+	c.deviceId = id
 }
 
 // per slot

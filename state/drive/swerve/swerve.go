@@ -156,6 +156,8 @@ func (drive *SwerveDrive) CalculateSwerve(x, y, rot float64) []mathutils.VectorT
 		states[i] = newstate
 	}
 
+	// slog.Info(fmt.Sprint(states))
+
 	return states
 }
 

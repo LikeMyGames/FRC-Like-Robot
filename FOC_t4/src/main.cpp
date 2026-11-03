@@ -3,8 +3,9 @@
 #include <util_math.h>
 #include <motor_driver.h>
 #include <TeensyThreads.h>
+#include <analog.h>
 
-Motor *motor;
+volatile Motor *motor;
 // motor_config_t motor1_config = {
 //     1.f,
 //     21,
@@ -16,11 +17,13 @@ Motor *motor;
 
 void setup()
 {
+    pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, HIGH);
     Serial.begin(115200);
     Serial.println("Starting setup");
-    analogReadResolution(12);
-    analogReadAveraging(1);
+    // analogReadResolution(12);
+    // analogReadAveraging(1);
+    // ADC_ns::init();
     initCan();
     motor = new Motor();
     Serial.println("Finished setup");
@@ -29,5 +32,9 @@ void setup()
 
 void loop()
 {
-    motor->Update();
+    // elapsedMicros timer;
+    CanUpdate();
+    delay(250);
+
+    digitalWriteFast(LED_BUILTIN, !digitalReadFast(LED_BUILTIN));
 }

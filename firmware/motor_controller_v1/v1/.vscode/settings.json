@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "stm32cube-ide-build-cmake.intellisense.enableAutomaticConfiguration": false,
+    "stm32cube-ide-clangd.arguments": []
+}

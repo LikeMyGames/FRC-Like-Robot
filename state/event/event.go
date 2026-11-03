@@ -1,9 +1,5 @@
 package event
 
-import (
-	"time"
-)
-
 type (
 	Listener struct {
 		// From     string
@@ -20,14 +16,14 @@ var (
 )
 
 func Listen(target string, callback func(event any)) *Listener {
-	if removingListeners {
-		listener := &Listener{}
-		go func() {
-			time.Sleep(time.Millisecond * 10)
-			listener = Listen(target, callback)
-		}()
-		return listener
-	}
+	// if removingListeners {
+	// 	listener := &Listener{}
+	// 	// go func() {
+	// 	// 	time.Sleep(time.Millisecond * 10)
+	// 	// 	listener = Listen(target, callback)
+	// 	// }()
+	// 	return listener
+	// }
 	listener := &Listener{Target: target, Callback: callback, id: nextId}
 	nextId++
 	listeners[target] = append(listeners[target], listener)
@@ -35,13 +31,13 @@ func Listen(target string, callback func(event any)) *Listener {
 }
 
 func Trigger(target string, event any) {
-	if removingListeners {
-		go func() {
-			time.Sleep(time.Millisecond * 10)
-			Trigger(target, event)
-		}()
-		return
-	}
+	// if removingListeners {
+	// 	go func() {
+	// 		time.Sleep(time.Millisecond * 10)
+	// 		Trigger(target, event)
+	// 	}()
+	// 	return
+	// }
 	if len(listeners[target]) == 0 {
 		return
 	}

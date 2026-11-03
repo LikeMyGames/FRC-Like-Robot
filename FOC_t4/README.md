@@ -95,14 +95,6 @@ The example above refers to a motor controller that refers to with a CanId of 10
 |    13     |        Read         |                   Reads various values from the device                    |
 |    14     |    Set Setpoint     |              Sets the setpoint of the active PID controller               |
 
-<!-- |     2     |   Slot 1    | Sets the values stored in the ControlSlot.Slot1 position |
-|     3     |   Slot 2    | Sets the values stored in the ControlSlot.Slot2 position |
-|     4     |   Slot 3    | Sets the values stored in the ControlSlot.Slot3 position | -->
-
-
-<!-- |     6     |             |                                                          |
-|     7     |             |                                                          | -->
-
 ### API Index Reference
 
 #### Slot 0 -> Slot 3: (Classes 1-12)
@@ -117,13 +109,18 @@ The example above refers to a motor controller that refers to with a CanId of 10
 
 #### Read: (Class 13)
 
-| API Index |           Name            |                                          Description                                          |
-| :-------: | :-----------------------: | :-------------------------------------------------------------------------------------------: |
-|     0     |   Read Internal Encoder   | Reads the value of the encoder connected to the internal encoder port on the motor controller |
-|     1     |   Read External Encoder   | Reads the value of the econder connected to the external encoder port on the motor controller |
-|     2     |   Set Internal Encoder    |      Sets the encoder to the specified position by applying an offset to the zero value       |
-|     3     |   Set External Encoder    |      Sets the encoder to the specified position by applying an offset to the zero value       |
-|     4     | Set External Encoder Type |   Sets the type of encoder plugged into the external encoder port (Absolute or Quadrature)    |
+| API Index |            Name            |                                     Description                                      |
+| :-------: | :------------------------: | :----------------------------------------------------------------------------------: |
+|     0     |   Read Internal Position   |            Reads the position reported by the motor's quadrature encoder             |
+|     1     |   Read Internal Velocity   |            Reads the velocity reported by the motor's quadrature encoder             |
+|     2     | Read Internal Acceleration |          Reads the acceleration reported by the motor's quadrature encoder           |
+|     3     |   Read External Position   |            Reads the position reported by an external quadrature encoder             |
+|     4     |   Read External Velocity   |            Reads the velocity reported by an external quadrature encoder             |
+|     5     | Read External Acceleration |          Reads the acceleration reported by an external quadrature encoder           |
+|     6     |   Set Internal Position    | Sets the internal encoder's current angle as the angle provided (settings an offset) |
+|     7     |   Set External Position    | Sets the external encoder's current angle as the angle provided (settings an offset) |
+|     8     |   Set Internal Inverted    |         Sets if the internal encoder's output should be treated as inverted          |
+|     9     |   Set External Inverted    |         Sets if the external encoder's output should be treated as inverted          |
 
 #### Set Setpoint: (Class 14)
 
@@ -133,20 +130,27 @@ The example above refers to a motor controller that refers to with a CanId of 10
 
 ### Full List
 
-|       Command Name        | API Class | API Index | Input / Output Types |       Input / Output Meanings        |
-| :-----------------------: | :-------: | :-------: | :------------------: | :----------------------------------: |
-|          Version          |     0     |     0     |   int8, int8, int8   |         major, minor, patch          |
-|           Set P           |  1 - 12   |     0     |       float32        |               P value                |
-|           Set I           |  1 - 12   |     1     |       float32        |               I value                |
-|           Set D           |  1 - 12   |     2     |       float32        |               S value                |
-|        Set I Zone         |  1 - 12   |     3     |       float32        |             I Zone value             |
-|          Set FF           |  1 - 12   |     4     |       float32        |               FF value               |
-|   Read Internal Encoder   |    13     |     0     |       float32        |           Encoder position           |
-|   Read External Encoder   |    13     |     1     |       float32        |           Encoder position           |
-|   Set Internal Encoder    |    13     |     2     |       float32        |           Encoder position           |
-|   Set External Encoder    |    13     |     3     |       float32        |           Encoder position           |
-| Set External Encoder Type |    13     |     4     |         int8         |             Encoder type             |
-|       Set Setpoint        |    14     |     0     | float32, int8, int8  | setpoint, control type, control slot |
+|        Command Name        | API Class | API Index | Input / Output Types |       Input / Output Meanings        |      Periodic      |
+| :------------------------: | :-------: | :-------: | :------------------: | :----------------------------------: | :----------------: |
+|          Version           |     0     |     0     |   int8, int8, int8   |         major, minor, patch          |        :x:         |
+|     Persist Parameters     |     0     |     1     |                      |                                      |        :x:         |
+|      Load Temp Config      |     0     |     2     |                      |                                      |        :x:         |
+|           Set P            |  1 - 12   |     0     |       float32        |               P value                |        :x:         |
+|           Set I            |  1 - 12   |     1     |       float32        |               I value                |        :x:         |
+|           Set D            |  1 - 12   |     2     |       float32        |               S value                |        :x:         |
+|         Set I Zone         |  1 - 12   |     3     |       float32        |             I Zone value             |        :x:         |
+|           Set FF           |  1 - 12   |     4     |       float32        |               FF value               |        :x:         |
+|   Read Internal Position   |    13     |     0     |       float32        |           encoder position           | :white_check_mark: |
+|   Read Internal Velocity   |    13     |     1     |       float32        |           encoder velocity           | :white_check_mark: |
+| Read Internal Acceleration |    13     |     2     |       float32        |         encoder acceleration         | :white_check_mark: |
+|   Read External Position   |    13     |     3     |       float32        |           encoder position           | :white_check_mark: |
+|   Read External Velocity   |    13     |     4     |       float32        |           encoder velocity           | :white_check_mark: |
+| Read External Acceleration |    13     |     5     |       float32        |         encoder acceleration         | :white_check_mark: |
+|   Set Internal Position    |    13     |     6     |       float32        |  internal encoder current position   |        :x:         |
+|   Set External Position    |    13     |     7     |       float32        |  external encoder current position   |        :x:         |
+|   Set Internal Inverted    |    13     |     8     |         bool         |      internal encoder inverted       |        :x:         |
+|   Set External Inverted    |    13     |     9     |         bool         |      external encoder inverted       |        :x:         |
+|        Set Setpoint        |    14     |     0     | float32, int8, int8  | setpoint, control type, control slot |        :x:         |
 
 ## FOC
 

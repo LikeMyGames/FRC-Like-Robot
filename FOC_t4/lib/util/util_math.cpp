@@ -11,8 +11,8 @@ std::vector<uint8_t> utils_float_to_bytes(float f)
     // Ensure the float size matches the byte array size
     static_assert(sizeof(float) == 4, "float is not 4 bytes");
     static_assert(sizeof(uint8_t) == 1, "uint8_t is not 1 byte");
-    std::vector<uint8_t> bytes;
-    std::memcpy(&bytes, &f, sizeof(float));
+    std::vector<uint8_t> bytes(sizeof(float));
+    std::memcpy(bytes.data(), &f, sizeof(float));
     return bytes;
 }
 

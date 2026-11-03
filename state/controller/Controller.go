@@ -3,7 +3,6 @@ package controller
 import (
 	"errors"
 	"fmt"
-	"log/slog"
 	"math"
 
 	// "github.com/LikeMyGames/FRC-Like-Robot/state/command"
@@ -352,7 +351,7 @@ func EventDataToJoystickInput(event any) (JoystickInput, error) {
 // }
 
 func AddControllerState(num int, state *State) {
-	slog.Info("Added new controller state", "id", num)
+	// slog.Info("Added new controller state", "id", num)
 	newStates[num] = state
 }
 

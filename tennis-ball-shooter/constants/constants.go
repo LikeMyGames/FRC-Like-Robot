@@ -36,7 +36,7 @@ type (
 // }
 
 var Robot constantTypes.RobotConfig = constantTypes.RobotConfig{
-	Period:        time.Millisecond * 100,
+	Period:        time.Millisecond * 10,
 	StartingState: "power_on",
 	RslPin:        22,
 }

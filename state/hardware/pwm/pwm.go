@@ -2,6 +2,8 @@ package pwm
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/hardware"
@@ -30,20 +32,31 @@ func (pwm *PWM) Start() {
 		tickCount := 0
 		val := hardware.PIN_LOW
 
-		for range t.C {
-			if tickCount >= 256 {
-				tickCount = 0
-			}
-			if val == hardware.PIN_LOW && tickCount < int(pwm.dutyCycleTickCount) {
-				pwm.pin.Set(hardware.PIN_HIGH)
-				val = hardware.PIN_HIGH
-			} else if tickCount >= int(pwm.dutyCycleTickCount) {
-				pwm.pin.Set(hardware.PIN_LOW)
-				val = hardware.PIN_LOW
-			}
-			// fmt.Printf("%v: %d;%d\n", pwm.dutyCycleTickCount < int8(tickCount), tickCount, pwm.dutyCycleTickCount)
+		sigint := make(chan os.Signal, 1)
+		signal.Notify(sigint, os.Interrupt)
 
-			tickCount++
+		for range t.C {
+			select {
+			case <-sigint:
+				fmt.Println("Stopping pwm")
+				signal.Stop(sigint)
+				t.Stop()
+				return
+			default:
+				if tickCount >= 256 {
+					tickCount = 0
+				}
+				if val == hardware.PIN_LOW && tickCount < int(pwm.dutyCycleTickCount) {
+					pwm.pin.Set(hardware.PIN_HIGH)
+					val = hardware.PIN_HIGH
+				} else if tickCount >= int(pwm.dutyCycleTickCount) {
+					pwm.pin.Set(hardware.PIN_LOW)
+					val = hardware.PIN_LOW
+				}
+				// fmt.Printf("%v: %d;%d\n", pwm.dutyCycleTickCount < int8(tickCount), tickCount, pwm.dutyCycleTickCount)
+
+				tickCount++
+			}
 		}
 	}()
 }

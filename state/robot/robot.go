@@ -2,10 +2,10 @@ package robot
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 	"os/signal"
 	"sync/atomic"
-	"syscall"
 	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn/driver_station"
@@ -24,10 +24,10 @@ type (
 		Addr        string
 		States      map[string]*State
 		State       string
-		Frequency   time.Duration
+		Period      time.Duration
 		enabled     atomic.Bool
-		Clock       int64
-		MatchTime   int64
+		Clock       uint64
+		MatchTime   uint64
 		RunningMode string
 		PeriodFuncs []func()
 		CanBus      *can.CanBus
@@ -40,14 +40,14 @@ var RobotRef *Robot = nil
 var DeferList []func() = make([]func(), 0)
 
 func NewRobot(config constantTypes.RobotConfig) *Robot {
-	hardware.OpenSpi()
+	// hardware.OpenSpi()
 	if RobotRef == nil {
 		RobotRef = &Robot{
-			States:    map[string]*State{},
-			State:     config.StartingState,
-			Frequency: config.Period,
-			CanBus:    can.NewCanBus(),
-			rsl:       rsl.New(config.RslPin),
+			States: map[string]*State{},
+			State:  config.StartingState,
+			Period: config.Period,
+			CanBus: can.NewCanBus(),
+			rsl:    rsl.New(config.RslPin),
 		}
 	}
 	return RobotRef
@@ -79,6 +79,7 @@ func (r *Robot) Enable() {
 
 func (r *Robot) Disable() {
 	r.enabled.Store(false)
+	can.BuildAndSendFrameFromBits(0, [8]byte{})
 }
 
 func (r *Robot) IsEnabled() bool {
@@ -103,54 +104,73 @@ func (r *Robot) AddSubsystem(subsystem *subsystem.Subsystem) {
 }
 
 func (r *Robot) Start() {
-	t := time.NewTicker(r.Frequency)
+	t := time.NewTicker(r.Period)
 
 	event.Trigger("ROBOT_ENABLE_STATUS", false)
 
 	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	defer signal.Stop(quit)
+	signal.Notify(quit, os.Interrupt)
 
 	// figure out why the pins aren't being closed properly
-	defer func() {
+	deferFunc := func() {
 		hardware.CloseAllPins()
-		hardware.CloseSpiPort()
+		// hardware.CloseSpiPort()
 		for _, v := range DeferList {
 			v()
 		}
-	}()
+		r.CanBus.Close()
+		signal.Stop(quit)
+	}
+
+	defer deferFunc()
 
 	for _, v := range r.subsystems {
 		(*v).Initialize()
 	}
 
 	for range t.C {
-		r.MatchTime = r.Clock / int64(r.Frequency) / 1000
-		controller.ReadAllControllers()
-		r.rsl.SetEnabled(r.IsEnabled())
-		s := r.States[r.State]
-		if ns := s.CheckCondition(); ns != nil {
-			if r.GetState().close != nil {
-				r.GetState().unLoadEventListeners()
-				r.GetState().close(r.GetState())
+		select {
+		case <-quit:
+			slog.Info("Stopping main robot loop")
+			t.Stop()
+			deferFunc()
+			return
+		default:
+			r.MatchTime = r.Clock * uint64(r.Period.Milliseconds()) / 1000
+			controller.ReadAllControllers()
+			r.rsl.SetEnabled(r.IsEnabled())
+			r.CanBus.UpdateDevices()
+			s := r.States[r.State]
+			if ns := s.CheckCondition(); ns != nil {
+				if r.GetState().close != nil {
+					r.GetState().unLoadEventListeners()
+					r.GetState().close(r.GetState())
+				}
+				fmt.Println("Switching to", *ns)
+				r.SetState(*ns)
+				if r.GetState().init != nil {
+					r.GetState().loadEventListeners()
+					r.GetState().init(r.GetState())
+				}
 			}
-			fmt.Println("Switching to", *ns)
-			r.SetState(*ns)
-			if r.GetState().init != nil {
-				r.GetState().loadEventListeners()
-				r.GetState().init(r.GetState())
+			for _, v := range r.PeriodFuncs {
+				v()
 			}
-			continue
+			for _, v := range r.subsystems {
+				(*v).Periodic()
+			}
+			s.action(s.parameters)
+			can.SendSyncMessage(
+				r.MatchTime,
+				uint64(driver_station.GetMatchNumber()),
+				uint64(driver_station.GetReplayNumber()),
+				driver_station.GetAlliance().IsRed(),
+				r.IsEnabled(),
+				r.RunningMode == "Autonomous",
+				r.RunningMode == "Test",
+				true,
+				uint64(driver_station.GetTournamentType()))
+			r.Clock++
 		}
-		for _, v := range r.PeriodFuncs {
-			v()
-		}
-		for _, v := range r.subsystems {
-			(*v).Periodic()
-		}
-		s.action(s.parameters)
-		r.CanBus.UpdateDevices()
-		can.SendSyncMessage(r.MatchTime, int64(driver_station.GetMatchNumber()), int64(driver_station.GetReplayNumber()), driver_station.GetAlliance().IsRed(), r.IsEnabled(), r.RunningMode == "Autonomous", r.RunningMode == "Test", true, int64(driver_station.GetTournamentType()))
-		r.Clock++
 	}
 }

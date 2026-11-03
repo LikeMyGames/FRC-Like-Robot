@@ -20,7 +20,7 @@ typedef struct
     float vb;
     float vc;
     float id_target;
-    float iq_target;
+    volatile float iq_target;
     float max_duty;
     float duty_now;
     float phase;
@@ -119,7 +119,7 @@ public:
     float Ts;
 
     Foc(foc_config_t config);
-    void Drive(float theta, motor_running_mode running_mode);
+    void Drive(float theta);
 
 private:
     void Svpwm(float alpha, float beta, float max_mod, uint32_t PWMFullDutyCycle,

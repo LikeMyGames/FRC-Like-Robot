@@ -8,48 +8,6 @@
 #include <util_math.h>
 #include <cstring>
 
-// Can Controller Config
-#define NUM_TX_MAILBOXES 2
-#define NUM_RX_MAILBOXES 6
-
-// Can Id masks
-#define API_CLASS_MASK 0b0000000000000111111000000000
-#define API_INDEX_MASK 0b0000000000000000000111100000
-
-// API Classes
-#define INFORMATION_API_CLASS 0
-#define SLOT_0_POSITION_PID_API_CLASS 1
-#define SLOT_0_VELOCITY_PID_API_CLASS 2
-#define SLOT_0_TORQUE_PID_API_CLASS 3
-#define SLOT_1_POSITION_PID_API_CLASS 4
-#define SLOT_1_VELOCITY_PID_API_CLASS 5
-#define SLOT_1_TORQUE_PID_API_CLASS 6
-#define SLOT_2_POSITION_PID_API_CLASS 7
-#define SLOT_2_VELOCITY_PID_API_CLASS 8
-#define SLOT_2_TORQUE_PID_API_CLASS 9
-#define SLOT_3_POSITION_PID_API_CLASS 10
-#define SLOT_3_VELOCITY_PID_API_CLASS 11
-#define SLOT_3_TORQUE_PID_API_CLASS 12
-#define READ_API_CLASS 13
-
-// Broadcast Indexes
-#define BROADCAST_DISABLE 0          // Disable index
-#define BROADCAST_SYSTEM_HALT 1      // System Halt index
-#define BROADCAST_SYSTEM_RESET 2     // System Reset index
-#define BROADCAST_DEVICE_ASSIGN 3    // Device Assign index
-#define BROADCAST_DEVICE_QUERY 4     // Device Query index
-#define BROADCAST_HEARTBEAT 5        // Heartbeat index
-#define BROADCAST_SYNC 6             // Sync index
-#define BROADCAST_UPDATE 7           // Update index
-#define BROADCAST_FIRMWARE_VERSION 8 // Firmware Version index
-#define BROADCAST_ENUMERATE 9        // Enumerate index
-#define BROADCAST_SYSTEM_RESUME 10   // System Resume index
-
-// Sync settings
-#define MAIN_PROCESSOR_PERIOD_MS 10
-#define MAIN_PROCESSOR_PERIOD_mS 10000
-#define EXPECTED_TIME_BETWEEN_SYNC 10000
-
 typedef struct
 {
     std::string name;
@@ -57,58 +15,64 @@ typedef struct
     std::function<bool(uint8_t[])> write;
 } CAN_REGISTER_t;
 
-FlexCAN_T4<CAN3, RX_SIZE_256, TX_SIZE_16> Can0;
+FlexCAN_T4<CAN2, RX_SIZE_256, TX_SIZE_16> Can0;
 std::unordered_map<uint8_t, CAN_REGISTER_t *> REG_MAP;
-uint32_t CAN_ID = 4;
+uint32_t CAN_ID = 10;
 // int LOOP_THREAD_ID;
 int TIMEOUT_THREAD_ID;
 volatile uint16_t TIMEOUT_MS_COUNT = 0;
 volatile static uint16_t MAX_TIMEOUT_MS = 100;
 elapsedMicros elapsed_since_sync;
+uint32_t low_id;
+uint32_t high_id;
+uint32_t heartbeat_id = 0x01011840;
+uint32_t broadcast_low_id = 0b00000000000000000000000000000;
+uint32_t broadcast_high_id = 0b00000000000000000001111000000;
 
-/// @brief
 void initCan()
 {
-    CAN_ID = EEPROM.read(CAN_ID_ADDRESS);
     MAX_TIMEOUT_MS = EEPROM.read(CAN_MAX_TIMEOUT_MS_ADDRESS);
     int deviceType = 0b10;
     int manufacturer = 0b11111111;
-    int deviceId = CAN_ID;
-    int canRangeLow = ((deviceType << 8 | manufacturer) << 15) | (deviceId & 0b11111);
-    int canRangeHigh = ((deviceType << 8 | manufacturer) << 15) | 0b1111111111 << 5 | (deviceId & 0b11111);
-    // delay(400);
-    Can0.begin();
-    Can0.setBaudRate(1 * 1000 * 1000);
-    Can0.setMaxMB(NUM_TX_MAILBOXES + NUM_RX_MAILBOXES);
-    for (int i = 0; i < NUM_RX_MAILBOXES; i++)
-    {
-        Can0.setMB((FLEXCAN_MAILBOX)i, RX, EXT);
-    }
-    for (int i = NUM_RX_MAILBOXES; i < (NUM_TX_MAILBOXES + NUM_RX_MAILBOXES); i++)
-    {
-        Can0.setMB((FLEXCAN_MAILBOX)i, TX, EXT);
-    }
+    // int deviceId = EEPROM.read(CAN_ID_ADDRESS);
+    // CAN_ID = deviceId > 63 ? 0 : deviceId;
+    low_id = (((deviceType << 8 | manufacturer) << 6 | 0) << 4 | 0) << 6 | CAN_ID;
+    high_id = (((deviceType << 8 | manufacturer) << 6 | 0b111111) << 4 | 0b1111) << 6 | CAN_ID;
 
-    Can0.setMBFilter(REJECT_ALL);
-    Can0.enableMBInterrupts();
-    Can0.onReceive(MB0, canSniff);
-    Can0.onReceive(MB1, ProcessClassIndexMessage);
-    Can0.onReceive(MB2, ProcessBroadcastMessage);
-    Can0.onReceive(MB3, ProcessHeartbeatMessage);
+    Serial.printf("Loaded with Device ID: %d\n", CAN_ID);
+    Serial.printf("Loaded with Low Can ID: %d\n", low_id);
+    Serial.printf("Loaded with High Can ID: %d\n", high_id);
+    Can0.begin();
+    Can0.setBaudRate(1000000);
+    // Can0.setMaxMB(NUM_TX_MAILBOXES + NUM_RX_MAILBOXES);
+    // for (int i = 0; i < NUM_RX_MAILBOXES; i++)
+    // {
+    //     Can0.setMB((FLEXCAN_MAILBOX)i, RX, EXT);
+    // }
+    // for (int i = NUM_RX_MAILBOXES; i < (NUM_TX_MAILBOXES + NUM_RX_MAILBOXES); i++)
+    // {
+    //     Can0.setMB((FLEXCAN_MAILBOX)i, TX, EXT);
+    // }
+
+    // Can0.setMBFilter(REJECT_ALL);
+    // Can0.enableMBInterrupts();
+    // Can0.onReceive(MB0, canSniff);
+    // Can0.onReceive(MB1, ProcessClassIndexMessage);
+    // Can0.onReceive(MB2, ProcessBroadcastMessage);
+    // Can0.onReceive(MB3, ProcessHeartbeatMessage);
     // Can0.setMBUserFilter(MB0, 0x00, 0x00);
-    Can0.setMBFilterRange(MB1, canRangeLow, canRangeHigh);
-    Can0.setMBFilterRange(MB2, 0b0, 0b111100000);
-    Can0.setMBUserFilter(MB3, 0x01011840, 0xff);
-    Can0.enhanceFilter(MB0);
-    Can0.enhanceFilter(MB1);
-    Can0.enhanceFilter(MB2);
-    Can0.enhanceFilter(MB3);
+    // Can0.setMBFilterRange(MB1, low_id, high_id);
+    // Can0.setMBFilterRange(MB2, broadcast_low_id, broadcast_high_id);
+    // Can0.setMBUserFilter(MB3, heartbeat_id, 0xff);
+    // Can0.enhanceFilter(MB0);
+    // Can0.enhanceFilter(MB1);
+    // Can0.enhanceFilter(MB2);
+    // Can0.enhanceFilter(MB3);
     Can0.mailboxStatus();
-    Can0.distribute();
-    Serial.println(getID());
+    // Can0.distribute();
     // TIMEOUT_THREAD_ID = threads.addThread(checkTimeout);
     // Serial.println(LOOP_THREAD_ID);
-    Serial.println(TIMEOUT_THREAD_ID);
+    // Serial.println(TIMEOUT_THREAD_ID);
 }
 
 std::vector<uint8_t> CanEchoRead()
@@ -125,7 +89,7 @@ bool CanEchoWrite(uint8_t args[])
 /// @param msg
 void canSniff(const CAN_message_t &msg)
 {
-    digitalToggle(LED_BUILTIN);
+    // digitalToggle(LED_BUILTIN);
     Serial.print("MB ");
     Serial.print(msg.mb);
     Serial.print("  OVERRUN: ");
@@ -149,6 +113,10 @@ void canSniff(const CAN_message_t &msg)
 
 void ProcessClassIndexMessage(const CAN_message_t &msg)
 {
+    if (Serial.available())
+    {
+        Serial.println("Recieved ClassIndex Formated Message");
+    }
     Serial.printf("id: %b", msg.id);
     int apiClass = (msg.id & API_CLASS_MASK) >> 9;
     int apiIndex = (msg.id & API_INDEX_MASK) >> 5;
@@ -156,54 +124,58 @@ void ProcessClassIndexMessage(const CAN_message_t &msg)
     Serial.printf("API Class: %v", apiClass);
     Serial.printf("API Index: %v", apiIndex);
 
+    int slotNum = -1;
+    uint8_t data[4];
+
     switch (apiClass)
     {
     case INFORMATION_API_CLASS:
         switch (apiIndex)
         {
         case 0:
-            SendVersionMessage(msg.id);
+            SendVersionMessage();
             break;
+        case 1:
+            Motor_ns::PersistParameters();
+            break;
+        case 2:
+            Motor_ns::ref->LoadParameterChanges();
         }
         break;
     case SLOT_0_POSITION_PID_API_CLASS:
     case SLOT_1_POSITION_PID_API_CLASS:
     case SLOT_2_POSITION_PID_API_CLASS:
     case SLOT_3_POSITION_PID_API_CLASS:
-        int slotNum = apiClass == SLOT_0_POSITION_PID_API_CLASS   ? 0
-                      : apiClass == SLOT_1_POSITION_PID_API_CLASS ? 1
-                      : apiClass == SLOT_2_POSITION_PID_API_CLASS ? 2
-                      : apiClass == SLOT_3_POSITION_PID_API_CLASS ? 3
-                                                                  : -1;
-        if (slotNum == -1)
-        {
-            return;
-        }
+        slotNum = apiClass == SLOT_0_POSITION_PID_API_CLASS   ? 0
+                  : apiClass == SLOT_1_POSITION_PID_API_CLASS ? 1
+                  : apiClass == SLOT_2_POSITION_PID_API_CLASS ? 2
+                  : apiClass == SLOT_3_POSITION_PID_API_CLASS ? 3
+                                                              : -1;
 
         switch (apiIndex)
         {
         case 0:
-            uint8_t data[4];
+
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerP(slotNum, 0, utils_bytes_to_float(data));
             break;
         case 1:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerI(slotNum, 0, utils_bytes_to_float(data));
             break;
         case 2:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerD(slotNum, 0, utils_bytes_to_float(data));
             break;
         case 3:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerIZone(slotNum, 0, utils_bytes_to_float(data));
             break;
         case 4:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerFF(slotNum, 0, utils_bytes_to_float(data));
             break;
@@ -213,41 +185,36 @@ void ProcessClassIndexMessage(const CAN_message_t &msg)
     case SLOT_1_VELOCITY_PID_API_CLASS:
     case SLOT_2_VELOCITY_PID_API_CLASS:
     case SLOT_3_VELOCITY_PID_API_CLASS:
-        int slotNum = apiClass == SLOT_0_VELOCITY_PID_API_CLASS   ? 0
-                      : apiClass == SLOT_1_VELOCITY_PID_API_CLASS ? 1
-                      : apiClass == SLOT_2_VELOCITY_PID_API_CLASS ? 2
-                      : apiClass == SLOT_3_VELOCITY_PID_API_CLASS ? 3
-                                                                  : -1;
-
-        if (slotNum == -1)
-        {
-            return;
-        }
+        slotNum = apiClass == SLOT_0_VELOCITY_PID_API_CLASS   ? 0
+                  : apiClass == SLOT_1_VELOCITY_PID_API_CLASS ? 1
+                  : apiClass == SLOT_2_VELOCITY_PID_API_CLASS ? 2
+                  : apiClass == SLOT_3_VELOCITY_PID_API_CLASS ? 3
+                                                              : -1;
 
         switch (apiIndex)
         {
         case 0:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerP(slotNum, 1, utils_bytes_to_float(data));
             break;
         case 1:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerI(slotNum, 1, utils_bytes_to_float(data));
             break;
         case 2:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerD(slotNum, 1, utils_bytes_to_float(data));
             break;
         case 3:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerIZone(slotNum, 1, utils_bytes_to_float(data));
             break;
         case 4:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerFF(slotNum, 1, utils_bytes_to_float(data));
             break;
@@ -257,41 +224,36 @@ void ProcessClassIndexMessage(const CAN_message_t &msg)
     case SLOT_1_TORQUE_PID_API_CLASS:
     case SLOT_2_TORQUE_PID_API_CLASS:
     case SLOT_3_TORQUE_PID_API_CLASS:
-        int slotNum = apiClass == SLOT_0_TORQUE_PID_API_CLASS   ? 0
-                      : apiClass == SLOT_1_TORQUE_PID_API_CLASS ? 1
-                      : apiClass == SLOT_2_TORQUE_PID_API_CLASS ? 2
-                      : apiClass == SLOT_3_TORQUE_PID_API_CLASS ? 3
-                                                                : -1;
-
-        if (slotNum == -1)
-        {
-            return;
-        }
+        slotNum = apiClass == SLOT_0_TORQUE_PID_API_CLASS   ? 0
+                  : apiClass == SLOT_1_TORQUE_PID_API_CLASS ? 1
+                  : apiClass == SLOT_2_TORQUE_PID_API_CLASS ? 2
+                  : apiClass == SLOT_3_TORQUE_PID_API_CLASS ? 3
+                                                            : -1;
 
         switch (apiIndex)
         {
         case 0:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerP(slotNum, 2, utils_bytes_to_float(data));
             break;
         case 1:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerI(slotNum, 2, utils_bytes_to_float(data));
             break;
         case 2:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerD(slotNum, 2, utils_bytes_to_float(data));
             break;
         case 3:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerIZone(slotNum, 2, utils_bytes_to_float(data));
             break;
         case 4:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetSlotControllerFF(slotNum, 2, utils_bytes_to_float(data));
             break;
@@ -301,18 +263,18 @@ void ProcessClassIndexMessage(const CAN_message_t &msg)
         switch (apiIndex)
         {
         case 0:
-            Motor_ns::ref->internal_encoder->angle;
+            // Motor_ns::ref->internal_encoder->angle;
             break;
         case 1:
-            Motor_ns::ref->external_encoder->angle;
+            // Motor_ns::ref->external_encoder->angle;
             break;
         case 2:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetInternalEncoderOffset(utils_bytes_to_float(data));
             break;
         case 3:
-            uint8_t data[4];
+            // uint8_t data[4];
             std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(data));
             Motor_ns::SetExternalEncoderOffset(utils_bytes_to_float(data));
             break;
@@ -320,6 +282,22 @@ void ProcessClassIndexMessage(const CAN_message_t &msg)
             Motor_ns::SetExternalEncoderType(msg.buf[0]);
             break;
         }
+        break;
+
+    case SETPOINT_API_CLASS:
+        // float value;
+        // int control_type;
+        // int slot;
+
+        uint8_t value_data[4];
+        uint8_t control_type_data[1];
+        uint8_t slot_data[1];
+
+        std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(value_data));
+        std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(control_type_data));
+        std::copy(std::begin(msg.buf), std::begin(msg.buf) + 4, std::begin(slot_data));
+
+        Motor_ns::SetSetpoint(utils_bytes_to_float(value_data), *control_type_data, *slot_data);
         break;
     }
 }
@@ -368,18 +346,19 @@ void ProcessHeartbeatMessage(const CAN_message_t &msg)
     // int day_mask = 0b11111 << 17;
     // int month_mask = 0b1111 << 22;
     // int year_mask = 0b111111 << 26;
-    // int tournament_type_mask = 0b111 << 32;
-    // int system_watchdog_mask = 0b1 << 35;
-    // int test_mode_mask = 0b1 << 36;
-    // int autonomous_mode_mask = 0b1 << 37;
-    int enabled_mask = 0b1 << 38;
-    // int red_alliance_mask = 0b1 << 39;
-    // int replay_number_mask = 0b111111 << 40;
-    // int match_number_mask = 0b1111111111 << 46;
-    // int match_time_mask = 0b11111111 << 56;
+    // uint64_t tournament_type_mask = 0b111 << 32;
+    uint64_t system_watchdog_mask = 0b1ULL << 35;
+    // uint64_t test_mode_mask = 0b1ULL << 36;
+    // uint64_t autonomous_mode_mask = 0b1ULL << 37;
+    uint64_t enabled_mask = 0b1ULL << 38;
+    // uint64_t red_alliance_mask = 0b1ULL << 39;
+    // uint64_t replay_number_mask = 0b111111ULL << 40;
+    // uint64_t match_number_mask = 0b1111111111ULL << 46;
+    // uint64_t match_time_mask = 0b11111111ULL << 56;
 
     bool enabled = (value & enabled_mask) >> 38;
-    if (enabled)
+    bool system_watchdog = (value & system_watchdog_mask) >> 35;
+    if (enabled && system_watchdog)
     {
         enableMotor();
     }
@@ -495,10 +474,10 @@ void addCanRegister(uint8_t id, std::string name, std::function<std::vector<uint
     Serial.println("added new can register to map");
 }
 
-void SendVersionMessage(int id)
+void SendVersionMessage()
 {
     CAN_message_t msg;
-    msg.id = id;
+    msg.id = CAN_ID;
     msg.flags.extended = true;
     msg.len = 1;
     msg.buf[0] = VERSION_MAJOR;
@@ -506,11 +485,33 @@ void SendVersionMessage(int id)
     msg.buf[2] = VERSION_PATCH;
 
     Can0.write(msg);
+    Serial.println("Sending version message");
 }
 
 void CanUpdate()
 {
-    Can0.events();
+    CAN_message_t msg;
+
+    while (Can0.read(msg))
+    {
+        Serial.printf("Recieved CAN frame: id=%d class=%d index=%d \n", msg.id, msg.id & 0b1111110000000000, msg.id & 1111000000);
+        digitalWriteFast(LED_BUILTIN, HIGH);
+        if (low_id < msg.id && msg.id < high_id)
+        {
+            ProcessClassIndexMessage(msg);
+        }
+        else if (broadcast_low_id < msg.id && msg.id < broadcast_high_id)
+        {
+            ProcessBroadcastMessage(msg);
+        }
+        else if (msg.id == heartbeat_id)
+        {
+            ProcessHeartbeatMessage(msg);
+        }
+        digitalWriteFast(LED_BUILTIN, LOW);
+    }
+
+    SendMotorEncoderData();
 }
 
 uint64_t TimeSinceLastSync()
@@ -520,7 +521,7 @@ uint64_t TimeSinceLastSync()
 
 void SyncThreadToSyncPulse()
 {
-    int64_t timeDifference = elapsed_since_sync - EXPECTED_TIME_BETWEEN_SYNC;
+    // int64_t timeDifference = elapsed_since_sync - EXPECTED_TIME_BETWEEN_SYNC;
     if (elapsed_since_sync > EXPECTED_TIME_BETWEEN_SYNC)
     {
         threads.delay_us(EXPECTED_TIME_BETWEEN_SYNC - elapsed_since_sync);
@@ -534,6 +535,55 @@ void SyncThreadToSyncPulse()
 void Status()
 {
     Can0.mailboxStatus();
+}
+
+void SendMotorEncoderData()
+{
+    // Serial.println(Motor_ns::MotorInternalPosition());
+
+    CAN_message_t msg;
+
+    msg.id = BuildId(13, 0);
+    msg.flags.extended = true;
+    int32_t pos = Motor_ns::MotorInternalPosition();
+    std::memcpy(msg.buf, &pos, sizeof(int32_t));
+    msg.len = sizeof(pos);
+    Can0.write(msg);
+
+    msg.id = BuildId(13, 1);
+    int32_t vel = Motor_ns::MotorInternalVelocity();
+    std::memcpy(msg.buf, &vel, sizeof(int32_t));
+    msg.len = sizeof(vel);
+    Can0.write(msg);
+
+    msg.id = BuildId(13, 2);
+    int32_t accel = Motor_ns::MotorInternalAcceleration();
+    std::memcpy(msg.buf, &accel, sizeof(int32_t));
+    msg.len = sizeof(accel);
+    Can0.write(msg);
+
+    msg.id = BuildId(13, 3);
+    pos = Motor_ns::MotorExternalPosition();
+    std::memcpy(msg.buf, &pos, sizeof(int32_t));
+    msg.len = sizeof(pos);
+    Can0.write(msg);
+
+    msg.id = BuildId(13, 4);
+    vel = Motor_ns::MotorExternalVelocity();
+    std::memcpy(msg.buf, &vel, sizeof(int32_t));
+    msg.len = sizeof(vel);
+    Can0.write(msg);
+
+    msg.id = BuildId(13, 5);
+    accel = Motor_ns::MotorExternalAccerlation();
+    std::memcpy(msg.buf, &accel, sizeof(int32_t));
+    msg.len = sizeof(accel);
+    Can0.write(msg);
+}
+
+uint32_t BuildId(int class_var, int index)
+{
+    return low_id | ((class_var << 4 | index) << 7);
 }
 
 uint32_t getID()

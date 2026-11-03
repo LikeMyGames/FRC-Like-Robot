@@ -25,16 +25,17 @@ func main() {
 	// 	controller.ReadController(ctrl0)
 	// })
 
-	go conn.Start(r)
+	conn.Start(r)
 
 	// POWER_ON state
 	// default state that gets loaded into
 	// starts up all of the robots processes
 	r.AddState("power_on", func(params any) {
 		fmt.Println("checking status")
-		r.Disable()
-	}, nil).AddCondition("idle", func(a any) bool {
+		// r.Disable()
 		fmt.Println(r.Clock)
+	}, nil).AddCondition("idle", func(a any) bool {
+
 		// return r.Status()
 		return r.Clock > 5
 	})

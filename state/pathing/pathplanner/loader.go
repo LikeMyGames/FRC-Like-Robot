@@ -20,11 +20,11 @@ func loadAllPathPlannerPaths() {
 			sum++
 			name, _ := strings.CutSuffix(v.Name(), ".path")
 			paths[name] = loadPath(name)
-			fmt.Printf("%s\n\n", paths[name])
+			// fmt.Printf("%s\n\n", paths[name])
 		}
 	}
 
-	fmt.Printf("Found %v Paths\n", sum)
+	// fmt.Printf("Found %v Paths\n", sum)
 }
 
 func loadAllPathPlannerAutos() {
@@ -40,11 +40,11 @@ func loadAllPathPlannerAutos() {
 			sum++
 			name, _ := strings.CutSuffix(v.Name(), ".auto")
 			autos[name] = loadAuto(name)
-			fmt.Printf("%s\n\n", autos[name])
+			// fmt.Printf("%s\n\n", autos[name])
 		}
 	}
 
-	fmt.Printf("Found %v Autos\n", sum)
+	// fmt.Printf("Found %v Autos\n", sum)
 }
 
 func loadPath(name string) *Path {

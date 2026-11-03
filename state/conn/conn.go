@@ -1,11 +1,15 @@
 package conn
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
+	"os/signal"
+	"time"
 
 	"github.com/LikeMyGames/FRC-Like-Robot/state/conn/driver_station"
 	"github.com/LikeMyGames/FRC-Like-Robot/state/controller"
@@ -115,7 +119,9 @@ func GetLatestNT4Update(updates chan nt4.TopicUpdate) (update nt4.TopicUpdate) {
 // }
 
 func Close() {
-	NT4.Disconnect()
+	if NT4 != nil {
+		NT4.Disconnect()
+	}
 }
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
@@ -129,6 +135,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	connection = conn
 	defer func() {
+		fmt.Println("closing websocket handler")
 		conn.Close()
 		// connection.Close()
 	}()
@@ -207,25 +214,16 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		}
 		if socketData.RunSettings != nil {
 			if socketData.RunSettings.Enabled {
+				slog.Info("robot enabled")
 				bot.Enable()
 			} else {
+				slog.Info("robot disabled")
 				bot.Disable()
 			}
 			bot.RunningMode = socketData.RunSettings.Mode
 			driver_station.SetAlliance(socketData.RunSettings.RedAlliance)
 			driver_station.SetDriverStationPosition(socketData.RunSettings.DriverStationPosition)
 		}
-
-		// data, err = io.ReadAll(logFile)
-		// if err != nil {
-		// 	panic(err)
-		// }
-		// logs := strings.Split(string(data), "\n")
-		// for _, v := range logs {
-		// 	Log(v)
-		// }
-
-		// io.Copy(os.Stdout)
 	}
 }
 
@@ -233,14 +231,41 @@ func Start(r *robot.Robot) {
 	bot = r
 	http.HandleFunc("/", handleWebSocket)
 
-	fmt.Println("Server started on localhost:8080")
-	for {
-		err := http.ListenAndServe(":8080", nil)
-		if err != nil {
-			fmt.Println(err)
+	robot.AddDeferFunction(func() { Close() })
+
+	go func() {
+		server := http.Server{
+			Addr:    ":8080",
+			Handler: nil,
 		}
-		fmt.Println("Driver Station disconnected")
-	}
+
+		go func() {
+			sigint := make(chan os.Signal, 1)
+			signal.Notify(sigint, os.Interrupt)
+			<-sigint
+
+			signal.Stop(sigint)
+
+			shutdownCtx, cancel := context.WithTimeout(context.Background(), time.Second)
+			if err := server.Shutdown(shutdownCtx); err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println("server shutdown")
+			cancel()
+		}()
+
+		for {
+			fmt.Println("Server started on localhost:8080")
+			err := server.ListenAndServe()
+			if err != nil {
+				fmt.Println(err)
+				if err == http.ErrServerClosed {
+					return
+				}
+			}
+			fmt.Println("Driver Station disconnected")
+		}
+	}()
 }
 
 func SendData(data []byte) {

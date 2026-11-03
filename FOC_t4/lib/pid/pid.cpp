@@ -13,7 +13,7 @@ Pid::Pid(float *process, float kp, float ki, float kd, float dt, float out_min, 
     this->ff = 0.f;
 }
 
-void Pid::Update(float input)
+volatile void Pid::Update(float input)
 {
     float err = *(process)-input;
 
@@ -24,12 +24,15 @@ void Pid::Update(float input)
 
     float integrator = (ki * integralTerm);
 
-    if (integrator > out_max)
-        integrator = out_max;
-    if (integrator < out_min)
-        integrator = out_min;
+    if (izone != 0.f)
+    {
+        if (integrator > izone)
+            integrator = out_max;
+        if (integrator < izone)
+            integrator = out_min;
+    }
 
-    output = (kp * err) + integrator + (kd * derivativeTerm);
+    output = (kp * err) + integrator + (kd * derivativeTerm) + ff;
 
     if (output > out_max)
         output = out_max;

@@ -46,8 +46,8 @@ var targetGOOS string
 var targetGOARCH string
 
 func init() {
-	flag.StringVar(&targetGOOS, "goos", "", "the target operating system for the build")
-	flag.StringVar(&targetGOARCH, "goarch", "", "the target system architecture for the build")
+	flag.StringVar(&targetGOOS, "goos", "linux", "the target operating system for the build")
+	flag.StringVar(&targetGOARCH, "goarch", "arm64", "the target system architecture for the build")
 }
 
 func main() {
@@ -89,6 +89,13 @@ func main() {
 			ShortDescription: "A command that sends a compiled linux .exe file to the robot",
 			LongDescription:  "",
 		},
+		"debug": {
+			Action: func() {
+				DebugProject()
+			},
+			ShortDescription: "A command that builds the project for the current OS and runs it",
+			LongDescription:  "Builds the project for the device's OS. For example, running this command on a windows/amd64 computer will create and run a bin.temp.exe file",
+		},
 	}
 
 	if args[0] == "help" {
@@ -113,8 +120,9 @@ func main() {
 				return
 			}
 		}
+		fmt.Println("The command that you are trying to use does not exist, try using <help> to learn what commands area available")
 	}
-	fmt.Println("The command that you are trying to use does not exist, try using <help> to learn what commands area available")
+
 }
 
 func NewProject(name string) {
@@ -221,26 +229,28 @@ func CompileProject() {
 
 	curGOOS := runtime.GOOS
 	curGOARCH := runtime.GOARCH
-	out, err := exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", targetGOOS), fmt.Sprintf("GOARCH=%s", targetGOARCH)).Output()
-	fmt.Println(string(out))
+	cmd := exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", targetGOOS), fmt.Sprintf("GOARCH=%s", targetGOARCH), "CGO_ENABLED=0")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
 	if err != nil {
 		panic(err)
 	}
 
 	defer func() {
-		fmt.Printf("Reverting system to: %s/%s", curGOOS, curGOARCH)
-		out, err = exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH)).Output()
-		fmt.Println(string(out))
+		fmt.Printf("Reverting system to: %s/%s\n", curGOOS, curGOARCH)
+		cmd := exec.Command("go", "env", "-w", fmt.Sprintf("GOOS=%s", curGOOS), fmt.Sprintf("GOARCH=%s", curGOARCH), "CGO_ENABLED=1")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		err := cmd.Run()
 		if err != nil {
 			panic(err)
 		}
 	}()
 
-	cmd := exec.Command("go", "build", "-v", "-x", "-o", ".build/bin.exe", data.EntranceFile)
+	cmd = exec.Command("go", "build", "-v", "-o", ".build/bin.exe", data.EntranceFile)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	// fmt.Println(cmd.Args)
-	// err = cmd.Run()
 	err = cmd.Run()
 	if err != nil {
 		panic(err)
@@ -261,7 +271,7 @@ func TransferExeToRobot() {
 	}
 
 	wd, err := os.Getwd()
-	buildPath := filepath.Join(wd, "build", "bin.exe")
+	buildPath := filepath.Join(wd, ".build", "bin.exe")
 	if err != nil {
 		fmt.Println("Could not get working directory of command execution")
 	}
@@ -341,4 +351,39 @@ func stringToBinary(str string) string {
 	}
 
 	return buf.String()
+}
+
+func DebugProject() {
+
+	fileData, err := os.ReadFile("project.json")
+	if err != nil {
+		fmt.Println("Could not find files necessary for Gobot project compilation. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+	data := Settings{}
+	err = json.Unmarshal(fileData, &data)
+	if err != nil {
+		fmt.Println("Could not read contents of project.json file correctly. Make sure you are in a valid Gobot project directory.")
+		return
+	}
+
+	cmd := exec.Command("go", "build", "-v", "-x", "-o", ".build/bin.temp.exe", data.EntranceFile)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
+	if err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		os.Remove("./.build/bin.temp.exe")
+	}()
+
+	cmd = exec.Command("./.build/bin.temp.exe")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
+	if err != nil {
+		panic(err)
+	}
 }

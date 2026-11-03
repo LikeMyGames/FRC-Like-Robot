@@ -5,5 +5,7 @@
 	"TeamNum": 1,
 	"Architecture": "Stated",
 	"EntranceFile": "main.go",
-	"Port": 5000
+	"Port": 5000,
+	"TargetOS": "linux",
+	"TargetArch": "arm64"
 }
